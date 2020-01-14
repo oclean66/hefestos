@@ -75,7 +75,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'view' => array(
                     'label' => "Detalles",
                     'url' => 'Yii::app()->createUrl("fccu/view/",array("id"=>$data->FCCU_Id))',
-                    'options' => array('target' => '_new'),
+                    'options' => array('target' => '_blank'),
                 ),
                 'recibe' => array(
                     'label' => 'Recibir', // text label of the button

@@ -40,7 +40,7 @@ foreach ($count as $key => $value) {
 
 <div class="box box-bordered box-color hidden-print">
     <div class="box-title">
-        <a target="_new" href="<?php echo Yii::app()->createUrl("fcco/agencia",array("id"=>$agencia->GCCA_Id,"type"=>$agencia->GCCA_Id))?>">
+        <a target="_blank" href="<?php echo Yii::app()->createUrl("fcco/agencia",array("id"=>$agencia->GCCA_Id,"type"=>$agencia->GCCA_Id))?>">
             <h3>
                 <i class="fa fa-th-list"></i>Agencia <?php echo $agencia->concatened . " | Grupo " . $agencia->gCCD->concatened; ?>
             </h3>

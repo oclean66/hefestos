@@ -36,7 +36,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'value' => 'CHtml::link(
                 $data->GCCA_Cod, 
                 Yii::app()->createUrl("fcco/agencia",array("id"=>$data->GCCA_Id,"type"=>$data->GCCA_Id)),
-                array("target"=>"_new"))',
+                array("target"=>"_blank"))',
             'type' => 'raw'),
         'GCCA_Nombre',
         array('name' => 'GCCD_Id',

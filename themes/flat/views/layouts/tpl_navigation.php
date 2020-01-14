@@ -51,8 +51,8 @@
                         array('label' => 'Reporte de Entradas', 'url' =>$this->createUrl('fcco/report',array('FCCN_Id'=>2)), 'visible' => Yii::app()->user->checkAccess('action_fcco_report')),
                       
                         array('label' => 'Arbol de Asignaciones', 'url' => array('/fcco/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcco_admin')),
-                        array('label' => 'Recargas', 'url' => array('#'), 'visible' => $admin),
-                        array('label' => 'Rendimiento laboral', 'url' => array('#'), 'visible' => $admin),
+                        array('label' => 'Recargas', 'url' => array('fcuc/admin'), 'visible' => $admin),
+                        array('label' => 'Rendimiento laboral (en proceso)', 'url' => array('/#'), 'visible' => $admin),
                     //array('label' => 'Compras', 'url' => array('#'),'visible' =>  $admin ),
                     //array('label' => 'Resumen', 'url' => array('#'),'visible' => $admin ),
                     // array('label' => 'Bitacora', 'url' => array('#'),'visible' =>  $admin ),
