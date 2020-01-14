@@ -1,0 +1,92 @@
+body {
+    font: 12px 'andele mono',monospace;
+    //margin: 5px 0 5px 0px;
+    border: 1px solid;
+    // width: 23cm;
+    // height:200px;
+
+    /*size:8.5in 110in;*/ 
+    //margin:.5in .5in .5in .5in; 
+    mso-header-margin:.5in; 
+    mso-footer-margin:.5in; 
+    mso-paper-source:0;
+    position: relative;
+}
+.col-sm-12{
+    padding: 1px;
+}
+
+#print-footer {
+    display: block;
+    position: absolute;
+    bottom: 43px;
+    left:0;
+}
+#logo{
+    visibility:visible;
+    height: 40px
+
+}
+.price,.name{
+    padding: 2px !important;
+    padding-left: 5px !important;
+}
+.btn, .breadcrumb,.left,#fcco-grid,.box-color {
+    visibility: hidden;
+    position: fixed;
+}
+.modal-body{
+    display: table;
+}
+.box,.modal-body,.modal-content,#modal-1,.modal-dialog{
+    height: 100%;
+    overflow: hidden;
+    width:7in;
+}
+.modal-content{
+    -webkit-box-sizing: content-box;
+    border: none;
+    
+}
+.visible-imprimir{
+    visibility: visible;
+    display: block;
+}
+.imprimir {
+    visibility: visible;
+    display: block;
+}
+.remover{
+    visibility: hidden;
+    position: fixed;
+    height: 0px;
+}
+input, select, .button-column{
+    visibility: hidden;
+}
+
+.yiiPager{
+    visibility: hidden;
+}
+
+.accordion-body .collapse {
+    visibility: hidden;
+    position: fixed;
+    height: 0px;
+}
+.main-nav,#footer,#left, .mobile-sidebar-toggle, .toggle-nav, #brand,.user,.mobile-nav,.progress{
+    visibility: hidden;
+    position: fixed;
+    height: 0px;
+}
+
+/*Propias del proyecto inventario*/
+.main{
+    margin-left: 0px;
+
+}
+.invoice-from,.invoice-to,address{
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
