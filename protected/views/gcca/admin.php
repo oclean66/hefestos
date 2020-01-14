@@ -49,7 +49,21 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'GCCA_Responsable',
         'GCCA_Telefono',
         array(
-            'class' => 'CButtonColumn', 'headerHtmlOptions' => array('style' => 'width:83px'),
+            'class' => 'CButtonColumn', 
+            'headerHtmlOptions' => array('style' => 'width:83px'),
+            'template' => '{view} {update} {delete}',
+            'buttons' => array(
+                'view' => array( 
+                    'label' => "Detalles",
+                    'url' => 'Yii::app()->createUrl("gcca/view/",array("id"=>$data->GCCA_Id))',
+                    'options' => array('target' => '_blank'),
+                ),
+                'update' => array( 
+                    'label' => "Detalles", 
+                    'url' => 'Yii::app()->createUrl("gcca/update/",array("id"=>$data->GCCA_Id))',
+                    'options' => array('target' => '_blank'),
+                ),
+                ),
         ),
     ),
 ));

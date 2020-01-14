@@ -12229,3 +12229,31 @@ setflag='true'
 actionRbacAjaxSetChildItem
 RESULTADO OK [try add..]addItemChild
 
+2020/01/14 16:12:49 [info] [application] UiController
+actionLogin
+
+2020/01/14 16:16:26 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"2","lastusage":"1579012908","logoutdate":null,"ipaddressout":null}
+2020/01/14 16:16:26 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/14 16:16:26 [info] [application] UiController
+actionLogin
+
+2020/01/14 16:20:20 [info] [application] UiController
+actionLogin
+
+2020/01/14 16:30:08 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/14 16:30:08 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/14 16:30:08 [info] [application] CrugeSession::store() #2107
+result=1
+errorinfo:
+json: {"idsession":"2107","iduser":"21","created":"1578913797","expire":"1579513737","status":0,"ipaddress":"172.16.1.174","usagecount":"2","lastusage":"1579005500","logoutdate":1579035608,"ipaddressout":"172.16.1.174"}
+
+2020/01/14 16:30:08 [info] [application] DefaultSessionFilter.onLogout
+2020/01/14 16:30:09 [info] [application] UiController
+actionLogin
+

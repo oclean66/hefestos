@@ -11040,3 +11040,23 @@ Stack trace:
 REQUEST_URI=/hocitem/fcuc/
 HTTP_REFERER=http://172.16.1.190/hocitem/fcuc/admin.html
 ---
+2020/01/14 16:20:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'El sistema no ha podido encontrar la acción "index" solicitada.' in D:\xampp\htdocs\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\web\CController.php(270): CController->missingAction('')
+#1 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('')
+#2 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('gcca')
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#4 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/hocitem/gcca.html
+HTTP_REFERER=http://172.16.1.190/hocitem/site
+---
+2020/01/14 16:20:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'No es posible resolver la solicitud "index"' in D:\xampp\htdocs\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('index')
+#1 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#2 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/hocitem/index.html
+HTTP_REFERER=http://172.16.1.190/hocitem/gcca.html
+---
