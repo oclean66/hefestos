@@ -1,0 +1,45 @@
+
+
+
+
+
+
+
+
+
+
+              Factura de Compra
+Fecha:     28 / 05 / 2015                       Factura N:  001240
+Cliente:   MARIA FABIOLA FIGUEROA GOMEZ         RIF/CI:     V- 16.932.774
+Telefono:   0416-8951179
+Direccion: URB LAS MERCEDEZ, VEREDA 22 CASA #6 PTA PIEDRA EDO NVA ESPARTA         
+                                                                       
+
+----------------------------------------------------------------------------------
+
+Cant   Descripcion                                              Precio unitario   Total
+
+1     (G) MONITOR DELL (COD. CN0RY979742617BA8JEL)                     8400       8400
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------
+Observaciones:                                                    Sub Total:   8400.00
+  PAGO CONTADO                                               Base Imponible:   8400.00
+                                                                    Iva 12%:   1008.00
+                                                                      Total:   9408.00
