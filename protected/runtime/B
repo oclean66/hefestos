@@ -12257,3 +12257,1173 @@ json: {"idsession":"2107","iduser":"21","created":"1578913797","expire":"1579513
 2020/01/14 16:30:09 [info] [application] UiController
 actionLogin
 
+2020/01/15 06:36:19 [info] [application] UiController
+actionLogin
+
+2020/01/15 06:36:45 [info] [application] UiController
+actionLogin
+
+2020/01/15 06:36:45 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/15 06:36:45 [info] [application] CrugeUser::__construct
+
+2020/01/15 06:36:45 [info] [application] CrugeUser::authenticate
+
+2020/01/15 06:36:45 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/15 06:36:45 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/15 06:36:45 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/15 06:36:45 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/15 06:36:45 [info] [application] CrugeUser::_performAuth
+
+2020/01/15 06:36:45 [info] [application] CrugeAuthDefault::authenticate
+2020/01/15 06:36:45 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"21","regdate":"1533235668","actdate":null,"logondate":"1579005500","username":"CAROLINA","email":"nelsyemely017@gmail.com","password":"11012001","authkey":"6dcc01237cff75641a3888f80f270dbf","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/15 06:36:45 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/15 06:36:45 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/15 06:36:45 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=CAROLINA
+2020/01/15 06:36:45 [info] [application] CrugeWebUser
+login
+
+2020/01/15 06:36:45 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/15 06:36:45 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/15 06:36:45 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/15 06:36:45 [info] [application] CrugeSession::findLast iduser=21
+curSession:{"idsession":"2107","iduser":"21","created":"1578913797","expire":"1579513737","status":"0","ipaddress":"172.16.1.174","usagecount":"2","lastusage":"1579005500","logoutdate":"1579035608","ipaddressout":"172.16.1.174"}
+2020/01/15 06:36:45 [info] [application] CrugeSession. validateSession. causa: estatus cerrado
+2020/01/15 06:36:45 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/15 06:36:45 [info] [application] CrugeUserManager::createSession. user=#21
+2020/01/15 06:36:45 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/15 06:36:46 [info] [application] CrugeSession::store() #2111
+result=1
+errorinfo:
+json: {"status":1,"usagecount":1,"iduser":"21","created":1579086405,"lastusage":1579086405,"expire":1579686345,"ipaddress":"172.16.1.174","idsession":"2111","logoutdate":null,"ipaddressout":null}
+
+2020/01/15 06:36:46 [info] [application] DefaultSessionFilter.onLogin
+2020/01/15 06:36:46 [info] [application] CrugeStoredUser::save
+2020/01/15 06:36:46 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/15 06:36:46 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/15 14:27:34 [info] [application] UiController
+actionLogin
+
+2020/01/15 14:27:38 [info] [application] UiController
+actionLogin
+
+2020/01/15 14:27:38 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/15 14:27:38 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/15 14:27:38 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/15 14:27:38 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/15 14:27:38 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/15 14:27:38 [info] [application] CrugeUser::__construct
+
+2020/01/15 14:27:38 [info] [application] CrugeUser::authenticate
+
+2020/01/15 14:27:38 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/15 14:27:38 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/15 14:27:38 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/15 14:27:38 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/15 14:27:38 [info] [application] CrugeUser::_performAuth
+
+2020/01/15 14:27:38 [info] [application] CrugeAuthDefault::authenticate
+2020/01/15 14:27:38 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/15 14:27:38 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/15 14:27:38 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/15 14:27:38 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/15 14:27:38 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"6","regdate":"1443801315","actdate":null,"logondate":"1579012908","username":"MARIA","email":"javiervillate319@gmail.com","password":"anto.473","authkey":"176e89eed053c97f5a8174a7fef89b31","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/15 14:27:38 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/15 14:27:38 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/15 14:27:38 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=maria
+2020/01/15 14:27:38 [info] [application] CrugeWebUser
+login
+
+2020/01/15 14:27:38 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/15 14:27:38 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/15 14:27:39 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/15 14:27:39 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"2","lastusage":"1579012908","logoutdate":null,"ipaddressout":null}
+2020/01/15 14:27:39 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/15 14:27:39 [info] [application] DefaultSessionFilter. Reutilizando sesion: 2108
+2020/01/15 14:27:39 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/15 14:27:39 [info] [application] CrugeSession::store() #2108
+result=1
+errorinfo:
+json: {"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":3,"lastusage":1579114659,"logoutdate":null,"ipaddressout":null}
+
+2020/01/15 14:27:39 [info] [application] DefaultSessionFilter.onLogin
+2020/01/15 14:27:39 [info] [application] CrugeStoredUser::save
+2020/01/15 14:27:39 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/15 14:27:39 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/16 06:54:51 [info] [application] UiController
+actionLogin
+
+2020/01/16 07:00:59 [info] [application] UiController
+actionLogin
+
+2020/01/16 07:00:59 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/16 07:00:59 [info] [application] CrugeUser::__construct
+
+2020/01/16 07:00:59 [info] [application] CrugeUser::authenticate
+
+2020/01/16 07:00:59 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/16 07:00:59 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/16 07:00:59 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/16 07:00:59 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/16 07:00:59 [info] [application] CrugeUser::_performAuth
+
+2020/01/16 07:00:59 [info] [application] CrugeAuthDefault::authenticate
+2020/01/16 07:00:59 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"21","regdate":"1533235668","actdate":null,"logondate":"1579086406","username":"CAROLINA","email":"nelsyemely017@gmail.com","password":"11012001","authkey":"6dcc01237cff75641a3888f80f270dbf","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/16 07:00:59 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/16 07:00:59 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/16 07:00:59 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=CAROLINA
+2020/01/16 07:00:59 [info] [application] CrugeWebUser
+login
+
+2020/01/16 07:00:59 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/16 07:00:59 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/16 07:00:59 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/16 07:00:59 [info] [application] CrugeSession::findLast iduser=21
+curSession:{"idsession":"2111","iduser":"21","created":"1579086405","expire":"1579686345","status":"1","ipaddress":"172.16.1.174","usagecount":"1","lastusage":"1579086405","logoutdate":null,"ipaddressout":null}
+2020/01/16 07:00:59 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/16 07:00:59 [info] [application] DefaultSessionFilter. Reutilizando sesion: 2111
+2020/01/16 07:00:59 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/16 07:00:59 [info] [application] CrugeSession::store() #2111
+result=1
+errorinfo:
+json: {"idsession":"2111","iduser":"21","created":"1579086405","expire":"1579686345","status":"1","ipaddress":"172.16.1.174","usagecount":2,"lastusage":1579174259,"logoutdate":null,"ipaddressout":null}
+
+2020/01/16 07:00:59 [info] [application] DefaultSessionFilter.onLogin
+2020/01/16 07:00:59 [info] [application] CrugeStoredUser::save
+2020/01/16 07:00:59 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/16 07:00:59 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/16 08:10:57 [info] [application] UiController
+actionLogin
+
+2020/01/16 08:11:08 [info] [application] UiController
+actionLogin
+
+2020/01/16 08:11:08 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/16 08:11:08 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/16 08:11:08 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/16 08:11:08 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/16 08:11:08 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/16 08:11:08 [info] [application] CrugeUser::__construct
+
+2020/01/16 08:11:08 [info] [application] CrugeUser::authenticate
+
+2020/01/16 08:11:08 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/16 08:11:08 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/16 08:11:08 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/16 08:11:08 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/16 08:11:08 [info] [application] CrugeUser::_performAuth
+
+2020/01/16 08:11:08 [info] [application] CrugeAuthDefault::authenticate
+2020/01/16 08:11:08 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/16 08:11:08 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/16 08:11:08 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/16 08:11:08 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/16 08:11:08 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"6","regdate":"1443801315","actdate":null,"logondate":"1579114659","username":"MARIA","email":"javiervillate319@gmail.com","password":"anto.473","authkey":"176e89eed053c97f5a8174a7fef89b31","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/16 08:11:08 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/16 08:11:08 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/16 08:11:08 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=maria
+2020/01/16 08:11:08 [info] [application] CrugeWebUser
+login
+
+2020/01/16 08:11:08 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/16 08:11:08 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/16 08:11:08 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/16 08:11:08 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"3","lastusage":"1579114659","logoutdate":null,"ipaddressout":null}
+2020/01/16 08:11:08 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/16 08:11:08 [info] [application] DefaultSessionFilter. Reutilizando sesion: 2108
+2020/01/16 08:11:08 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/16 08:11:08 [info] [application] CrugeSession::store() #2108
+result=1
+errorinfo:
+json: {"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":4,"lastusage":1579178468,"logoutdate":null,"ipaddressout":null}
+
+2020/01/16 08:11:08 [info] [application] DefaultSessionFilter.onLogin
+2020/01/16 08:11:08 [info] [application] CrugeStoredUser::save
+2020/01/16 08:11:08 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/16 08:11:08 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/17 06:36:19 [info] [application] UiController
+actionLogin
+
+2020/01/17 06:36:22 [info] [application] UiController
+actionLogin
+
+2020/01/17 06:36:22 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/17 06:36:22 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/17 06:36:22 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/17 06:36:22 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/17 06:36:22 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/17 06:36:22 [info] [application] CrugeUser::__construct
+
+2020/01/17 06:36:22 [info] [application] CrugeUser::authenticate
+
+2020/01/17 06:36:22 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/17 06:36:22 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/17 06:36:22 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/17 06:36:22 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/17 06:36:22 [info] [application] CrugeUser::_performAuth
+
+2020/01/17 06:36:22 [info] [application] CrugeAuthDefault::authenticate
+2020/01/17 06:36:22 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/17 06:36:22 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/17 06:36:22 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/17 06:36:22 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/17 06:36:22 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"6","regdate":"1443801315","actdate":null,"logondate":"1579178468","username":"MARIA","email":"javiervillate319@gmail.com","password":"anto.473","authkey":"176e89eed053c97f5a8174a7fef89b31","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/17 06:36:22 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/17 06:36:22 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/17 06:36:22 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=maria
+2020/01/17 06:36:22 [info] [application] CrugeWebUser
+login
+
+2020/01/17 06:36:22 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/17 06:36:22 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/17 06:36:22 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/17 06:36:22 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"4","lastusage":"1579178468","logoutdate":null,"ipaddressout":null}
+2020/01/17 06:36:22 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/17 06:36:22 [info] [application] DefaultSessionFilter. Reutilizando sesion: 2108
+2020/01/17 06:36:22 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/17 06:36:22 [info] [application] CrugeSession::store() #2108
+result=1
+errorinfo:
+json: {"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":5,"lastusage":1579259182,"logoutdate":null,"ipaddressout":null}
+
+2020/01/17 06:36:22 [info] [application] DefaultSessionFilter.onLogin
+2020/01/17 06:36:22 [info] [application] CrugeStoredUser::save
+2020/01/17 06:36:22 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/17 06:36:22 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/17 06:45:28 [info] [application] UiController
+actionLogin
+
+2020/01/17 06:45:37 [info] [application] UiController
+actionLogin
+
+2020/01/17 06:45:37 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/17 06:45:37 [info] [application] CrugeUser::__construct
+
+2020/01/17 06:45:37 [info] [application] CrugeUser::authenticate
+
+2020/01/17 06:45:37 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/17 06:45:37 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/17 06:45:37 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/17 06:45:37 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/17 06:45:37 [info] [application] CrugeUser::_performAuth
+
+2020/01/17 06:45:37 [info] [application] CrugeAuthDefault::authenticate
+2020/01/17 06:45:37 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"21","regdate":"1533235668","actdate":null,"logondate":"1579174259","username":"CAROLINA","email":"nelsyemely017@gmail.com","password":"11012001","authkey":"6dcc01237cff75641a3888f80f270dbf","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/17 06:45:37 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/17 06:45:37 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/17 06:45:37 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=CAROLINA
+2020/01/17 06:45:37 [info] [application] CrugeWebUser
+login
+
+2020/01/17 06:45:37 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/17 06:45:37 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/17 06:45:37 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/17 06:45:37 [info] [application] CrugeSession::findLast iduser=21
+curSession:{"idsession":"2111","iduser":"21","created":"1579086405","expire":"1579686345","status":"1","ipaddress":"172.16.1.174","usagecount":"2","lastusage":"1579174259","logoutdate":null,"ipaddressout":null}
+2020/01/17 06:45:37 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/17 06:45:37 [info] [application] DefaultSessionFilter. Reutilizando sesion: 2111
+2020/01/17 06:45:37 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/17 06:45:37 [info] [application] CrugeSession::store() #2111
+result=1
+errorinfo:
+json: {"idsession":"2111","iduser":"21","created":"1579086405","expire":"1579686345","status":"1","ipaddress":"172.16.1.174","usagecount":3,"lastusage":1579259737,"logoutdate":null,"ipaddressout":null}
+
+2020/01/17 06:45:37 [info] [application] DefaultSessionFilter.onLogin
+2020/01/17 06:45:37 [info] [application] CrugeStoredUser::save
+2020/01/17 06:45:37 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/17 06:45:37 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/17 09:25:55 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"5","lastusage":"1579259182","logoutdate":null,"ipaddressout":null}
+2020/01/17 09:25:55 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/17 09:25:55 [info] [application] UiController
+actionLogin
+
+2020/01/17 10:22:45 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"5","lastusage":"1579259182","logoutdate":null,"ipaddressout":null}
+2020/01/17 10:22:45 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/17 11:28:22 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/17 11:28:22 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/17 11:28:22 [info] [application] CrugeSession::store() #2111
+result=1
+errorinfo:
+json: {"idsession":"2111","iduser":"21","created":"1579086405","expire":"1579686345","status":0,"ipaddress":"172.16.1.174","usagecount":"3","lastusage":"1579259737","logoutdate":1579276702,"ipaddressout":"172.16.1.174"}
+
+2020/01/17 11:28:22 [info] [application] DefaultSessionFilter.onLogout
+2020/01/17 11:28:23 [info] [application] UiController
+actionLogin
+
+2020/01/17 14:30:13 [info] [application] UiController
+actionLogin
+
+2020/01/17 14:30:57 [info] [application] UiController
+actionLogin
+
+2020/01/17 14:30:57 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/17 14:30:57 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/17 14:30:57 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/17 14:30:58 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/17 14:30:58 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/17 14:30:58 [info] [application] CrugeUser::__construct
+
+2020/01/17 14:30:58 [info] [application] CrugeUser::authenticate
+
+2020/01/17 14:30:58 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/17 14:30:58 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/17 14:30:58 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/17 14:30:58 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/17 14:30:58 [info] [application] CrugeUser::_performAuth
+
+2020/01/17 14:30:58 [info] [application] CrugeAuthDefault::authenticate
+2020/01/17 14:30:58 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/17 14:30:58 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/17 14:30:58 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/17 14:30:58 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/17 14:30:58 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"21","regdate":"1533235668","actdate":null,"logondate":"1579259737","username":"CAROLINA","email":"nelsyemely017@gmail.com","password":"11012001","authkey":"6dcc01237cff75641a3888f80f270dbf","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/17 14:30:58 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/17 14:30:58 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/17 14:30:58 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=CAROLINA
+2020/01/17 14:30:58 [info] [application] CrugeWebUser
+login
+
+2020/01/17 14:30:58 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/17 14:30:58 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/17 14:30:58 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/17 14:30:58 [info] [application] CrugeSession::findLast iduser=21
+curSession:{"idsession":"2111","iduser":"21","created":"1579086405","expire":"1579686345","status":"0","ipaddress":"172.16.1.174","usagecount":"3","lastusage":"1579259737","logoutdate":"1579276702","ipaddressout":"172.16.1.174"}
+2020/01/17 14:30:58 [info] [application] CrugeSession. validateSession. causa: estatus cerrado
+2020/01/17 14:30:58 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/17 14:30:58 [info] [application] CrugeUserManager::createSession. user=#21
+2020/01/17 14:30:58 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/17 14:30:58 [info] [application] CrugeSession::store() #2112
+result=1
+errorinfo:
+json: {"status":1,"usagecount":1,"iduser":"21","created":1579287658,"lastusage":1579287658,"expire":1579887598,"ipaddress":"172.16.1.174","idsession":"2112","logoutdate":null,"ipaddressout":null}
+
+2020/01/17 14:30:58 [info] [application] DefaultSessionFilter.onLogin
+2020/01/17 14:30:58 [info] [application] CrugeStoredUser::save
+2020/01/17 14:30:58 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/17 14:30:58 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/17 15:51:57 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"5","lastusage":"1579259182","logoutdate":null,"ipaddressout":null}
+2020/01/17 15:51:57 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/17 15:51:57 [info] [application] UiController
+actionLogin
+
+2020/01/17 16:26:09 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/17 16:26:09 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/17 16:26:09 [info] [application] CrugeSession::store() #2112
+result=1
+errorinfo:
+json: {"idsession":"2112","iduser":"21","created":"1579287658","expire":"1579887598","status":0,"ipaddress":"172.16.1.174","usagecount":"1","lastusage":"1579287658","logoutdate":1579294569,"ipaddressout":"172.16.1.174"}
+
+2020/01/17 16:26:09 [info] [application] DefaultSessionFilter.onLogout
+2020/01/17 16:26:10 [info] [application] UiController
+actionLogin
+
+2020/01/18 07:55:27 [info] [application] UiController
+actionLogin
+
+2020/01/18 07:55:43 [info] [application] UiController
+actionLogin
+
+2020/01/18 07:55:43 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=robertito
+2020/01/18 07:55:43 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=robertito
+2020/01/18 07:55:43 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a robertito
+2020/01/18 07:55:43 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** robertito
+2020/01/18 07:55:43 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/18 07:55:43 [info] [application] CrugeUser::__construct
+
+2020/01/18 07:55:43 [info] [application] CrugeUser::authenticate
+
+2020/01/18 07:55:43 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/18 07:55:43 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/18 07:55:43 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/18 07:55:43 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/18 07:55:43 [info] [application] CrugeUser::_performAuth
+
+2020/01/18 07:55:43 [info] [application] CrugeAuthDefault::authenticate
+2020/01/18 07:55:43 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=robertito
+2020/01/18 07:55:43 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=robertito
+2020/01/18 07:55:43 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a robertito
+2020/01/18 07:55:43 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** robertito
+2020/01/18 07:55:43 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"8","regdate":"1444137190","actdate":null,"logondate":"1578498648","username":"ROBERTITO","email":"robertito234@hotmail.com","password":"r022604","authkey":"bdfc6ff85d7b5a2f758d6f9f5a590c2a","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/18 07:55:43 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/18 07:55:43 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/18 07:55:43 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=robertito
+2020/01/18 07:55:43 [info] [application] CrugeWebUser
+login
+
+2020/01/18 07:55:43 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/18 07:55:43 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/18 07:55:43 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/18 07:55:43 [info] [application] CrugeSession::findLast iduser=8
+curSession:{"idsession":"2101","iduser":"8","created":"1578498648","expire":"1579098588","status":"1","ipaddress":"172.16.1.173","usagecount":"1","lastusage":"1578498648","logoutdate":null,"ipaddressout":null}
+2020/01/18 07:55:43 [info] [application] CrugeSession. validateSession. causa: sesion expirada. date.now=1579350343
+2020/01/18 07:55:43 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/18 07:55:43 [info] [application] CrugeUserManager::createSession. user=#8
+2020/01/18 07:55:43 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/18 07:55:43 [info] [application] CrugeSession::store() #2113
+result=1
+errorinfo:
+json: {"status":1,"usagecount":1,"iduser":"8","created":1579350343,"lastusage":1579350343,"expire":1579950283,"ipaddress":"172.16.1.173","idsession":"2113","logoutdate":null,"ipaddressout":null}
+
+2020/01/18 07:55:43 [info] [application] DefaultSessionFilter.onLogin
+2020/01/18 07:55:43 [info] [application] CrugeStoredUser::save
+2020/01/18 07:55:43 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/18 07:55:43 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/18 08:31:46 [info] [application] UiController
+actionLogin
+
+2020/01/20 07:06:30 [info] [application] UiController
+actionLogin
+
+2020/01/20 07:06:55 [info] [application] UiController
+actionLogin
+
+2020/01/20 07:06:55 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/20 07:06:55 [info] [application] CrugeUser::__construct
+
+2020/01/20 07:06:55 [info] [application] CrugeUser::authenticate
+
+2020/01/20 07:06:55 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/20 07:06:55 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/20 07:06:55 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/20 07:06:55 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/20 07:06:55 [info] [application] CrugeUser::_performAuth
+
+2020/01/20 07:06:55 [info] [application] CrugeAuthDefault::authenticate
+2020/01/20 07:06:55 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"21","regdate":"1533235668","actdate":null,"logondate":"1579287658","username":"CAROLINA","email":"nelsyemely017@gmail.com","password":"11012001","authkey":"6dcc01237cff75641a3888f80f270dbf","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/20 07:06:55 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/20 07:06:55 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/20 07:06:55 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=CAROLINA
+2020/01/20 07:06:55 [info] [application] CrugeWebUser
+login
+
+2020/01/20 07:06:55 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/20 07:06:55 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/20 07:06:55 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/20 07:06:55 [info] [application] CrugeSession::findLast iduser=21
+curSession:{"idsession":"2112","iduser":"21","created":"1579287658","expire":"1579887598","status":"0","ipaddress":"172.16.1.174","usagecount":"1","lastusage":"1579287658","logoutdate":"1579294569","ipaddressout":"172.16.1.174"}
+2020/01/20 07:06:55 [info] [application] CrugeSession. validateSession. causa: estatus cerrado
+2020/01/20 07:06:55 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/20 07:06:55 [info] [application] CrugeUserManager::createSession. user=#21
+2020/01/20 07:06:55 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/20 07:06:55 [info] [application] CrugeSession::store() #2114
+result=1
+errorinfo:
+json: {"status":1,"usagecount":1,"iduser":"21","created":1579520215,"lastusage":1579520215,"expire":1580120155,"ipaddress":"172.16.1.174","idsession":"2114","logoutdate":null,"ipaddressout":null}
+
+2020/01/20 07:06:55 [info] [application] DefaultSessionFilter.onLogin
+2020/01/20 07:06:55 [info] [application] CrugeStoredUser::save
+2020/01/20 07:06:55 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/20 07:06:55 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/20 07:47:53 [info] [application] UiController
+actionLogin
+
+2020/01/20 11:09:57 [info] [application] UiController
+actionLogin
+
+2020/01/20 11:10:02 [info] [application] UiController
+actionLogin
+
+2020/01/20 11:10:02 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/20 11:10:02 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/20 11:10:02 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/20 11:10:02 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/20 11:10:02 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/20 11:10:02 [info] [application] CrugeUser::__construct
+
+2020/01/20 11:10:02 [info] [application] CrugeUser::authenticate
+
+2020/01/20 11:10:02 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/20 11:10:02 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/20 11:10:02 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/20 11:10:02 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/20 11:10:02 [info] [application] CrugeUser::_performAuth
+
+2020/01/20 11:10:02 [info] [application] CrugeAuthDefault::authenticate
+2020/01/20 11:10:02 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/20 11:10:02 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/20 11:10:02 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/20 11:10:02 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/20 11:10:02 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"6","regdate":"1443801315","actdate":null,"logondate":"1579259182","username":"MARIA","email":"javiervillate319@gmail.com","password":"anto.473","authkey":"176e89eed053c97f5a8174a7fef89b31","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/20 11:10:02 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/20 11:10:02 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/20 11:10:02 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=maria
+2020/01/20 11:10:02 [info] [application] CrugeWebUser
+login
+
+2020/01/20 11:10:02 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/20 11:10:02 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/20 11:10:02 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/20 11:10:02 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"5","lastusage":"1579259182","logoutdate":null,"ipaddressout":null}
+2020/01/20 11:10:02 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/20 11:10:02 [info] [application] DefaultSessionFilter. Reutilizando sesion: 2108
+2020/01/20 11:10:02 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/20 11:10:02 [info] [application] CrugeSession::store() #2108
+result=1
+errorinfo:
+json: {"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":6,"lastusage":1579534802,"logoutdate":null,"ipaddressout":null}
+
+2020/01/20 11:10:02 [info] [application] DefaultSessionFilter.onLogin
+2020/01/20 11:10:02 [info] [application] CrugeStoredUser::save
+2020/01/20 11:10:02 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/20 11:10:02 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/20 11:27:21 [info] [application] UiController
+actionLogin
+
+2020/01/20 14:17:48 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"6","lastusage":"1579534802","logoutdate":null,"ipaddressout":null}
+2020/01/20 14:17:48 [info] [application] CrugeSession. validateSession. causa: sesion expirada. date.now=1579546068
+2020/01/20 14:17:48 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/20 14:18:20 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"6","lastusage":"1579534802","logoutdate":null,"ipaddressout":null}
+2020/01/20 14:18:20 [info] [application] CrugeSession. validateSession. causa: sesion expirada. date.now=1579546100
+2020/01/20 14:18:20 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/20 14:18:20 [info] [application] UiController
+actionLogin
+
+2020/01/20 14:18:32 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"6","lastusage":"1579534802","logoutdate":null,"ipaddressout":null}
+2020/01/20 14:18:32 [info] [application] CrugeSession. validateSession. causa: sesion expirada. date.now=1579546112
+2020/01/20 14:18:32 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/20 14:18:32 [info] [application] UiController
+actionLogin
+
+2020/01/20 14:18:32 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/20 14:18:32 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/20 14:18:32 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/20 14:18:32 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/20 14:18:32 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/20 14:18:32 [info] [application] CrugeUser::__construct
+
+2020/01/20 14:18:32 [info] [application] CrugeUser::authenticate
+
+2020/01/20 14:18:32 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/20 14:18:32 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/20 14:18:32 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/20 14:18:32 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/20 14:18:32 [info] [application] CrugeUser::_performAuth
+
+2020/01/20 14:18:32 [info] [application] CrugeAuthDefault::authenticate
+2020/01/20 14:18:32 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/20 14:18:32 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/20 14:18:32 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/20 14:18:32 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/20 14:18:32 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"6","regdate":"1443801315","actdate":null,"logondate":"1579534802","username":"MARIA","email":"javiervillate319@gmail.com","password":"anto.473","authkey":"176e89eed053c97f5a8174a7fef89b31","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/20 14:18:32 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/20 14:18:32 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/20 14:18:32 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=maria
+2020/01/20 14:18:32 [info] [application] CrugeWebUser
+login
+
+2020/01/20 14:18:32 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/20 14:18:32 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/20 14:18:32 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/20 14:18:32 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2108","iduser":"6","created":"1578943390","expire":"1579543330","status":"1","ipaddress":"172.16.1.144","usagecount":"6","lastusage":"1579534802","logoutdate":null,"ipaddressout":null}
+2020/01/20 14:18:32 [info] [application] CrugeSession. validateSession. causa: sesion expirada. date.now=1579546112
+2020/01/20 14:18:32 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/20 14:18:32 [info] [application] CrugeUserManager::createSession. user=#6
+2020/01/20 14:18:32 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/20 14:18:32 [info] [application] CrugeSession::store() #2115
+result=1
+errorinfo:
+json: {"status":1,"usagecount":1,"iduser":"6","created":1579546112,"lastusage":1579546112,"expire":1580146052,"ipaddress":"172.16.1.144","idsession":"2115","logoutdate":null,"ipaddressout":null}
+
+2020/01/20 14:18:32 [info] [application] DefaultSessionFilter.onLogin
+2020/01/20 14:18:32 [info] [application] CrugeStoredUser::save
+2020/01/20 14:18:32 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/20 14:18:32 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/20 16:30:02 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/20 16:30:02 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/20 16:30:02 [info] [application] CrugeSession::store() #2114
+result=1
+errorinfo:
+json: {"idsession":"2114","iduser":"21","created":"1579520215","expire":"1580120155","status":0,"ipaddress":"172.16.1.174","usagecount":"1","lastusage":"1579520215","logoutdate":1579554002,"ipaddressout":"172.16.1.174"}
+
+2020/01/20 16:30:02 [info] [application] DefaultSessionFilter.onLogout
+2020/01/20 16:30:03 [info] [application] UiController
+actionLogin
+
+2020/01/21 06:45:26 [info] [application] UiController
+actionLogin
+
+2020/01/21 06:50:59 [info] [application] UiController
+actionLogin
+
+2020/01/21 06:50:59 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/21 06:50:59 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/21 06:50:59 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/21 06:51:00 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/21 06:51:00 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/21 06:51:00 [info] [application] CrugeUser::__construct
+
+2020/01/21 06:51:00 [info] [application] CrugeUser::authenticate
+
+2020/01/21 06:51:00 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/21 06:51:00 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/21 06:51:00 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/21 06:51:00 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/21 06:51:00 [info] [application] CrugeUser::_performAuth
+
+2020/01/21 06:51:00 [info] [application] CrugeAuthDefault::authenticate
+2020/01/21 06:51:00 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=CAROLINA
+2020/01/21 06:51:00 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=CAROLINA
+2020/01/21 06:51:00 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a CAROLINA
+2020/01/21 06:51:00 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** CAROLINA
+2020/01/21 06:51:00 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"21","regdate":"1533235668","actdate":null,"logondate":"1579520215","username":"CAROLINA","email":"nelsyemely017@gmail.com","password":"11012001","authkey":"6dcc01237cff75641a3888f80f270dbf","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/21 06:51:00 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/21 06:51:00 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/21 06:51:00 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=CAROLINA
+2020/01/21 06:51:00 [info] [application] CrugeWebUser
+login
+
+2020/01/21 06:51:00 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/21 06:51:00 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/21 06:51:00 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/21 06:51:00 [info] [application] CrugeSession::findLast iduser=21
+curSession:{"idsession":"2114","iduser":"21","created":"1579520215","expire":"1580120155","status":"0","ipaddress":"172.16.1.174","usagecount":"1","lastusage":"1579520215","logoutdate":"1579554002","ipaddressout":"172.16.1.174"}
+2020/01/21 06:51:00 [info] [application] CrugeSession. validateSession. causa: estatus cerrado
+2020/01/21 06:51:00 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+2020/01/21 06:51:00 [info] [application] CrugeUserManager::createSession. user=#21
+2020/01/21 06:51:00 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/21 06:51:00 [info] [application] CrugeSession::store() #2116
+result=1
+errorinfo:
+json: {"status":1,"usagecount":1,"iduser":"21","created":1579605660,"lastusage":1579605660,"expire":1580205600,"ipaddress":"172.16.1.174","idsession":"2116","logoutdate":null,"ipaddressout":null}
+
+2020/01/21 06:51:00 [info] [application] DefaultSessionFilter.onLogin
+2020/01/21 06:51:00 [info] [application] CrugeStoredUser::save
+2020/01/21 06:51:00 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/21 06:51:00 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/21 06:53:03 [info] [application] UiController
+actionLogin
+
+2020/01/21 06:53:07 [info] [application] UiController
+actionLogin
+
+2020/01/21 06:53:07 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/21 06:53:07 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/21 06:53:07 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/21 06:53:07 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/21 06:53:07 [info] [application] CrugeLogon
+authenticate()
+
+2020/01/21 06:53:07 [info] [application] CrugeUser::__construct
+
+2020/01/21 06:53:07 [info] [application] CrugeUser::authenticate
+
+2020/01/21 06:53:07 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+2020/01/21 06:53:07 [info] [application] levantando clases de autenticacion de:
+D:\xampp\htdocs\hocitem\protected\modules\cruge\models\auth
+
+2020/01/21 06:53:07 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+2020/01/21 06:53:07 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+2020/01/21 06:53:07 [info] [application] CrugeUser::_performAuth
+
+2020/01/21 06:53:07 [info] [application] CrugeAuthDefault::authenticate
+2020/01/21 06:53:07 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=maria
+2020/01/21 06:53:07 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=maria
+2020/01/21 06:53:07 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a maria
+2020/01/21 06:53:07 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** maria
+2020/01/21 06:53:07 [info] [application] CrugeAuthDefault::authenticate Usuario Retornado:
+{"iduser":"6","regdate":"1443801315","actdate":null,"logondate":"1579546112","username":"MARIA","email":"javiervillate319@gmail.com","password":"anto.473","authkey":"176e89eed053c97f5a8174a7fef89b31","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+2020/01/21 06:53:07 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+2020/01/21 06:53:07 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+2020/01/21 06:53:07 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=maria
+2020/01/21 06:53:07 [info] [application] CrugeWebUser
+login
+
+2020/01/21 06:53:07 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+2020/01/21 06:53:07 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+2020/01/21 06:53:07 [info] [application] CrugeWebUser
+filtro->startSession
+
+2020/01/21 06:53:07 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2115","iduser":"6","created":"1579546112","expire":"1580146052","status":"1","ipaddress":"172.16.1.144","usagecount":"1","lastusage":"1579546112","logoutdate":null,"ipaddressout":null}
+2020/01/21 06:53:07 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/21 06:53:07 [info] [application] DefaultSessionFilter. Reutilizando sesion: 2115
+2020/01/21 06:53:07 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+2020/01/21 06:53:07 [info] [application] CrugeSession::store() #2115
+result=1
+errorinfo:
+json: {"idsession":"2115","iduser":"6","created":"1579546112","expire":"1580146052","status":"1","ipaddress":"172.16.1.144","usagecount":2,"lastusage":1579605787,"logoutdate":null,"ipaddressout":null}
+
+2020/01/21 06:53:07 [info] [application] DefaultSessionFilter.onLogin
+2020/01/21 06:53:07 [info] [application] CrugeStoredUser::save
+2020/01/21 06:53:07 [info] [application] CrugeStoredUser::save returns: [1]
+2020/01/21 06:53:07 [info] [application] UiController
+CrugeLogon->login() returns true
+
+2020/01/21 10:01:36 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2115","iduser":"6","created":"1579546112","expire":"1580146052","status":"1","ipaddress":"172.16.1.144","usagecount":"2","lastusage":"1579605787","logoutdate":null,"ipaddressout":null}
+2020/01/21 10:01:36 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/21 14:47:29 [info] [application] CrugeSession::findLast iduser=6
+curSession:{"idsession":"2115","iduser":"6","created":"1579546112","expire":"1580146052","status":"1","ipaddress":"172.16.1.144","usagecount":"2","lastusage":"1579605787","logoutdate":null,"ipaddressout":null}
+2020/01/21 14:47:29 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion validada]
+2020/01/21 14:47:29 [info] [application] UiController
+actionLogin
+

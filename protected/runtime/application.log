@@ -11060,3 +11060,509 @@ Stack trace:
 REQUEST_URI=/hocitem/index.html
 HTTP_REFERER=http://172.16.1.190/hocitem/gcca.html
 ---
+2020/01/16 15:29:56 [error] [system.db.CDbCommand] CDbCommand::execute() falló: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1EXC2392' for key 'FCCU_Serial_UNIQUE'. La sentencia SQL ejecutada fue: INSERT INTO `fccu` (`FCCU_Facturado`, `FCCI_Id`, `FCCU_Cantidad`, `FCCD_Id`, `FCCU_Descripcion`, `FCCT_Id`, `FCCU_Serial`, `FCCU_Numero`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7).
+2020/01/17 16:26:11 [error] [exception.CrugeException.401] action_site_log<br/>401
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/20 06:45:55 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/20 06:45:55 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('0')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('0')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('0')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\controllers\UiController.php(31): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(281): UiController->init()
+#20 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cruge/ui/login')
+#21 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#22 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#23 {main}
+REQUEST_URI=/hocitem/cruge/ui/login
+HTTP_REFERER=http://172.16.1.190/
+---
+2020/01/20 06:46:00 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/20 06:46:00 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('0')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('0')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('0')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\controllers\UiController.php(31): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(281): UiController->init()
+#20 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('cruge/ui/login')
+#21 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#22 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#23 {main}
+REQUEST_URI=/hocitem/cruge/ui/login
+HTTP_REFERER=http://172.16.1.190/hocitem/cruge/ui/login
+---
+2020/01/20 11:19:43 [error] [system.db.CDbCommand] CDbCommand::fetchAll() falló: SQLSTATE[70100]: <<Unknown error>>: 1317 Query execution was interrupted. La sentencia SQL ejecutada fue: SELECT * FROM `pcue` `t` WHERE PCUE_Date between DATE_SUB(now(), INTERVAL 5 SECOND) and now().
+2020/01/20 11:19:43 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand falló al ejecutar la sentencia SQL: SQLSTATE[70100]: <<Unknown error>>: 1317 Query execution was interrupted' in D:\xampp\htdocs\yii\framework\db\CDbCommand.php:541
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1297): CDbCommand->queryAll()
+#2 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1416): CActiveRecord->query(Object(CDbCriteria), true)
+#3 D:\xampp\htdocs\hocitem\protected\controllers\SiteController.php(6): CActiveRecord->findAll(Array)
+#4 D:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLog()
+#5 D:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(90): CFilterChain->run()
+#8 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#9 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#13 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#14 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#15 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/20 11:26:42 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/20 11:26:43 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2114')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2114')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2114')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/20 11:26:45 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/20 11:26:45 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2114')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2114')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2114')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/20 11:26:47 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/20 11:26:47 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2114')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2114')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2114')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('less')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('fcco/less')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/fcco/less.html
+HTTP_REFERER=http://172.16.1.190/hocitem/fcco/agencia/116.html?type=258
+---
+2020/01/20 14:17:48 [error] [exception.CrugeException.401] action_fcco_admin<br/>401
+REQUEST_URI=/hocitem/fcco/admin.html
+HTTP_REFERER=http://172.16.1.190/hocitem/gcca/admin.html
+---
+2020/01/20 16:30:04 [error] [exception.CrugeException.401] action_site_log<br/>401
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 10:38:01 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 10:38:01 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 10:45:11 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 10:45:12 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 10:45:14 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 10:45:14 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 10:45:16 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 10:45:16 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 10:45:18 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 10:45:18 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 11:07:40 [error] [system.db.CDbCommand] CDbCommand::fetchAll() falló: SQLSTATE[70100]: <<Unknown error>>: 1317 Query execution was interrupted. La sentencia SQL ejecutada fue: SELECT * FROM `pcue` `t` WHERE PCUE_Date between DATE_SUB(now(), INTERVAL 5 SECOND) and now().
+2020/01/21 11:07:40 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand falló al ejecutar la sentencia SQL: SQLSTATE[70100]: <<Unknown error>>: 1317 Query execution was interrupted' in D:\xampp\htdocs\yii\framework\db\CDbCommand.php:541
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1297): CDbCommand->queryAll()
+#2 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1416): CActiveRecord->query(Object(CDbCriteria), true)
+#3 D:\xampp\htdocs\hocitem\protected\controllers\SiteController.php(6): CActiveRecord->findAll(Array)
+#4 D:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionLog()
+#5 D:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#6 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(90): CFilterChain->run()
+#8 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#9 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#10 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#11 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#13 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#14 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#15 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#16 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 13:56:03 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 13:56:03 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 13:56:06 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 13:56:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
+2020/01/21 13:56:08 [error] [exception.CDbException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+2020/01/21 13:56:08 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection.' in D:\xampp\htdocs\yii\framework\db\CDbConnection.php:387
+Stack trace:
+#0 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(330): CDbConnection->open()
+#1 D:\xampp\htdocs\yii\framework\db\CDbConnection.php(308): CDbConnection->setActive(true)
+#2 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CDbConnection->init()
+#3 D:\xampp\htdocs\yii\framework\base\CApplication.php(438): CModule->getComponent('db')
+#4 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(623): CApplication->getDb()
+#5 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(2309): CActiveRecord->getDbConnection()
+#6 D:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(387): CActiveRecordMetaData->__construct(Object(CrugeSession))
+#7 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(193): CActiveRecord::model('CrugeSession')
+#8 D:\xampp\htdocs\hocitem\protected\modules\cruge\models\data\CrugeSession.php(90): CrugeSession::model()
+#9 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeFactory.php(46): CrugeSession::loadModel('2116')
+#10 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeUserManager.php(404): CrugeFactory->getICrugeSession('2116')
+#11 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(451): CrugeUserManager->loadSession('2116')
+#12 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(229): CrugeWebUser->getICrugeSession()
+#13 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(242): CrugeWebUser->getId()
+#14 D:\xampp\htdocs\yii\framework\web\auth\CWebUser.php(194): CrugeWebUser->getIsGuest()
+#15 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeWebUser.php(45): CWebUser->init()
+#16 D:\xampp\htdocs\yii\framework\base\CModule.php(387): CrugeWebUser->init()
+#17 D:\xampp\htdocs\yii\framework\base\CModule.php(103): CModule->getComponent('user')
+#18 D:\xampp\htdocs\hocitem\protected\modules\cruge\components\CrugeAccessControlFilter.php(73): CModule->__get('user')
+#19 D:\xampp\htdocs\yii\framework\web\filters\CFilter.php(38): CrugeAccessControlFilter->preFilter(Object(CFilterChain))
+#20 D:\xampp\htdocs\yii\framework\web\filters\CFilterChain.php(130): CFilter->filter(Object(CFilterChain))
+#21 D:\xampp\htdocs\yii\framework\web\CController.php(291): CFilterChain->run()
+#22 D:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('log')
+#24 D:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/log')
+#25 D:\xampp\htdocs\yii\framework\base\CApplication.php(169): CWebApplication->processRequest()
+#26 D:\xampp\htdocs\hocitem\index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/hocitem/site/log
+HTTP_REFERER=http://172.16.1.190/hocitem/
+---
