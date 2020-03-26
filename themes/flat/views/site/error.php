@@ -16,13 +16,8 @@
         </div>
     </form>
     <div class="buttons">
-        <div class="pull-left">
-            <a href="index.html" class="btn">
-                <i class="fa fa-arrow-left"></i>Atrás</a>
-        </div>
-         <div class="pull-right">
-            <a href="/hocitem/cruge/ui/login" class="btn">
-                Iniciar Sesion<i class="fa fa-arrow-right"></i></a>
-        </div>
+        <a href="https://kingdeportes.com/hefestos" class="btn">
+                Pagina Principal<i class="fa fa-arrow-right"></i>
+        </a>
     </div>
 </div>

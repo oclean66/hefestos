@@ -45,7 +45,7 @@ public function getConcatened() {
 		// will receive user inputs.
 		return array(
 			array('FCCT_Descripcion, FCCA_Id', 'required'),
-			array('FCCT_Descripcion', 'length', 'max'=>45),
+			array('FCCT_Descripcion', 'length', 'max'=>150),
 			array('FCCA_Id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

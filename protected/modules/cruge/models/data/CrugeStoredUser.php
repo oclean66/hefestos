@@ -413,6 +413,7 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
             'sort' => array(
                 'defaultOrder' => array('iduser' => true),
             ),

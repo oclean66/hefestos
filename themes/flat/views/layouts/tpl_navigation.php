@@ -17,22 +17,23 @@
             'encodeLabel' => false,
             'items' => array(
                 array('label' => 'Inicio', 'url' => array('/site/index'), 'visible' => Yii::app()->user->checkAccess('action_site_index')),
-                array('label' => 'Operaciones <span class="caret"></span>', 'url' => '#', 'visible' => $visible, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                array('label' => 'Activos <span class="caret"></span>', 'url' => '#', 'visible' => Yii::app()->user->checkAccess('controller_fccu'), 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                'items' => array(
+                    array('label' => 'Agregar', 'url' => array('/fccu/add'), 'visible' => Yii::app()->user->checkAccess('action_fccu_add')),
+                    array('label' => 'Asignar', 'url' => array('/fcco/create'), 'visible' => Yii::app()->user->checkAccess('action_fcco_create')),
+                    array('label' => 'Recibir', 'url' => array('/fcco/less'), 'visible' => Yii::app()->user->checkAccess('action_fcco_less')),
+                    array('label' => 'Buscar', 'url' => array('/fccu/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccu_admin')),
+                )),
+                array('label' => 'Operaciones* <span class="caret"></span>', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                     'items' => array(
-                        array('label' => 'Activos', 'url' => '#', 'visible' => Yii::app()->user->checkAccess('controller_fccu'), 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
-                            'items' => array(
-                                array('label' => 'Agregar', 'url' => array('/fccu/add'), 'visible' => Yii::app()->user->checkAccess('action_fccu_add')),
-                                array('label' => 'Asignar', 'url' => array('/fcco/create'), 'visible' => Yii::app()->user->checkAccess('action_fcco_create')),
-                                array('label' => 'Recibir', 'url' => array('/fcco/less'), 'visible' => Yii::app()->user->checkAccess('action_fcco_less')),
-                                array('label' => 'Buscar', 'url' => array('/fccu/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccu_admin')),
-                            )),
-                        array('label' => 'Suministros', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                       
+                        array('label' => 'Suministros*', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                             'items' => array(
                                 array('label' => 'Asignar', 'url' => array('/fcco/create')),
                                 array('label' => 'Recargar', 'url' => array('#')),
                                 array('label' => 'Buscar', 'url' => array('/fccu/admin')),
                             )),
-                        array('label' => 'Facturacion', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                        array('label' => 'Facturacion*', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                             'items' => array(
                                 array('label' => 'Asignar', 'url' => array('#')),
                                 array('label' => 'Recargar', 'url' => array('#')),
@@ -47,12 +48,12 @@
                     )),
                 array('label' => 'Reportes <span class="caret"></span>', 'url' => '#', 'visible' => $visible, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                     'items' => array(
+                        array('label' => 'Arbol de Asignaciones', 'url' => array('/fcco/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcco_admin')),
                         array('label' => 'Reporte de Salidas', 'url' => $this->createUrl('fcco/report',array('FCCN_Id'=>1)), 'visible' => Yii::app()->user->checkAccess('action_fcco_report')),
                         array('label' => 'Reporte de Entradas', 'url' =>$this->createUrl('fcco/report',array('FCCN_Id'=>2)), 'visible' => Yii::app()->user->checkAccess('action_fcco_report')),
                       
-                        array('label' => 'Arbol de Asignaciones', 'url' => array('/fcco/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcco_admin')),
-                        array('label' => 'Recargas', 'url' => array('fcuc/admin'), 'visible' => $admin),
-                        array('label' => 'Rendimiento laboral (en proceso)', 'url' => array('/#'), 'visible' => $admin),
+                        array('label' => 'Recargas*', 'url' => array('fcuc/admin'), 'visible' => $admin),
+                        array('label' => 'Rendimiento laboral*', 'url' => array('/#'), 'visible' => $admin),
                     //array('label' => 'Compras', 'url' => array('#'),'visible' =>  $admin ),
                     //array('label' => 'Resumen', 'url' => array('#'),'visible' => $admin ),
                     // array('label' => 'Bitacora', 'url' => array('#'),'visible' =>  $admin ),
@@ -62,7 +63,7 @@
                         array('label' => 'Usuarios del Sistema', 'url' => array('/cruge/ui/usermanagementadmin'), 'visible' => Yii::app()->user->checkAccess('action_ui_usermanagementadmin')),
                         array('label' => 'Tipo de Activos', 'url' => array('/fcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcca_admin')),
                         array('label' => 'Modelos de Activos', 'url' => array('/fcct/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcct_admin')),
-                        array('label' => 'Categorias de Activos', 'url' => array('/fcuu/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcuu_admin')),
+                        array('label' => 'Categorias de Activos*', 'url' => array('/fcuu/admin'), 'visible' => $admin),
                         array('label' => 'Operaciones con Activos', 'url' => array('/fccn/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccn_admin')),
                         array('label' => 'Estado de Activos', 'url' => array('/fcci/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcci_admin')),
                         array('label' => 'Operador de Lineas', 'url' => array('/fccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccd_admin')),

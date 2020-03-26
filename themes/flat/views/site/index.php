@@ -142,33 +142,5 @@ $baseUrl = Yii::app()->theme->baseUrl;
 
 </div>
 
-<script id="source" language="javascript" type="text/javascript">
 
-    setInterval(function () {
-        $.ajax({
-            url: '/hocitem/site/log', //the script to call to get data          
-            data: "", //you can insert url argumnets here to pass to api.php
-            //for example "id=5&parent=6"
-            dataType: 'json', //data format      
-            success: function (data)          //on recieve of reply
-            {
-                $.each(data, function (id, value) {
-                    console.log(value.value); // 15
-                    $('#myrandomFeed').find('tbody').prepend("<tr><td><span class='label label-warning'><i class='fa fa-comment'></i></span> " + value.value + "</td></tr>");
-
-                });
-
-
-//                var id = data[0];              //get id
-//                var vname = data[1];           //get name
-//
-//                $('#output').html("<b>id: </b>" + id + "<b> name: </b>" + vname); //Set output element html
-//                $('#randomFeed').find('tbody').prepend("<tr><td><span class='label label-warning'><i class='fa fa-comment'></i></span> 	<a href='#'>" + id + "</a> commented on <a href='#'>" + vname + "</a></td></tr>");
-
-            }
-        });
-    }, 5000); //5 seconds
-
-
-</script>
 

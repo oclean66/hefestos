@@ -9,7 +9,12 @@ $this->breadcrumbs = array(
 
 
 $this->menu = array(
-    array('label' => 'Ver grupo', 'url' => CController::createUrl('grupo', array('id' => $agencia->GCCD_Id, 'type' => 1))),
+    array('label' => 'Ver grupo Padre', 'url' => CController::createUrl('grupo', array('id' => $agencia->GCCD_Id, 'type' => 1))),
+    array(
+        'label' => 'Ver Datos de Agencia', 
+        'linkOptions'=>array('target'=>'_blank'),
+        'url' => CController::createUrl('gcca/view', array('id' => $agencia->GCCA_Id))
+    ),
     array('label' => 'Asignar Activos', 'url' => array('create')),
      array('label' => 'Administrar Agencias', 'url' => CController::createUrl('gcca/admin')),
      array('label' => 'Eliminar Agencia', 'url' => CController::createUrl('gcca/delete', array('id' => $agencia->GCCA_Id))),
@@ -40,7 +45,7 @@ foreach ($count as $key => $value) {
 
 <div class="box box-bordered box-color hidden-print">
     <div class="box-title">
-        <a target="_blank" href="<?php echo Yii::app()->createUrl("fcco/agencia",array("id"=>$agencia->GCCA_Id,"type"=>$agencia->GCCA_Id))?>">
+        <a target="_blank" href="<?php echo Yii::app()->createUrl("gcca/view",array("id"=>$agencia->GCCA_Id))?>">
             <h3>
                 <i class="fa fa-th-list"></i>Agencia <?php echo $agencia->concatened . " | Grupo " . $agencia->gCCD->concatened; ?>
             </h3>
@@ -91,16 +96,16 @@ foreach ($count as $key => $value) {
                     'filter' => CHtml::activeTextField($model, 'FCCT_Descripcion'),
                     'value' => '$data->fCCU->fCCT->FCCT_Descripcion',
                 ),
-//                array('name' => 'FCCO_Lote', 'type' => 'raw',
-//                    'value' => 'CHtml::Link("Ver Ticket: ".$data->FCCO_Lote, "#modal-1",'
-//                    . 'array("role"=>"button", "class"=>"btn", "data-toggle"=>"modal","href"=>"#modal-1"))',
-//                ),
+                //array('name' => 'FCCO_Lote', 'type' => 'raw',
+                //'value' => 'CHtml::Link("Ver Ticket: ".$data->FCCO_Lote, "#modal-1",'
+                //. 'array("role"=>"button", "class"=>"btn", "data-toggle"=>"modal","href"=>"#modal-1"))',
+                //),
                 array(
                     'class' => 'CButtonColumn',
                     'header' => 'Accion',
                     //'htmlOptions'=>array('class'=>'btn btn-primary'),
                     'template' => '{preview}{recibe}',                                        
-//-----------------------------------------------------------------------
+                    //-----------------------------------------------------------------------
                     'buttons' => array(
                         'preview' =>
                         array(
@@ -123,20 +128,20 @@ foreach ($count as $key => $value) {
                                     }",
                                 ),
                             ),
-//                            'options'=>array(
-//                                'class'=>'btn',
-//                                'id'=>$data->FCCO_Lote
-//                            ),
+                            //'options'=>array(
+                            //'class'=>'btn',
+                            //'id'=>$data->FCCO_Lote
+                            //),
                         ),
                         
                        'recibe' => array(
-                    'label' => 'Recibir', // text label of the button
-                    'url' => 'Yii::app()->createUrl("fcco/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
-                    'imageUrl' => Yii::app()->theme->baseUrl.'/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
-//                    'visible' =>'$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
-                ),
+                            'label' => 'Recibir', // text label of the button
+                            'url' => 'Yii::app()->createUrl("fcco/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
+                            'imageUrl' => Yii::app()->theme->baseUrl.'/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
+                                //'visible' =>'$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
+                        ),
                     ),
-//-----------------------------------------------------------------------
+                        //-----------------------------------------------------------------------
                 ),
             ),
         ));

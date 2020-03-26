@@ -14,10 +14,38 @@ class GccaController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
+	public function actionView($id, $excel=false)
 	{
+		$agencia = $this->loadModel($id);
+		$model = new Fcco('search');
+        $model->unsetAttributes();  // clear any default values
+        $model->GCCA_Id = "=" . $id;
+
+		
+		if (isset($_GET['Fcco'])) {
+			
+			$model->attributes = $_GET['Fcco'];
+            $model->GCCA_Id = "=" . $id;
+            $model->FCCN_Id = 1;
+        }
+		$model->FCCO_Enabled = 0; // historial asignado
+		$model->FCCN_Id = 1; //operacion asignado
+		
+		// $model->FCCO_Enabled = 0; //asignado actualmente
+
+
+        $model->desde = date('2000-01-01');
+		$model->hasta = date('2025-01-01');
+		
+		if ($excel) {
+            //
+            $content = $this->renderPartial("_search", array('model'=>$model), true, true);
+            
+            Yii::app()->request->sendFile('Historial Agencia '.$agencia->concatened.'.xls', $content);
+        }
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$agencia,
+			'historial'=>$model
 		));
 	}
 

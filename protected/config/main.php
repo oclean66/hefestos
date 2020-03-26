@@ -6,7 +6,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Hefestos Inventario',
+    'name' => 'Hefestos',
     'language' => 'es',
     'timeZone' => 'America/Caracas',
     'sourceLanguage' => 'en',
@@ -26,7 +26,7 @@ return array(
             'tableprefix' => 'cruge_',
             'availableAuthMethods' => array('default'),
             'availableAuthModes' => array('username', 'email'),
-            'baseUrl' => 'http://excelenciaserver.zapto.org/hocitem',
+            'baseUrl' => 'https://kingdeportes.com/hefestos',
             'debug' => true,
             'rbacSetupEnabled' => true,
             'allowUserAlways' => false,
@@ -78,17 +78,17 @@ return array(
 
         // uncomment the following to use a MySQL database
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=hocitem',
+            'connectionString' => 'mysql:host=localhost;dbname=hefestos',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => 'jay310887',
+            'username' => 'siamdepo_super',
+            'password' => '6LcGvOzhrSoCB6',
             'charset' => 'utf8',
         ),
          'excelencia' => array(
             'connectionString' => 'mysql:host=localhost;dbname=excelencia_mydb',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => 'jay310887',
+            'username' => 'siamdepo_super',
+            'password' => '6LcGvOzhrSoCB6',
             'charset' => 'utf8',
             'class' => 'CDbConnection'          // DO NOT FORGET THIS!
         ),
