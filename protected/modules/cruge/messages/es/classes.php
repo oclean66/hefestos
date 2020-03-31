@@ -7,6 +7,7 @@
  */
 return array(
     'Fcca' => 'Tipos',
+    'Tcca' => 'Agenda',
     'Fccd' => 'Operador',
     'Fcci' => 'Estado',
     'Fccn' => 'Operacion',
@@ -120,6 +121,15 @@ return array(
     'action_fcct_delete' => 'Borrar Modelos',
     'action_fcct_create' => 'Crear Modelo',
     'action_fcct_admin' => 'Administrar Modelo',
+
+    'action_tcca_view' => 'Mis Tareas',
+    'action_tcca_update' => 'Actualizar Tablero',
+    'action_tcca_index' => 'Mis Tableros',
+    'action_tcca_delete' => 'Borrar Tableros',
+    'action_tcca_create' => 'Crear Tableros',
+    'action_tcca_admin' => 'Administrar Tableros',
+
+
     
     'action_fccs_view' => 'Ver Factura',
     'action_fccs_update' => 'Actualizar Factura',

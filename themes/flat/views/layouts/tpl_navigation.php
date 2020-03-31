@@ -17,6 +17,7 @@
             'encodeLabel' => false,
             'items' => array(
                 array('label' => 'Inicio', 'url' => array('/site/index'), 'visible' => Yii::app()->user->checkAccess('action_site_index')),
+                array('label' => 'Tableros', 'url' => array('/tcca/index'), 'visible' => Yii::app()->user->checkAccess('action_tcca_index')),
                 array('label' => 'Activos <span class="caret"></span>', 'url' => '#', 'visible' => Yii::app()->user->checkAccess('controller_fccu'), 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                 'items' => array(
                     array('label' => 'Agregar', 'url' => array('/fccu/add'), 'visible' => Yii::app()->user->checkAccess('action_fccu_add')),
