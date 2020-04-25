@@ -4095,9 +4095,9 @@ label, input, button, select, textarea {
     top: 0;
   }
 
-  .user-list {
+  /* .user-list {
     display: none !important;
-  }
+  } */
 
   .messages.withlist {
     margin-right: 0 !important;
@@ -6770,6 +6770,10 @@ label, input, button, select, textarea {
 .tiles.nomargin {
   margin: 0;
 }
+.nomargin {
+  margin: 0 !important;
+}
+
 .tiles > li {
   float: left;
   margin: 8px 0 0 8px;
