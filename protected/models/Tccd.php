@@ -9,6 +9,7 @@
  * @property string $TCCD_Description
  * @property string $TCCD_Created
  * @property string $TCCD_Expired
+ * @property string $TCCD_Archived
  * @property integer $TCCD_Order
  * @property integer $TCCA_Id
  *
@@ -45,12 +46,11 @@ class Tccd extends CActiveRecord
 		return array(
 			array('TCCA_Id', 'required'),
 			array('TCCD_Order, TCCA_Id', 'numerical', 'integerOnly'=>true),
-			array('TCCD_Title, TCCD_Description', 'length', 'max'=>160),
-			array('TCCD_Description', 'length', 'max'=>800),
-			array('TCCD_Created, TCCD_Expired', 'safe'),
+			array('TCCD_Title', 'length', 'max'=>160),
+			array('TCCD_Description, TCCD_Created, TCCD_Expired, TCCD_Archived', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('TCCD_Id, TCCD_Title, TCCD_Description, TCCD_Created, TCCD_Expired, TCCD_Order, TCCA_Id', 'safe', 'on'=>'search'),
+			array('TCCD_Id, TCCD_Title, TCCD_Description, TCCD_Created, TCCD_Expired, TCCD_Archived, TCCD_Order, TCCA_Id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +77,7 @@ class Tccd extends CActiveRecord
 			'TCCD_Description' => 'Tccd Description',
 			'TCCD_Created' => 'Tccd Created',
 			'TCCD_Expired' => 'Tccd Expired',
+			'TCCD_Archived' => 'Tccd Archived',
 			'TCCD_Order' => 'Tccd Order',
 			'TCCA_Id' => 'Tcca',
 		);
@@ -98,6 +99,7 @@ class Tccd extends CActiveRecord
 		$criteria->compare('TCCD_Description',$this->TCCD_Description,true);
 		$criteria->compare('TCCD_Created',$this->TCCD_Created,true);
 		$criteria->compare('TCCD_Expired',$this->TCCD_Expired,true);
+		$criteria->compare('TCCD_Archived',$this->TCCD_Archived,true);
 		$criteria->compare('TCCD_Order',$this->TCCD_Order);
 		$criteria->compare('TCCA_Id',$this->TCCA_Id);
 

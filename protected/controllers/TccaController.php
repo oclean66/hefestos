@@ -33,13 +33,13 @@ class TccaController extends Controller
 			 }
 		}
 		$board=array();
-		$listas = Tcca::model()->findAll('TCCA_Type=1 and TCCA_BoardId =:id',array('id'=>$id));
+		$listas = Tcca::model()->findAll('TCCA_Type=1 and TCCA_BoardId =:id and TCCA_Archived is null',array('id'=>$id));
 		foreach ($listas as  $value) {
 			$board[]=array(
 				'id'=>$value->TCCA_Id,
 				'name'=>$value->TCCA_Name,
 				'order'=>1,
-				'task'=>Tccd::model()->findAll('TCCA_Id =:id',array('id'=>$value->TCCA_Id))
+				'task'=>Tccd::model()->findAll('TCCA_Id =:id order by TCCD_Order',array('id'=>$value->TCCA_Id))
 			);
 		}
 
@@ -116,11 +116,23 @@ class TccaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+		$model->TCCA_Archived = date('Y-m-d H:i');
+		$model->save();
+		echo "Archived";
+		
+	}
+	public function actionDeleteAll($id)
+	{
+		// Tcca::model()->update
+		Tccd::model()->updateAll(array('TCCD_Archived'=>date("Y-m-d")),'TCCA_Id="'.$id.'"');
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+
+		// $model = $this->loadModel($id);
+		// $model->TCCA_Archived = date('Y-m-d H:i');
+		// $model->save();
+		echo "All Archived";
+		
 	}
 
 	/**

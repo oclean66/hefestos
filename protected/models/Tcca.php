@@ -8,6 +8,8 @@
  * @property string $TCCA_Name
  * @property integer $TCCA_Type
  * @property integer $TCCA_BoardId
+ * @property integer $TCCA_Order
+ * @property string $TCCA_Archived
  *
  * The followings are the available model relations:
  * @property Tcca $tCCABoard
@@ -42,11 +44,12 @@ class Tcca extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('TCCA_Type, TCCA_BoardId', 'numerical', 'integerOnly'=>true),
+			array('TCCA_Type, TCCA_BoardId, TCCA_Order', 'numerical', 'integerOnly'=>true),
 			array('TCCA_Name', 'length', 'max'=>80),
+			array('TCCA_Archived', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('TCCA_Id, TCCA_Name, TCCA_Type, TCCA_BoardId', 'safe', 'on'=>'search'),
+			array('TCCA_Id, TCCA_Name, TCCA_Type, TCCA_BoardId, TCCA_Order, TCCA_Archived', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,6 +77,8 @@ class Tcca extends CActiveRecord
 			'TCCA_Name' => 'Tcca Name',
 			'TCCA_Type' => 'Tcca Type',
 			'TCCA_BoardId' => 'Tcca Board',
+			'TCCA_Order' => 'Tcca Order',
+			'TCCA_Archived' => 'Tcca Archived',
 		);
 	}
 
@@ -92,6 +97,8 @@ class Tcca extends CActiveRecord
 		$criteria->compare('TCCA_Name',$this->TCCA_Name,true);
 		$criteria->compare('TCCA_Type',$this->TCCA_Type);
 		$criteria->compare('TCCA_BoardId',$this->TCCA_BoardId);
+		$criteria->compare('TCCA_Order',$this->TCCA_Order);
+		$criteria->compare('TCCA_Archived',$this->TCCA_Archived,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
