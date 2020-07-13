@@ -1,29 +1,25 @@
 <?php
 
 /**
- * This is the model class for table "tccd".
+ * This is the model class for table "tcct".
  *
- * The followings are the available columns in table 'tccd':
+ * The followings are the available columns in table 'tcct':
+ * @property integer $TCCT_Id
+ * @property string $TCCT_Timestamp
+ * @property string $TCCT_Text
+ * @property integer $TCCT_IdUser
+ * @property string $TCCT_Type
  * @property integer $TCCD_Id
- * @property string $TCCD_Title
- * @property string $TCCD_Description
- * @property string $TCCD_Created
- * @property string $TCCD_Expired
- * @property string $TCCD_Archived
- * @property integer $TCCD_Order
- * @property integer $TCCA_Id
  *
  * The followings are the available model relations:
- * @property Tcca $tCCA
- * @property Tccl[] $tccls
- * @property Tcct[] $tccts
+ * @property Tccd $tCCD
  */
-class Tccd extends CActiveRecord
+class Tcct extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Tccd the static model class
+	 * @return Tcct the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -35,7 +31,7 @@ class Tccd extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tccd';
+		return 'tcct';
 	}
 
 	/**
@@ -46,13 +42,13 @@ class Tccd extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('TCCA_Id', 'required'),
-			array('TCCD_Order, TCCA_Id', 'numerical', 'integerOnly'=>true),
-			array('TCCD_Title', 'length', 'max'=>160),
-			array('TCCD_Description, TCCD_Created, TCCD_Expired, TCCD_Archived', 'safe'),
+			array('TCCD_Id', 'required'),
+			array('TCCT_IdUser, TCCD_Id', 'numerical', 'integerOnly'=>true),
+			array('TCCT_Type', 'length', 'max'=>45),
+			array('TCCT_Timestamp, TCCT_Text', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('TCCD_Id, TCCD_Title, TCCD_Description, TCCD_Created, TCCD_Expired, TCCD_Archived, TCCD_Order, TCCA_Id', 'safe', 'on'=>'search'),
+			array('TCCT_Id, TCCT_Timestamp, TCCT_Text, TCCT_IdUser, TCCT_Type, TCCD_Id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,9 +60,7 @@ class Tccd extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tCCA' => array(self::BELONGS_TO, 'Tcca', 'TCCA_Id'),
-			'tccls' => array(self::MANY_MANY, 'Tccl', 'tccd_has_tccl(tccd_TCCD_Id, tccl_TCCL_Id)'),
-			'tccts' => array(self::HAS_MANY, 'Tcct', 'TCCD_Id'),
+			'tCCD' => array(self::BELONGS_TO, 'Tccd', 'TCCD_Id'),
 		);
 	}
 
@@ -76,14 +70,12 @@ class Tccd extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'TCCT_Id' => 'Tcct',
+			'TCCT_Timestamp' => 'Tcct Timestamp',
+			'TCCT_Text' => 'Tcct Text',
+			'TCCT_IdUser' => 'Tcct Id User',
+			'TCCT_Type' => 'Tcct Type',
 			'TCCD_Id' => 'Tccd',
-			'TCCD_Title' => 'Tccd Title',
-			'TCCD_Description' => 'Tccd Description',
-			'TCCD_Created' => 'Tccd Created',
-			'TCCD_Expired' => 'Tccd Expired',
-			'TCCD_Archived' => 'Tccd Archived',
-			'TCCD_Order' => 'Tccd Order',
-			'TCCA_Id' => 'Tcca',
 		);
 	}
 
@@ -98,14 +90,12 @@ class Tccd extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('TCCT_Id',$this->TCCT_Id);
+		$criteria->compare('TCCT_Timestamp',$this->TCCT_Timestamp,true);
+		$criteria->compare('TCCT_Text',$this->TCCT_Text,true);
+		$criteria->compare('TCCT_IdUser',$this->TCCT_IdUser);
+		$criteria->compare('TCCT_Type',$this->TCCT_Type,true);
 		$criteria->compare('TCCD_Id',$this->TCCD_Id);
-		$criteria->compare('TCCD_Title',$this->TCCD_Title,true);
-		$criteria->compare('TCCD_Description',$this->TCCD_Description,true);
-		$criteria->compare('TCCD_Created',$this->TCCD_Created,true);
-		$criteria->compare('TCCD_Expired',$this->TCCD_Expired,true);
-		$criteria->compare('TCCD_Archived',$this->TCCD_Archived,true);
-		$criteria->compare('TCCD_Order',$this->TCCD_Order);
-		$criteria->compare('TCCA_Id',$this->TCCA_Id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

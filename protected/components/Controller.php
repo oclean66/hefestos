@@ -32,4 +32,19 @@ class Controller extends CController {
         );
     }
 
+    public function sendNotification($id, $title, $url){
+		$noti = new Tccn;
+		$noti->TCCN_IdUSer = $id;
+		$noti->TCCN_Title=$title;
+		$noti->TCCN_Created = date("Y-m-d H:i");
+		$noti->TCCN_Read = 0;
+		$noti->TCCN_Url = $url;
+		// TCCN_Thread
+		if(!$noti->save()){
+			print_r($noti->getErrors());
+		}
+
+    }
+    
+
 }

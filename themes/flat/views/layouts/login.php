@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title><?php echo Yii::app()->name;?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Aplicacion de administracion de parley">
+        <meta name="description" content="Administrador de Inventarios">
         <meta name="author" content="<?php echo Yii::app()->name;?>">
 
         <!--[if lte IE 9]>

@@ -10,9 +10,9 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	//array('label'=>'List Gcca', 'url'=>array('index')),
-	array('label'=>'Crear Gcca', 'url'=>array('create')),
-	array('label'=>'Ver Gcca', 'url'=>array('view', 'id'=>$model->GCCA_Id)),
-	array('label'=>'Administrar Gcca', 'url'=>array('admin')),
+	array('label'=>'Crear Agencia', 'url'=>array('create')),
+	array('label'=>'Ver Agencia', 'url'=>array('view', 'id'=>$model->GCCA_Id)),
+	array('label'=>'Administrar Agencia', 'url'=>array('admin')),
 );
 ?>
 

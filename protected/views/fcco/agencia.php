@@ -17,7 +17,7 @@ $this->menu = array(
     ),
     array('label' => 'Asignar Activos', 'url' => array('create')),
      array('label' => 'Administrar Agencias', 'url' => CController::createUrl('gcca/admin')),
-     array('label' => 'Eliminar Agencia', 'url' => CController::createUrl('gcca/delete', array('id' => $agencia->GCCA_Id))),
+     array('label' => 'Actualizar Agencia', 'url' => CController::createUrl('gcca/update', array('id' => $agencia->GCCA_Id))),
 );
 
 foreach ($count as $key => $value) {
@@ -41,6 +41,11 @@ foreach ($count as $key => $value) {
     <!-- /.modal-dialog -->
 </div>
 
+
+<!-- <button data-id="<?php echo $agencia->GCCA_Id;?>" class="btn btn-xs btn-success">Activar</button>
+<button data-id="<?php echo $agencia->GCCA_Id;?>" class="btn btn-xs btn-info">Ocultar</button>
+<button data-id="<?php echo $agencia->GCCA_Id;?>" class="btn btn-xs btn-danger">Desactivar</button> -->
+<!-- <a target="_blank" href="<?php echo Yii::app()->createUrl('gcca/update',array('id'=>$agencia->GCCA_Id));?>" class="btn btn-xs btn-primary pull-right">Editar</a> -->
 
 
 <div class="box box-bordered box-color hidden-print">
@@ -71,9 +76,9 @@ foreach ($count as $key => $value) {
                  
                 array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->fCCU->FCCU_Serial'),
                 //verificacion
-                array('name' => 'GCCA_Id', 'header' => 'Agencia','visible'=>Yii::app()->user->isSuperAdmin),
-                array('name' => 'FCCN_Id', 'header' => 'tipo','visible'=>Yii::app()->user->isSuperAdmin),
-                array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
+                // array('name' => 'GCCA_Id', 'header' => 'Agencia','visible'=>Yii::app()->user->isSuperAdmin),
+                // array('name' => 'FCCN_Id', 'header' => 'tipo','visible'=>Yii::app()->user->isSuperAdmin),
+                // array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
                   array('value'=>'$data->gCCD->GCCD_Nombre."/".$data->gCCD->GCCD_Id','header'=>'Grupo','visible'=>Yii::app()->user->isSuperAdmin),
                 //campos de busqueda relacionada
                 array(
@@ -110,7 +115,7 @@ foreach ($count as $key => $value) {
                         'preview' =>
                         array(
                             'label'=>'Ver Ticket',
-                            'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>1,"view"=>1))',
+                            'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>1,"view"=>1,"agencia"=>'.$agencia->GCCA_Id.'))',
                             'imageUrl'=>Yii::app()->theme->baseUrl . "/img/page.png",
                             'options' => array(
                                 'ajax' => array(

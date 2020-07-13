@@ -8829,3 +8829,30 @@ a:focus {
     visibility: hidden;
     display: none;
 }
+
+.alert-card{
+  background-color:#fff;
+  margin-bottom:5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom:5px;
+  padding-top:5px;
+  font-size:14px;
+  box-shadow: 0px 1px 2px #a0a0a0;
+
+}
+.alert-card.notificacion{
+  margin:5px;
+  background-color:white;
+}
+
+.alert-card.notificacion.active{
+  background-color: #00aba9;;
+}
+
+.alert-card.notificacion.active>a{
+  background-color: #00aba9;
+}
+.alert-card.notificacion.active {
+  background-color: #f8a31f;
+}

@@ -100,7 +100,7 @@ class Gcca extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('GCCA_Id', $this->GCCA_Id, true);
-        $criteria->compare('GCCD_Id', $this->GCCD_Id, true);
+        $criteria->compare('GCCD_Id', $this->GCCD_Id, false);
         $criteria->compare('GCCA_Cod', $this->GCCA_Cod, true);
         $criteria->compare('GCCA_Nombre', $this->GCCA_Nombre, true);
         $criteria->compare('GCCA_Direccion', $this->GCCA_Direccion, true);
@@ -111,7 +111,11 @@ class Gcca extends CActiveRecord {
          $criteria->compare('GCCA_Email', $this->GCCA_Email, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,'pagination' => array('pageSize' => 100)
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
+            'sort'=>array(
+                'defaultOrder'=>'GCCA_Cod',
+            ),
         ));
     }
     public function behaviors() {

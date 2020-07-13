@@ -1,6 +1,6 @@
 <?php
 
-class GccaController extends Controller
+class TccnController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -8,44 +8,24 @@ class GccaController extends Controller
 	 */
 	public $layout='//layouts/column2';
 
-	
+	public function actionRemove(){
+		$id = Yii::app()->user->id;
+
+		Tccn::model()->updateAll(
+			$attributes=array('TCCN_Read'=>date("Y-m-d H:i")),
+			$condition="TCCN_IdUSer=:id",
+			array(':id'=>$id)
+		);
+	}
 
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id, $excel=false)
+	public function actionView($id)
 	{
-		$agencia = $this->loadModel($id);
-		$model = new Fcco('search');
-        $model->unsetAttributes();  // clear any default values
-        $model->GCCA_Id = "=" . $id;
-
-		
-		if (isset($_GET['Fcco'])) {
-			
-			$model->attributes = $_GET['Fcco'];
-            $model->GCCA_Id = "=" . $id;
-            // $model->FCCN_Id = 1;
-        }
-		$model->FCCO_Enabled = 0; // historial asignado
-		// $model->FCCN_Id = 1; //operacion asignado
-		
-		// $model->FCCO_Enabled = 0; //asignado actualmente
-
-
-        $model->desde = date('2000-01-01');
-		$model->hasta = date('2025-01-01');
-		
-		if ($excel) {
-            //
-            $content = $this->renderPartial("_search", array('model'=>$model), true, true);
-            
-            Yii::app()->request->sendFile('Historial Agencia '.$agencia->concatened.'.xls', $content);
-        }
 		$this->render('view',array(
-			'model'=>$agencia,
-			'historial'=>$model
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -53,22 +33,22 @@ class GccaController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id=null)
+	public function actionCreate()
 	{
-		$model=new Gcca;
+		$model=new Tccn;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Gcca']))
+		if(isset($_POST['Tccn']))
 		{
-			$model->attributes=$_POST['Gcca'];
+			$model->attributes=$_POST['Tccn'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->GCCA_Id));
+				$this->redirect(array('view','id'=>$model->TCCN_Id));
 		}
 
 		$this->render('create',array(
-			'model'=>$model,'id'=>$id
+			'model'=>$model,
 		));
 	}
 
@@ -84,11 +64,11 @@ class GccaController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Gcca']))
+		if(isset($_POST['Tccn']))
 		{
-			$model->attributes=$_POST['Gcca'];
+			$model->attributes=$_POST['Tccn'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->GCCA_Id));
+				$this->redirect(array('view','id'=>$model->TCCN_Id));
 		}
 
 		$this->render('update',array(
@@ -103,13 +83,9 @@ class GccaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$object = $this->loadModel($id);
-		if($object->GCCA_Status==0){
-			$object->GCCA_Status = 1 ;
-		}else{
-			$object->GCCA_Status=0;
-		}
-		$object->save();
+		$model = $this->loadModel($id);
+		$model->TCCN_Read = date("Y-m-d H:i");
+		$model->save();
 		// ->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -117,13 +93,26 @@ class GccaController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		$dataProvider=new CActiveDataProvider('Tccn');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
+	/**
+	 * Manages all models.
+	 */
 	public function actionAdmin()
 	{
-		$model=new Gcca('search');
+		$model=new Tccn('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Gcca']))
-			$model->attributes=$_GET['Gcca'];
+		if(isset($_GET['Tccn']))
+			$model->attributes=$_GET['Tccn'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -134,12 +123,12 @@ class GccaController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Gcca the loaded model
+	 * @return Tccn the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Gcca::model()->findByPk($id);
+		$model=Tccn::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -147,11 +136,11 @@ class GccaController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Gcca $model the model to be validated
+	 * @param Tccn $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='gcca-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='tccn-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -12,30 +12,32 @@
 /* @var $this FccoController */
 /* @var $model Fcco */
 
-$this->breadcrumbs = array(
-    'Fccos' => array('index'),
-    'Administrar',
-);
 
-//$this->menu = array(
-//    array('label' => 'Listar Fcco', 'url' => array('index')),
-//    array('label' => 'Crear Fcco', 'url' => array('create')),
-//);
 ?>
 
-<h1>Asignaciones Generales</h1>
-<div class="col-sm-4">
-    <div class="arbol filetree-callbacks " >
-        <?php echo $arbol; ?>
+<div class="row">
+
+
+    <div class="col-sm-4">
+        <div class="box box-bordered">
+            <div class="box-title">
+                <h3>
+                    <i class="fa fa-magic"></i>
+                    Arbol del Sistema 4.0
+                </h3>
+            </div>
+
+            <div class="arbol filetree-callbacks " style="overflow:auto;">
+                <?php echo $arbol; ?>
+            </div>
+        </div>
+
+
     </div>
-
-
-</div>
-<div class="col-sm-8" id='place'>
-    <div class="well">
+    <div class="col-sm-8" id='place' >
+      
 
     </div>
-
 </div>
 
 <script type="text/javascript">
@@ -52,7 +54,7 @@ $this->breadcrumbs = array(
                     $.ajax({
                         url: node.data.url,
                         beforeSend: function (xhr) {
-                            $('#place').html('<div class="progress progress-striped active"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">								<span class="sr-only">45% Complete</span></div></div>');
+                            $('#place').html('<div class="progress progress-striped active" style="margin-top:20px;"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">								<span class="sr-only">45% Complete</span></div></div>');
                         }
                     })
                             .done(function (data) {
@@ -78,35 +80,12 @@ $this->breadcrumbs = array(
             $el.dynatree(opt);
         });
     }
+
+    $(function(){
+        var board = $(".arbol" );
+        var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		board.css({"max-height":(h-140)});
+    })
+
 </script>
 
-
-<?php
-//$this->widget('zii.widgets.grid.CGridView', array(
-//    'id' => 'fcco-grid',
-//    'dataProvider' => $model->search(),
-//    'filter' => $model,
-//    'itemsCssClass' => 'table table-striped table-bordered table-hover',
-//    'pagerCssClass' => 'table-pagination',
-//    'pager' => array(
-//        'htmlOptions' => array('class' => 'pagination'),
-//        'selectedPageCssClass' => 'active',
-//    ),
-//    'columns' => array(
-//        'FCCO_Id',
-//        'FCCO_Timestamp',
-//        'FCCO_Lote',
-//        'FCCO_Descripcion',
-//        'FCCO_Enabled',
-//        'FCCN_Id',
-//        /*
-//          'FCCU_Id',
-//          'GCCA_Id',
-//          'GCCD_Id',
-//         */
-//        array(
-//            'class' => 'CButtonColumn', 'headerHtmlOptions' => array('style' => 'width:83px'),
-//        ),
-//    ),
-//));
-?>

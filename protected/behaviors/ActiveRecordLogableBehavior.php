@@ -20,9 +20,8 @@ class ActiveRecordLogableBehavior extends CActiveRecordBehavior {
                 } else {
                     $old = '{VACIO}';
                 }
-                if($old=="") $old = '{VACIO}';
                 if ($value != $old)
-                    $changes = $changes . " " . $this->Owner->getAttributeLabel($name) . ' (' . $old . ') => (' . $value . ')<br />';
+                    $changes = $changes . " " . $this->Owner->getAttributeLabel($name) . ' (' . $old . ') => (' . $value . '),';
                 if ($value != $old)
                     $names = $names . " " . $this->Owner->getAttributeLabel($name) . ',';
             }
@@ -34,7 +33,7 @@ class ActiveRecordLogableBehavior extends CActiveRecordBehavior {
                     . ' actualizo ' . $names . ' en '
                     . CrugeTranslator::t('classes', get_class($this->Owner));
             $log->PCUE_Action = 'ACTUALIZAR';
-            $log->PCUE_Model =  get_class($this->Owner);
+            $log->PCUE_Model = CrugeTranslator::t('classes', get_class($this->Owner));
             $id = $this->Owner->getPrimaryKey();
 
             $log->PCUE_IdModel = is_array($id) ? implode(",", $id) : $id;
@@ -49,7 +48,7 @@ class ActiveRecordLogableBehavior extends CActiveRecordBehavior {
             foreach ($newattributes as $name => $value) {
                 if (empty($value))
                     $value = '{VACIO}';
-                $changes = $changes . ' ' . $this->Owner->getAttributeLabel($name) . ' => ' . $value . '<br /> ';
+                $changes = $changes . ' ' . $this->Owner->getAttributeLabel($name) . ' => ' . $value . ', ';
             }
 
             $log = new Pcue;
@@ -67,14 +66,6 @@ class ActiveRecordLogableBehavior extends CActiveRecordBehavior {
             $log->PCUE_Detalles = $changes;
             $log->save();
         }
-
-        //GUARDO EN FISICO
-       
-        $file = fopen('d:\MYLOG.txt', 'a');
-
-        fwrite($file,   date('l jS \of F Y h:i:s A')." - ".$log->PCUE_Descripcion." - ID: ".$log->PCUE_IdModel." MODEL ".$log->PCUE_Model." - ".$changes. PHP_EOL);
-        
-        fclose($file);
 
     }
 

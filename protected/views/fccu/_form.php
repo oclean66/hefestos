@@ -7,18 +7,18 @@
 <div class="box box-bordered box-color">
     <div class="box-title">
         <h3>
-            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?>Fccu</h3>
+            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?> Activo</h3>
     </div>
     <div class="box-content nopadding">
 
         <?php
-        $editable = false;
-         if($model->isNewRecord || Yii::app()->user->isSuperAdmin){$editable = true;} 
-        $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'fccu-form',
-            'enableAjaxValidation' => false,
-            'htmlOptions' => array('class' => 'form-horizontal form-bordered'),
-        ));
+            $editable = false;
+            if($model->isNewRecord || Yii::app()->user->isSuperAdmin){$editable = true;} 
+            $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'fccu-form',
+                'enableAjaxValidation' => false,
+                'htmlOptions' => array('class' => 'form-horizontal form-bordered'),
+            ));
         ?>
 
 
@@ -28,7 +28,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCU_Serial', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'FCCU_Serial', array($editable ? '' : 'readonly' => 'readonly', 'class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
+                <?php echo $form->textField($model, 'FCCU_Serial', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
                 <?php echo $form->error($model, 'FCCU_Serial', array('class' => 'label label-danger')); ?>
             </div>
         </div>
@@ -86,7 +86,7 @@
             <div class="col-sm-10">
                 <?php //echo $form->textField($model, 'FCCU_TipoServicio', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
                 <?php
-                echo $form->dropDownList($model, 'FCCU_TipoServicio', array('0' => 'No Posee', '1' => 'Pre-Pago', '2' => 'Corporativa'), array('empty' => 'Selecciona Servicio', 'class' => 'form-control'));
+                echo $form->dropDownList($model, 'FCCU_TipoServicio', array('0' => 'No Posee', '1' => 'Pre-Pago', '2' => 'Corporativa'), array('empty' => 'Selecciona Servicio'));
                 ?>
                 <?php echo $form->error($model, 'FCCU_TipoServicio', array('class' => 'label label-danger')); ?>
             </div>
@@ -112,7 +112,7 @@
             <?php echo $form->labelEx($model, 'FCCU_Facturado', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCU_Facturado', array('0' => 'No', '1' => 'Si', '2' => 'No aplica'), array('empty' => 'Selecciona Servicio', 'class' => 'form-control'));
+                echo $form->dropDownList($model, 'FCCU_Facturado', array('0' => 'No', '1' => 'Si', '2' => 'No aplica'), array('empty' => 'Selecciona Servicio', ));
                 ?>
                 <?php echo $form->error($model, 'FCCU_Facturado', array('class' => 'label label-danger')); ?>
             </div>
@@ -122,7 +122,7 @@
             <?php echo $form->labelEx($model, 'FCCD_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCD_Id', CHtml::listData(Fccd::model()->findAll(), 'FCCD_Id', 'FCCD_Descripcion'), array('class' => 'form-control', 'prompt' => 'Seleccione un Operador...'));
+                echo $form->dropDownList($model, 'FCCD_Id', CHtml::listData(Fccd::model()->findAll(), 'FCCD_Id', 'FCCD_Descripcion'), array( 'prompt' => 'Seleccione un Operador...'));
                 ?>
                 <?php echo $form->error($model, 'FCCD_Id', array('class' => 'label label-danger')); ?>
             </div>
@@ -141,7 +141,7 @@
             <?php echo $form->labelEx($model, 'FCCI_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'), array('class' => 'form-control'/*,$editable ? '' : 'disabled' => 'disabled'*/, 'prompt' => 'Seleccione un estado...'));
+                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'), array('prompt' => 'Seleccione un estado...'));
                 ?>
                 <?php //echo $form->textField($model, 'FCCI_Id', array('class' => 'form-control', 'size' => 10, 'maxlength' => 10)); ?>
                 <?php echo $form->error($model, 'FCCI_Id', array('class' => 'label label-danger')); ?>
