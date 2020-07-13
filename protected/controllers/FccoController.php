@@ -28,8 +28,20 @@ class FccoController extends Controller {
         if (isset($_GET['Fcco']))
             $model->attributes = $_GET['Fcco'];
 
+        // $array = array();
+        $query = new CDbCriteria;
+        $query->select = "count(*) as FCCO_Id, GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d') as FCCO_Timestamp";
+        $query->condition = "FCCO_Timestamp BETWEEN '".$model->desde."' and '".$model->hasta."'";
+        $query->group="GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
+        $query->order="FCCO_Timestamp desc";
+        $agencias = Fcco::model()->findAll($query);
+
         $this->render('report', array(
-            'model' => $model, 'FCCN_Id' => $FCCN_Id,'desde'=>$model->desde,'hasta'=>$model->hasta
+            'model' => $model, 
+            'agencias'=>$agencias,
+            'FCCN_Id' => $FCCN_Id,
+            'desde'=>$model->desde,
+            'hasta'=>$model->hasta
         ));
     }
 
@@ -75,19 +87,20 @@ class FccoController extends Controller {
         }
     }
 
-    public function actionView($id, $tipo = null, $view = null) {
+    public function actionView($id, $tipo = null, $view = null, $agencia) {
+        $model = Gcca::model()->find('GCCA_Id=:id',array(':id'=>$agencia));
         if ($tipo == null)
             $tipo = 1;
 
-        $model = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
+        $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
 
         if ($view === null)
             $this->render('view', array(
-                'modelo' => $model, 'tipo' => $tipo
+                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'lote'=>$id
             ));
         else
             $this->renderPartial('view', array(
-                'modelo' => $model, 'tipo' => $tipo
+                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'lote'=>$id
             ));
     }
 
@@ -316,7 +329,7 @@ class FccoController extends Controller {
                 }
             }
 
-            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1));
+            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia'=>$modelo->GCCA_Id));
             // print_r($_POST);
         } else {
             $this->render('create', array(

@@ -35,9 +35,11 @@ $this->menu=array(
 						//'GCCA_Id',
 						
 						'GCCA_Cod',
-						'GCCA_Nombre',array('name'=>'GCCD_Id','value'=>$model->gCCD->concatened),
+						'GCCA_Nombre',
+						array('name'=>'GCCD_Id','value'=>$model->gCCD->concatened),
 						'GCCA_Direccion',
-						'GCCA_Status',
+						// 'GCCA_Status',
+						array('name'=>'GCCA_Status','value'=>$model->GCCA_Status==1?"Activva":"Inactiva"),
 						'GCCA_Rif',
 						'GCCA_Responsable',
 						'GCCA_Telefono',
@@ -92,9 +94,18 @@ $this->menu=array(
 					
 					array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->fCCU->FCCU_Serial'),
 					//verificacion
-					array('name' => 'GCCA_Id', 'header' => 'Agencia','visible'=>Yii::app()->user->isSuperAdmin),
-					array('name' => 'FCCN_Id', 'header' => 'tipo','visible'=>Yii::app()->user->isSuperAdmin),
-					array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
+					// array('name' => 'GCCA_Id', 'header' => 'Agencia','visible'=>Yii::app()->user->isSuperAdmin),
+					
+					array(
+						'name' => 'FCCN_Id', 
+						// 'header' => 'Operacion',
+						'value'=>'$data->FCCN_Id==1?"Salida":"Entrada"',
+						'filter'=>array('' => 'Todos', '2' => 'Entrada', '1' => 'Salida')
+						// 'visible'=>Yii::app()->user->isSuperAdmin
+					),
+
+					// array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
+
 					array('value'=>'$data->gCCD->GCCD_Nombre."/".$data->gCCD->GCCD_Id','header'=>'Grupo','visible'=>Yii::app()->user->isSuperAdmin),
 					//campos de busqueda relacionada
 					array(
@@ -131,7 +142,8 @@ $this->menu=array(
 							'preview' =>
 							array(
 								'label'=>'Ver Ticket',
-								'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>1,"view"=>1))',
+								// 'visible'=>'$data->FCCN_Id==1?true:false',
+								'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1, "agencia"=>"'.$model->GCCA_Id.'"))',
 								'imageUrl'=>Yii::app()->theme->baseUrl . "/img/page.png",
 								'options' => array(
 									'ajax' => array(
@@ -156,6 +168,7 @@ $this->menu=array(
 							),
 							
 						'recibe' => array(
+								'visible'=>'$data->FCCN_Id==1?true:false',
 								'label' => 'Recibir', // text label of the button
 								'url' => 'Yii::app()->createUrl("fcco/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
 								'imageUrl' => Yii::app()->theme->baseUrl.'/img/computer_go.png', // image URL of the button. If not set or false, a text link is used

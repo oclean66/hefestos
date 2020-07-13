@@ -8,7 +8,7 @@
 	$loaderSrc = Yii::app()->user->ui->getResource('loading.gif');
 	$loaderImg = "<img src='{$loaderSrc}'>";
 
-	$selectedUserGetter = 'userdescription';
+	$selectedUserGetter = 'username';
 ?>
 <div class='form'>
 <div class='crugepanel user-assignments-role-list'>
@@ -54,7 +54,7 @@
 	<?php 
 		$this->widget(Yii::app()->user->ui->CGridViewClass, array(
 			'id'=>'_lista2',
-			'selectableRows'=>2,
+			'selectableRows'=>1,
 			'dataProvider'=>$allUsersDataProvider,
 			'columns'=>array(
 				array(

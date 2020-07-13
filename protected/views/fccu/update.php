@@ -10,9 +10,9 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	//array('label'=>'List Fccu', 'url'=>array('index')),
-	array('label'=>'Crear Fccu', 'url'=>array('create')),
-	array('label'=>'Ver Fccu', 'url'=>array('view', 'id'=>$model->FCCU_Id)),
-	array('label'=>'Administrar Fccu', 'url'=>array('admin')),
+	// array('label'=>'Crear Fccu', 'url'=>array('create')),
+	array('label'=>'Ver Activo', 'url'=>array('view', 'id'=>$model->FCCU_Id)),
+	array('label'=>'Administrar Activos', 'url'=>array('admin')),
 );
 ?>
 

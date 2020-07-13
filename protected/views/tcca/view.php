@@ -2,12 +2,16 @@
 // css/plugins/xeditable/bootstrap-editable.css
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl. '/css/plugins/xeditable/bootstrap-editable.css', 'screen');
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl. '/css/plugins/icheck/all.css', 'screen');
+// Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl. '/css/plugins/chosen/chosen.css', 'screen');
+
 // Yii::app()->clientScript->registerCssFile('https://raw.githubusercontent.com/fronteed/icheck/1.x/skins/flat/orange.css', 'screen');
 
 // // Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/plugins/jquery-ui/jquery.ui.droppable.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/plugins/jquery-ui/jquery.ui.draggable.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/plugins/xeditable/bootstrap-editable.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/plugins/icheck/jquery.icheck.min.js');
+// Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/plugins/chosen/chosen.jquery.min.js');
+
 // Yii::app()->clientScript->registerScriptFile('https://raw.githubusercontent.com/fronteed/icheck/1.x/icheck.js');
 
 // $this->menu=array(
@@ -18,11 +22,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 // 	// array('label'=>'admin', 'url'=>array('admin')),
 // );
 ?>
+
 <div class="page-header">
 	<div class="pull-left">
 		
-		<h3 class="nopadding nomargin">
-			<a href="<?php echo Yii::app()->createUrl('tcca')?>" class="btn ">
+		<h4 class="nopadding nomargin">
+			<a href="<?php echo Yii::app()->createUrl('tcca')?>" class="btn btn-sm btn-primary">
 				<i class="fa fa-arrow-left"></i>
 			</a>
 				<span style="display:inline-flex" data-url="<?php echo Yii::app()->createUrl('tcca/update',array('id'=>$model->TCCA_Id))?>" 
@@ -30,7 +35,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 				data-type="text" data-pk="<?php echo $model->TCCA_Id; ?>" data-id="<?php echo $model->TCCA_Id; ?>"  >
 				<?php echo $model->TCCA_Name; ?>
 			</span>
-		</h3>
+		</h4>
 	</div>
 	<div class="pull-right">
 	
@@ -47,43 +52,142 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 			<div class="btn-group /*hidden-768*/">
 
 				<div class="dropdown">
-					<a href="#" class="btn" data-toggle="dropdown" rel="tooltip" data-placement="top" title="" data-original-title="Participantes del Tablero">
+					<a href="#" class="btn btn-primary" data-toggle="dropdown" rel="tooltip" data-placement="bottom" title="" data-original-title="Participantes del Tablero">
 					<i class="fa fa-group"></i>
 						<span class="caret"></span>
 					</a>
-					<div class="dropdown-menu user-list dropdown-menu-right" style="top:30px;padding:0;box-shadow: 2px 2px 4px 2px lightgrey;border: grey 1px solid;border-radius: 5px;">
+					<div class="dropdown-menu user-list dropdown-menu-right" style="width:auto;top:30px;padding:0;box-shadow: 2px 2px 4px 2px lightgrey;border: grey 1px solid;border-radius: 5px;">
 						
 							<h4 style="margin:0;">Participantes</h4>
-							<div class="box-content nopadding scrollable"  data-visible="true" style="overflow: hidden; width: auto;">
+							<div class="box-content nopadding scrollable"  data-visible="true" style="overflow: auto;height:450px; width: auto;">
 								<table class="table table-user table-nohead nomargin">
 									<tbody>
-										<tr>
-											<td colspan="2" class="nopadding">
-												<a href="#" class="btn btn-block btn-text-left">
-													<i class="fa fa-plus-square"></i> Invitar al Tablero
-												</a>
-											</td>									
-										</tr>
+										
+										<?php 											
+										 foreach( $users as $user){																							
+										?>
 
 										<tr>																					
 											<td  class="user">
-												<i class="fa fa-user"></i> Dan Doe
+												<i class="fa fa-user"></i> <?php echo $user['username'];?>
+												
+												<!-- <br/>
+												<small class="truncate"><?php echo $user['email'];?></small> -->
+												
+												
 											</td>
 											<td class="icon">  
-												<a href="#" class="btn" onClick="alert('Estas seguro que quieres eliminar este participante?')">
+											<?php if($user['status']=="Administrador"){													
+													echo '<a href="#" class="btn btn-mini btn-warning" >
+													Propietario
+												</a>';
+												}?>
+												
+												<?php if($user['status'] && $user['status']!="Administrador"){
+
+													echo CHtml::ajaxLink(
+														'Eliminar',          // the link body (it will NOT be HTML-encoded.)
+														array('tccm/toggle'), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+														array(
+															
+															'dataType'=>'json',	
+															'data'=>array(
+																'iduser'=>$user['iduser'],
+																'idmodel'=>$model->TCCA_Id,
+																'model'=>'TCCA'
+															),
+															'beforeSend' => 'function(xhr, opts) {           
+																var confirmed = confirm("Seguro quieres agregar este participante al tablero?");
+																if(!confirmed)  xhr.abort();
+															}',
+															'complete' => 'function(response, error) {
+																if(response.responseText=="Agregar")
+																	$("#add'.$user['iduser'].'").removeClass("btn-danger");
+																	$("#add'.$user['iduser'].'").addClass("btn-success");
+																if(response.responseText=="Eliminar")
+																	$("#add'.$user['iduser'].'").removeClass("btn-success");
+																	$("#add'.$user['iduser'].'").addClass("btn-danger");
+
+															$("#add'.$user['iduser'].'").html(response.responseText);
+															}',        
+														),array(
+															'rel'=>"tooltip",
+															'data-placement'=>"left",
+															// 'data-original-title'=>"ELiminar del Tablero",
+															'class'=>"btn btn-mini btn-danger", 
+															'id'=>'add'.$user['iduser']
+														)
+													);	
+
+													?>
+												
+
+													
+													<?php
+												}
+												if(!$user['status'] ){
+													echo CHtml::ajaxLink(
+														'Agregar',          // the link body (it will NOT be HTML-encoded.)
+														array('tccm/toggle'), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+														array(
+															
+															'dataType'=>'json',	
+															'data'=>array(
+																'iduser'=>$user['iduser'],
+																'idmodel'=>$model->TCCA_Id,
+																'model'=>'TCCA'
+															),
+															'beforeSend' => 'function(xhr, opts) {           
+																var confirmed = confirm("Seguro quieres agregar este participante al tablero?");
+																if(!confirmed)  xhr.abort();
+															}',
+															'complete' => 'function(response, error) {
+																if(response.responseText=="Agregar")
+																	$("#add'.$user['iduser'].'").removeClass("btn-danger");
+																	$("#add'.$user['iduser'].'").addClass("btn-success");
+																if(response.responseText=="Eliminar")
+																	$("#add'.$user['iduser'].'").removeClass("btn-success");
+																	$("#add'.$user['iduser'].'").addClass("btn-danger");
+
+																$("#add'.$user['iduser'].'").html(response.responseText);
+															}',        
+														),array(
+															'rel'=>"tooltip",
+															'data-placement'=>"left",
+															// 'data-original-title'=>"Agregar al Tablero",
+															'class'=>"btn btn-mini btn-success", 
+															'id'=>'add'.$user['iduser']
+														)
+													);													
+
+													?>
+												
+
+													
+													<?php
+												}?>
+												<!-- <a href="#" class="btn btn-mini btn-danger" data-toggle="dropdown" rel="tooltip" data-placement="left" title="" data-original-title="Eliminar del Tablero" onClick="alert('Estas seguro que quieres eliminar este participante?')">
 													<i class="fa fa-times"></i>
-												</a>
+												</a> -->
+												
+												
 											</td>
 										</tr>
+										<?php 										
+										}
+
+										if(!$admin){
+										?>
 										
-										
-										<tr>
+
+										<!-- <tr>
 											<td colspan="2" class="nopadding">
-												<a href="#" onClick="alert('Estas seguro que quieres dejar el tablero?')" class="btn btn-block btn-text-left btn-danger nomargin">
+												<a href="#" onClick="confirm('Estas seguro que quieres dejar el tablero?')" class="btn btn-block btn-text-left btn-danger nomargin">
 													<i class="fa fa-sign-out"></i> Dejar el Tablero
 												</a>
 											</td>										
-										</tr>
+										</tr> -->
+										<?php } ?>
 									</tbody>
 								</table>
 							</div>
@@ -96,7 +200,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 			<div class="btn-group /*hidden-768*/">
 
 				<div class="dropdown">
-					<a href="#" class="btn" data-toggle="dropdown" rel="tooltip" data-placement="top" title="" data-original-title="Opciones del Tablero">
+					<a href="#" class="btn btn-primary" data-toggle="dropdown" rel="tooltip" data-placement="bottom" title="" data-original-title="Opciones del Tablero">
 						<i class="fa fa-cog"></i>
 						<span class="caret"></span>
 					</a>
@@ -146,18 +250,25 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 		foreach ($lists as $value) {
 			// print_r($value);
 			?>
-			<div class="box box-small" id="List-<?php echo $value['id']; ?>">
+			<div class="box box-small" id="List-<?php echo $value['TCCA_Id']; ?>"
+								data-board="<?php echo $model->TCCA_Id; ?>"
+								data-pos="<?php echo $value['TCCA_Order']; ?>"
+								data-toggle="modal" 
+								data-id="<?php echo $value['TCCA_Id']; ?>" 
+								 >
 			<!-- <div class="progress"> <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:45%"><span class="sr-only">45% Complete</span></div> </div> -->
 
-				<div class="box-title" style="margin-top:5px;">
+				<div class="box-title" style="margin-top:0px;padding-bottom:5px">
 					<h3>
 						<i class="fa fa-inbox"></i>
-						<span data-url="<?php echo Yii::app()->createUrl('tcca/update',array('id'=>$value['id']))?>" 
+						<span data-url="<?php echo Yii::app()->createUrl('tcca/update',array('id'=>$value['TCCA_Id']))?>" 
 							class="listTitle" data-placement="right" id="TCCA_Name" 
-							data-type="text" data-pk="<?php echo $value['id']; ?>" data-id="<?php echo $value['id']; ?>" 
+							data-type="text" data-pk="<?php echo $value['TCCA_Id']; ?>" data-id="<?php echo $value['TCCA_Id']; ?>" 
 							data-original-title="Nombre de la Lista">
-							<?php echo $value['name']?>
+							<?php //echo $value['TCCA_Name']." (".$value['TCCA_Order'].")"?>
+							<?php echo $value['TCCA_Name']; ?>
 						</span>
+							<?php echo "(".count($value['TCCA_Tasks'] ).")"; ?>
 					</h3>
 					<div class="actions" style="margin-top:0">
 								
@@ -168,55 +279,55 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li class="dropdown-header">Opciones</li>
 								<!-- <li>
-									<a href="#" onclick="$('#TCCA_New<?php echo $value["id"]; ?>').innerHtml=Date()">Agregar Tarjeta</a>
+									<a href="#" onclick="$('#TCCA_New<?php echo $value["TCCA_Id"]; ?>').innerHtml=Date()">Agregar Tarjeta</a>
 								</li> -->
 								<!-- <li>
 									<a href="#">Ordenar por...</a>
 								</li> -->
 								<!-- <li class="divider"></li> -->
-								<li>
-									<!-- <a href="#">Archivar todas las tarjetas</a> -->
+								<!-- <li>
+									
 									<?php 
 									echo CHtml::ajaxLink(
 										'Archivar todas las tarjetas',          // the link body (it will NOT be HTML-encoded.)
-										array('deleteAll','id'=>$value['id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+										array('deleteAll','id'=>$value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
 										array(
 											'type'=>'POST',
 											'beforeSend' => 'function() {           
-												$("#List-'.$value['id'].'").css("opacity","0.5");
+												$("#List-'.$value['TCCA_Id'].'").css("opacity","0.5");
 											}',
 											'complete' => 'function(data, value) {
 												console.log(data, value);
 												if(data.responseText=="All Archived")
 												{
-													$("#List-'.$value['id'].'").css("opacity","1");
-												  	$("#Board-'.$value['id'].'").html("");
+													$("#List-'.$value['TCCA_Id'].'").css("opacity","1");
+												  	$("#Board-'.$value['TCCA_Id'].'").html("");
 												  }
 											}',        
 										)
 									);
 									?>
-								</li>
-								<li>
+								</li> -->
+								<!-- <li>
 									<a href="#">Tarjetas Archivadas</a>
 								</li>
 								
-								<li class="divider"></li>
+								<li class="divider"></li> -->
 								<li>
 									<!-- <a href="#">Archivar Esta Lista</a> -->
 									<?php 
 									echo CHtml::ajaxLink(
 										'Archivar Esta Lista',          // the link body (it will NOT be HTML-encoded.)
-										array('delete','id'=>$value['id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+										array('delete','id'=>$value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
 										array(
 											'type'=>'POST',
 											'beforeSend' => 'function() {           
-												$("#List-'.$value['id'].'").css("opacity","0.5");
+												$("#List-'.$value['TCCA_Id'].'").css("opacity","0.5");
 											 }',
 											'complete' => 'function(data, value) {
 											  console.log(data, value);
 											  if(data.responseText=="Archived")
-											  	$("#List-'.$value['id'].'").addClass("hidden");
+											  	$("#List-'.$value['TCCA_Id'].'").addClass("hidden");
 											}',        
 										)
 									);
@@ -228,53 +339,74 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					</div>
 				</div>
 				<div 
-					id="Board-<?php echo $value['id']; ?>" 
-					data-pk="<?php echo $value['id']; ?>" 
-					data-id="<?php echo $value['id']; ?>" 
+					id="Board-<?php echo $value['TCCA_Id']; ?>" 
+					data-pk="<?php echo $value['TCCA_Id']; ?>" 
+					data-id="<?php echo $value['TCCA_Id']; ?>" 
 					class="box-content board connectedSortable sortable" 
 				>
 				<?php 
-					foreach ($value['task'] as $task) {						
+					foreach ($value['TCCA_Tasks'] as $task) {						
 						?>
 							<div  
 								id="Task-<?php echo $task->TCCD_Id; ?>" 
 								class="alert alert-card "		
-								data-board="<?php echo $value['id']; ?>"
+								data-board="<?php echo $value['TCCA_Id']; ?>"
 								data-pos="<?php echo $task->TCCD_Order; ?>"
 								data-toggle="modal" 
 								data-id="<?php echo $task->TCCD_Id; ?>" 
 								data-target=".bs-example-modal-lg"
 								> 
 
+									<small style="color:darkorange;"><b><?php echo date("d M, h:ia",strtotime($task->TCCD_Created)); ?></b></small>
+									<?php //echo "(".$task->TCCD_Order.") ".$task->TCCD_Title; ?>
+									<?php echo $task->TCCD_Archived ? ' <small class="pull-right"><i class="fa fa-save"></i> </small> ' :''; ?>		
+									<br/>	
 									<?php echo $task->TCCD_Title; ?>
 									<br/>
-									<div class="toolbar">
+									<div class="toolbar" style="display:flow-root;">									
 										<!-- <i class="fa fa-square-o"></i>
 										<i class="fa fa-refresh"></i>
 										<i class="fa fa-inbox"></i>
 										<i class="fa fa-exclamation-triangle"></i>
 										<i class="fa fa-trash-o"></i> -->
 										
-										<?php echo $task->TCCD_Archived ? '<i class="fa fa-folder"></i>' :''; ?>							
+										<?php echo $task->TCCD_Expired ? ' <small><i class="fa fa-clock-o"></i> '.date("d M",strtotime($task->TCCD_Expired))."</small> " :''; ?>							
+										<?php 
+										
+										$comments = Tcct::model()->findAll('TCCD_Id=:id and TCCT_Type="comento"',array(':id'=>$task->TCCD_Id));
+										echo count($comments)>0 ? ' <small><i class="fa fa-comment-o"></i> '. count($comments).'</small> ' :'';
+
+										$colss = Tccm::model()->findAll('TCCM_Model="TCCD" and TCCM_Status="Colaborador" and TCCM_IdModel=:id',array(':id'=>$task->TCCD_Id));
+										echo count($colss)>0 ? ' <small><i class="fa fa-user"></i> '. count($colss).'</small> ' :'';
+
+										
+										$listas=$task->tccls;
+										foreach ($listas as $tag) {
+											echo '<small class="pull-right" style="margin-left:3px;"><i class="fa '.$tag->TCCL_Icon.'"></i> </small> ';
+										}
+										?>				
+												
+										
+									
 									</div>
 							</div>	
 						<?php
 					}
 				?>  						
 				</div>
-				<div class="box-footer" style="padding:10px;border-radius:5px;">					
+				<div class="box-footer" style="padding:0;margin:5px;border-radius:5px;border:1px solid lightgray;">					
 						<span 
 							id="TCCA_New"
 							role="button" 
 							class="newCard btn btn-block btn-mini" 
-							style="text-align:left;padding:5px;" 
+							style="text-align:left;padding:10px; " 
 							data-type="text"
 							data-display="false"
-							data-pk="<?php echo $value['id']; ?>"
-							data-id="<?php echo $value['id']; ?>"
-							data-url="<?php echo Yii::app()->createUrl('tccd/create',array('id'=>$value['id']))?>"
+							data-pk="<?php echo $value['TCCA_Id']; ?>"
+							data-id="<?php echo $value['TCCA_Id']; ?>"
+							data-url="<?php echo Yii::app()->createUrl('tccd/create',array('id'=>$value['TCCA_Id']))?>"
 							data-value=""
-							data-placeholder="Nombre de la Tarjeta"
+							data-placeholder="Titulo de la Tarjeta"
 							>
 							<i class="fa fa-plus"></i> Agregar Tarjeta
 						</span>		
@@ -284,12 +416,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 		}
 	?>  
 
-	<div class="box box-small" >
-		<div class="box-title" style="margin-top:5px;">
-			<h3 
+	<div class="box box-small" style="padding:0">
+		<!-- <div class="box-title" style="margin-top:5px;"> -->
+			<span 
 				data-url="<?php echo Yii::app()->createUrl('tcca/view',array('id'=>$model->TCCA_Id))?>" 
 				class="newList btn btn-block btn-mini" 
-				style="text-align: left;" 
+				style="text-align: left;padding:10px;" 
 				data-placement="right" 
 				id="TCCA_New" 
 				data-defaultValue=""  
@@ -301,14 +433,18 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 			>
 				<i class="fa fa-plus"></i> Agregar Lista
 				
-			</h3>							
-		</div>
+			</span>							
+		<!-- </div> -->
 		
 	</div>
 
 </div>	  
 
-
+<!-- <pre>
+<?php
+// print_r($agencias);
+?>
+</pre> -->
 
 
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -318,337 +454,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 			<div class="modal-body" id="modal-ajax">
 				
 
-				<div class="row">					
-					<div class="col-sm-10">
-						<h4 class="modal-title" id="myModalLabel">
-							<a href="#" class="listTitle" data-placement="right">Modal title</a>
-						</h4>
-
-						<span>En la Lista Pendientes</span>
-						<br/>
-						<h5 style="margin-top:0">Descripcion</h5>
-						<p 
-							data-tpl='<textarea class="form-control " rows="7" style="width: 637px;margin: 0px 0px 10px;height: 99px;"></textarea>' 
-							data-url="<?php echo Yii::app()->createUrl('tcca/update',array('id'=>$model->TCCA_Id))?>" 
-							class="listTitle" 
-							data-placement="bottom" 
-							id="TCCA_Name" 
-							style="padding: 10px; background-color: rgb(238, 238, 238);border-radius: 5px;font-weight: bolder;"
-							data-type="textarea" 
-							data-showbuttons= 'bottom'
-							data-pk="<?php echo $model->TCCA_Id; ?>" 
-							data-id="<?php echo $model->TCCA_Id; ?>" 
-							data-original-title="Nombre del Tablero">Lorem ipsum anim ad culpa ex id anim Excepteur esse et do cillum dolor in dolore cillum. Lorem ipsum Ut est consequat pariatur sint ut incididunt nisi dolore occaecat.</p>
-
-
-						<div class="box box-color box-bordered lightgrey">
-							<div class="box-title" style="margin-top:0px;">
-								<h3><i class="fa fa-check"></i>Tareas</h3>
-								<div class="actions">
-									<a href="#new-task" data-toggle="modal" class="btn btn-mini">
-										<i class="fa fa-plus-circle"></i> Nueva Tarea</a>
-								</div>
-							</div>
-							<div class="box-content nopadding">
-								<ul class="tasklist ui-sortable">
-									
-
-									<li class="bookmarked">
-										<div class="check">
-											<div class="icheckbox_square-blue" >
-												<!-- <input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"> -->
-												<input tabindex="1" type="checkbox" data-skin="square" data-color="blue" class="icheck-me" id="input-1">
-												<label for="this" style="display:none;"> </label>
-												<!-- <ins style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> -->
-											</div>
-										</div>
-										<span class="task">
-											<!-- <i class="fa fa-bar-chart-o"></i> -->
-											<span>Check statistics</span>
-										</span>
-										<span class="task-actions">
-											<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-												<i class="fa fa-times"></i>
-											</a>
-											<!-- <a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-												<i class="fa fa-bookmark-empty"></i>
-											</a> -->
-										</span>
-									</li>
-
-									<li>
-										<div class="check">
-											<div class="icheckbox_square-blue" >
-												<!-- <input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"> -->
-												<input tabindex="1" type="checkbox" data-skin="square" data-color="blue" class="icheck-me" id="input-1">
-												<label for="this" style="display:none;"> </label>
-												<!-- <ins style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> -->
-											</div>
-										</div>
-										<span class="task">
-											<i class="fa fa-bar-chart-o"></i>
-											<span>Check statistics</span>
-										</span>
-										<span class="task-actions">
-											<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-												<i class="fa fa-times"></i>
-											</a>
-											<!-- <a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-												<i class="fa fa-bookmark-empty"></i>
-											</a> -->
-										</span>
-									</li>
-
-									<li class="done">
-										<div class="check">
-											<div class="icheckbox_square-blue checked" >
-											<!-- <input type="checkbox" class="icheck-me" data-skin="square" data-color="blue"  style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"> -->
-											<input tabindex="1" type="checkbox" data-skin="square" data-color="blue"  class="icheck-me" id="input-1">
-
-											<label for="this" style="display:none;"> </label>
-
-											
-											</div>
-										</div>
-										<span class="task">
-											<i class="fa fa-envelope"></i>
-											<span>Check for new mails</span>
-										</span>
-										<span class="task-actions">
-											<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-												<i class="fa fa-times"></i>
-											</a>
-											<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-												<i class="fa fa-bookmark-o"></i>
-											</a>
-										</span>
-									</li>
-									<!-- <li>
-										<div class="check">
-											<div class="icheckbox_square-blue" style="position: relative;">
-												<input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-												
-												<label for="this" style="display:none;"> </label>
-
-											</div>
-										</div>
-										<span class="task">
-											<i class="fa fa-comment"></i>
-											<span>Chat with John Doe</span>
-										</span>
-										<span class="task-actions">
-											<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-												<i class="fa fa-times"></i>
-											</a>
-											<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-												<i class="fa fa-bookmark-o"></i>
-											</a>
-										</span>
-									</li>
-									<li>
-										<div class="check">
-											<div class="icheckbox_square-blue" style="position: relative;">
-												<input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-												<label for="this" style="display:none;"> </label>
-
-											</div>
-										</div>
-										<span class="task">
-											<i class="fa fa-retweet"></i>
-											<span>Go and tweet some stuff</span>
-										</span>
-										<span class="task-actions">
-											<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-												<i class="fa fa-times"></i>
-											</a>
-											<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-												<i class="fa fa-bookmark-o"></i>
-											</a>
-										</span>
-									</li>
-									<li>
-										<div class="check">
-											<div class="icheckbox_square-blue" style="position: relative;">
-											<input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-											<label for="this" style="display:none;"> </label>
-
-											</div>
-										</div>
-										<span class="task">
-											<i class="fa fa-edit"></i>
-											<span>Write an article</span>
-										</span>
-										<span class="task-actions">
-											<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-												<i class="fa fa-times"></i>
-											</a>
-											<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-												<i class="fa fa-bookmark-o"></i>
-											</a>
-										</span>
-									</li> -->
-								</ul>
-							</div>
-						</div>
-
-						<div class="box box-color box-bordered green">
-							<div class="box-title">
-								<h3>
-									<i class="fa fa-bullhorn"></i> Actividad Reciente
-								</h3>
-								
-							</div>
-							<div class="box-content" style="padding:0">
-								<table class="table table-nohead" id="">
-									<tbody>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-info">
-												<i class="fa fa-shopping-cart"></i>
-												</span> New order received
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-warning">
-													<i class="fa fa-comment"></i>
-												</span> 
-												<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-											</td>
-										</tr>
-									
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-info">
-													<i class="fa fa-shopping-cart"></i>
-												</span> New order received
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-info">
-												<i class="fa fa-shopping-cart"></i>
-												</span> New order received
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-warning">
-												<i class="fa fa-comment"></i></span> 
-												<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-default">
-												<i class="fa fa-plus-square"></i></span> 
-												<a href="#">John Doe</a> added a new photo
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-default">
-												<i class="fa fa-plus-square"></i></span> 
-												<a href="#">John Doe</a> added a new photo
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-default">
-												<i class="fa fa-plus-square"></i></span> 
-												<a href="#">John Doe</a> added a new photo
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-warning">
-												<i class="fa fa-comment"></i></span> 
-												<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-success">
-												<i class="fa fa-user"></i></span> New user registered</td></tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-warning">
-												<i class="fa fa-comment"></i></span> 
-												<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-												<span class="label label-warning">
-												<i class="fa fa-comment"></i></span> 
-												<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-											</td>
-										</tr>
-										<tr style="display: table-row;">
-											<td>
-											<span class="label label-success">
-											<i class="fa fa-user"></i></span> New user registered</td></tr>
-										<tr>
-											<td>
-												<span class="label label-default">
-												<i class="fa fa-plus-square"></i></span>
-												<a href="#">John Doe</a>added a new photo</td>
-										</tr>
-										<tr>
-											<td>
-												<span class="label label-success">
-												<i class="fa fa-user"></i></span>New user registered</td>
-										</tr>
-										<tr>
-											<td>
-												<span class="label label-info">
-												<i class="fa fa-shopping-cart"></i></span>New order received</td>
-										</tr>
-										<tr>
-											<td>
-												<span class="label label-warning">
-												<i class="fa fa-comment"></i></span><a href="#">John Doe</a>commented on<a href="#">News #123</a>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<span class="label label-success">
-												<i class="fa fa-user"></i></span>New user registered</td>
-										</tr>
-										<tr>
-											<td>
-												<span class="label label-info">
-												<i class="fa fa-shopping-cart"></i></span>New order received</td>
-										</tr>
-										<tr>
-											<td>
-												<span class="label label-warning">
-												<i class="fa fa-comment"></i></span><a href="#">John Doe</a>commented on<a href="#">News #123</a>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>													
-							
-						</div>
-
-					</div>
-
-					<div class="col-sm-2">
-					
-						<h5>Content</h5>
-
-						<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary btn-block">Save changes</button>
-
-						<h5>Content</h5>
-
-						<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary btn-block">Save changes</button>
-
-					</div>	
-
-				</div>
+			
 				
 			</div>		
 		</div>
@@ -662,16 +468,21 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 <!-- //---------------------------- -->
 
 <style>
+	.select2-input{
+		min-width:100px;
+	}
+	
+	/*   */
 	.toolbar{
 		padding-top:5px;
 	}
 	.box-small{
-	
+		border:1px solid lightgray;
 		border-radius:3px;
 		padding:5px;
 		margin-right:5px;
 		background:#eeeeee;
-		min-width:280px;
+		min-width:320px;
 		height: fit-content;
 	}
 	.board{
@@ -703,80 +514,299 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 		/* height:300px !important; */
 		background:#deffde !important;
 	}
+	#main{
+		/* background-color: #ffffff; */
+		background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
+
+	}
 </style>
 
 <!-- //----------------------- -->
 
 <script>
 	let isCard = false;
+	const params = <?php echo json_encode($_GET); ?>
 
-	$( function() {
-		// $('.alert-card').click()
-		$( ".alert-card" ).click(function() {
+						
+
+	function cargarTarjeta(id){
+	
 			// $( "#modal-ajax" ).load(  );
 			let aux = $("#modal-ajax").html();
 			$.ajax({
-  				url: "https://kingdeportes.com/hefestos/tccd/view/"+$(this).attr("data-url"),
+  				url: "https://kingdeportes.com/hefestos/tccd/view/"+id,
 				beforeSend: function( xhr ) {
 					$("#modal-ajax").html('<div class="progress progress-striped active"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">45% Complete</span></div></div>');
 				}
 			}).done(function( data ) {
-				$("#modal-ajax").html(data);
-				// const vari = JSON.parse(data);
-				// 	if ( console && console.log ) {
-				// 	console.log( "Sample of data:", vari.TCCD_Title );
-				// 	$('.icheckme').iCheck({
-				// 		checkboxClass: 'icheckbox_square',
-				// 		radioClass: 'iradio_square',
-				// 		increaseArea: '20%' // optional
-				// 	});
-				// 	}
+				// console.log(JSON.parse(data)[1])
+				$("#modal-ajax").html(JSON.parse(data)[1]);
+				
+				$('.taskTitle').editable({
+					mode:"inline",
+					success:function(r,v){
+						const task = JSON.parse(r);
+						// $('#Task-'+task.TCCD_Id).html("("+task.TCCD_Order+") "+task.TCCD_Title);
+						$('#Task-'+task.TCCD_Id).html('<small style="color:darkorange;"><b>'+task.TCCD_Created+'</b></small><br/>'+
+									task.TCCD_Title+(task.TCCD_Archived ? '<small class="pull-right"><i class="fa fa-save"></i> </small> ' :'')+			
+									'<br/><div class="toolbar" style="display:flow-root;"></div>');
+						// console.log(task);
+					}
+				});
+				$('.description').editable({
+					mode:"inline"
+				});
+				$('#TCCD_Expired').editable({
+					format: 'YYYY-MM-DD',    
+					yearDescending:true,
+					showbuttons:'bottom',
+					placement:'left',
+					smartDays:true,
+					    
+					template: 'DD MMMM YYYY',    
+					combodate: {
+							minYear: 2020,
+							maxYear: 2025,
+							minuteStep: 1
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+					
+				});
+				$('#TCCD_Labels').editable({
+					showbuttons:'bottom',
+					placement:'left',
+					source: [<?php echo $tags;?>],
+					select2: {
+					multiple: true
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+				});
+
+				$('#TCCD_Users').editable({
+					showbuttons:'bottom',
+					placement:'left',
+					source: [<?php echo $jusers;?>],
+					select2: {
+						multiple: true,
+						// minimumInputLength: 3
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+				});
+
+				$('#GCCA_List').editable({
+					showbuttons:'bottom',
+					placement:'left',
+					source: [<?php echo $jagencias;?>],
+					select2: {
+						multiple: true,
+						formatInputTooShort: function () {
+							return "Ingrese 3 caracteres";
+						},  
+						formatNoMatches : function() {
+							return "Sin resultados";
+						},
+						formatSearching : function() {
+							return "Buscando...";
+						},
+						minimumInputLength: 3
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+				});
+
+
+
+
+				$('#activity').scrollTop( $('#activityTable').height());
+			});
+
+		
+	}
+	function comentar(){
+		
+		
+		$.ajax({
+			url:'comment',
+			type:"POST",
+			data:{			 
+				idCard: $('#comentInput').attr('card'), 
+				comment: $('#comentInput').val() 
+			},
+			beforeSend:function(){
+				// alert("Enviando");
+				$('#commentSend').prop("disabled",true);
+				$('#comentInput').prop("disabled",true);
+				$('#commentSend').html("Enviando..");
+			}
+		})
+		.done(function( data ) {
+			// alert( "Data Loaded: " + data );
+			cargarTarjeta($('#comentInput').attr('card'));
+		});
+
+	}
+	$( function() {
+
+	
+
+		// Abrir una tarea
+		$( ".alert-card" ).click(function() {
+			// $( "#modal-ajax" ).load(  );
+			$( ".alert-card" ).attr("style","border:none;")
+			$(this).attr("style","border:1px solid orange;")
+			let aux = $("#modal-ajax").html();
+			$.ajax({
+  				url: "https://kingdeportes.com/hefestos/tccd/view/"+$(this).attr("data-id"),
+				beforeSend: function( xhr ) {
+					$("#modal-ajax").html('<div class="progress progress-striped active"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">45% Complete</span></div></div>');
+				}
+			}).done(function( data ) {
+				// console.log(JSON.parse(data)[1])
+				$("#modal-ajax").html(JSON.parse(data)[1]);
+				
+				$('.taskTitle').editable({
+					mode:"inline",
+					success:function(r,v){
+						const task = JSON.parse(r);
+						// $('#Task-'+task.TCCD_Id).html("("+task.TCCD_Order+") "+task.TCCD_Title);
+						$('#Task-'+task.TCCD_Id).html('<small style="color:darkorange;"><b>'+task.TCCD_Created+'</b></small><br/>'+
+									task.TCCD_Title+(task.TCCD_Archived ? '<small class="pull-right"><i class="fa fa-save"></i> </small> ' :'')+			
+									'<br/><div class="toolbar" style="display:flow-root;"></div>');
+						// console.log(task.TCCD_Id);
+					}
+				});
+				$('.description').editable({
+					mode:"inline",
+					
+				});
+				$('#TCCD_Expired').editable({
+					format: 'YYYY-MM-DD',    
+					yearDescending:true,
+					showbuttons:'bottom',
+					placement:'left',
+					smartDays:true,
+					    
+					template: 'DD MMMM YYYY',    
+					combodate: {
+							minYear: 2020,
+							maxYear: 2025,
+							minuteStep: 1
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+					
+				});
+				$('#TCCD_Labels').editable({
+					showbuttons:'bottom',
+					placement:'left',
+					source: [<?php echo $tags;?>],
+					select2: {
+					multiple: true
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+				});
+				$('#TCCD_Users').editable({
+					showbuttons:'bottom',
+					placement:'left',
+					source: [<?php echo $jusers;?>],
+					select2: {
+						multiple: true,
+						// minimumInputLength: 3
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+				});
+				$('#GCCA_List').editable({
+					showbuttons:'bottom',
+					placement:'left',
+					source: [<?php echo $jagencias;?>],
+					select2: {
+						multiple: true,
+						formatInputTooShort: function () {
+							return "Ingrese 3 caracteres";
+						},  
+						formatNoMatches : function() {
+							return "Sin resultados";
+						},
+						formatSearching : function() {
+							return "Buscando...";
+						},
+						minimumInputLength: 3
+					},
+					success:function(){
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+				});
+
+
+				
+				$('#activity').scrollTop($('#activityTable').height());
 			});
 
 		});
 
-		//editables
+		//Titulo de la lista
 		$('.listTitle').editable({
 			mode:"inline"
 		});
-
+		//Nueva Lista
 		$('.newList').editable({
 			mode:"inline",
 			success: function(response, newValue) {
 				location.reload();
-				console.log(response);
+				// console.log(response);
 				// $('#large-grid .box:last').before('<div class="box box-small"><div class="box-title" style="margin-top:5px;"><h3><i class="fa fa-inbox"></i><span data-url="/hefestos/tcca/update/21.html" class="listTitle editable editable-click" data-placement="right" id="TCCA_Name" data-type="text" data-pk="21" data-id="21" data-original-title="Nombre de la Lista" style="display: inline;">'+newValue+'</span></h3><div class="actions" style="margin-top:0"><span class="dropdown"><a href="#" class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></a><ul class="dropdown-menu dropdown-menu-right"><li class="dropdown-header">Opciones</li><li><a href="#">Agregar Tarjeta</a></li><li><a href="#">Ordenar por...</a></li><li class="divider"></li><li><a href="#">Archivar todas las tarjetas</a></li><li><a href="#">Tarjetas Archivadas</a></li><li class="divider"></li><li><a href="#">Archivar Esta Lista</a></li></ul></span></div></div><div id="board21" class="box-content board connectedSortable sortable ui-sortable" style="max-height: 626px;">  </div><div class="box-footer" style="padding:10px;border-radius:5px;"><span id="TCCA_New" role="button" class="newCard btn btn-block btn-mini editable editable-click" style="text-align:left;padding:5px;" data-type="text" data-display="false" data-pk="21" data-url="/hefestos/tccd/create/21.html" data-value="" data-placeholder="Nombre de la Tarjeta"><i class="fa fa-plus"></i> Agregar Tarjeta</span></div></div>');
 				// $('.newList').editable({value:''});
 			}
 		});
-
+		//Nueva Tarea
 		$('.newCard').editable({
 			mode:"inline",		
+			// showbuttons:'bottom',
 			success: function(response, newValue) {
 				// $('.newCard').editable('value', '');
+				const task = JSON.parse(response)
 				$(this).editable('setValue', "", true);   
+				$( ".alert-card" ).attr("style","border:none;")
+				$("#Task-"+task.TCCD_Id).attr("style","border:1px solid orange;")
 				// setValue(value, convertStr)
 				// $(this).text("");
-				const variables = JSON.parse(response)
 				// location.reload();
-				
-				$('#Board-'+variables.board).append(
-					'<div  data-toggle="modal" id="Task-'+variables.id+'" data-url="'+variables.id+'" data-target=".bs-example-modal-lg" class="alert alert-card">'+
-					'  '+newValue+
+				// console.log(task);
+				// $('#Task-'+task.TCCD_Id).html('<small style="color:darkorange;"><b>'+task.TCCD_Created+'</b></small><br/>'+
+				// 					task.TCCD_Title+(task.TCCD_Archived ? '<small class="pull-right"><i class="fa fa-save"></i> </small> ' :'')+			
+				// 					'<br/><div class="toolbar" style="display:flow-root;"></div>');
+				$('#Board-'+task.TCCA_Id).append(
+					'<div  data-toggle="modal" id="Task-'+task.TCCD_Id+'" data-url="'+task.TCCD_Id+'" data-target=".bs-example-modal-lg" class="alert alert-card" style="border:1px solid orange;">'+
+					'<small style="color:darkorange;"><b>'+task.TCCD_Created+'</b></small><br/>'+task.TCCD_Title+
+					// '  ('+task.TCCD_Order+") "+task.TCCD_Title+
 					'	<br/>'+
-					'	<div class="toolbar">'+
-					'		<i class="fa fa-square-o"></i>'+
-					'		<i class="fa fa-refresh"></i>'+
-					'		<i class="fa fa-inbox"></i>'+
-					'		<i class="fa fa-exclamation-triangle"></i>'+
-					'		<i class="fa fa-trash-o"></i>'+
-					'		<i class="fa fa-folder"></i>'+
-					'	</div>'+
+					// '	<div class="toolbar">'+
+					// '		<i class="fa fa-square-o"></i>'+
+					// '		<i class="fa fa-refresh"></i>'+
+					// '		<i class="fa fa-inbox"></i>'+
+					// '		<i class="fa fa-exclamation-triangle"></i>'+
+					// '		<i class="fa fa-trash-o"></i>'+
+					// '		<i class="fa fa-folder"></i>'+
+					// '	</div>'+
 					'</div>'
 				);
 
-				$( "#Task-"+variables.id ).click(function() {
+				$( "#Task-"+task.TCCD_Id ).click(function() {
 					// $( "#modal-ajax" ).load(  );
+					$( ".alert-card" ).attr("style","border:none;")
+					$(this).attr("style","border:1px solid orange;")
 					let aux = $("#modal-ajax").html();
 					$.ajax({
 						url: "https://kingdeportes.com/hefestos/tccd/view/"+$(this).attr("data-url"),
@@ -784,25 +814,105 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 							$("#modal-ajax").html('<div class="progress progress-striped active"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">45% Complete</span></div></div>');
 						}
 					}).done(function( data ) {
-						$("#modal-ajax").html(aux);
-						const vari = JSON.parse(data);
-							if ( console && console.log ) {
-							console.log( "Sample of data:", vari.TCCD_Title );
-							$('.icheckme').iCheck({
-								checkboxClass: 'icheckbox_square',
-								radioClass: 'iradio_square',
-								increaseArea: '20%' // optional
-							});
+						// $("#modal-ajax").html(aux);
+						// console.log(JSON.parse(data)[1])
+						$("#modal-ajax").html(JSON.parse(data)[1]);
+
+						$('.taskTitle').editable({
+							mode:"inline",
+							success:function(r,v){
+								const task = JSON.parse(r);
+								// $('#Task-'+task.TCCD_Id).html("("+task.TCCD_Order+") "+task.TCCD_Title);
+								$('#Task-'+task.TCCD_Id).html('<small style="color:darkorange;"><b>'+task.TCCD_Created+'</b></small><br/>'+
+									task.TCCD_Title+(task.TCCD_Archived ? '<small class="pull-right"><i class="fa fa-save"></i> </small> ' :'')+			
+									'<br/><div class="toolbar" style="display:flow-root;">'+
+									(task.TCCD_Expired ? ' <small><i class="fa fa-clock-o"></i> '+task.TCCD_Expired+"</small> " :'')+'</div>');
+								// console.log(task);
 							}
+						});
+						$('.description').editable({
+							mode:"inline"
+						});
+						$('#TCCD_Expired').editable({
+							format: 'YYYY-MM-DD',    
+							yearDescending:true,
+							showbuttons:'bottom',
+							placement:'left',
+							smartDays:true,
+								
+							template: 'DD MMMM YYYY',    
+							combodate: {
+									minYear: 2020,
+									maxYear: 2025,
+									minuteStep: 1
+							},
+							success:function(){
+								cargarTarjeta($('#comentInput').attr('card'));
+							}
+							
+						});
+						$('#TCCD_Labels').editable({
+							showbuttons:'bottom',
+							placement:'left',
+							source: [<?php echo $tags;?>],
+							select2: {
+							multiple: true
+							},
+							success:function(){
+								cargarTarjeta($('#comentInput').attr('card'));
+							}
+						});
+						$('#TCCD_Users').editable({
+							showbuttons:'bottom',
+							placement:'left',
+							source: [<?php echo $jusers;?>],
+							select2: {
+								multiple: true,
+								// minimumInputLength: 3
+							},
+							success:function(){
+								cargarTarjeta($('#comentInput').attr('card'));
+							}
+						});
+						$('#GCCA_List').editable({
+							showbuttons:'bottom',
+							placement:'left',
+							source: [<?php echo $jagencias;?>],
+							select2: {
+								formatInputTooShort: function () {
+									return "Ingrese 3 caracteres";
+								},  
+								formatNoMatches : function() {
+								return "Sin resultados";
+								},
+								formatSearching : function() {
+								return "Buscando...";
+								},
+								multiple: true,
+								minimumInputLength: 3
+							},
+							success:function(){
+								cargarTarjeta($('#comentInput').attr('card'));
+							}
+						});
+
+
+						$('#activity').scrollTop( $('#activityTable').height());
+							
 					});
 
 				});
 
+				$('#Board-'+task.TCCA_Id).animate({ scrollTop: $('#Board-'+task.TCCA_Id).prop("scrollHeight")+60 }, 1000);
+
 				
-				console.log('#board'+variables.board, newValue)
+				// console.log('#board'+task.TCCA_Id, newValue)
 
 			}
 		});
+
+		// $.fn.editableform.buttons  = '<button type="submit" class="editable-submit">ok</button><button type="button" class="editable-cancel">cancel</button>';
+		$.fn.editableform.buttons  = '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="glyphicon glyphicon-ok"></i></button><button type="button" class="btn btn-danger btn-sm editable-cancel"><i class="glyphicon glyphicon-remove"></i></button>';
 		//---------
 
 		var area = $( "#large-grid" );
@@ -815,7 +925,58 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 		$( "#large-grid" ).sortable({
 			// placeholder: "ui-state-highlight",
-			forcePlaceholderSize: true
+			forcePlaceholderSize: true,
+			start: function( event, ui ) {
+				// alert("start")
+				// isCard = true;
+				ui.item.attr('data-previndex', ui.item.index());
+				// ui.item.attr('data-prevBoard', ui.item.attr('data-board'));
+				console.log("aqui start");
+				
+			},
+			update: function(event, ui) {
+				// gets the new and old index then removes the temporary attribute
+				 if(ui.item.attr('data-previndex')){
+					var newIndex = ui.item.index();
+					var oldIndex = ui.item.attr('data-previndex');
+					var element_id = ui.item.attr('id');
+					console.log("Update: "+element_id," cambio de posicion del "+oldIndex," al "+newIndex, " en Board "+ui.item.attr('data-board'))
+					// console.log("Update: Boards iguales ",$(event.target).attr('data-id')," y ",ui.item.attr('data-board'))
+					// alert('id of Item moved = '+element_id+' old position = '+oldIndex+' new position = '+newIndex);
+					ui.item.removeAttr('data-previndex');
+					$.ajax({
+						url:"https://kingdeportes.com/hefestos/tcca/update/"+ui.item.attr('data-id'),
+						method: "POST",
+						data:{ 
+							"Tcca":{
+								// "TCCA_Id":event.target.attributes[1].value,
+								"TCCA_Order":ui.item.index()
+							},
+							"Old":ui.item.attr('data-previndex'), 
+						},
+						beforeSend: function( xhr ) {
+							jQuery('#progress').attr('style', 'width:100%');
+						},
+						
+					}).done(function( data ) {
+						// alert("Actualizado");
+						jQuery('#progress').attr('style', 'width:0%');
+							// $.gritter.add({
+							// 	position: 'bottom-left',
+							// 	// (string | mandatory) the heading of the notification
+							// 	title: 'Tarea Actualizada',
+							// 	sticky: false,
+							// 	image: '<?php echo Yii::app()->theme->baseUrl . "/img/logo-big.png"; ?>',
+							// 	// (string | mandatory) the text inside the notification
+							// 	text: 'Espere mientras se procesan los datos...'
+							// });               
+
+					});
+					// console.log("Update",event,ui);
+				}
+
+			}
+
 			});
 		$( "#large-grid" ).disableSelection();
 
@@ -831,7 +992,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 				console.log("aqui change");
 			},
 			create:function( event, ui){
-				console.log("aqui create");
+				// console.log("aqui create");
 			},
 			deactivate:function( event, ui){
 				console.log("aqui deactivate");
@@ -852,6 +1013,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					url:"https://kingdeportes.com/hefestos/tccd/update/"+ui.item.attr('data-id'),
 					method: "POST",
 					data:{ 
+						"name":"TCCA_Id",
 						"Tccd":{
 							"TCCA_Id":$(event.target).attr('data-id'),
 							"TCCD_Order":ui.item.index()
@@ -865,15 +1027,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 				}).done(function( data ) {
 					// alert("Actualizado");
 					jQuery('#progress').attr('style', 'width:0%');
-						$.gritter.add({
-							position: 'bottom-left',
-							// (string | mandatory) the heading of the notification
-							title: 'Tarea Actualizada',
-							sticky: false,
-							image: '<?php echo Yii::app()->theme->baseUrl . "/img/logo-big.png"; ?>',
-							// (string | mandatory) the text inside the notification
-							text: 'Espere mientras se procesan los datos...'
-						});               
+						// $.gritter.add({
+						// 	position: 'bottom-left',
+						// 	// (string | mandatory) the heading of the notification
+						// 	title: 'Tarea Actualizada',
+						// 	sticky: false,
+						// 	image: '<?php echo Yii::app()->theme->baseUrl . "/img/logo-big.png"; ?>',
+						// 	// (string | mandatory) the text inside the notification
+						// 	text: 'Los cambios fueron guardados'
+						// });               
 
 				});
 				// console.log("Received",event,ui);
@@ -947,6 +1109,11 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 		}).disableSelection();
 	
+
+		if(params.card){
+			$("#Task-"+params.card).click();
+		}
+		
 	
 	} );
 

@@ -76,7 +76,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCD_Estado', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->dropDownList($model, 'GCCD_Estado', array('0' => 'Inactiva', '1' => 'Activa'), array('empty' => 'Seleccione','class'=>'form-control')); ?>                    
+                <?php echo $form->dropDownList($model, 'GCCD_Estado', array('0' => 'Inactiva', '1' => 'Activa'), array('empty' => 'Seleccione','class'=>'')); ?>                    
                 <?php echo $form->error($model, 'GCCD_Estado', array('class' => 'label label-danger')); ?>
             </div>
         </div>

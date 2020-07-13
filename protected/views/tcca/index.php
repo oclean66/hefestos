@@ -22,12 +22,12 @@
         foreach ($dataProvider as $value) {
             // print_r($value);
             ?>
-            <li class="blue long">
-                <a href="<?php echo Yii::app()->createUrl('tcca/view',array('id'=>$value->TCCA_Id));?>">
+            <li class='<?php echo $value['TCCA_Archived'] ? "pink long":"blue long"; ?>'>
+                <a href="<?php echo Yii::app()->createUrl('tcca/view',array('id'=>$value['TCCA_Id']));?>">
                     <span class="nopadding">
-                        <h5><?php echo $value->TCCA_Name;?>
+                        <h5><?php echo $value['TCCA_Name'];?>
                         <br/>
-                            <small style="color:white;"><?php echo $value->TCCA_Archived?"Archivado":"";?></small>                   
+                            <small style="color:white;"><?php echo $value['TCCA_Archived']?"Archivado":"";?></small>                   
                         </h5>     
                     </span>
                     

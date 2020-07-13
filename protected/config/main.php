@@ -7,9 +7,9 @@
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Hefestos',
-    'language' => 'es',
-    'timeZone' => 'America/Caracas',
-    'sourceLanguage' => 'en',
+    'language' => 'es_es',
+    // 'timeZone' => 'America/Caracas',
+    'sourceLanguage' => 'es',
     'charset' => 'utf-8',
     'theme' => 'flat',
     // preloading 'log' component
@@ -19,7 +19,7 @@ return array(
         'application.models.*',
         'application.components.*',
         'application.modules.cruge.components.*',
-        'application.modules.cruge.extensions.crugemailer.*',
+        'application.modules.crugemailer.*',
     ),
     'modules' => array(
         'cruge' => array(
@@ -63,10 +63,13 @@ return array(
             'class' => 'application.modules.cruge.components.CrugeAuthManager',
         ),
         'crugemailer' => array(
-            'class' => 'application.modules.cruge.components.CrugeMailer',
-            'mailfrom' => 'master@siamdeportes.com',
-            'subjectprefix' => 'Master Say - ',
-            'debug' => true,
+            'class' => 'application.modules.crugemailer.CrugeSwiftMailer',
+            'mailfrom' => 'soporte.kingdeportes@gmail.com',
+            'subjectprefix' => 'Hefestos anuncia - ',
+            'transport' => 'gmail',
+            'gmailAcount' => 'soporte.kingdeportes@gmail.com',
+            'gmailPassword' => 'Cristian804!',       
+            // 'debug' => true,
         ),
          'format' => array(
             'datetimeFormat' => "d M, Y h:m:s a",
@@ -87,15 +90,15 @@ return array(
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=hefestos',
             'emulatePrepare' => true,
-            'username' => 'siamdepo_super',
-            'password' => '6LcGvOzhrSoCB6',
+            'username' => 'king_hefestos',
+            'password' => 'c@D%%8mj5Og@',
             'charset' => 'utf8',
         ),
          'excelencia' => array(
             'connectionString' => 'mysql:host=localhost;dbname=excelencia_mydb',
             'emulatePrepare' => true,
-            'username' => 'siamdepo_super',
-            'password' => '6LcGvOzhrSoCB6',
+            'username' => 'king_hefestos',
+            'password' => 'c@D%%8mj5Og@',
             'charset' => 'utf8',
             'class' => 'CDbConnection'          // DO NOT FORGET THIS!
         ),

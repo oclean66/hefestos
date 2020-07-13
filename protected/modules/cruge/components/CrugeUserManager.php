@@ -165,6 +165,7 @@ class CrugeUserManager {
 
         if ($booleanAsDataProvider == true) {
             $sortFields = CrugeFactory::get()->getICrugeStoredUserSortFieldNames();
+
             return new CArrayDataProvider($ar, array(
                 'keyField' => $sortFields[0],
                 'sort' => array(

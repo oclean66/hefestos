@@ -48,7 +48,7 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model, 'Grupo:', array('class' => 'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                    <?php echo isset($model->GCCD_Id) ?  $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => 'form-control')) : 'Sin Padre'; ?>                         
+                    <?php echo isset($model->GCCD_Id) ?  $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => '')) : 'Sin Padre'; ?>                         
                     <?php echo $form->error($model, 'GCCD_Id', array('class' => 'label label-danger')); ?>
                 </div>  </div>
             <?php
@@ -67,7 +67,7 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model, 'Grupo:', array('class' => 'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                    <?php echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => 'form-control'));
+                    <?php echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => ''));
                     ?>
                     <?php echo $form->error($model, 'GCCD_Id', array('class' => 'label label-danger')); ?>
                 </div>  </div>
@@ -86,7 +86,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCA_Status', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactiva', '1' => 'Activa'), array('empty' => 'Seleccione','class'=>'form-control')); ?>   
+                <?php echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactiva', '1' => 'Activa'), array('empty' => 'Seleccione','class'=>'')); ?>   
                 <?php echo $form->error($model, 'GCCA_Status', array('class' => 'label label-danger')); ?>
             </div>
         </div>

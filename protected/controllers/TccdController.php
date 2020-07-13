@@ -13,337 +13,314 @@ class TccdController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+	public function actionTest(){
+		Yii::app()->crugemailer->sendEmail(
+			'el cuerpo de lo que va a ser enviado en el mensaje',
+    		array('oclean66@gmail.com'),
+			array('soporte.kingdeportes@gmail.com'),
+			'Asunto del Correo Electrónico');
+	}
 	public function actionView($id)
 	{
 		// $this->render('view',array(
 		// 	'model'=>$this->loadModel($id),
 		// ));
+	
+			
+		
+		
+	
 		$model = $this->loadModel($id);
+		$timeline = Tcct::model()->findAll('TCCD_Id=:id',array(':id'=>$id));
+		$table="";
+		foreach ($timeline as $event) {
+			$table=$table.'<tr style="display: table-row;">
+			<td>
+				<span class="label 
+				'.($event->TCCT_Type=='comento'?'label-info':'').' 
+				'.($event->TCCT_Type=='creo'?'label-success':'').'
+				'.($event->TCCT_Type=='movio'?'label-warning':'').'
+				'.($event->TCCT_Type=='edito'?'label-warning':'').'
+				'.($event->TCCT_Type=='archivo' || $event->TCCT_Type=='desarchivo' ?'label-danger':'').'
+				'.($event->TCCT_Type=='oculto' || $event->TCCT_Type=='desoculto' ?'label-danger':'').'
+				 ">
+								
+					<i class="fa 
+					'.($event->TCCT_Type=='comento'?'fa-comment':'').' 
+					'.($event->TCCT_Type=='creo'?'fa-plus':'').'
+					'.($event->TCCT_Type=='movio'?'fa-comment':'').'
+					'.($event->TCCT_Type=='edito'?'fa-pencil':'').'
+					'.($event->TCCT_Type=='archivo' || $event->TCCT_Type=='desarchivo' ?'fa-save':'').'
+					'.($event->TCCT_Type=='oculto' || $event->TCCT_Type=='desoculto' ?'fa-save':'').'
+					"></i>
+
+				</span>
+				
+				<span class="pull-right">'.date("M d, h:i",strtotime($event->TCCT_Timestamp)).'</span>
+				
+				<a href="#">'. Yii::app()->user->um->loadUserById($event->TCCT_IdUser,true)->username.'</a> '.$event->TCCT_Type.'  
+				
+				'.($event->TCCT_Type=='comento'? "<b>".$event->TCCT_Text."</b>":'').'
+				'.($event->TCCT_Type=='creo' ? $event->TCCT_Text:'').'
+				'.($event->TCCT_Type=='edito' ? $event->TCCT_Text:'').'
+				'.($event->TCCT_Type=='movio' ? $event->TCCT_Text:'').'
+				'.($event->TCCT_Type=='archivo' || $event->TCCT_Type=='desarchivo' ? $event->TCCT_Text:'').'
+				'.($event->TCCT_Type=='oculto' || $event->TCCT_Type=='desoculto' ? $event->TCCT_Text:'').'
+				
+			</td>
+			</tr>';
+		}
+
+		$labels = $model->tccls;
+		$cols = Tccm::model()->findAll('TCCM_Model="TCCD" and TCCM_Status="Colaborador" and TCCM_IdModel=:id',array(":id"=>$id));
+		$pagencias = Tcga::model()->findAll('TCCD_Id=:id',array(":id"=>$id));
+		// print_r($cols);
+		$colaboradores="";
+		$agencias="";
+		$tags="";
+		$tagVal='';
+		$usersVal='';
+		$agenciasVal='';
+		foreach ($labels as $tag) {
+			$tagVal.=$tag->TCCL_Id.',';
+			$tags.='<h5 style="display:inline"><span class="label label-'.$tag->TCCL_Color.'" style="padding:5px;margin-right:3px;"><i class="fa '.$tag->TCCL_Icon.'"></i> '.$tag->TCCL_Label.'</span></h5>';
+			
+		}
+		foreach ($cols as $key) {
+			$usersVal.=$key->TCCM_IdUser.',';
+			$colaboradores.='<h5 style="display:inline"><span class="badge" style="padding:5px;margin-right:3px;"><i class="fa fa-user"></i> '.Yii::app()->user->um->loadUserById($key->TCCM_IdUser)->username.'</span></h5>';
+		}
+		foreach ($pagencias as $key) {
+			$agenciasVal.=$key->GCCA_Id.',';
+			$agencias.='<div class="alert alert-warning" style="padding:5px;margin-right:3px;margin-bottom:5px;"><i class="fa fa-desktop"></i> '.$key->gCCA->GCCA_Cod." - ".$key->gCCA->GCCA_Nombre.'<br/>Telefono: '.$key->gCCA->GCCA_Telefono.'</br>Direccion: '.$key->gCCA->GCCA_Direccion.'</div>';
+		}
+
+
 		echo CJSON::encode(
 			array($model,
 			'<div class="row">					
-				<div class="col-sm-10">
+				<div class="col-sm-9">
+
 					<h4 class="modal-title" id="myModalLabel">
-						<a href="#" class="listTitle" data-placement="right">Modal title</a>
+						<a href="#" 
+							data-url="'.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'" 
+							class="taskTitle" 
+							id="TCCD_Title" 
+							data-pk="'.$model->TCCD_Id.'" 
+							data-id="'.$model->TCCD_Id.'" 
+							data-placement="right">'.$model->TCCD_Title.'</a>
 					</h4>
 
-					<span>En la Lista Pendientes</span>
-					<br/>
-					<h5 style="margin-top:0">Descripcion</h5>
+					<span>En la Lista <b>'.$model->tCCA->TCCA_Name.'</b>, creada '.date("d M, h:ia",strtotime($model->TCCD_Created)).'</span>
+
+						'.(
+							count($labels)>0 ? '<br/><br/>
+							<h5 style="margin-top:5px;font-weight:bolder;">Etiquetas</h5>'.$tags :""
+						).'					
+
+						'.(
+							count($cols) > 0 ? '<br/><br/>
+							<h5 style="margin-top:5px;font-weight:bolder;">Colaborador</h5>'.$colaboradores:""
+						).'
+
+						'.(
+							count($pagencias) > 0 ? '<br/><br/>
+							<h5 style="margin-top:5px;font-weight:bolder;">Agencias</h5><div style="max-height:150px;overflow:auto;">'.$agencias.'</div>':""
+						).'
+				
+					<h5 style="margin-top:5px;font-weight:bolder;">Descripcion</h5>
 					<p 
-						class="listTitle" 
-						data-placement="bottom" 
-						id="TCCA_Name" 
-						style="padding: 10px; background-color: rgb(238, 238, 238);border-radius: 5px;font-weight: bolder;"
-						data-type="textarea" 
+						id="TCCD_Description" 
+						class="description" 
+						style="white-space: normal; padding: 10px; background-color: rgb(238, 238, 238);border-radius: 5px;font-weight: bolder; display: block;"								   
 						
-						data-original-title="Nombre del Tablero">Lorem ipsum anim ad culpa ex id anim Excepteur esse et do cillum dolor in dolore cillum. Lorem ipsum Ut est consequat pariatur sint ut incididunt nisi dolore occaecat.</p>
+						data-tpl=\'<textarea class="form-control" style="width:100%;height: 99px;" cols="250" rows="4" ></textarea>
+							<div class="shortcuts" style="border:0px;">
+								<small>Enviar con <code>CTRL + ENTER</code> Cancelar con <code>ESC</code></small>
+							</div>\' 
+						data-url="'.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'" 
+						
+						data-type="textarea" 
+						data-showbuttons= "bottom"
+						data-pk="'.$model->TCCD_Id.'" 
+						data-id="'.$model->TCCD_Id.'" 
+						data-mode="inline"
+						data-title="Descripcion de la Tarea">
+						'. $model->TCCD_Description.'
+						</p>
+													
 
-
-					<div class="box box-color box-bordered lightgrey">
-						<div class="box-title" style="margin-top:0px;">
-							<h3><i class="fa fa-check"></i>Tareas</h3>
-							<div class="actions">
-								<a href="#new-task" data-toggle="modal" class="btn btn-mini">
-									<i class="fa fa-plus-circle"></i> Nueva Tarea</a>
-							</div>
-						</div>
-						<div class="box-content nopadding">
-							<ul class="tasklist ui-sortable">
-								
-
-								<li class="bookmarked">
-									<div class="check">
-										<div class="icheckbox_square-blue" >
-											<!-- <input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"> -->
-											<input tabindex="1" type="checkbox" data-skin="square" data-color="blue" class="icheck-me" id="input-1">
-											<label for="this" style="display:none;"> </label>
-											<!-- <ins style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> -->
-										</div>
-									</div>
-									<span class="task">
-										<!-- <i class="fa fa-bar-chart-o"></i> -->
-										<span>Check statistics</span>
-									</span>
-									<span class="task-actions">
-										<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-											<i class="fa fa-times"></i>
-										</a>
-										<!-- <a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-											<i class="fa fa-bookmark-empty"></i>
-										</a> -->
-									</span>
-								</li>
-
-								<li>
-									<div class="check">
-										<div class="icheckbox_square-blue" >
-											<!-- <input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"> -->
-											<input tabindex="1" type="checkbox" data-skin="square" data-color="blue" class="icheck-me" id="input-1">
-											<label for="this" style="display:none;"> </label>
-											<!-- <ins style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins> -->
-										</div>
-									</div>
-									<span class="task">
-										<i class="fa fa-bar-chart-o"></i>
-										<span>Check statistics</span>
-									</span>
-									<span class="task-actions">
-										<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-											<i class="fa fa-times"></i>
-										</a>
-										<!-- <a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-											<i class="fa fa-bookmark-empty"></i>
-										</a> -->
-									</span>
-								</li>
-
-								<li class="done">
-									<div class="check">
-										<div class="icheckbox_square-blue checked" >
-										<!-- <input type="checkbox" class="icheck-me" data-skin="square" data-color="blue"  style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"> -->
-										<input tabindex="1" type="checkbox" data-skin="square" data-color="blue"  class="icheck-me" id="input-1">
-
-										<label for="this" style="display:none;"> </label>
-
-										
-										</div>
-									</div>
-									<span class="task">
-										<i class="fa fa-envelope"></i>
-										<span>Check for new mails</span>
-									</span>
-									<span class="task-actions">
-										<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-											<i class="fa fa-times"></i>
-										</a>
-										<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-											<i class="fa fa-bookmark-o"></i>
-										</a>
-									</span>
-								</li>
-								<!-- <li>
-									<div class="check">
-										<div class="icheckbox_square-blue" style="position: relative;">
-											<input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-											
-											<label for="this" style="display:none;"> </label>
-
-										</div>
-									</div>
-									<span class="task">
-										<i class="fa fa-comment"></i>
-										<span>Chat with John Doe</span>
-									</span>
-									<span class="task-actions">
-										<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-											<i class="fa fa-times"></i>
-										</a>
-										<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-											<i class="fa fa-bookmark-o"></i>
-										</a>
-									</span>
-								</li>
-								<li>
-									<div class="check">
-										<div class="icheckbox_square-blue" style="position: relative;">
-											<input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-											<label for="this" style="display:none;"> </label>
-
-										</div>
-									</div>
-									<span class="task">
-										<i class="fa fa-retweet"></i>
-										<span>Go and tweet some stuff</span>
-									</span>
-									<span class="task-actions">
-										<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-											<i class="fa fa-times"></i>
-										</a>
-										<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-											<i class="fa fa-bookmark-o"></i>
-										</a>
-									</span>
-								</li>
-								<li>
-									<div class="check">
-										<div class="icheckbox_square-blue" style="position: relative;">
-										<input type="checkbox" class="icheck-me" data-skin="square" data-color="blue" style="position: absolute; top: -10%; left: -10%; display: block; width: 120%; height: 120%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
-										<label for="this" style="display:none;"> </label>
-
-										</div>
-									</div>
-									<span class="task">
-										<i class="fa fa-edit"></i>
-										<span>Write an article</span>
-									</span>
-									<span class="task-actions">
-										<a href="#" class="task-delete" rel="tooltip" title="" data-original-title="Delete that task">
-											<i class="fa fa-times"></i>
-										</a>
-										<a href="#" class="task-bookmark" rel="tooltip" title="" data-original-title="Mark as important">
-											<i class="fa fa-bookmark-o"></i>
-										</a>
-									</span>
-								</li> -->
-							</ul>
-						</div>
-					</div>
-
-					<div class="box box-color box-bordered green">
+					<div class="box box-color box-bordered orange" style="margin-bottom:10px;">
 						<div class="box-title">
 							<h3>
 								<i class="fa fa-bullhorn"></i> Actividad Reciente
 							</h3>
 							
 						</div>
-						<div class="box-content" style="padding:0">
-							<table class="table table-nohead" id="">
-								<tbody>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-info">
-											<i class="fa fa-shopping-cart"></i>
-											</span> New order received
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-warning">
-												<i class="fa fa-comment"></i>
-											</span> 
-											<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-										</td>
-									</tr>
-								
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-info">
-												<i class="fa fa-shopping-cart"></i>
-											</span> New order received
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-info">
-											<i class="fa fa-shopping-cart"></i>
-											</span> New order received
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-warning">
-											<i class="fa fa-comment"></i></span> 
-											<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-default">
-											<i class="fa fa-plus-square"></i></span> 
-											<a href="#">John Doe</a> added a new photo
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-default">
-											<i class="fa fa-plus-square"></i></span> 
-											<a href="#">John Doe</a> added a new photo
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-default">
-											<i class="fa fa-plus-square"></i></span> 
-											<a href="#">John Doe</a> added a new photo
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-warning">
-											<i class="fa fa-comment"></i></span> 
-											<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-success">
-											<i class="fa fa-user"></i></span> New user registered</td></tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-warning">
-											<i class="fa fa-comment"></i></span> 
-											<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-											<span class="label label-warning">
-											<i class="fa fa-comment"></i></span> 
-											<a href="#">John Doe</a> commented on <a href="#">News #123</a>
-										</td>
-									</tr>
-									<tr style="display: table-row;">
-										<td>
-										<span class="label label-success">
-										<i class="fa fa-user"></i></span> New user registered</td></tr>
-									<tr>
-										<td>
-											<span class="label label-default">
-											<i class="fa fa-plus-square"></i></span>
-											<a href="#">John Doe</a>added a new photo</td>
-									</tr>
-									<tr>
-										<td>
-											<span class="label label-success">
-											<i class="fa fa-user"></i></span>New user registered</td>
-									</tr>
-									<tr>
-										<td>
-											<span class="label label-info">
-											<i class="fa fa-shopping-cart"></i></span>New order received</td>
-									</tr>
-									<tr>
-										<td>
-											<span class="label label-warning">
-											<i class="fa fa-comment"></i></span><a href="#">John Doe</a>commented on<a href="#">News #123</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<span class="label label-success">
-											<i class="fa fa-user"></i></span>New user registered</td>
-									</tr>
-									<tr>
-										<td>
-											<span class="label label-info">
-											<i class="fa fa-shopping-cart"></i></span>New order received</td>
-									</tr>
-									<tr>
-										<td>
-											<span class="label label-warning">
-											<i class="fa fa-comment"></i></span><a href="#">John Doe</a>commented on<a href="#">News #123</a>
-										</td>
-									</tr>
+						<div class="box-content" id="activity" style="padding:0;max-height: 350px;overflow: auto;">
+							<table class="table table-nohead" id="activityTable">
+								<tbody>									
+									'.$table.'									
 								</tbody>
 							</table>
+							<form action="#" method="POST" class="form-vertical form-bordered" onSubmit="event.preventDefault();  comentar();">
+									
+									<div class="form-group" style="padding:5px;">
+										
+										<div class="input-group">
+										
+											<input id="comentInput" card="'.$model->TCCD_Id.'" type="text" placeholder="Escribe un comentario.." class="form-control">
+											<div class="input-group-btn">
+												<button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
+											</div>
+										</div>
+									</div>									
+							</form>
 						</div>													
 						
 					</div>
 
 				</div>
 
-				<div class="col-sm-2">
+				<div class="col-sm-3">
 				
-					<h5>Content</h5>
+					<button type="button" class="btn btn-default btn-block" style="border:2px solid orange" data-dismiss="modal">Cerrar</button>
+										
+					<h5 style="font-weight:bolder;">Agregar a la Tarjeta</h5>		
 
-					<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary btn-block">Save changes</button>
+					<a href="#" id="TCCD_Expired" 
+						class="btn 
+						'.(
+							$model->TCCD_Expired ? (
+								date("Y-m-d") > date("Y-m-d",strtotime($model->TCCD_Expired)) ? "btn-danger":"btn-success"
+								):"btn-default"							
+							).'  btn-block" 
+						data-type="date" 
+						data-autotext="auto"
+						data-mode="popup"
+						data-placement="bottom"
+						data-datepicket="{autoclose:true} "
+						data-format="yyyy-mm-dd"
+						data-pk="'.$model->TCCD_Id.'" 
+						data-url="'.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'" 
+						data-title="Vencimiento">
+						<i class="fa fa-clock-o"></i>
+						'.($model->TCCD_Expired ? "Vence ".date("d M",strtotime($model->TCCD_Expired)) :"Vencimiento").'
+					</a>
+					<a href="#" id="TCCD_Labels" 
+						class="btn btn-primary btn-block"
+						data-type="select2" 
+							data-placement="bottom"
+						data-autotext="never"
+						data-tpl=\'<input type="hidden">\' 
+						data-pk="'.$model->TCCD_Id.'" 
+						data-url="'.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'" 
+						data-value="'.$tagVal.'" 
+						data-title="Etiquetas"><i class="fa fa-tags"></i>  Etiquetas
+					</a>
+					<a href="#"	id="TCCD_Users" 
+						class="btn btn-info btn-block"
+						data-type="select2" 
+							data-placement="bottom"
+						data-autotext="never"
+						data-tpl=\'<input type="hidden">\' 
+						data-pk="'.$model->TCCD_Id.'" 
+						data-url="'.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'" 
+						data-value="'.$usersVal.'" 
+						data-title="Colaborador"><i class="fa fa-group"></i>  Colaborador
+					</a>
+					<a href="#"	id="GCCA_List" 
+						class="btn btn-info btn-block"
+						data-type="select2" 
+						data-placement="bottom"
+						data-autotext="never"
+						data-tpl=\'<input type="hidden">\' 
+						data-pk="'.$model->TCCD_Id.'" 
+						data-url="'.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'" 
+						data-value="'.$agenciasVal.'" 
+						data-title="Agencia"><i class="fa fa-desktop"></i>  Agencia
+					</a>
 
-					<h5>Content</h5>
+					<h5 style="font-weight:bolder;">Operaciones</h5>
 
-					<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary btn-block">Save changes</button>
+					<button 
+						type="button" 
+						id="TCCD_Archived"
+						onClick="
+						$.ajax({
+							url:\''.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'\',
+							type:\'POST\',
+							data:{			 
+								name: \'TCCD_Archived\'								
+							},
+							beforeSend:function(){
+								 
+							}
+						})
+						.done(function( data ) {
+							
+							cargarTarjeta(\''.$model->TCCD_Id.'\');
+						});
+						"
+						class="btn '.($model->TCCD_Archived ? "btn-warning ":"btn-default ").' btn-block">
+						<i class="fa fa-save"></i> 
+						' 
+						
+						.($model->TCCD_Archived?"Desarchivar":"Archivar").'
+					</button>
+
+					<button 
+						type="button" 
+						id="TCCD_Hide"
+						onClick="
+						$.ajax({
+							url:\''.Yii::app()->createUrl('tccd/update',array('id'=>$model->TCCD_Id)).'\',
+							type:\'POST\',
+							data:{			 
+								name: \'TCCD_Hide\'								
+							},
+							beforeSend:function(){
+								
+							}
+						})
+						.done(function( data ) {	
+							$(\'#Task-'.$model->TCCD_Id.'\').css(\'background-color\', \'#ff4433\');							
+							$(\'#Task-'.$model->TCCD_Id.'\').css(\'color\', \'white\');							
+							cargarTarjeta(\''.$model->TCCD_Id.'\');
+							if('.($model->TCCD_Hide?"true":"false").'){
+								$(\'#Task-'.$model->TCCD_Id.'\').css(\'background-color\', \'#fff\');							
+								$(\'#Task-'.$model->TCCD_Id.'\').css(\'color\', \'initial\');	
+							}
+							
+						});
+						"
+						class="btn '.($model->TCCD_Hide ? "btn-danger ":"btn-default ").'  btn-block">
+						<i class="fa fa-times"></i> '.($model->TCCD_Hide?"Eliminada":"Eliminar").'
+					</button>
+					
+					<button type="button" 
+						onclick="
+						
+							var aux = document.createElement(\'input\');
+							// aux.setAttribute(\'value\',\'Todo en orden\');
+							aux.setAttribute(\'value\',\' [Titulo]=>'.$model->TCCD_Title.', [Descripcion]=>'.$model->TCCD_Description.',[Vencimiento]=>'.$model->TCCD_Expired.' \');
+							
+							// Append the aux input to the body
+							document.body.appendChild(aux);
+
+							// Highlight the content
+							aux.select();
+
+							// Execute the copy command
+							document.execCommand(\'copy\');
+
+							// Remove the input from the body
+							document.body.removeChild(aux);
+							alert(\'Copiado al portapapeles\');
+						
+						"
+						class="btn btn-default btn-block"><i class="fa fa-share"></i>  Compartir
+					</button>
 
 				</div>	
 
@@ -366,17 +343,23 @@ class TccdController extends Controller
 				$model->TCCA_Id=$_POST['pk'];
 				$model->TCCD_Order=Tccd::model()->count('TCCA_Id='.$_POST['pk']);
 				// $model->TCCA_BoardId=$id;
-				// $model->TCCA_Type=1;			
+				$model->TCCD_Created=date("Y-m-d H:i");			
 
 				if($model->save()){
-					echo CJSON::encode(					
-						array(
-							'id'=>$model->TCCD_Id,
-							'board'=>$model->TCCA_Id,
-							'position'=>$model->TCCD_Order,
-							'title'=>$model->TCCD_Title
-						)
-					);
+					$access = new Tccm;
+					$access->TCCM_IdModel=$model->TCCD_Id;
+					$access->TCCM_Model="TCCD";
+					$access->TCCM_IdUser = Yii::app()->user->id;
+					$access->TCCM_Status='Administrador';
+					$access->save();
+
+					echo CJSON::encode(array(
+						'TCCD_Title'=>$model->TCCD_Title,
+						'TCCD_Id'=>$model->TCCD_Id,
+						'TCCA_Id'=>$model->TCCA_Id,
+						'TCCD_Created'=>date("d M, h:ia",strtotime($model->TCCD_Created)),
+					));
+					$this->saveActivity("creo", Yii::app()->user->id, "esta tarjeta", $model->TCCD_Id);
 					return $model;
 
 			 }else{
@@ -418,13 +401,202 @@ class TccdController extends Controller
 			}
 			if($model->save())
 				// $this->redirect(array('view','id'=>$model->TCCD_Id));
-				print_r($model);
+				echo CJSON::encode($model);
 				echo "Updated";
 		}
-		// print_r($_POST);
-		// $this->render('update',array(
-		// 	'model'=>$model,
-		// ));
+
+		if(isset($_POST['name']) && $_POST['name']=='TCCD_Title'){
+			// echo CJSON::encode($_POST);
+			$oldTitle =  $model->TCCD_Title;
+			 $model->TCCD_Title = $_POST['value'];
+			 if($model->save()){
+				//  echo $model->TCCD_Title;
+				$this->saveActivity("edito", Yii::app()->user->id, " el titulo de la tarjeta. antes, '".$oldTitle."' y ahora, '".$_POST['value']."'", $model->TCCD_Id);
+
+					echo CJSON::encode(array(
+						'TCCD_Title'=>$model->TCCD_Title,
+						'TCCD_Id'=>$model->TCCD_Id,
+						'TCCD_Created'=>date("d M, h:ia",strtotime($model->TCCD_Created)),
+					));
+
+			 }else{
+				throw new CHttpException(404,'The requested page does not exist.');
+			 }
+		}
+		if(isset($_POST['name']) && $_POST['name']=='TCCD_Description'){
+			// print_r($_POST);
+			 $model->TCCD_Description = $_POST['value'];
+			 if($model->save()){
+				$this->saveActivity("edito", Yii::app()->user->id, " la descripcion de la tarjeta.", $model->TCCD_Id);
+				echo CJSON::encode($model);
+
+			 }else{
+				throw new CHttpException(404,'The requested page does not exist.');
+			 }
+		}
+		if(isset($_POST['name']) && $_POST['name']=='TCCD_Expired'){
+			// print_r($_POST);
+			 $model->TCCD_Expired = $_POST['value'];
+			 if($model->save()){
+				$this->saveActivity("edito", Yii::app()->user->id, " el vencimiento de la tarjeta a ".date("d M Y",strtotime($_POST['value'])), $model->TCCD_Id);
+				echo CJSON::encode($model);
+
+			 }else{
+				throw new CHttpException(404,'The requested page does not exist.');
+			 }
+		}
+		if(isset($_POST['name']) && $_POST['name']=='TCCD_Labels'){
+			
+			TccdHasTccl::model()->deleteAll('tccd_TCCD_Id=:id',array(':id'=>$id));
+
+			if(isset($_POST['value'])){
+				$values= $_POST['value'];
+
+				foreach ($values as $val) {
+					// echo $val;
+					if($val!='0'){
+						$label = new TccdHasTccl;
+						$label->tccd_TCCD_Id=$id;
+						$label->tccl_TCCL_Id=$val;
+						$label->save();
+					}
+				}
+			}
+
+			// if($model->save()){
+
+				$this->saveActivity("edito", Yii::app()->user->id, " las etiquetas de la tarjeta", $model->TCCD_Id);
+				echo CJSON::encode($model);
+
+			// }else{
+				// throw new CHttpException(404,'The requested page does not exist.');
+			// }
+		}
+		if(isset($_POST['name']) && $_POST['name']=='TCCD_Users'){
+			
+			Tccm::model()->deleteAll('TCCM_Model="TCCD" and TCCM_Status="Colaborador" and TCCM_IdModel=:id',array(':id'=>$id));
+
+			if(isset($_POST['value'])){
+				$values= $_POST['value'];
+
+				foreach ($values as $val) {
+					// echo $val;
+					if($val!='0' && $val!=""){
+						$user = new Tccm;
+						$user->TCCM_IdModel=$id;
+						$user->TCCM_IdUser=$val;
+						$user->TCCM_Model="TCCD";
+						$user->TCCM_Status="Colaborador";
+						$user->save();
+						if($val != Yii::app()->user->id)
+						$this->sendNotification(
+							$val, 
+							"<b>".Yii::app()->user->name."</b> te etiqueto en la tarjeta <b>".$model->TCCD_Title."</b>",
+							Yii::app()->createUrl('tcca/view',array('id'=>$model->tCCA->TCCA_BoardId,'card'=>$model->TCCD_Id))
+							
+						);
+					}
+				}
+			}
+
+			// if($model->save()){
+
+				$this->saveActivity("edito", Yii::app()->user->id, " las etiquetas de la tarjeta", $model->TCCD_Id);
+				echo CJSON::encode($model);
+
+			// }else{
+				// throw new CHttpException(404,'The requested page does not exist.');
+			// }
+		}
+		if(isset($_POST['name']) && $_POST['name']=='TCCA_Id'){
+			// print_r($_POST);
+			
+			//  $model->TCCD_Expired = $_POST['value'];
+			 if($model->save()){
+				 $lista = $model->tCCA;
+				$this->saveActivity("movio", Yii::app()->user->id, " la tarjeta a la lista '".$lista->TCCA_Name."'", $model->TCCD_Id);
+				echo CJSON::encode($model);
+
+			 }else{
+				throw new CHttpException(404,'The requested page does not exist.');
+			 }
+		}
+		if(isset($_POST['name']) && $_POST['name']=='TCCD_Archived'){
+			
+			if( $model->TCCD_Archived ){
+				$model->TCCD_Archived =null;
+				if($model->save()){
+					$this->saveActivity("desarchivo", Yii::app()->user->id, " esta tarjeta el ".date("d M Y"), $model->TCCD_Id);
+					echo CJSON::encode($model);
+	
+				 }else{
+					throw new CHttpException(404,'The requested page does not exist.');
+				 }
+			}else {
+				$model->TCCD_Archived = date("Y-m-d H:i");
+				if($model->save()){
+					$this->saveActivity("archivo", Yii::app()->user->id, " esta tarjeta el ".date("d M Y"), $model->TCCD_Id);
+					echo CJSON::encode($model);
+	
+				 }else{
+					throw new CHttpException(404,'The requested page does not exist.');
+				 }
+			} 
+			 
+		}
+		if(isset($_POST['name']) && $_POST['name']=='TCCD_Hide'){
+			
+			if($model->TCCD_Hide){
+				$model->TCCD_Hide = null;
+				if($model->save()){
+					$this->saveActivity("desoculto", Yii::app()->user->id, " esta tarjeta el ".date("d M Y"), $model->TCCD_Id);
+					echo CJSON::encode($model);
+	
+				 }else{
+					throw new CHttpException(404,'The requested page does not exist.');
+				 }
+			}else {
+				$model->TCCD_Hide = date("Y-m-d H:i");
+				if($model->save()){
+					$this->saveActivity("oculto", Yii::app()->user->id, " esta tarjeta el ".date("d M Y"), $model->TCCD_Id);
+					echo CJSON::encode($model);
+	
+				 }else{
+					throw new CHttpException(404,'The requested page does not exist.');
+				 }
+			}
+			
+			
+		}
+		if(isset($_POST['name']) && $_POST['name']=='GCCA_List'){
+			
+			Tcga::model()->deleteAll('TCCD_Id=:id',array(':id'=>$id));
+
+			if(isset($_POST['value'])){
+				$values= $_POST['value'];
+
+				foreach ($values as $val) {
+					// echo $val;
+					if($val!='0'){
+						$label = new Tcga;
+						$label->TCCD_Id=$id;
+						$label->GCCA_Id=$val;
+						if($label->save()){}else{
+							 print_r($label->getErrors());
+						}
+					}
+				}
+			}
+
+			// if($model->save()){
+
+				$this->saveActivity("edito", Yii::app()->user->id, " las agencias de la tarjeta", $model->TCCD_Id);
+				echo CJSON::encode($model);
+
+			// }else{
+				// throw new CHttpException(404,'The requested page does not exist.');
+			// }
+		}
 	}
 
 	/**
@@ -482,6 +654,18 @@ class TccdController extends Controller
 		return $model;
 	}
 
+
+	public function saveActivity($TCCT_Type, $TCCT_IdUser, $TCCT_Text, $TCCD_Id){
+		$event = new Tcct;
+		$event->TCCT_Timestamp = date('Y-m-d h:i');
+		$event->TCCT_Type = $TCCT_Type;
+		$event->TCCT_IdUser = $TCCT_IdUser;
+		$event->TCCT_Text = $TCCT_Text;
+		$event->TCCD_Id = $TCCD_Id;
+		$event->save();
+	}
+
+	
 	/**
 	 * Performs the AJAX validation.
 	 * @param Tccd $model the model to be validated

@@ -175,16 +175,17 @@ class FccuController extends Controller {
 
             if ($model->FCCS_Id == '')
                 $model->FCCS_Id = null;
+
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->FCCU_Id));
         }
-        if($model->FCCI_Id == 5){
+        if(  !Yii::app()->user->checkAccess('Inventario') ){
              $this->redirect(array('view', 'id' => $model->FCCU_Id));
         }else{
             
-        $this->render('update', array(
-            'model' => $model,
-        ));
+            $this->render('update', array(
+                'model' => $model,
+            ));
         
         }
     }

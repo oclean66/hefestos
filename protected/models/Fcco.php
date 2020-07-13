@@ -163,7 +163,7 @@ class Fcco extends CActiveRecord {
 //                        'asc' => 'gCCD.GCCD_Nombre',
 //                        'desc' => 'gCCD.GCCD_Nombre  DESC',
 //                    ),
-                   'GCCA_Id' ,
+                   'GCCA_Id' ,'FCCN_Id',
                     'FCCU_Numero' => array(
                         'asc' => 'fCCU.FCCU_Numero',
                         'desc' => 'fCCU.FCCU_Numero  DESC',

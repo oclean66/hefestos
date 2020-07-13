@@ -81,84 +81,143 @@
 
 
 
-<?php
-$this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'fcco-grid',
-    'dataProvider' => $model->search(),
-    'filter' => $model,
-    // 'sort' => array(),
-    'itemsCssClass' => 'table table-hover table-nomargin visible-',
-    'pagerCssClass' => 'table-pagination',
-    'afterAjaxUpdate' => 'ActivarSelects',   
-    'pager' => array(
-        'htmlOptions' => array('class' => 'pagination'),
-        'selectedPageCssClass' => 'active',
-    ),
-    'columns' => array(
-        array('name' => 'FCCO_Lote'),
-        array('name' => 'desde', 'header'=>'Fecha/Hora','value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
-//        array('name' => 'FCCO_Timestamp', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
-//         array('name' => 'hasta', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
-        
-        array('name' => 'FCCU_Serial','type'=>'raw' ,
-//            'value' => '$data->fCCU->FCCU_Numero!=""?$data->fCCU->FCCU_Serial." (".$data->fCCU->FCCU_Numero.")":$data->fCCU->FCCU_Serial',
-//            'value'=>'"<a href=\"/fccu/".$data->FCCU_Id."\">".$data->fCCU->FCCU_Serial."</a>"',
-            'value'=>'CHtml::link($data->fCCU->FCCU_Numero!=""?$data->fCCU->FCCU_Serial." (".$data->fCCU->FCCU_Numero.")":$data->fCCU->FCCU_Serial,Yii::app()->createUrl(\'fccu/view\',array(\'id\'=>$data->FCCU_Id)))'),
-        //array('name' => 'FCCU_Numero', 'header' => 'Numero', 'value' => '$data->fCCU->FCCU_Numero'),
-        array(
-            'name' => 'FCUU_Descripcion', 'header' => 'Categoria',
-            'filter' => CHtml::activeTextField($model, 'FCUU_Descripcion'),
-            'value' => '$data->fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion',
-        ),
-        array(
-            'name' => 'FCCA_Descripcion', 'header' => 'Tipo/Modelo',
-            'filter' => CHtml::activeTextField($model, 'FCCA_Descripcion'),
-            'value' => '$data->fCCU->fCCT->fCCA->FCCA_Descripcion." - ".$data->fCCU->fCCT->FCCT_Descripcion',
-        ),
-//        array('name' => 'FCCO_Enabled', 'type' => 'raw', 'headerHtmlOptions' => array('style' => 'width:20%'),
-//            'value' => '(($data->FCCO_Enabled==1 && $data->FCCN_Id==1)?"Actualmente en ":"")."<a href=\'agencia/".$data->GCCA_Id."?type=1\'>".$data->lugar."</a>"',
-//        ),
-//        array('name' => 'FCCO_Enabled', 'type' => 'raw', 'headerHtmlOptions' => array('style' => 'width:20%'),
-//            'value' => '(($data->FCCO_Enabled==1 && $data->FCCN_Id==1)?"Activo ":"Inactivo")',
-//        ),
-//        'FCCO_Timestamp',
-//        'FCCO_Lote',
-//        'FCCU_Id',
-//        'GCCA_Id',
-         array(
-            'name' => 'GCCA_Id', 'header' => 'Agencia',
-             'filter' => CMap::mergeArray(array(''=>'Todos'),CHtml::listData(Gcca::model()->findAll(),'GCCA_Id','concatened')),
-            //'filter' => CHtml::listData(),
+<div>
 
-//            'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'),
-            'value' => '$data->gCCA? $data->gCCA->concatened:"-"',
-        ),
-//         array('name' => 'GCCA_Nombre', 'value' => '$data->gCCA->concatened'),
-        array(
-            'class' => 'CButtonColumn', 
-            'headerHtmlOptions' => array('style' => 'width:83px'),
-            'template' => '{view}',
-            'buttons'=>array(
-                'view'=>array(
-                   'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1))',
-                   'options' => array(
-                        'ajax' => array(
-                            'type' => 'GET',
-                            // ajax post will use 'url' specified above 
-                            'url' => "js:$(this).attr('href')",
-                            'update' => '#ticketVirtual',
-                            'beforeSend' => "function(){                                
-                                       $('#modal-1').modal('show');
-                                       $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');                                      
-                                    }",
-                            'complete' => "function(){
-                                        $('#ticketVirtual').removeClass('loading');                                 
-                                    }",
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Detalle por Activos</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Detalle por Agencias</a></li>
+    <!-- <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
+    <!-- <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+            <?php
+                $this->widget('zii.widgets.grid.CGridView', array(
+                    'id' => 'fcco-grid',
+                    'dataProvider' => $model->search(),
+                    'filter' => $model,
+                    // 'sort' => array(),
+                    'itemsCssClass' => 'table table-hover table-nomargin visible-',
+                    'pagerCssClass' => 'table-pagination',
+                    'afterAjaxUpdate' => 'ActivarSelects',   
+                    'pager' => array(
+                        'htmlOptions' => array('class' => 'pagination'),
+                        'selectedPageCssClass' => 'active',
+                    ),
+                    'columns' => array(
+                        array('name' => 'FCCO_Lote'),
+                        array('name' => 'desde', 'header'=>'Fecha/Hora','value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
+                        //array('name' => 'FCCO_Timestamp', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
+                        //array('name' => 'hasta', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
+                        
+                        array('name' => 'FCCU_Serial','type'=>'raw' ,
+                        //'value' => '$data->fCCU->FCCU_Numero!=""?$data->fCCU->FCCU_Serial." (".$data->fCCU->FCCU_Numero.")":$data->fCCU->FCCU_Serial',
+                        //'value'=>'"<a href=\"/fccu/".$data->FCCU_Id."\">".$data->fCCU->FCCU_Serial."</a>"',
+                            'value'=>'CHtml::link($data->fCCU->FCCU_Numero!=""?$data->fCCU->FCCU_Serial." (".$data->fCCU->FCCU_Numero.")":$data->fCCU->FCCU_Serial,Yii::app()->createUrl(\'fccu/view\',array(\'id\'=>$data->FCCU_Id)))'),
+                        //array('name' => 'FCCU_Numero', 'header' => 'Numero', 'value' => '$data->fCCU->FCCU_Numero'),
+                        array(
+                            'name' => 'FCUU_Descripcion', 'header' => 'Categoria',
+                            'filter' => CHtml::activeTextField($model, 'FCUU_Descripcion'),
+                            'value' => '$data->fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion',
+                        ),
+                        array(
+                            'name' => 'FCCA_Descripcion', 'header' => 'Tipo/Modelo',
+                            'filter' => CHtml::activeTextField($model, 'FCCA_Descripcion'),
+                            'value' => '$data->fCCU->fCCT->fCCA->FCCA_Descripcion." - ".$data->fCCU->fCCT->FCCT_Descripcion',
+                        ),
+                        //        array('name' => 'FCCO_Enabled', 'type' => 'raw', 'headerHtmlOptions' => array('style' => 'width:20%'),
+                        //            'value' => '(($data->FCCO_Enabled==1 && $data->FCCN_Id==1)?"Actualmente en ":"")."<a href=\'agencia/".$data->GCCA_Id."?type=1\'>".$data->lugar."</a>"',
+                        //        ),
+                        //        array('name' => 'FCCO_Enabled', 'type' => 'raw', 'headerHtmlOptions' => array('style' => 'width:20%'),
+                        //            'value' => '(($data->FCCO_Enabled==1 && $data->FCCN_Id==1)?"Activo ":"Inactivo")',
+                        //        ),
+                        //        'FCCO_Timestamp',
+                        //        'FCCO_Lote',
+                        //        'FCCU_Id',
+                        //        'GCCA_Id',
+                        array(
+                            'name' => 'GCCA_Id', 'header' => 'Agencia',
+                            'filter' => CMap::mergeArray(array(''=>'Todos'),CHtml::listData(Gcca::model()->findAll(),'GCCA_Id','concatened')),
+                            //'filter' => CHtml::listData(),
+
+                            //'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'),
+                            'value' => '$data->gCCA? $data->gCCA->concatened:"-"',
+                        ),
+                        //array('name' => 'GCCA_Nombre', 'value' => '$data->gCCA->concatened'),
+                        array(
+                            'class' => 'CButtonColumn', 
+                            'headerHtmlOptions' => array('style' => 'width:83px'),
+                            'template' => '{view}',
+                            'buttons'=>array(
+                                'view'=>array(
+                                    'imageUrl'=>Yii::app()->theme->baseUrl . "/img/page.png",
+                                    'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->gCCA->GCCA_Id))',
+                                'options' => array(
+                                        'ajax' => array(
+                                            'type' => 'GET',
+                                            // ajax post will use 'url' specified above 
+                                            'url' => "js:$(this).attr('href')",
+                                            'update' => '#ticketVirtual',
+                                            'beforeSend' => "function(){                                
+                                                    $('#modal-1').modal('show');
+                                                    $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');                                      
+                                                    }",
+                                            'complete' => "function(){
+                                                        $('#ticketVirtual').removeClass('loading');                                 
+                                                    }",
+                                        ),
+                                    ),
+                                )
+                            )
                         ),
                     ),
-                )
-            )
-        ),
-    ),
-));
-?>
+                ));
+            ?>    
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+        <!-- <?php 
+        // print_r($agencias); 
+        ?> -->
+        <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Agencia</th>
+          <th>Total Activos</th>
+          <!-- <th>Username</th> -->
+        </tr>
+      </thead>
+      <tbody>
+       
+        <?php 
+            foreach ($agencias as $value) {
+                // echo $value['FCCO_Timestamp'];
+                // echo $value['GCCA_Id'];
+        ?>
+         <tr>
+          <th scope="row"><?php echo date("d M",strtotime($value['FCCO_Timestamp']))?></th>
+          <td><?php echo $value->gCCA->GCCA_Cod." - ".$value->gCCA->GCCA_Nombre;?></td>
+          <td><?php echo $value['FCCO_Id']; ?></td>
+          <!-- <td>@mdo</td> -->
+        </tr>
+
+        <?php
+            }        
+        ?>
+      </tbody>
+    </table>
+
+      
+    </div>
+    <!-- <div role="tabpanel" class="tab-pane" id="messages">...</div> -->
+    <!-- <div role="tabpanel" class="tab-pane" id="settings">...</div> -->
+  </div>
+
+</div>
+
+
+
+

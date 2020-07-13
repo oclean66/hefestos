@@ -9,7 +9,41 @@ class TccaController extends Controller
 	public $layout='//layouts/column2';
 	
 	
+	public function actionComment(){
+		
+		$event = new Tcct;
+		$event->TCCT_Timestamp = date('Y-m-d h:i');
+		$event->TCCT_Type = 'comento';
+		$event->TCCT_IdUser = Yii::app()->user->id;
+		$event->TCCT_Text = $_POST['comment'];
+		$event->TCCD_Id = $_POST['idCard'];
+		$event->save();
 
+		$subcribed = Tccm::model()->find('TCCM_IdUser=:id and TCCM_IdModel=:model',array(':id'=>Yii::app()->user->id,':model'=>$_POST['idCard']));
+		if(!isset($subcribed)){
+			// echo "No se encontro";
+			$access = new Tccm;
+			$access->TCCM_IdModel=$_POST['idCard'];
+			$access->TCCM_Model="TCCD";
+			$access->TCCM_IdUser = Yii::app()->user->id;
+			$access->TCCM_Status='Subscriber';
+			$access->save();
+		}
+		
+		
+		$card = Tccd::model()->find('TCCD_Id=:id',array(':id'=>$_POST['idCard']));
+		$users = Tccm::model()->findAll('TCCM_Model="TCCD" and TCCM_IdModel=:id',array(':id'=>$_POST['idCard']));
+		
+		foreach ($users as $value) {
+			if(Yii::app()->user->id!=$value->TCCM_IdUser)
+			$this-> sendNotification(
+				$id=$value->TCCM_IdUser, 
+				$title = "<b>".Yii::app()->user->name."</b> comento en la tarjeta <b>".$card->TCCD_Title."</b>: '".substr($_POST['comment'],0,25)."...'",
+				$url = Yii::app()->createUrl('tcca/view',array('id'=>$card->tCCA->TCCA_BoardId,'card'=>$_POST['idCard']))						
+			);
+		}
+		echo "Guardado";
+	}
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -23,6 +57,7 @@ class TccaController extends Controller
 				$model->TCCA_Name = $_POST['value'];
 				$model->TCCA_BoardId=$id;
 				$model->TCCA_Type=1;			
+				$model->TCCA_Order=	Tcca::model()->count('TCCA_BoardId='.$id);
 
 				if($model->save()){
 					echo $model->TCCA_Name;
@@ -33,20 +68,78 @@ class TccaController extends Controller
 			 }
 		}
 		$board=array();
-		$listas = Tcca::model()->findAll('TCCA_Type=1 and TCCA_BoardId =:id and TCCA_Archived is null',array('id'=>$id));
+
+		$admin = false;
+
+		$listas = Tcca::model()->findAll('TCCA_Type=1 and TCCA_BoardId =:id and TCCA_Archived is null order by TCCA_Order',array('id'=>$id));
 		foreach ($listas as  $value) {
 			$board[]=array(
-				'id'=>$value->TCCA_Id,
-				'name'=>$value->TCCA_Name,
-				'order'=>1,
-				'task'=>Tccd::model()->findAll('TCCA_Id =:id order by TCCD_Order',array('id'=>$value->TCCA_Id))
+				'TCCA_Id'=>$value->TCCA_Id,
+				'TCCA_Name'=>$value->TCCA_Name,
+				'TCCA_Order'=>$value->TCCA_Order,
+				'TCCA_Tasks'=>Tccd::model()->findAll('TCCA_Id =:id and TCCD_Hide is null order by TCCD_Created asc',array('id'=>$value->TCCA_Id)),
+				//tambien por TCCD_Order
 			);
 		}
 
+		$users = Yii::app()->user->um->searchUsersByAuthItem('Tableros',100)->data;
+		$accesos = Tccm::model()->findAll("TCCM_IdModel=:id and TCCM_Model='TCCA'",array(':id'=>$id));
+		$fusers="";
+		$lista = array();
+
+
+		foreach ($users as $user) {
+			$fusers.="{id: '".$user->iduser."', text: '".$user->username."'},";
+			$lista[$user->iduser]=array(
+				'iduser'=>$user->iduser,
+				'username'=>$user->username,
+				'email'=>$user->email,
+				'status'=>false
+			);
+		}
+		foreach ($accesos as $user) {
+			if(isset($lista[$user->TCCM_IdUser]))
+			$lista[$user->TCCM_IdUser]['status']=$user->TCCM_Status;
+
+			if(Yii::app()->user->id == $user->TCCM_IdUser && $user->TCCM_Status=="Administrador" ){
+				$admin = true;
+			}
+			
+		}
+
+		$tags = Tccl::model()->findAll();
+		$ftags="";
+		foreach ($tags as $tag) {
+			$ftags.="{id: '".$tag->TCCL_Id."', text: '".$tag->TCCL_Label."'},";
+		}
+
+		$temporal = Gcca::model()->findAll();
+		$agencias =array();
+		$fagencias="";
+        foreach ($temporal as $value) {
+            $fagencias.="{id: '".$value->GCCA_Id."', text: '".$value->GCCA_Cod." - ".$value->GCCA_Nombre."'},";
+            $agencias[$value->GCCA_Id]=array(
+				'id'=>$value->GCCA_Id,
+				'cod'=>$value->GCCA_Cod,
+				'name'=>$value->GCCA_Nombre,
+				// 'status'=>false
+			);
+        }
+		// print_r($accesos);
+		// print_r($users);
+	
+		
 
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-			'lists'=>$board
+			'lists'=>$board,
+			'admin'=>$admin,
+			'users'=>$lista,
+			'jusers'=>$fusers,
+			'tags'=>$ftags,
+			'agencias'=>$agencias,
+			'jagencias'=>$fagencias
+			
 		));
 	}
 
@@ -64,8 +157,16 @@ class TccaController extends Controller
 		if(isset($_POST['Tcca']))
 		{
 			$model->attributes=$_POST['Tcca'];
-			if($model->save())
+			if($model->save()){
+				$access = new Tccm;
+				$access->TCCM_IdModel=$model->TCCA_Id;
+				$access->TCCM_Model="TCCA";
+				$access->TCCM_IdUser = Yii::app()->user->id;
+				$access->TCCM_Status='Administrador';
+				$access->save();
 				$this->redirect(array('view','id'=>$model->TCCA_Id));
+
+			}
 		}
 
 		$this->render('create',array(
@@ -150,11 +251,33 @@ class TccaController extends Controller
 			$model->attributes=$_POST['Tcca'];
 			$model->TCCA_BoardId=null;
 			$model->TCCA_Type=0;
-			if($model->save())
+			if($model->save()){
+				$access = new Tccm;
+				$access->TCCM_IdModel=$model->TCCA_Id;
+				$access->TCCM_Model="TCCA";
+				$access->TCCM_IdUser = Yii::app()->user->id;
+				$access->TCCM_Status='Administrador';
+				$access->save();
+				// print_r($access);
 				$this->redirect(array('view','id'=>$model->TCCA_Id));
+			}
 		}
-
-		$dataProvider=Tcca::model()->findAll('TCCA_Type=0');
+		$tableros = Tccm::model()->findAll('TCCM_Model="TCCA" and TCCM_IdUser=:user',array(':user'=>Yii::app()->user->id));
+		
+		if(Yii::app()->user->isSuperAdmin)
+			$tableros = Tccm::model()->findAll('TCCM_Model="TCCA" group by TCCM_IdModel');
+		
+		$dataProvider=array();
+		foreach ($tableros as $tablero) {
+			$board=Tcca::model()->find('TCCA_Type=0 and TCCA_Id =:id order by TCCA_Archived, TCCA_Name',array(':id'=>$tablero->TCCM_IdModel));
+			if(isset($board))
+			$dataProvider[]=array(
+				'TCCA_Id'=>$board->TCCA_Id,
+				'TCCA_Name'=>$board->TCCA_Name,
+				'TCCA_Archived'=>$board->TCCA_Archived
+			);
+			# code...
+		}
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 			'model'=>$model

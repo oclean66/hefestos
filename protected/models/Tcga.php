@@ -1,29 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "tccd".
+ * This is the model class for table "tcga".
  *
- * The followings are the available columns in table 'tccd':
+ * The followings are the available columns in table 'tcga':
+ * @property integer $TCGA_Id
  * @property integer $TCCD_Id
- * @property string $TCCD_Title
- * @property string $TCCD_Description
- * @property string $TCCD_Created
- * @property string $TCCD_Expired
- * @property string $TCCD_Archived
- * @property integer $TCCD_Order
- * @property integer $TCCA_Id
+ * @property string $GCCA_Id
  *
  * The followings are the available model relations:
- * @property Tcca $tCCA
- * @property Tccl[] $tccls
- * @property Tcct[] $tccts
+ * @property Gcca $gCCA
+ * @property Tccd $tCCD
  */
-class Tccd extends CActiveRecord
+class Tcga extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Tccd the static model class
+	 * @return Tcga the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -35,7 +29,7 @@ class Tccd extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tccd';
+		return 'tcga';
 	}
 
 	/**
@@ -46,13 +40,12 @@ class Tccd extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('TCCA_Id', 'required'),
-			array('TCCD_Order, TCCA_Id', 'numerical', 'integerOnly'=>true),
-			array('TCCD_Title', 'length', 'max'=>160),
-			array('TCCD_Description, TCCD_Created, TCCD_Expired, TCCD_Archived', 'safe'),
+			array('TCCD_Id, GCCA_Id', 'required'),
+			array('TCCD_Id', 'numerical', 'integerOnly'=>true),
+			array('GCCA_Id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('TCCD_Id, TCCD_Title, TCCD_Description, TCCD_Created, TCCD_Expired, TCCD_Archived, TCCD_Order, TCCA_Id', 'safe', 'on'=>'search'),
+			array('TCGA_Id, TCCD_Id, GCCA_Id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,9 +57,8 @@ class Tccd extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tCCA' => array(self::BELONGS_TO, 'Tcca', 'TCCA_Id'),
-			'tccls' => array(self::MANY_MANY, 'Tccl', 'tccd_has_tccl(tccd_TCCD_Id, tccl_TCCL_Id)'),
-			'tccts' => array(self::HAS_MANY, 'Tcct', 'TCCD_Id'),
+			'gCCA' => array(self::BELONGS_TO, 'Gcca', 'GCCA_Id'),
+			'tCCD' => array(self::BELONGS_TO, 'Tccd', 'TCCD_Id'),
 		);
 	}
 
@@ -76,14 +68,9 @@ class Tccd extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'TCGA_Id' => 'Tcga',
 			'TCCD_Id' => 'Tccd',
-			'TCCD_Title' => 'Tccd Title',
-			'TCCD_Description' => 'Tccd Description',
-			'TCCD_Created' => 'Tccd Created',
-			'TCCD_Expired' => 'Tccd Expired',
-			'TCCD_Archived' => 'Tccd Archived',
-			'TCCD_Order' => 'Tccd Order',
-			'TCCA_Id' => 'Tcca',
+			'GCCA_Id' => 'Gcca',
 		);
 	}
 
@@ -98,14 +85,9 @@ class Tccd extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('TCGA_Id',$this->TCGA_Id);
 		$criteria->compare('TCCD_Id',$this->TCCD_Id);
-		$criteria->compare('TCCD_Title',$this->TCCD_Title,true);
-		$criteria->compare('TCCD_Description',$this->TCCD_Description,true);
-		$criteria->compare('TCCD_Created',$this->TCCD_Created,true);
-		$criteria->compare('TCCD_Expired',$this->TCCD_Expired,true);
-		$criteria->compare('TCCD_Archived',$this->TCCD_Archived,true);
-		$criteria->compare('TCCD_Order',$this->TCCD_Order);
-		$criteria->compare('TCCA_Id',$this->TCCA_Id);
+		$criteria->compare('GCCA_Id',$this->GCCA_Id,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

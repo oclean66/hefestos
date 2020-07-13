@@ -27,7 +27,7 @@ class Gccd extends CActiveRecord {
      */
     public function hijas($id) {
         $aux = '';
-        $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " order by GCCA_Cod");
+        $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " and GCCA_Status = 1 order by GCCA_Cod");
 
         if (count($gccas)) {
             $aux = '<ul>';
@@ -45,7 +45,7 @@ class Gccd extends CActiveRecord {
     public function hijos($id) {
         $aux = '';
         $gccds = Gccd::model()->findAll("GCCD_IdSuperior=" . $id . " order by GCCD_Cod");
-        $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " order by GCCA_Cod");
+        $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " and GCCA_Status = 1 order by GCCA_Cod");
         if (count($gccds) || count($gccas)) {
 
             $aux = '<ul>';
@@ -166,6 +166,7 @@ class Gccd extends CActiveRecord {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100)
         ));
     }
     public function behaviors() {

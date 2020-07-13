@@ -1,13 +1,32 @@
+<?php 
+$url = Yii::app()->request->requestUri;
+if(isset($_GET['card'])){
+    $url = Yii::app()->createUrl('tcca/view',array('id'=>$_GET['id']));
+}
+
+?>
+
 <div class="container-fluid " >
+    
     <a href="#" class="mobile-sidebar-toggle">
         <i class="fa fa-th-list"></i>
     </a>
-    <a href="<?php $this->createUrl('site/index') ?>" id="brand"><?php echo Yii::app()->name ?></a>
-    <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Herramientas">
+
+       
+
+
+    <a href="<?php echo $this->createUrl('site/index') ?>" id="brand"><?php echo Yii::app()->name ?></a>
+    
+    <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Menu">
         <i class="fa fa-bars"></i>
     </a> 
+
     <div>
         <?php
+
+        $notificaciones = Tccn::model()->findAll('TCCN_IdUser=:id order by TCCN_Id desc',array(':id'=>Yii::app()->user->id));
+        $unread = Tccn::model()->count('TCCN_IdUser=:id and TCCN_Read=0 order by TCCN_Id desc',array(':id'=>Yii::app()->user->id));
+
         $baseUrl = Yii::app()->theme->baseUrl;
         $visible = !Yii::app()->user->isGuest;
         $admin = Yii::app()->user->isSuperAdmin;
@@ -74,32 +93,137 @@
         ));
         ?>
     </div>
-    <div class="user">
-        <div class="dropdown">
-<?php
-$var = !Yii::app()->user->isGuest ? Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : "";
 
-$this->widget('zii.widgets.CMenu', array(
-    'htmlOptions' => array('class' => 'main-nav'),
-    'submenuHtmlOptions' => array('class' => 'dropdown-menu pull-right'),
-    'encodeLabel' => false,
-    'items' => array(
-        array('label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img src="' . $baseUrl . '/img/demo/user-avatar.png" alt="">',
-            'url' => '#', 'visible' => $visible,
-            'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"),
-            'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
-            'items' => array(
-                array('label' => 'Bitacora', 'url' => array('/pcue'), 'visible' => Yii::app()->user->checkAccess('controller_pcue')),
-                array('label' => 'Editar Perfil', 'url' => array('/cruge/ui/editprofile'), 'visible' => Yii::app()->user->checkAccess('action_ui_editprofile')),
-                array('label' => 'Salir (' . Yii::app()->user->name . ')', 'url' => Yii::app()->user->ui->logoutUrl, 'visible' => !Yii::app()->user->isGuest),
-            )),
-        array('label' => 'Entrar', 'url' => Yii::app()->user->ui->loginUrl, 'visible' => Yii::app()->user->isGuest),
-)));
-?>
+    <div class="dropdown hidden-lg" style="float:right;display: block;color:white;   padding: 11px 10px 9px 10px;background:orange">
+        <a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown" >
+            <i class="fa fa-bell"></i>
+            <span class="label label-lightred"><?php echo $unread; ?></span>
+        </a>
+        <div class="dropdown-menu pull-right " style="text-align: left;max-height:500px;overflow:auto;min-width:320px;right:-20px;">
+                     <div class="box">
+                        <div class="box-title" style="margin:0">
+                            <h6 style="display:inline-block;color:black">  <i class="fa fa-bell"></i> Notificaciones</h6>
+                            <div class="actions">
+                            <a href="javascript:window.location.href='<?php echo $url;?>'" rel="tooltip" data-placement="bottom" title="" data-original-title="Actualizar" class="btn btn-mini">
+                                    <i class="fa fa-refresh"></i>
+                                </a>
+                                <a href="#" rel="tooltip" onClick="removerAll()" data-placement="bottom" title="" data-original-title="Marcar como Visto" class="btn btn-mini">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                               
+                            </div>
+                        </div>
+                    </div>  
+            <?php foreach ($notificaciones as $value) {
+               ?>
+
+            
+                <a style="text-decoration: none;color:#383838" 
+                    href="#"
+                    class="notification"
+                    id="<?php echo $value->TCCN_Id; ?>" 
+                    data-link="<?php echo $value->TCCN_Url ? $value->TCCN_Url : "#"; ?>"
+                    data-status="<?php echo $value->TCCN_Read==0 ? "active":''; ?>"
+                    >                            
+                    <div class="alert alert-card notificacion <?php echo $value->TCCN_Read==0 ? "active":''; ?>">
+                    
+                        <small class="" style="color:<?php echo $value->TCCN_Read==0 ? "white":'#368ee0'; ?>; font-weight:bolder;">
+                            <?php echo $value->TCCN_Read==0 ? '<i class="fa fa-star"></i>':""; ?>
+                            <?php echo date("d M, h:ia",strtotime($value->TCCN_Created)); ?>
+                        </small>
+                        <br/>
+
+                        <?php echo $value->TCCN_Title; ?>
+                    </div>
+                </a>    
+                            
+
+               <?php
+            }
+            ?>
+           
+            
+            
         </div>
     </div> 
 
+    <div class="user">
+        <div class="dropdown">
+            <?php
+            $var = !Yii::app()->user->isGuest ? Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : "";
 
+            $this->widget('zii.widgets.CMenu', array(
+                'htmlOptions' => array('class' => 'main-nav'),
+                'submenuHtmlOptions' => array('class' => 'dropdown-menu pull-right'),
+                'encodeLabel' => false,
+                'items' => array(
+                    array('label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img src="' . $baseUrl . '/img/demo/user-avatar.png" alt="">',
+                        'url' => '#', 'visible' => $visible,
+                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"),
+                        'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                        'items' => array(
+                            array('label' => 'Bitacora', 'url' => array('/pcue'), 'visible' => Yii::app()->user->checkAccess('controller_pcue')),
+                            array('label' => 'Editar Perfil', 'url' => array('/cruge/ui/editprofile'), 'visible' => Yii::app()->user->checkAccess('action_ui_editprofile')),
+                            array('label' => 'Salir (' . Yii::app()->user->name . ')', 'url' => Yii::app()->user->ui->logoutUrl, 'visible' => !Yii::app()->user->isGuest),
+                        )),
+                    array('label' => 'Entrar', 'url' => Yii::app()->user->ui->loginUrl, 'visible' => Yii::app()->user->isGuest),
+            )));
+            ?>
+        </div>
+        <ul class="icon-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                    <i class="fa fa-bell"></i>
+                    <span class="label label-lightred"><?php echo $unread; ?></span>
+                </a>
+                <div class="dropdown-menu pull-right " style="max-height:500px;overflow:auto;min-width:320px;background-color: #eeeeee;">
+                    <div class="box">
+                        <div class="box-title" style="margin:0">
+                            <h6 style="display:inline-block;">  <i class="fa fa-bell"></i> Notificaciones</h6>
+                            <div class="actions">
+                                <a href="javascript:window.location.href='<?php echo $url;?>'" rel="tooltip" data-placement="bottom" title="" data-original-title="Actualizar" class="btn btn-mini">
+                                    <i class="fa fa-refresh"></i>
+                                </a>
+                                <a href="#" rel="tooltip" onClick="removerAll()" data-placement="bottom" title="" data-original-title="Marcar como Visto" class="btn btn-mini">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                                <!-- <button rel="tooltip" data-placement="bottom" title="" data-original-title="Participantes del Tablero" class="btn btn-mini content-slideUp">
+                                    <i class="fa fa-angle-down"></i>
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>                    
+
+                <?php foreach ($notificaciones as $value) {
+                ?>
+                <a href="#" 
+                style="text-decoration: none;color:#383838" 
+                   class="notification"
+                    id="<?php echo $value->TCCN_Id; ?>" 
+                    data-link="<?php echo $value->TCCN_Url ? $value->TCCN_Url : "#"; ?>"
+                    data-status="<?php echo $value->TCCN_Read==0 ? "active":''; ?>"
+                    >                            
+                    <div class="alert alert-card notificacion <?php echo $value->TCCN_Read==0 ? "active":''; ?>">
+                    
+                        <small class="" style="color:<?php echo $value->TCCN_Read==0 ? "white":'#368ee0'; ?>; font-weight:bolder;">
+                            <?php echo $value->TCCN_Read==0 ? '<i class="fa fa-star"></i>':""; ?>
+                            <?php echo date("d M, h:ia",strtotime($value->TCCN_Created)); ?>
+                        </small>
+                        <br/>
+
+                        <?php echo $value->TCCN_Title; ?>
+                    </div>
+                </a>                            
+                <?php } ?>
+                   
+                </div>
+            </li>            
+        </ul>
+    </div> 
+
+    
+              
+        
 
 </div>
 <div class="progress progress-striped active" style="margin: 0; height: 5px;background: #eee;">
@@ -108,3 +232,49 @@ $this->widget('zii.widgets.CMenu', array(
     </div>
 </div>
 
+<script>
+   $( ".notification" ).click(function(e) {
+    
+        var link = $(this).data('link');
+        var status = $(this).data('status');
+        
+        if(status=="active"){
+
+        
+            $.ajax({
+                type:"POST",
+                url: "https://kingdeportes.com/hefestos/tccn/delete/"+$(this).attr('id'),
+                beforeSend: function( xhr ) {
+                    jQuery('#progress').attr('style', 'width:100%');
+
+                }
+            }).done(function( data ) {
+                jQuery('#progress').attr('style', 'width:0%');
+                $('#navigation > div.container-fluid > div.user > ul > li > a > span').html($('#navigation > div.container-fluid > div.user > ul > li > a > span').html()-1);
+                location.href= link;
+
+            });
+        }else{
+            location.href= link;
+        }
+
+    });
+
+    function removerAll(){
+        // alert("removiendo");
+        $.ajax({
+  				url: "https://kingdeportes.com/hefestos/tccn/remove/",
+				beforeSend: function( xhr ) {
+                    jQuery('#progress').attr('style', 'width:100%');
+
+				}
+			}).done(function( data ) {
+                jQuery('#progress').attr('style', 'width:0%');
+                $('#navigation > div.container-fluid > div.user > ul > li > a > span').html('0');
+                // console.log(location.href);
+                location.href= '<?php echo $url; ?>';
+            });
+
+    }
+    console.log('<?php echo $url; ?>')
+</script>

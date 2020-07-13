@@ -3,8 +3,8 @@
 /* @var $model Fcco */
 
 
-$model = $modelo[0];
-Yii::app()->name = "Salida: " . $model->gCCA->GCCA_Cod . " - " . $model->gCCA->GCCA_Nombre;
+// $model = $modelo[0];
+// Yii::app()->name = "Salida: " . $model->GCCA_Cod . " - " . $model->GCCA_Nombre;
 $this->menu = array(
     //array('label'=>'List Fcco', 'url'=>array('index')),
     array('label' => 'Asignar Activos', 'url' => array('create')),
@@ -23,8 +23,8 @@ $this->menu = array(
     <address style="position: absolute; top:20px;right: 55px" class="visible-print">
        
         Reporte de <?php echo $tipo == 1 ? "Salida" : "Entrada"; ?> <br> 
-        Fecha: <?php echo date("d-m-Y h:i a", strtotime($model->FCCO_Timestamp)); ?><br>
-        Ticket:<?php echo $model->FCCO_Lote; ?>
+        Fecha: <?php //echo date("d-m-Y h:i a", strtotime($modelo->FCCO_Timestamp)); ?><br>
+        Ticket:<?php echo $lote; ?>
     </address>
 <!-- </div> -->
 <div class="row">
@@ -58,11 +58,11 @@ $this->menu = array(
                     </div>
                     <div class="invoice-from">
 
-                        <strong class="truncate"><?php echo $model->gCCA->GCCA_Cod . " - " . $model->gCCA->GCCA_Nombre; ?></strong>
+                        <strong class="truncate"><?php echo $model->GCCA_Cod . " - " . $model->GCCA_Nombre; ?></strong>
                         <address style="width: 240px">
-                            Rif: <?php echo $model->gCCA->GCCA_Rif; ?>
-                            <br><?php echo $model->gCCA->GCCA_Direccion; ?>
-                            <br>Telefono:  <?php echo $model->gCCA->GCCA_Telefono; ?>
+                            Rif: <?php echo $model->GCCA_Rif; ?>
+                            <br><?php echo $model->GCCA_Direccion; ?>
+                            <br>Telefono:  <?php echo $model->GCCA_Telefono; ?>
 
                         </address>
                     </div>
