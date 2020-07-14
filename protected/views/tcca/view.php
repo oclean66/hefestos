@@ -349,7 +349,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 						?>
 							<div  
 								id="Task-<?php echo $task->TCCD_Id; ?>" 
-								class="alert alert-card "		
+								class="alert alert-card <?php echo isset($task->TCCD_Expired) && date("Y-m-d") > date("Y-m-d",strtotime($task->TCCD_Expired)) ? "active":""; ?>"
+								
 								data-board="<?php echo $value['TCCA_Id']; ?>"
 								data-pos="<?php echo $task->TCCD_Order; ?>"
 								data-toggle="modal" 
@@ -357,7 +358,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 								data-target=".bs-example-modal-lg"
 								> 
 
-									<small style="color:darkorange;"><b><?php echo date("d M, h:ia",strtotime($task->TCCD_Created)); ?></b></small>
+									<small style="<?php echo isset($task->TCCD_Expired) && date("Y-m-d") > date("Y-m-d",strtotime($task->TCCD_Expired)) ? "color:black;":"color:darkorange;"; ?>"><b><?php echo date("d M, h:ia",strtotime($task->TCCD_Created)); ?></b></small>
 									<?php //echo "(".$task->TCCD_Order.") ".$task->TCCD_Title; ?>
 									<?php echo $task->TCCD_Archived ? ' <small class="pull-right"><i class="fa fa-save"></i> </small> ' :''; ?>		
 									<br/>	
@@ -370,7 +371,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 										<i class="fa fa-exclamation-triangle"></i>
 										<i class="fa fa-trash-o"></i> -->
 										
-										<?php echo $task->TCCD_Expired ? ' <small><i class="fa fa-clock-o"></i> '.date("d M",strtotime($task->TCCD_Expired))."</small> " :''; ?>							
+										<?php echo $task->TCCD_Expired ? ' <small>'.(date("Y-m-d") > date("Y-m-d",strtotime($task->TCCD_Expired))?"<b>":"").'<i class="fa fa-clock-o"></i> '.date("d M",strtotime($task->TCCD_Expired)).(date("Y-m-d") > date("Y-m-d",strtotime($task->TCCD_Expired))?"</b>":"")."</small> " :''; ?>							
 										<?php 
 										
 										$comments = Tcct::model()->findAll('TCCD_Id=:id and TCCT_Type="comento"',array(':id'=>$task->TCCD_Id));
@@ -501,6 +502,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 		font-size:14px;
 		box-shadow: 0px 1px 2px #a0a0a0;
 
+	}
+	.alert-card.active{
+		background-color:#faa;
 	}
 	.alert-dismissable .close {
 		right:0;

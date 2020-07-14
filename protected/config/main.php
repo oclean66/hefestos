@@ -65,10 +65,10 @@ return array(
         'crugemailer' => array(
             'class' => 'application.modules.crugemailer.CrugeSwiftMailer',
             'mailfrom' => 'soporte.kingdeportes@gmail.com',
-            'subjectprefix' => 'Hefestos anuncia - ',
+            'subjectprefix' => 'Notificacion - ',
             'transport' => 'gmail',
-            'gmailAcount' => 'soporte.kingdeportes@gmail.com',
-            'gmailPassword' => 'Cristian804!',       
+            'gmailAcount' => "soporte.kingdeportes@gmail.com",
+            'gmailPassword' => "Cristian804!",       
             // 'debug' => true,
         ),
          'format' => array(

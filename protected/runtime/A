@@ -1,0 +1,576 @@
+2020/07/13 21:19:31 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 21:19:31 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 21:19:31 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 21:19:31 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 21:21:46 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 21:21:46 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 21:21:46 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 21:21:46 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:27:42 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:27:42 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:27:42 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:27:42 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:01 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:01 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:01 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:01 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:08 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:08 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:08 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:28:08 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:31:54 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:31:54 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:31:54 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:31:54 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:34:24 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:34:24 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:34:24 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:34:24 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:39:59 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:39:59 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:39:59 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:39:59 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:40:35 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:40:35 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:40:35 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:40:35 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:43:29 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:43:29 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:43:29 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:43:29 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:44:33 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:44:33 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:44:33 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:44:33 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:48:17 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:48:17 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:48:17 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:48:17 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:55:23 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:55:23 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:55:23 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:55:23 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:56:27 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:56:27 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:56:27 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/13 23:56:27 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:00:23 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:00:23 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:00:23 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:00:23 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:01:33 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:01:33 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:01:33 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:01:33 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:07:49 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:07:49 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:07:49 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:07:49 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:08:46 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:08:46 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:08:46 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:08:46 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:20 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:20 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:20 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:20 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:41 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:41 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:41 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:41 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:44 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:44 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:44 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:10:44 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:11:47 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:11:47 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:11:47 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:11:47 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:12:18 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:12:18 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:12:18 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:12:18 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:13:17 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:13:17 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:13:17 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:13:17 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:14:35 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:14:35 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:14:35 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:14:35 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:07 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:07 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:07 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:07 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:46 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:46 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:46 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:16:46 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:20:45 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:20:45 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:20:45 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:20:45 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:29:20 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:29:20 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:29:20 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:29:20 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:07 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:07 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:07 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:07 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:51 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:51 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:51 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:34:51 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:35:20 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:35:20 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:35:20 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:35:20 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:41:38 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:41:38 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:41:38 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:41:38 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:44:50 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:44:50 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:44:50 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:44:50 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:49:22 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:49:22 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:49:22 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:49:22 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:51:14 [warning] [application] Failed to set unsafe attribute "regdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:51:14 [warning] [application] Failed to set unsafe attribute "actdate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:51:14 [warning] [application] Failed to set unsafe attribute "logondate" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
+2020/07/14 00:51:14 [warning] [application] Failed to set unsafe attribute "nombre" of "CrugeStoredUser".
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/models/data/CrugeStoredUser.php (134)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (243)
+in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (227)
