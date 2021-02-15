@@ -44,7 +44,7 @@ class Gccd extends CActiveRecord {
 
     public function hijos($id) {
         $aux = '';
-        $gccds = Gccd::model()->findAll("GCCD_IdSuperior=" . $id . " order by GCCD_Cod");
+        $gccds = Gccd::model()->findAll("GCCD_IdSuperior=" . $id . " and GCCD_Estado=1 order by GCCD_Cod");
         $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " and GCCA_Status = 1 order by GCCA_Cod");
         if (count($gccds) || count($gccas)) {
 
@@ -156,11 +156,11 @@ class Gccd extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('GCCD_Id', $this->GCCD_Id, true);
+        $criteria->compare('GCCD_Id', $this->GCCD_Id, false);
         $criteria->compare('GCCD_Cod', $this->GCCD_Cod, true);
         $criteria->compare('GCCD_Nombre', $this->GCCD_Nombre, true);
-        $criteria->compare('GCCD_IdSuperior', $this->GCCD_IdSuperior, true);
-        $criteria->compare('GCCD_Estado', $this->GCCD_Estado);
+        $criteria->compare('GCCD_IdSuperior', $this->GCCD_IdSuperior, false);
+        $criteria->compare('GCCD_Estado', 1);
         $criteria->compare('GCCD_Responsable', $this->GCCD_Responsable, true);
         $criteria->compare('GCCD_Telefono', $this->GCCD_Telefono, true);
 

@@ -29,11 +29,17 @@ array('label'=>'Crear Tipo', 'url'=>array('create')),
 'htmlOptions' => array('class' => 'pagination'),
 'selectedPageCssClass' => 'active',
 ),
-'columns'=>array(
-		'FCCA_Id',
+'columns'=>
+	array(
+		// 'FCCA_Id',
 		'FCCA_Descripcion',
-array(
-'class'=>'CButtonColumn','headerHtmlOptions' => array('style' => 'width:83px'),
-),
-),
+		array(
+			'name'=> 'FCUU_Id',
+			'value'=>'$data->fCUU->FCUU_Descripcion'
+		),
+		array(
+		'class'=>'CButtonColumn',
+		'headerHtmlOptions' => array('style' => 'width:83px'),
+		),
+	),
 )); ?>

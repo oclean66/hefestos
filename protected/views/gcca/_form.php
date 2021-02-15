@@ -83,13 +83,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCA_Status', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactiva', '1' => 'Activa'), array('empty' => 'Seleccione','class'=>'')); ?>   
                 <?php echo $form->error($model, 'GCCA_Status', array('class' => 'label label-danger')); ?>
             </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCA_Rif', array('class' => 'control-label col-sm-2')); ?>

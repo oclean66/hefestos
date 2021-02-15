@@ -31,7 +31,7 @@ class FccoController extends Controller {
         // $array = array();
         $query = new CDbCriteria;
         $query->select = "count(*) as FCCO_Id, GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d') as FCCO_Timestamp";
-        $query->condition = "FCCO_Timestamp BETWEEN '".$model->desde."' and '".$model->hasta."'";
+        $query->condition = "FCCO_Timestamp BETWEEN '".$model->desde."' and '".$model->hasta."' and FCCN_Id = ". $FCCN_Id;
         $query->group="GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
         $query->order="FCCO_Timestamp desc";
         $agencias = Fcco::model()->findAll($query);
@@ -43,6 +43,54 @@ class FccoController extends Controller {
             'desde'=>$model->desde,
             'hasta'=>$model->hasta
         ));
+    }
+    public function actionDetalleReporte($FCCN_Id = 1, $gcca_id){
+        if (isset($_POST['desde']) && isset($_POST['hasta'])) {
+           $desde = strftime("%Y-%m-%d", strtotime($_POST['desde']));
+           $hasta = strftime("%Y-%m-%d", strtotime($_POST['hasta']));
+
+            if($desde ==$hasta ){
+               $hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
+            }
+
+            // $model->FCCO_Timestamp = strftime("%Y-%m-%d", strtotime($_POST['datepicker']));
+        } 
+        else {
+            $desde = date('Y-m-d');
+            $hasta = date('Y-m-d', strtotime($desde . ' +1 day'));
+        }
+        
+        $agencia = Fcco::model()->findAll("
+        FCCO_Timestamp BETWEEN '".$desde."' and '".$hasta."' 
+        and FCCN_Id = ". $FCCN_Id."
+        and GCCA_Id = ".$gcca_id." order by FCCO_Timestamp desc");
+    
+      
+            echo "
+            <table class='table table-hover table-condensed'>
+                <thead>
+                <tr>
+                    <th>#Serial</th>
+                    <th>Descripcion</th>
+                    
+                </tr>
+                </thead>
+                <tbody>";
+                foreach ($agencia as $value) {  
+                echo "<tr>
+                    <td>
+                    {$value->fCCU->FCCU_Serial}
+                    </td>
+                    <td>
+                    {$value->fCCU->fCCT->fCCA->FCCA_Descripcion}
+                    </td>
+                    </tr>";
+                }
+            echo "
+                </tbody>
+            </table>
+            ";
+           
     }
 
     public function actionLess() {
@@ -58,25 +106,29 @@ class FccoController extends Controller {
             foreach ($array as $key => $value) {
 
                 $inventario = Fcco::model()->find('FCCO_Enabled = 1 and FCCN_Id = 1 and FCCU_Id=' . $value . ' order by FCCO_Timestamp DESC');
-                $inventario->FCCO_Enabled = 0; // deshabilito los anteriores
+                if(isset($inventario)){
 
-                $model = new Fcco;
-                $model->FCCO_Timestamp = date('Y-m-d H:i:s');
-                $model->FCCO_Lote = $somevariable;
-                $model->FCCO_Descripcion = $inventario->FCCO_Descripcion;
-                $model->FCCO_Enabled = 1;
-                $model->FCCN_Id = 2;
-                $model->FCCU_Id = $inventario->FCCU_Id;
-                $model->GCCA_Id = $inventario->GCCA_Id;
-                $model->GCCD_Id = $inventario->GCCD_Id;
+                    $inventario->FCCO_Enabled = 0; // deshabilito los anteriores
+                
 
-                $item = Fccu::model()->find('FCCU_Id = ' . $value);
-                $item->FCCI_Id = $_POST['Fcco']['FCCI_Id'][$key]; //cambia de estado al seleccionado
+                    $model = new Fcco;
+                    $model->FCCO_Timestamp = date('Y-m-d H:i:s');
+                    $model->FCCO_Lote = $somevariable;
+                    $model->FCCO_Descripcion = isset($inventario) ? $inventario->FCCO_Descripcion : "";
+                    $model->FCCO_Enabled = 1;
+                    $model->FCCN_Id = 2;
+                    $model->FCCU_Id = $value;
+                    $model->GCCA_Id = $inventario->GCCA_Id;
+                    $model->GCCD_Id = $inventario->GCCD_Id;
 
-                if ($inventario->save() && $model->save() && $item->save()) {
-            //$salida[]=array('serial'=>$inventario->FCCU_Id, 'descripcion'=> $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCU->fCCT->FCCT_Descripcion . " | " . $item->fCCU->FCCU_Numero, 'lugar'=>$item->lugar);
+                    $item = Fccu::model()->find('FCCU_Id = ' . $value);
+                    $item->FCCI_Id = $_POST['Fcco']['FCCI_Id'][$key]; //cambia de estado al seleccionado
 
-                    echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
+                    if ($inventario->save() && $model->save() && $item->save()) {
+                //$salida[]=array('serial'=>$inventario->FCCU_Id, 'descripcion'=> $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCU->fCCT->FCCT_Descripcion . " | " . $item->fCCU->FCCU_Numero, 'lugar'=>$item->lugar);
+
+                        echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
+                    }
                 }
             }
             $this->redirect(array('enter', 'id' => $somevariable, 'tipo' => 2));
@@ -104,6 +156,62 @@ class FccoController extends Controller {
             ));
     }
 
+    public function actionViewSalidaDia($tipo = null, $view = null, $agencia) {
+
+        $model = Gcca::model()->find('GCCA_Id=:id',array(':id'=>$agencia));
+
+        if (isset($_POST['desde']) && isset($_POST['hasta'])) {
+            $desde = strftime("%Y-%m-%d", strtotime($_POST['desde']));
+            $hasta = strftime("%Y-%m-%d", strtotime($_POST['hasta']));
+ 
+             if($desde ==$hasta ){
+                $hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
+             }
+ 
+            
+         } 
+         else if (isset($_GET['desde']) && isset($_GET['hasta'])) {
+            $desde = strftime("%Y-%m-%d", strtotime($_GET['desde']));
+            $hasta = strftime("%Y-%m-%d", strtotime($_GET['hasta']));
+ 
+             if($desde ==$hasta ){
+                $hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
+             }
+ 
+            
+         } 
+         else {
+             $desde = date('Y-m-d');
+             $hasta = date('Y-m-d', strtotime($desde . ' +1 day'));
+         }
+
+        if ($tipo == null)
+            $tipo = 1;
+
+        $modelo = Fcco::model()->findAll(
+            "GCCA_Id = :id 
+            and FCCN_Id =:tipo
+            and FCCO_Timestamp BETWEEN 
+            :ini and :fin  
+            order by FCCO_Timestamp desc", 
+            array(
+                ':id'=>$agencia,
+                ':tipo' => $tipo,
+                ':ini'=> $desde,
+                ':fin'=> $hasta,
+            ));
+            
+
+        if ($view === null)
+            $this->render('view', array(
+                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'fecha'=>"Resumen ".$desde." al ".$hasta
+            ));
+        else
+            $this->renderPartial('view', array(
+                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'fecha'=>"Resumen ". $desde." al ". $hasta, 'resumen'=>true
+            ));
+    }
+
     public function actionRecibe($id) {
         // echo $id;
 
@@ -127,7 +235,7 @@ class FccoController extends Controller {
         //
         //        $item = $this->loadModel($id);
         $item = Fccu::model()->find('FCCU_Id = ' . $id);
-        $item->FCCI_Id = 2; //cambia de estado al seleccionado
+        $item->FCCI_Id = 10; //cambia de estado al seleccionado
 
         if ($inventario->save() && $model->save() && $item->save()) {
 
@@ -148,17 +256,17 @@ class FccoController extends Controller {
 
 
         $this->render('enter', array(
-            'modelo' => $model, 'tipo' => $tipo
+            'modelo' => $model, 'tipo' => $tipo, 'lote'=>$id
         ));
     }
 
     public function actionActivos() {
         $request = trim($_GET['term']);
         if ($request != '') {
-            $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =2 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
-            $data = array();
+            $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
+            $data = array(); 
             foreach ($model as $item) {
-                $data[] = array(
+                $data[$item->FCCU_Id] = array(
                     'id' => $item->FCCU_Id,
                     'value' => $item->FCCU_Serial,
                     'label' => $item->FCCU_Serial . " | " . $item->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCT->FCCT_Descripcion . " | " . $item->FCCU_Numero,
@@ -199,7 +307,7 @@ class FccoController extends Controller {
         $grupo = Gccd::model()->find('GCCD_Id=:id', array(':id' => $id));
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
-        $model->GCCD_Id = "=" . $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
+        $model->GCCD_Id = $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
         $model->FCCN_Id = "=1"; //operacion: asignados
         $model->FCCO_Enabled = "=1"; //asignado actualmente
 
@@ -217,7 +325,7 @@ class FccoController extends Controller {
         if (isset($_GET['Fcco'])) {
 
             $model->attributes = $_GET['Fcco'];
-            $model->GCCD_Id = "=" . $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
+            $model->GCCD_Id = $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
             $model->FCCN_Id = "=1"; //operacion: asignados
             $model->FCCO_Enabled = "=1"; //asignado actualmente
         }
@@ -244,7 +352,7 @@ class FccoController extends Controller {
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
-        $model->GCCA_Id = "=" . $id;
+        $model->GCCA_Id = $id;
 
         $model->FCCO_Enabled = 1; //asignado actualmente
         $model->FCCN_Id = 1; //operacion asignado
@@ -264,7 +372,7 @@ class FccoController extends Controller {
         if (isset($_GET['Fcco'])) {
 
             $model->attributes = $_GET['Fcco'];
-            $model->GCCA_Id = "=" . $id;
+            $model->GCCA_Id = $id;
             $model->FCCO_Enabled = 1; //asignado actualmente
             $model->FCCN_Id = 1;
         }
@@ -286,6 +394,11 @@ class FccoController extends Controller {
                 'model' => $model, 'count' => $count, 'type' => $type, 'agencia' => $agencia
             ));
         }
+    }
+
+    public function actionPrint(){
+        $d = $_SESSION['all'];
+        $this->renderPartial('print',array('d'=>$d),false,true);
     }
 
     public function actionCreate($id = null) {
@@ -337,27 +450,6 @@ class FccoController extends Controller {
             ));
         }
     }
-
-    /*  public function actionUpdate($id) {
-      $model = $this->loadModel($id);
-
-      // Uncomment the following line if AJAX validation is needed
-      // $this->performAjaxValidation($model);
-
-      if (isset($_POST['Fcco'])) {
-      $model->attributes = $_POST['Fcco'];
-      if ($model->save())
-      $this->redirect(array('view', 'id' => $model->FCCO_Id));
-      }
-
-      $this->render('update', array(
-      'model' => $model,
-      ));
-      }
-
-     */
-
-//
     
     public function actionAdmin() {
         $model = new Fcco('search');

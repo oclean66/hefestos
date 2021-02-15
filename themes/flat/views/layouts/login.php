@@ -3,9 +3,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title><?php echo Yii::app()->name;?></title>
+        <meta name="theme-color" content="#f8a31f">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Administrador de Inventarios">
         <meta name="author" content="<?php echo Yii::app()->name;?>">
+        <link rel="manifest" href="/hefestos/manifest.json">
 
         <!--[if lte IE 9]>
                 <script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
@@ -59,8 +62,11 @@
     <body class='login theme-orange' data-theme='theme-orange' style='background-image: url("https://www.transparenttextures.com/patterns/subtle-grey.png");'>
         <div class="wrapper">
             <h1>
-                <a href="index.html">
-                    <img id="brand" src="<?php echo $baseUrl ?>/img/brand.png" alt="" class='retina-ready' ><?php echo Yii::app()->name;?></a>
+                <a href="#">
+                    <img id="brand" src="<?php echo $baseUrl ?>/img/logo-bigger.png" alt="" class='retina-ready' >
+                    <br/>
+                    <span style="font-size:40px"><?php echo Yii::app()->name;?></span>
+                </a>
             </h1>
 
             <?php echo $content; ?>

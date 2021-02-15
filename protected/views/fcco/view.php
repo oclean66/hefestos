@@ -13,30 +13,32 @@ $this->menu = array(
     array('label' => 'Activos en esta Agencia', 'url' => array('agencia', 'id' => $model->GCCA_Id, 'type' => 258)),
 );
 ?>
-<img class="imprimir" width="150px" src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" />
+<img class="imprimir" width="100px" src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" />
 
 <!-- <div class="modal-header"> -->
 
     <!-- <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right">Cerrar</button> -->
     <!-- <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button> -->
     <!-- <h4 class="modal-title" id="myModalLabel">Comercializadora La Excelencia C.A.</h4> -->
-    <address style="position: absolute; top:20px;right: 55px" class="visible-print">
+    <address style="position: absolute; top:20px;left: 130px" class="visible-print">
        
         Reporte de <?php echo $tipo == 1 ? "Salida" : "Entrada"; ?> <br> 
-        Fecha: <?php //echo date("d-m-Y h:i a", strtotime($modelo->FCCO_Timestamp)); ?><br>
-        Ticket:<?php echo $lote; ?>
+        <?php echo isset($fecha) ? "Fecha: ".$fecha."<br/>" :""; ?>
+        <?php echo isset($lote) ? "Ticket: ".$lote : ""; ?>
     </address>
 <!-- </div> -->
-<div class="row">
-    <div class="col-sm-12">
-        <div class="box">
+<!-- <div class="row"> -->
+    <!-- <div class="col-sm-12"> -->
+        <div class="box" style="width:525px">
             <div class="box-title" style="margin-top:0">
                 <h3>
                     <i class="fa fa-print"></i>
                     Reporte de <?php echo $tipo == 1 ? "Salida" : "Entrada"; ?>
-                </h3>
+                    <?php echo isset($resumen) ? "<br/><small><b>Resumen de operaciones</b></small>":""; ?>
+                </h3> 
+             
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right">Cerrar</button>
-    <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button>
+                <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button>
             </div>
             <div class="box-content" style="padding: 0; padding-top: 10px">
                 <div class="invoice-info">
@@ -56,7 +58,7 @@ $this->menu = array(
                             Telefono Principal:  (0276) 356-7958
                         </address>
                     </div>
-                    <div class="invoice-from">
+                    <div class="invoice-from" style="white-space: normal; width:265px;margin-left:20px">
 
                         <strong class="truncate"><?php echo $model->GCCA_Cod . " - " . $model->GCCA_Nombre; ?></strong>
                         <address style="width: 240px">
@@ -68,9 +70,10 @@ $this->menu = array(
                     </div>
 
                 </div>
-                <table class="table table-striped table-invoice">
+                <table class="table table-striped table-condensed table-bordered table-sm table-colored-header">
                     <thead>
                         <tr>
+                            <?php echo isset($resumen) ? "<th># Serial</th>":"";?>
                             <th># Serial</th>
                             <th>Descripcion</th>
 
@@ -81,6 +84,7 @@ $this->menu = array(
                         foreach ($modelo as $model) {
                             ?>   
                             <tr>
+                                <td class='time <?php echo isset($resumen) ?"":"hide"?>'><?php echo $model->FCCO_Enabled ==0?'<strike>':''; echo date("d M, h:iA", strtotime($model->FCCO_Timestamp)); echo $model->FCCO_Enabled ==0?'</strike>':''; ?></td>
                                 <td class='price'><?php echo $model->FCCO_Enabled ==0?'<strike>':''; echo $model->fCCU->FCCU_Serial; echo $model->FCCO_Enabled ==0?'</strike>':''; ?></td>
                                 <td class='name'><?php echo $model->FCCO_Enabled ==0?'<strike>':'';echo $model->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $model->fCCU->fCCT->FCCT_Descripcion . " | " . $model->fCCU->FCCU_Numero; echo $model->FCCO_Enabled ==0?'</strike>':''; ?></td>
 
@@ -95,16 +99,13 @@ $this->menu = array(
               
                 <!--<div id="print-footer">Copyright message</div>-->
 
-                                <div class="imprimir" style="position: initial; bottom: 80px; border: 1px solid black; height: 150px;width: 600px"> Observaciones:</div>
-                                <img class="imprimir pf-footer" style=" margin-left: auto;   margin-right: auto; width: 600px;bottom: 21px; size:5px 11in;position: fixed;" src="<?php echo Yii::app()->theme->baseUrl . "/img/firma.png"; ?>" alt="" />
+                                <!-- <div class="imprimir" style="position: initial; bottom: 80px; border: 1px solid black; height: 150px;width: 600px"> Observaciones:</div> -->
+                                <!-- <img class="imprimir pf-footer" style=" margin-left: auto;   margin-right: auto; width: 600px;bottom: 21px; size:5px 11in;position: fixed;" src="<?php echo Yii::app()->theme->baseUrl . "/img/firma.png"; ?>" alt="" /> -->
                 <?php echo $tipo == 1 ? "Con este documento el Cliente, quien recibe, acepta la responsabilidad de cuidar los articulos aqui descritos y responder por ellos en caso de robo o perdida." : 
                                         "Con este documento el cliente transfiere sus responsabilidades a la empresa de los articulos arriba descritos" ?>
 
             </div>
         </div>
-    </div>
-</div>
-<div class="modal-footer">
+    <!-- </div> -->
+<!-- </div> -->
 
-
-</div>

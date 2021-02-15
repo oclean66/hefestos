@@ -28,7 +28,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCU_Serial', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'FCCU_Serial', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
+                <?php echo $form->textField($model, 'FCCU_Serial', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45, 'disabled'=>$model->isNewRecord ?false:'disabled')); ?>
                 <?php echo $form->error($model, 'FCCU_Serial', array('class' => 'label label-danger')); ?>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCU_Timestamp', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'FCCU_Timestamp', array('class' => 'form-control')); ?>
+                <?php echo $form->textField($model, 'FCCU_Timestamp', array('class' => 'form-control', 'disabled'=>'disabled')); ?>
                 <?php echo $form->error($model, 'FCCU_Timestamp', array('class' => 'label label-danger')); ?>
             </div>
         </div>
@@ -141,12 +141,25 @@
             <?php echo $form->labelEx($model, 'FCCI_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'), array('prompt' => 'Seleccione un estado...'));
+                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll( Yii::app()->user->isSuperAdmin ? '':'FCCI_Id != 6'), 'FCCI_Id', 'concatened'), array('prompt' => $model->FCCI_Id == 6 ?'# De Baja #':'Seleccione un estado...'));
                 ?>
                 <?php //echo $form->textField($model, 'FCCI_Id', array('class' => 'form-control', 'size' => 10, 'maxlength' => 10)); ?>
                 <?php echo $form->error($model, 'FCCI_Id', array('class' => 'label label-danger')); ?>
+                <?php echo $model->FCCI_Id == 6 ? "<b>Se Encuentra de Baja, editarlo lo reincorpora.</b>":"";?>
             </div>
         </div>
+
+        <div class="form-group hide">
+            <?php //echo $form->labelEx($model, 'FCCU_Hogar', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+                <?php //echo $form->textField($model, 'FCCU_Hogar', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
+                <?php
+                //echo $form->dropDownList($model, 'FCCU_Hogar', array('10' => 'Deposito Tecnico', '11' => 'Centro Comercial', ), array('empty' => 'Selecciona Hogar'));
+                ?>
+                <?php //echo $form->error($model, 'FCCU_Hogar', array('class' => 'label label-danger')); ?>
+            </div>
+        </div>
+
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCS_Id', array('class' => 'control-label col-sm-2')); ?>

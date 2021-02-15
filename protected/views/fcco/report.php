@@ -84,7 +84,7 @@
 <div>
 
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-tabs remover" role="tablist">
     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Detalle por Activos</a></li>
     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Detalle por Agencias</a></li>
     <!-- <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li> -->
@@ -92,7 +92,7 @@
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content">
+  <div class="tab-content remover">
     <div role="tabpanel" class="tab-pane active" id="home">
             <?php
                 $this->widget('zii.widgets.grid.CGridView', array(
@@ -178,9 +178,7 @@
             ?>    
     </div>
     <div role="tabpanel" class="tab-pane" id="profile">
-        <!-- <?php 
-        // print_r($agencias); 
-        ?> -->
+       
         <table class="table table-hover table-condensed">
       <thead>
         <tr>
@@ -200,7 +198,31 @@
          <tr>
           <th scope="row"><?php echo date("d M",strtotime($value['FCCO_Timestamp']))?></th>
           <td><?php echo $value->gCCA->GCCA_Cod." - ".$value->gCCA->GCCA_Nombre;?></td>
-          <td><?php echo $value['FCCO_Id']; ?></td>
+          <td><?php echo CHtml::link(
+                $value['FCCO_Id'],
+                array(
+                    'viewSalidaDia',
+                    "tipo"=>$model->FCCN_Id, 
+                    "agencia"=>$value->gCCA->GCCA_Id,
+                    "view"=>1,
+                    "desde" => $model->desde,
+                    "hasta" => $model->hasta
+                ), 
+                array(
+                    'ajax' => array(
+                        'type' => 'GET',
+                        // ajax post will use 'url' specified above 
+                        'url' => "js:$(this).attr('href')",
+                        'update' => '#ticketVirtual',
+                        'beforeSend' => "function(){                                
+                                $('#modal-1').modal('show');
+                                $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');                                      
+                                }",
+                        'complete' => "function(){
+                                    $('#ticketVirtual').removeClass('loading');                                 
+                                }",
+                    ),
+                )); ?></td>
           <!-- <td>@mdo</td> -->
         </tr>
 

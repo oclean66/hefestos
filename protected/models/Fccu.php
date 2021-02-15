@@ -105,6 +105,7 @@ class Fccu extends CActiveRecord {
             'FCCU_DiaCorte' => 'Dia de Corte',
             'FCCU_MontoMin' => 'Monto de renta',
             'FCCU_TipoServicio' => 'Tipo Servicio',
+            'FCCU_Hogar'=>'Hogar',
             'FCCU_Descripcion' => 'Descripcion',
             'FCCU_Cantidad' => 'Cantidad',
             'FCCU_Facturado' => 'Facturado',
@@ -158,7 +159,7 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCCU_Facturado', $this->FCCU_Facturado);
         $criteria->compare('FCCD_Id', $this->FCCD_Id, true);
         $criteria->compare('FCCT_Id', $this->FCCT_Id, true);
-        $criteria->compare('FCCI_Id', $this->FCCI_Id, true);
+        $criteria->compare('FCCI_Id', $this->FCCI_Id, false);
         $criteria->compare('FCCS_Id', $this->FCCS_Id, true);
         $criteria->compare('FCCU_Titular', $this->FCCU_Titular, true);
         $criteria->compare('FCCU_Cedula', $this->FCCU_Cedula);
@@ -202,7 +203,7 @@ class Fccu extends CActiveRecord {
                 ),
             ),
             'Pagination' => array (
-                  'PageSize' => 50 //edit your number items per page here
+                  'PageSize' => 500 //edit your number items per page here
               ),
         ));
     }

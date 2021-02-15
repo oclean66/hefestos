@@ -142,8 +142,8 @@
             </table>
             <!--botones-->
             <div class="form-actions">
-                <?php echo CHtml::submitButton('Guardar y confirmar', array('onclick' => 'reallySubmit(this,2)', 'id' => 'btn', 'class' => 'btn btn-success',)); ?>
-                <?php echo CHtml::submitButton('Solo Guardar', array('onclick' => 'reallySubmit(this,1)', /* 'submit' => 'create/1', */ 'id' => 'btn', 'class' => 'btn btn-primary',)); ?>
+                <?php echo CHtml::submitButton('Guardar', array('onclick' => 'reallySubmit(this,2)', 'id' => 'btn', 'class' => 'btn btn-success',)); ?>
+                <!-- <?php echo CHtml::submitButton('Solo Guardar', array('onclick' => 'reallySubmit(this,1)', /* 'submit' => 'create/1', */ 'id' => 'btn', 'class' => 'btn btn-primary',)); ?> -->
                 <button type="button" class="btn btn-inverse" onclick="cleaner()">Limpiar</button>
               
             </div>
@@ -234,10 +234,10 @@
         console.log(e);
         $.gritter.add({
             position: 'bottom-left',
-            title: 'Atencion',
+            title: 'Un momento por favor',
             sticky: false,
             time_alive: 500,
-            text: "Funciona",
+            text: "Procesando Informacion",
         });
 //        self.submit("create/"+f);        
     }

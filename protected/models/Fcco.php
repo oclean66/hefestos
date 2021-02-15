@@ -27,7 +27,9 @@ class Fcco extends CActiveRecord {
     public $GCCA_Nombre, $GCCD_Nombre,$desde,$hasta;
 
     public function getLugar() {
-        return "Agencia: " . $this->gCCA->GCCA_Cod . ' - ' . $this->gCCA->GCCA_Nombre . " | Grupo: " . $this->gCCD->GCCD_Cod . ' - ' . $this->gCCD->GCCD_Nombre;
+        return isset($this->gCCA) ? 
+        $this->gCCA->GCCA_Cod . ' - ' . $this->gCCA->GCCA_Nombre . " | " . $this->gCCA->gCCD->GCCD_Cod . ' - ' . $this->gCCA->gCCD->GCCD_Nombre: 
+        "No asignado";
     }
 
     /**
@@ -44,6 +46,9 @@ class Fcco extends CActiveRecord {
      */
     public function tableName() {
         return 'fcco';
+    }
+    public function getConcatend() {
+        return $this->gCCA->GCCA_Cod." - ".$this->gCCA->GCCA_Nombre;
     }
 
     /**
@@ -130,7 +135,7 @@ class Fcco extends CActiveRecord {
         $criteria->with = array('fCCU.fCCT.fCCA.fCUU');
 
 
-        $criteria->compare('FCCO_Id', $this->FCCO_Id, true);
+        $criteria->compare('FCCO_Id', $this->FCCO_Id);
         $criteria->addBetweenCondition('FCCO_Timestamp', $this->desde, $this->hasta);
 
         
@@ -140,13 +145,66 @@ class Fcco extends CActiveRecord {
         $criteria->compare('FCCO_Enabled', $this->FCCO_Enabled);
         $criteria->compare('FCCN_Id', $this->FCCN_Id, true);
         $criteria->compare('t.FCCU_Id', $this->FCCU_Id);
-        $criteria->compare('GCCA_Id', $this->GCCA_Id);
-        $criteria->compare('GCCD_Id', $this->GCCD_Id, true);
+        $criteria->compare('GCCA_Id', $this->GCCA_Id, false);
+        $criteria->compare('GCCD_Id', $this->GCCD_Id, false);
 //      $criteria->condition = "GCCA_Id=" . $this->GCCA_Id;
 //      $criteria->condition = "FCCO_Enabled=" . $this->FCCO_Enabled;
-//      $criteria->condition = "GCCD_Id=" . $this->GCCD_Id;
+    //  $criteria->condition = "GCCD_Id=" . $this->GCCD_Id;
 //      $criteria->params[':met_not_more']=$this->met_not_more;
 //      Ordenamiento de columnas relacionadas
+
+        $data = new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination'=>false,
+            'sort' => array(
+                'defaultOrder' => 'FCCO_Timestamp desc',
+                'attributes' => array(
+                    'GCCA_search' => array(
+                        'asc' => 'gCCA.GCCA_Nombre',
+                        'desc' => 'gCCA.GCCA_Nombre  DESC',
+                    ),
+                    //'GCCD_Nombre' => array(
+                    //'asc' => 'gCCD.GCCD_Nombre',
+                    //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                    //),
+                'GCCA_Id' ,'FCCN_Id',
+                    'FCCU_Numero' => array(
+                        'asc' => 'fCCU.FCCU_Numero',
+                        'desc' => 'fCCU.FCCU_Numero  DESC',
+                    ),
+                    'FCCU_Serial' => array(
+                        'asc' => 'fCCU.FCCU_Serial',
+                        'desc' => 'fCCU.FCCU_Serial  DESC',
+                    ),
+                    'FCCT_Descripcion' => array(
+                        'asc' => 'fCCT.FCCT_Descripcion',
+                        'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                    ),
+                    'FCCA_Descripcion' => array(
+                        'asc' => 'fCCA.FCCA_Descripcion',
+                        'desc' => 'fCCA.FCCA_Descripcion  DESC',
+                    ),
+                    'FCUU_Descripcion' => array(
+                        'asc' => 'fCUU.FCUU_Descripcion',
+                        'desc' => 'fCUU.FCUU_Descripcion  DESC',
+                    ),
+                    //Agregar todos los filtro o quedaran deshabilitados
+                    'FCCO_Lote' => array(
+                        'asc' => 'FCCO_Lote',
+                        'desc' => 'FCCO_Lote  DESC',
+                    ),
+                    'FCCO_Timestamp' => array(
+                        'asc' => 'FCCO_Timestamp',
+                        'desc' => 'FCCO_Timestamp  DESC',
+                    ),
+                    
+                ),
+            ),
+        ));
+
+        Yii::app()->session['all'] = $data;
+       
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(
@@ -159,10 +217,10 @@ class Fcco extends CActiveRecord {
                         'asc' => 'gCCA.GCCA_Nombre',
                         'desc' => 'gCCA.GCCA_Nombre  DESC',
                     ),
-//                    'GCCD_Nombre' => array(
-//                        'asc' => 'gCCD.GCCD_Nombre',
-//                        'desc' => 'gCCD.GCCD_Nombre  DESC',
-//                    ),
+                    //'GCCD_Nombre' => array(
+                    //'asc' => 'gCCD.GCCD_Nombre',
+                    //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                    //),
                    'GCCA_Id' ,'FCCN_Id',
                     'FCCU_Numero' => array(
                         'asc' => 'fCCU.FCCU_Numero',

@@ -63,7 +63,7 @@
                                 'select' => "js:function(event, ui) { 
                                     $('#id').val(ui.item.id);                                    
                                     $('#descripcion').val(ui.item.descrip); 
-                                     $('#lugar').val(ui.item.lugar); 
+                                    $('#lugar').val(ui.item.lugar); 
 
                             }"
                             ),
@@ -139,7 +139,7 @@
             <td> <?php echo CHtml::textField('Fcco[FCCU_Serial][]', '', array('class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td> <?php echo CHtml::textField('Fcco[Descripcion][]', '', array('class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td> <?php echo CHtml::textField('Fcco[Lugar][]', '', array('class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
-            <td> <?php echo CHtml::dropDownList('Fcco[FCCI_Id][]', 'Fcco[FCCI_Id]', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'), array('value' => 2, 'class' => 'form-control', 'options' => array('2' => array('selected' => true)))); ?></td>
+            <td> <?php echo CHtml::dropDownList('Fcco[FCCI_Id][]', 'Fcco[FCCI_Id]', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'), array('value' => 10, 'class' => 'form-control', 'options' => array('10' => array('selected' => true)))); ?></td>
             <td> 
                 <button id='del' class="btn btn-danger" onclick="delt($(this).parent().parent())" type="button">
                     <i class="fa fa-minus"></i>
@@ -171,7 +171,7 @@
         var Descripcion = $('#master').find('#descripcion').val();
         var Lugar = $('#master').find('#lugar').val();
 
-        if (FccuSerial != '' && FccuId!='') {
+        if (FccuSerial != '' && FccuId!='' && Lugar!="") {
             i++;
             $('#serialC').html('<i class="fa fa-th-list"></i>Recibir Equipos  (' + i + ") Elementos agregados");
             $('#padre').prepend(hijo);
@@ -192,6 +192,8 @@
 
 
             $('#master').find('#serial').val('');
+            $('#master').find('#lugar').val('');
+            $('#master').find('#descripcion').val('');
 
 
         }

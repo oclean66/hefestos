@@ -18,6 +18,7 @@ $this->menu = array(
     array('label' => 'Asignar Activos', 'url' => array('create')),
      array('label' => 'Administrar Agencias', 'url' => CController::createUrl('gcca/admin')),
      array('label' => 'Actualizar Agencia', 'url' => CController::createUrl('gcca/update', array('id' => $agencia->GCCA_Id))),
+     array('label' => '<i class="fa fa-print" aria-hidden="true"></i> Imprimir <span class="label label-warning">NUEVO</span>', 'url' => array('print'), 'linkOptions'=>array('target'=>'_blank', 'class'=>'active not-link')),
 );
 
 foreach ($count as $key => $value) {
@@ -52,7 +53,7 @@ foreach ($count as $key => $value) {
     <div class="box-title">
         <a target="_blank" href="<?php echo Yii::app()->createUrl("gcca/view",array("id"=>$agencia->GCCA_Id))?>">
             <h3>
-                <i class="fa fa-th-list"></i>Agencia <?php echo $agencia->concatened . " | Grupo " . $agencia->gCCD->concatened; ?>
+                <i class="fa fa-th-list"></i>Agencia <?php  echo Yii::app()->session['desc'] = $agencia->concatened . " | Grupo " . $agencia->gCCD->concatened; ?>
             </h3>
         </a>
     </div>
@@ -72,14 +73,24 @@ foreach ($count as $key => $value) {
                 'selectedPageCssClass' => 'active',
             ),
             'columns' => array(
-                array('name' => 'FCCO_Timestamp', 'header' => 'Fecha de Asignacion','value'=>'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
+                array('name' => 'FCCO_Timestamp', 
+                'header' => 'Fecha de Asignacion',
+                'type'=>'raw',
+                'value'=>'date("d M Y" , strtotime($data->FCCO_Timestamp))."<br/>".date("h:i:s A" , strtotime($data->FCCO_Timestamp))'),
                  
-                array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->fCCU->FCCU_Serial'),
+                array('name' => 'FCCU_Serial', 'header' => 'Serial', 
+                'value' => '$data->fCCU->FCCU_Serial'),
                 //verificacion
                 // array('name' => 'GCCA_Id', 'header' => 'Agencia','visible'=>Yii::app()->user->isSuperAdmin),
                 // array('name' => 'FCCN_Id', 'header' => 'tipo','visible'=>Yii::app()->user->isSuperAdmin),
                 // array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
-                  array('value'=>'$data->gCCD->GCCD_Nombre."/".$data->gCCD->GCCD_Id','header'=>'Grupo','visible'=>Yii::app()->user->isSuperAdmin),
+                // array(
+                //     'value'=>'"<b>".$data->gCCA->gCCD->concatened."</b><br/><small>".$data->gCCD->concatened."</small>"',
+                //     'header'=>'Grupo Incorrecto',
+                //     'type'=>'raw',
+                //     // 'headerHtmlOptions'=>array('style'=>'width:200px'),
+                //     'visible'=>Yii::app()->user->isSuperAdmin
+                // ),
                 //campos de busqueda relacionada
                 array(
                     'name' => 'FCCU_Numero', 'header' => 'Numero',

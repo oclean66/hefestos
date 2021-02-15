@@ -19,13 +19,15 @@ class GccaController extends Controller
 		$agencia = $this->loadModel($id);
 		$model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
-        $model->GCCA_Id = "=" . $id;
+        $model->GCCA_Id = $id;
+        // $model->GCCD_Id = $agencia->GCCD_Id;
 
 		
 		if (isset($_GET['Fcco'])) {
 			
 			$model->attributes = $_GET['Fcco'];
-            $model->GCCA_Id = "=" . $id;
+            $model->GCCA_Id = $id;
+            // $model->GCCD_Id = $agencia->GCCD_Id;
             // $model->FCCN_Id = 1;
         }
 		$model->FCCO_Enabled = 0; // historial asignado
@@ -122,6 +124,7 @@ class GccaController extends Controller
 	{
 		$model=new Gcca('search');
 		$model->unsetAttributes();  // clear any default values
+		$model->GCCA_Status=1;
 		if(isset($_GET['Gcca']))
 			$model->attributes=$_GET['Gcca'];
 

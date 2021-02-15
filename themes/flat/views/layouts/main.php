@@ -4,10 +4,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title><?php echo Yii::app()->name; ?></title>
+        <meta name="theme-color" content="#f8a31f">
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Administrador de Inventarios">
         <meta name="author" content="<?php echo Yii::app()->name;?>">
-
+        <link rel="manifest" href="/hefestos/manifest.json">
         <?php
         $baseUrl = Yii::app()->theme->baseUrl;
         $cs = Yii::app()->getClientScript();
@@ -21,8 +23,8 @@
         //<!-- Bootstrap -->
         $cs->registerCssFile($baseUrl . '/css/bootstrap.min.css');
         //<!-- jQuery UI -->
-        // $cs->registerCssFile($baseUrl . '/css/plugins/jquery-ui/smoothness/jquery-ui.css', 'screen');
-        // $cs->registerCssFile($baseUrl . '/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css', 'screen');
+        $cs->registerCssFile($baseUrl . '/css/plugins/jquery-ui/smoothness/jquery-ui.css', 'screen');
+        $cs->registerCssFile($baseUrl . '/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css', 'screen');
         //<!-- Notify -->
         $cs->registerCssFile($baseUrl . '/css/plugins/gritter/jquery.gritter.css', 'screen');
 
@@ -105,7 +107,7 @@
         <link rel="apple-touch-icon-precomposed" href="img/logo-big.png" />
 
     </head>
-    <body data-mobile-sidebar="button" class="theme-orange" data-theme="theme-orange">
+    <body data-mobile-sidebar="button" class="theme-orange" data-theme="theme-orange" onload="$('#progress').attr('style', 'width:0%')">
         <div id="navigation" class="navbar-fixed-top">
             <!-- Require the navigation -->
             <?php require_once('tpl_navigation.php') ?>
@@ -139,4 +141,11 @@
         </script>
 
     </body>   
+    <script>
+      
+      $('a:not(.dropdown-toggle)').click(function() {
+        $('#progress').attr('style', 'width:100%');
+    });    
+
+    </script>
 </html>

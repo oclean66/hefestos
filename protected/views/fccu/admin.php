@@ -27,7 +27,7 @@ $this->breadcrumbs = array(
                 'afterAjaxUpdate' => 'ActivarSelects',
                 'itemsCssClass' => 'table table-hover table-nomargin table-condensed',
                 'pagerCssClass' => 'table-pagination',
-                'rowCssClassExpression' => '$data->FCCI_Id==7?"alert-purple":($data->FCCI_Id==6?"alert-danger":($data->FCCI_Id==5?"alert-warning":($data->FCCI_Id==4?"alert-info":($data->FCCI_Id==3?"alert-alert":($data->FCCI_Id==2?"alert-default":($data->FCCI_Id==1?"alert-success":""))))))',
+                'rowCssClassExpression' => '$data->FCCI_Id==7?"alert-purple":($data->FCCI_Id==6?"alert-danger":($data->FCCI_Id==5?"alert-warning":(($data->FCCI_Id==4)?"alert-info":($data->FCCI_Id==3?"alert-alert":(($data->FCCI_Id==2 || $data->FCCI_Id==10)?"alert-default":($data->FCCI_Id==1?"alert-success":""))))))',
                 'pager' => array(
                     'htmlOptions' => array('class' => 'pagination'),
                     'selectedPageCssClass' => 'active',
@@ -42,11 +42,11 @@ $this->breadcrumbs = array(
                         'filter' => CHtml::activeTextField($model, 'FCCU_Numero'),
                         'value' => '!isset($data->FCCU_Numero)?"No aplica":$data->FCCU_Numero',
                     ),
-                    array(
-                        'name' => 'FCUU_Descripcion', 'header' => 'Categoria',
-                        'filter' => CHtml::activeTextField($model, 'FCUU_Descripcion'),
-                        'value' => '$data->fCCT->fCCA->fCUU->FCUU_Descripcion',
-                    ),
+                    // array(
+                    //     'name' => 'FCUU_Descripcion', 'header' => 'Categoria',
+                    //     'filter' => CHtml::activeTextField($model, 'FCUU_Descripcion'),
+                    //     'value' => '$data->fCCT->fCCA->fCUU->FCUU_Descripcion',
+                    // ),
                     array(
                         'name' => 'FCCA_Descripcion', 'header' => 'Tipo',
                         'filter' => CHtml::activeTextField($model, 'FCCA_Descripcion'),
@@ -77,54 +77,54 @@ $this->breadcrumbs = array(
                     array(
                         'header' => 'Acciones',
                         'class' => 'CButtonColumn',
+                        'deleteButtonLabel'=>"Dar de Baja",
+                        'deleteConfirmation'=>"Seguro desar dar de baja esta activo?",
+                        // 'recibeConfirmation'=>"Seguro desar dar de baja esta activo?",
+
                         'headerHtmlOptions' => array('style' => 'width:83px'),
-                        'template' => '{view} {update} {recibe}',
+                        'template' => '{view} {update} {recibe} {delete}',
                         'buttons' => array(
                             'view' => array(
                                 'label' => "Detalles",
+                                'visible'=> 'Yii::app()->user->checkAccess("action_fccu_view")',
                                 'url' => 'Yii::app()->createUrl("fccu/view/",array("id"=>$data->FCCU_Id))',
+                                'options' => array('target' => '_blank'),
+                            ),
+                            'update' => array(
+                                'label' => "Actualizar",
+                                'visible'=> 'Yii::app()->user->checkAccess("action_fccu_update")',
+                                'url' => 'Yii::app()->createUrl("fccu/update/",array("id"=>$data->FCCU_Id))',
                                 'options' => array('target' => '_blank'),
                             ),
                             'recibe' => array(
                                 'label' => 'Recibir', // text label of the button
-                                'url' => 'Yii::app()->createUrl("fccu/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
                                 'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
-                                'visible' => '$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
-                                'options' => array('confirm' => 'Esta Seguro que quiere recibir este activo?',
-                                    'ajax' => array(
-                                        'type' => 'get',
-                                        'url' => "js:$(this).attr('href')",                           
-                                        'success' => " function(html){
-                                            alert(html);
-                                            }",
-                                    ),
-                                ),
+                                'visible' => 'Yii::app()->user->checkAccess("action_fccu_recibe") && $data->FCCI_Id == 5', // a PHP expression for determining whether the button is visible
+                                'confirm'=>"Seguro desea Recibir este activo?",    
+                                'confirmation'=>"Seguro Desea Recibir este activo?",
+                                'url' => 'Yii::app()->createUrl("fccu/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
+                                'click'=>"function(){
+                                    $.fn.yiiGridView.update('fccu-grid', {
+                                        type:'POST',
+                                        url:$(this).attr('href'),
+                                        success:function(data) {
+                                                $('#progress').attr('style', 'width:100%');
+                                                $.fn.yiiGridView.update('fccu-grid');
+                                        }
+                                    })
+                                    $('#progress').attr('style', 'width:0%');
+                                    return false;
+                                }"
+                            ),
+                            'delete' => array(                                
+                                'visible'=>'Yii::app()->user->checkAccess("action_fccu_delete") && $data->FCCI_Id!=5',
+                                'url' =>'Yii::app()->createUrl("fccu/delete/",array("id"=>$data->FCCU_Id))',
                             ),
                         ),
                     ),
                 ),
             ));
-            // Yii::app()->clientScript->registerScript('search', " 
-            //     var timer;
-            //         $('#fccu-grid .filters input[type=text] ').live('keyup', function(e){
-            //             var focusedId = $(document.activeElement).attr('id');
-            //             clearTimeout(timer);
-            //             timer = setTimeout(function() {
-            //                         $.fn.yiiGridView.update('fccu-grid', {
-            //                             data: $('#grid-form').serialize(),
-            //                             complete: function(jqXHR, status) {
-            //                                 if (status=='success'){
-            //                                     //refocus last filter input box.
-            //                                     $('#' + focusedId).focus();
-            //                                     tmpStr = $('#' + focusedId).val();
-            //                                     $('#' + focusedId).val('');
-            //                                     $('#' + focusedId).val(tmpStr);
-            //                                 }
-            //                             }
-
-            //                         });
-            //                     }, 1000);
-            //         }); ");
+            
         ?>
 
     </div>

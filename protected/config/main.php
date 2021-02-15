@@ -6,7 +6,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Hefestos, Inventario y control',
+    'name' => 'HEFESTOS',
     'language' => 'es_es',
     // 'timeZone' => 'America/Caracas',
     'sourceLanguage' => 'es',
@@ -27,12 +27,12 @@ return array(
             'availableAuthMethods' => array('default'),
             'availableAuthModes' => array('username', 'email'),
             'baseUrl' => 'https://kingdeportes.com/hefestos',
-            'debug' => true,
-            'rbacSetupEnabled' => true,
+            'debug' => false,
+            'rbacSetupEnabled' => false,
             'allowUserAlways' => false,
             'useEncryptedPassword' => false,
             'hash' => 'md5',
-            'afterLoginUrl' => null,
+            'afterLoginUrl' => array('/site'),
             'afterLogoutUrl' => null,
             'afterSessionExpiredUrl' => null,
             'loginLayout' => '//layouts/column2',
@@ -44,12 +44,12 @@ return array(
         ),
         // uncomment the following to enable the Gii tool
          // uncomment the following to enable the Gii tool
-        'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            'password' => '1234',
-            // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters' => array('190.97.233.2', '::1'),
-        ),
+        // 'gii' => array(
+        //     'class' => 'system.gii.GiiModule',
+        //     'password' => '1234',
+        //     // If removed, Gii defaults to localhost only. Edit carefully to taste.
+        //     'ipFilters' => array('190.97.233.2', '::1'),
+        // ),
         
     ),
     // application components

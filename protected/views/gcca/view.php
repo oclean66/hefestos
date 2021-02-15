@@ -70,7 +70,7 @@ $this->menu=array(
 </div>
 <div class="box box-bordered box-color print">
     <div class="box-title">
-        <a target="_blank" href="<?php echo Yii::app()->createUrl("fcco/agencia",array("id"=>$model->GCCA_Id,"type"=>$model->GCCA_Id))?>">
+        <a target="_blank" href="<?php echo Yii::app()->createUrl("fcco/agencia",array("id"=>$model->GCCA_Id,"type"=>"html"))?>">
             <h3><i class="fa fa-search"></i>
                Historial de Asignaciones Previas
             </h3>
@@ -106,7 +106,13 @@ $this->menu=array(
 
 					// array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
 
-					array('value'=>'$data->gCCD->GCCD_Nombre."/".$data->gCCD->GCCD_Id','header'=>'Grupo','visible'=>Yii::app()->user->isSuperAdmin),
+					array(
+						'value'=>'"<b>".$data->gCCA->gCCD->concatened."</b><br/><small>".$data->gCCD->concatened."</small>"',
+						'header'=>'Grupo Incorrecto',
+						'type'=>'raw',
+						// 'headerHtmlOptions'=>array('style'=>'width:200px'),
+						'visible'=>Yii::app()->user->isSuperAdmin
+					),
 					//campos de busqueda relacionada
 					array(
 						'name' => 'FCCU_Numero', 'header' => 'Numero',

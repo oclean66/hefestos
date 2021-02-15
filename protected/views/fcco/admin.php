@@ -34,7 +34,7 @@
 
 
     </div>
-    <div class="col-sm-8" id='place' >
+    <div class=" col-sm-8" id='place' >
       
 
     </div>
@@ -57,11 +57,12 @@
                             $('#place').html('<div class="progress progress-striped active" style="margin-top:20px;"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">								<span class="sr-only">45% Complete</span></div></div>');
                         }
                     })
-                            .done(function (data) {
+                    .done(function (data) {
 
-                                $("#place").html(data);
+                        $("#place").html(data);
+                       
 
-                            });
+                    });
 
                 };
             }

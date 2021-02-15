@@ -79,7 +79,14 @@ class GccdController extends Controller {
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id) {
-//        $this->loadModel($id)->delete();
+       $model = $this->loadModel($id);
+       
+       if($model->GCCD_Estado==0){
+            $model->GCCD_Estado = 1;
+        }else{
+            $model->GCCD_Estado=0;
+        }
+       $model->save();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
@@ -93,6 +100,7 @@ class GccdController extends Controller {
      
         $model = new Gccd('search');
         $model->unsetAttributes();  // clear any default values
+        // $model->GCCD_Estado=1;
         $data['model']= $model;
         if (isset($_GET['Gccd']))
             $model->attributes = $_GET['Gccd'];

@@ -8856,3 +8856,6 @@ a:focus {
 .alert-card.notificacion.active {
   background-color: #f8a31f;
 }
+.input-block{
+  width: 100%;
+}

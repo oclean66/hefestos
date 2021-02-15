@@ -54,7 +54,7 @@
 	<?php 
 		$this->widget(Yii::app()->user->ui->CGridViewClass, array(
 			'id'=>'_lista2',
-			'selectableRows'=>1,
+			'selectableRows'=>100,
 			'dataProvider'=>$allUsersDataProvider,
 			'columns'=>array(
 				array(

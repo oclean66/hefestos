@@ -106,17 +106,21 @@ class FccuController extends Controller {
 
         //$item = $this->loadModel($id);
         $item = Fccu::model()->find('FCCU_Id = ' . $id);
-        $item->FCCI_Id = 2; //cambia de estado al seleccionado
+        $item->FCCI_Id = 10; //cambia de estado al seleccionado
 
         if ($inventario->save() && $model->save() && $item->save()) {
-            echo "ok";
+            // echo "ok";
 
             //echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         } else {
-            echo "error";
+            return array(
+                'inventario'=>$inventario->getErrors(),
+                'model'=>$model->getErrors(),
+                'item'=>$item->getErrors(),
+            );
         }
 //
 //
@@ -167,7 +171,10 @@ class FccuController extends Controller {
 
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
-//        $this->redirect(array('view', 'id' => $model->FCCU_Id));
+        if( $model->FCCI_Id == 5){
+            $this->redirect(array('view', 'id' => $model->FCCU_Id, 'alert'=>"No se puede editar, Este activo se encuentra asignado"));
+
+        }
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         if (isset($_POST['Fccu'])) {
@@ -179,15 +186,13 @@ class FccuController extends Controller {
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->FCCU_Id));
         }
-        if(  !Yii::app()->user->checkAccess('Inventario') ){
-             $this->redirect(array('view', 'id' => $model->FCCU_Id));
-        }else{
+      
             
             $this->render('update', array(
                 'model' => $model,
             ));
         
-        }
+        
     }
 
     public function actionCreate() {
@@ -219,13 +224,15 @@ class FccuController extends Controller {
     public function actionDelete($id) {
 
         $model = $this->loadModel($id);
-        $this->redirect(array('view', 'id' => $model->FCCU_Id));
+        $model->FCCI_Id = 6;
+        $model->save();
+        // $this->redirect(array('view', 'id' => $model->FCCU_Id));
 
 
 //        $this->loadModel($id)->delete();
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-//        if (!isset($_GET['ajax']))
-//            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+       if (!isset($_GET['ajax']))
+           $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
     public function actionAdmin() {

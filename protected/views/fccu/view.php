@@ -34,7 +34,9 @@ $this->menu = array(
     <!-- /.modal-dialog -->
 </div>
 
-
+<?php
+    echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> {$_GET['alert']}</div>" : "";
+?>
 <div class="box box-bordered box-color" >
     <div class="box-title" style="width:50%">
         <h3>
@@ -126,11 +128,23 @@ $this->menu = array(
             'selectedPageCssClass' => 'active',
         ),
         'columns' => array(
-            'FCCU_Id',
-            'FCCO_Id',
+            // 'FCCU_Id',
+            // 'FCCO_Id',
+            array(
+                'name' => 'FCCO_Id',
+                'header'=>'Lote',
+            ),
             array('name' => 'FCCO_Timestamp',
                 'value' => 'date("d M Y h:i:s A", strtotime($data->FCCO_Timestamp))',
                 'header' => 'Fecha de Asignacion'),
+                // array(
+                //     'value'=>'"<b>".$data->gCCA->gCCD->concatened."</b><br/><small>".$data->gCCD->concatened."</small>"',
+                //     'header'=>'Grupo Incorrecto',
+                //     'type'=>'raw',
+                //     // 'headerHtmlOptions'=>array('style'=>'width:200px'),
+                //     'visible'=>Yii::app()->user->isSuperAdmin
+                // ),
+
             array(
                 //'value' => '$data->lugar',
                 'value' => 'CHtml::link($data->lugar,Yii::app()->createUrl(\'fcco/agencia\',array(\'id\'=>$data->GCCA_Id,\'type\'=>1)))',
@@ -185,9 +199,9 @@ $this->menu = array(
         ),
     ));
 
-    $data= Pcue::model()->findAll('PCUE_IdModel=:id and PCUE_Model="Fccu" order by PCUE_Id desc',array(':id'=>$model->FCCU_Id));
+    $data= Pcue::model()->findAll('(PCUE_IdModel=:id and PCUE_Model="Fccu") or (PCUE_Descripcion like "%'.$model->FCCU_Serial.'%") order by PCUE_Id desc',array(':id'=>$model->FCCU_Id));
    foreach ($data as $value) {
-       echo "<div class='alert alert-info'><b>".date("d M, h:ia",strtotime($value->PCUE_Date))."</b> ".$value->PCUE_Descripcion." - ".$value->PCUE_Detalles."</div>";
+       echo "<div class='alert alert-info remover'><b>".date("d M, h:ia",strtotime($value->PCUE_Date))."</b> ".$value->PCUE_Descripcion." - ".$value->PCUE_Detalles."</div>";
        echo "<br/>";
    }
 

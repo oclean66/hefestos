@@ -73,11 +73,11 @@ foreach ($count as $key => $value) {
                     'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'),
                     'value' => '$data->gCCA->GCCA_Nombre',
                 ),
-                //  array(
-                //    'name' => 'GCCD_Nombre', 'header' => 'Grupo',
-                //    'filter' => CHtml::activeTextField($model, 'GCCD_Nombre'),
-                //    'value' => '$data->gCCD->GCCD_Nombre',
-                //),
+                 array(
+                   'name' => 'GCCD_Nombre', 'header' => 'Grupo',
+                   'filter' => CHtml::activeTextField($model, 'GCCD_Nombre'),
+                   'value' => '$data->gCCD->GCCD_Nombre',
+                ),
                 'FCCO_Lote',
                 //        array(
                 //            'class' => 'CButtonColumn', 'headerHtmlOptions' => array('style' => 'width:83px'),

@@ -76,6 +76,9 @@ class CrugeAccessControlFilter extends CFilter
         } else {
             // no esta autorizado
             //
+            if(Yii::app()->user->isGuest){                
+                Yii::app()->request->redirect('/hefestos/cruge/ui/login');
+            }
             $this->reportError($actionItemName);
         }
         /*

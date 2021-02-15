@@ -152,6 +152,21 @@ $baseUrl = Yii::app()->theme->baseUrl;
     </div>
 
 </div>
+<script type="text/javascript">
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            Tawk_API.visitor = {
+                name : '<?php echo Yii::app()->user->name;?>',
+                email : '<?php echo Yii::app()->user->email;?>'
+                };
 
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/5ecc2a98c75cbf1769ef3f32/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+            </script>
 
 

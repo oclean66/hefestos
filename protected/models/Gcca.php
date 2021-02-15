@@ -99,10 +99,10 @@ class Gcca extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('GCCA_Id', $this->GCCA_Id, true);
+        $criteria->compare('GCCA_Id', $this->GCCA_Id, false);
         $criteria->compare('GCCD_Id', $this->GCCD_Id, false);
         $criteria->compare('GCCA_Cod', $this->GCCA_Cod, true);
-        $criteria->compare('GCCA_Nombre', $this->GCCA_Nombre, true);
+        $criteria->compare('GCCA_Nombre', $this->GCCA_Nombre, true); //partialMatch
         $criteria->compare('GCCA_Direccion', $this->GCCA_Direccion, true);
         $criteria->compare('GCCA_Status', $this->GCCA_Status);
         $criteria->compare('GCCA_Rif', $this->GCCA_Rif, true);
