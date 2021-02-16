@@ -2,6 +2,7 @@
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
+include 'config.php';
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
@@ -87,18 +88,12 @@ return array(
         ),
 
         // uncomment the following to use a MySQL database
-        'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=hefestos',
-            'emulatePrepare' => true,
-            'username' => 'king_hefestos',
-            'password' => 'c@D%%8mj5Og@',
-            'charset' => 'utf8',
-        ),
+        'db' => $master,
          'excelencia' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=excelencia_mydb',
+            'connectionString' => 'mysql:host=loalhost;dbname=excelencia_mydb',
             'emulatePrepare' => true,
-            'username' => 'king_hefestos',
-            'password' => 'c@D%%8mj5Og@',
+            'username' => 'root',
+            'password' => '',
             'charset' => 'utf8',
             'class' => 'CDbConnection'          // DO NOT FORGET THIS!
         ),

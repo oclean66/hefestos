@@ -1,1 +1,5 @@
 d:\MYLOG.txt
+/assets/
+protected/runtime/*
+/config.php
+

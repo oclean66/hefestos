@@ -13121,3 +13121,194 @@ CrugeLogon->login() returns true
 
 in /home/www/kingdeportes/public_html/hefestos/protected/modules/cruge/controllers/UiController.php (150)
 in /home/www/kingdeportes/public_html/hefestos/index.php (13)
+2021/02/16 20:06:48 [info] [application] UiController
+actionLogin
+
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (143)
+in E:\github\hefestos\index.php (13)
+2021/02/16 20:06:51 [info] [application] UiController
+actionLogin
+
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (143)
+in E:\github\hefestos\index.php (13)
+2021/02/16 20:06:51 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (248)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (56)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (147)
+2021/02/16 20:06:51 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (297)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (249)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (56)
+2021/02/16 20:06:51 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (314)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (249)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (56)
+2021/02/16 20:06:51 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (324)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (249)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (56)
+2021/02/16 20:06:51 [info] [application] CrugeLogon
+authenticate()
+
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (63)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (147)
+in E:\github\hefestos\index.php (13)
+2021/02/16 20:06:51 [info] [application] CrugeUser::__construct
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (74)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (747)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (64)
+2021/02/16 20:06:51 [info] [application] CrugeUser::authenticate
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (80)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (65)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (147)
+2021/02/16 20:06:51 [info] [application] CrugeUser::authenticate
+authmode es:
+default
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (85)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (65)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (147)
+2021/02/16 20:06:51 [info] [application] levantando clases de autenticacion de:
+E:\Github\hefestos\protected\modules\cruge\models\auth
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (410)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (277)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (458)
+2021/02/16 20:06:51 [info] [application] findfile: AlternateAuthDemo.php, isPhp?YES
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (417)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (277)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (458)
+2021/02/16 20:06:51 [info] [application] findfile: CrugeAuthDefault.php, isPhp?YES
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (417)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (277)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (458)
+2021/02/16 20:06:51 [info] [application] CrugeUser::_performAuth
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (117)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (90)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (65)
+2021/02/16 20:06:51 [info] [application] CrugeAuthDefault::authenticate
+in E:\Github\hefestos\protected\modules\cruge\models\auth\CrugeAuthDefault.php (64)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (120)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (90)
+2021/02/16 20:06:51 [info] [application] CrugeUserManager::loadUser
+usernameOrEmail=oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (248)
+in E:\Github\hefestos\protected\modules\cruge\models\auth\CrugeAuthDefault.php (68)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (120)
+2021/02/16 20:06:51 [info] [application] CrugeFactory::getICrugeStoredUser
+usernameOrEmail=oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (297)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (249)
+in E:\Github\hefestos\protected\modules\cruge\models\auth\CrugeAuthDefault.php (68)
+2021/02/16 20:06:51 [info] [application] CrugeFactory::getICrugeStoredUser
+ buscando por -username- a oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (314)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (249)
+in E:\Github\hefestos\protected\modules\cruge\models\auth\CrugeAuthDefault.php (68)
+2021/02/16 20:06:51 [info] [application] CrugeFactory::getICrugeStoredUser
+ **USUARIO HA SIDO HALLADO** oclean66
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (324)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (249)
+in E:\Github\hefestos\protected\modules\cruge\models\auth\CrugeAuthDefault.php (68)
+2021/02/16 20:06:51 [info] [application] CrugeAuthDefault::authenticate Returned User:
+{"iduser":"4","regdate":"1443214654","actdate":null,"logondate":"1602180825","username":"oclean66","email":"oclean66@gmail.com","password":"Cristian804#","authkey":"4ae757d454d412cb54171e994947273c","state":"1","totalsessioncounter":"0","currentsessioncounter":"0"}
+in E:\Github\hefestos\protected\modules\cruge\models\auth\CrugeAuthDefault.php (73)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (120)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (90)
+2021/02/16 20:06:51 [info] [application] CrugeAuthDefault
+authenticate returns:
+0
+ boolean result is:1
+in E:\Github\hefestos\protected\modules\cruge\models\auth\CrugeAuthDefault.php (105)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (120)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (90)
+2021/02/16 20:06:51 [info] [application] CrugeUser::authenticate
+_performAuth es true
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUser.php (91)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (65)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (147)
+2021/02/16 20:06:51 [info] [application] CrugeLogon::login
+intento iniciar sesion. duration=43200, username=oclean66
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (104)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (148)
+in E:\github\hefestos\index.php (13)
+2021/02/16 20:06:51 [info] [application] CrugeWebUser
+login
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (349)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (106)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (148)
+2021/02/16 20:06:51 [info] [application] CrugeFactory
+getICrugeSessionFilter
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (365)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (413)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (355)
+2021/02/16 20:06:51 [info] [application] CrugeFactory
+getICrugeSessionFilter
+new instance for: DefaultSessionFilter
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (379)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (413)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (355)
+2021/02/16 20:06:52 [info] [application] CrugeWebUser
+filtro->startSession
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (373)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (106)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (148)
+2021/02/16 20:06:52 [info] [application] CrugeSession::findLast iduser=4
+curSession:{"idsession":"2512","iduser":"4","created":"1602011295","expire":"1602611235","status":"1","ipaddress":"143.255.87.116","usagecount":"2","lastusage":"1602180825","logoutdate":null,"ipaddressout":null}
+in E:\Github\hefestos\protected\modules\cruge\models\data\CrugeSession.php (107)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (51)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (401)
+2021/02/16 20:06:52 [info] [application] CrugeSession. validateSession. causa: sesion expirada. date.now=1613502412
+in E:\Github\hefestos\protected\modules\cruge\models\data\CrugeSession.php (142)
+in E:\Github\hefestos\protected\modules\cruge\models\data\CrugeSession.php (112)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (51)
+2021/02/16 20:06:52 [info] [application] CrugeSession::findLast
+result:[sesion encontrada][sesion no validada]
+in E:\Github\hefestos\protected\modules\cruge\models\data\CrugeSession.php (122)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeFactory.php (51)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (401)
+2021/02/16 20:06:52 [info] [application] CrugeUserManager::createSession. user=#4
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (438)
+in E:\Github\hefestos\protected\modules\cruge\models\filters\DefaultSessionFilter.php (71)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (374)
+2021/02/16 20:06:52 [info] [application] CrugeWebUser
+filtro->startSession OK
+
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (375)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (106)
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (148)
+2021/02/16 20:06:52 [info] [application] CrugeSession::store() #2633
+result=1
+errorinfo:
+json: {"status":1,"usagecount":1,"iduser":"4","created":1613502412,"lastusage":1613502412,"expire":1614102352,"ipaddress":"::1","idsession":"2633","logoutdate":null,"ipaddressout":null}
+
+in E:\Github\hefestos\protected\modules\cruge\models\data\CrugeSession.php (67)
+in E:\Github\hefestos\protected\modules\cruge\models\filters\DefaultSessionFilter.php (124)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (377)
+2021/02/16 20:06:52 [info] [application] DefaultSessionFilter.onLogin
+in E:\Github\hefestos\protected\modules\cruge\models\filters\DefaultSessionFilter.php (133)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeWebUser.php (383)
+in E:\Github\hefestos\protected\modules\cruge\models\ui\CrugeLogon.php (106)
+2021/02/16 20:06:52 [info] [application] CrugeStoredUser::save
+in E:\Github\hefestos\protected\modules\cruge\models\data\CrugeStoredUser.php (171)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (379)
+in E:\Github\hefestos\protected\modules\cruge\models\filters\DefaultSessionFilter.php (137)
+2021/02/16 20:06:52 [info] [application] CrugeStoredUser::save returns: [1]
+in E:\Github\hefestos\protected\modules\cruge\models\data\CrugeStoredUser.php (178)
+in E:\Github\hefestos\protected\modules\cruge\components\CrugeUserManager.php (379)
+in E:\Github\hefestos\protected\modules\cruge\models\filters\DefaultSessionFilter.php (137)
+2021/02/16 20:06:52 [info] [application] UiController
+CrugeLogon->login() returns true
+
+in E:\Github\hefestos\protected\modules\cruge\controllers\UiController.php (150)
+in E:\github\hefestos\index.php (13)
