@@ -63,15 +63,7 @@ return array(
          'authManager' => array(
             'class' => 'application.modules.cruge.components.CrugeAuthManager',
         ),
-        'crugemailer' => array(
-            'class' => 'application.modules.crugemailer.CrugeSwiftMailer',
-            'mailfrom' => 'soporte.kingdeportes@gmail.com',
-            'subjectprefix' => 'Notificacion - ',
-            'transport' => 'gmail',
-            'gmailAcount' => "soporte.kingdeportes@gmail.com",
-            'gmailPassword' => "Cristian804!",       
-            // 'debug' => true,
-        ),
+        'crugemailer' => $master['crugemailer'],
          'format' => array(
             'datetimeFormat' => "d M, Y h:m:s a",
         ),
@@ -88,7 +80,7 @@ return array(
         ),
 
         // uncomment the following to use a MySQL database
-        'db' => $master,
+        'db' => $master['database'],
          'excelencia' => array(
             'connectionString' => 'mysql:host=loalhost;dbname=excelencia_mydb',
             'emulatePrepare' => true,
