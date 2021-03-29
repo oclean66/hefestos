@@ -31,7 +31,7 @@ class Gcca extends CActiveRecord {
     }
 
     public function getConcatened() {
-        return $this->GCCA_Cod . ' - ' . $this->GCCA_Nombre;
+        return $this->GCCA_Cod . ' - ' . $this->GCCA_Nombre." | Grupo: ".$this->gCCD->concatened;
     }
 
     /**

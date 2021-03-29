@@ -96,6 +96,7 @@
             $(".select2-container").css("width", "100%");
             $(".select2-container").css("heigth", "22px");
             $( "input[type=\'text\']" ).addClass("form-control");
+            $("[rel=popover]").popover();
           
         }');
 
@@ -143,7 +144,7 @@
     </body>   
     <script>
       
-      $('a:not(.dropdown-toggle)').click(function() {
+      $('a:not(.dropdown-toggle):not(.mobile-sidebar-toggle)').click(function() {
         $('#progress').attr('style', 'width:100%');
     });    
 

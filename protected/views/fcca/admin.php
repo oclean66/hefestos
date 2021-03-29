@@ -31,7 +31,7 @@ array('label'=>'Crear Tipo', 'url'=>array('create')),
 ),
 'columns'=>
 	array(
-		// 'FCCA_Id',
+		'FCCA_Id',
 		'FCCA_Descripcion',
 		array(
 			'name'=> 'FCUU_Id',

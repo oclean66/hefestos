@@ -16,6 +16,7 @@ $this->breadcrumbs = array(
         <h3>
             <i class="fa fa-th-list"></i>Administrar Activos del Sistema</h3>
     </div>
+    
     <div class="box-content nopadding">
 
 
@@ -69,8 +70,16 @@ $this->breadcrumbs = array(
                         'name' => 'FCCI_Id', 'header' => 'Estado',
                         'filter' => CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'),
                         //'value' => '$data->FCCI_Id==5?CHtml::link(Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id)->lugar, Yii::app()->createUrl("fcco/agencia",array("id"=>Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id)->GCCA_Id,"type"=>1))):$data->fCCI->FCCI_Descripcion',
-                        // 'value' => '$data->FCCI_Id==5?Fcco::model()->findByPk($data->FCCU_Id)->lugar:$data->fCCI->FCCI_Descripcion',
-                        'value' => '$data->fCCI->FCCI_Descripcion',
+                        //'value' => '$data->FCCI_Id==5?Fcco::model()->findByPk($data->FCCU_Id)->lugar:$data->fCCI->FCCI_Descripcion',
+                        //'value' => '"<a href=\"#\" rel=\'popover\' data-trigger=\'hover\' title=\'".$data->fCCI->FCCI_Descripcion."\' '
+                        // . 'data-placement=\'top\' '
+                        // . 'data-content=\'".($data->FCCI_Id==5?Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id)->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
+                        'value' => '"<a href=\"#\" 
+                            rel=\'".( $data->FCCI_Id == 5 ? "popover" : "")."\' 
+                            data-trigger=\'hover\' 
+                            title=\'".$data->fCCI->FCCI_Descripcion."\' 
+                            data-placement=\'top\' 
+                            data-content=\'".( $data->FCCI_Id==5 ? Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id.\' order by FCCO_Id desc\')->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
                         'type' => 'raw',
                         'headerHtmlOptions' => array('style' => 'width:120px'),
                     ),

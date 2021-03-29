@@ -126,7 +126,7 @@ class Fcco extends CActiveRecord {
         $criteria->with = array('fCCU');
 
         $criteria->compare('FCCA_Descripcion', $this->FCCA_Descripcion, true);
-        $criteria->with = array('fCCU.fCCT.fCCA.');
+        $criteria->with = array('fCCU.fCCT.fCCA');
 
         $criteria->compare('FCCT_Descripcion', $this->FCCT_Descripcion, true);
         $criteria->with = array('fCCU.fCCT');

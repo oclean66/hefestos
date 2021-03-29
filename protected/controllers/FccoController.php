@@ -146,6 +146,62 @@ class FccoController extends Controller {
 
         $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
 
+        $criteria = new CDbCriteria;
+        $criteria->select='*';
+        $criteria->condition = "FCCO_Lote=:lote and FCCN_Id =:tipo";
+        $criteria->params = array(':lote' => $id, ':tipo' => $tipo);
+            $data = new CActiveDataProvider('Fcco', array(
+                'criteria' => $criteria,
+                'pagination'=>false,
+                'sort' => array(
+                    'defaultOrder' => 'FCCO_Timestamp desc',
+                    'attributes' => array(
+                        'GCCA_search' => array(
+                            'asc' => 'gCCA.GCCA_Nombre',
+                            'desc' => 'gCCA.GCCA_Nombre  DESC',
+                        ),
+                        //'GCCD_Nombre' => array(
+                        //'asc' => 'gCCD.GCCD_Nombre',
+                        //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                        //),
+                    'GCCA_Id' ,'FCCN_Id',
+                        'FCCU_Numero' => array(
+                            'asc' => 'fCCU.FCCU_Numero',
+                            'desc' => 'fCCU.FCCU_Numero  DESC',
+                        ),
+                        'FCCU_Serial' => array(
+                            'asc' => 'fCCU.FCCU_Serial',
+                            'desc' => 'fCCU.FCCU_Serial  DESC',
+                        ),
+                        'FCCT_Descripcion' => array(
+                            'asc' => 'fCCT.FCCT_Descripcion',
+                            'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                        ),
+                        'FCCA_Descripcion' => array(
+                            'asc' => 'fCCA.FCCA_Descripcion',
+                            'desc' => 'fCCA.FCCA_Descripcion  DESC',
+                        ),
+                        'FCUU_Descripcion' => array(
+                            'asc' => 'fCUU.FCUU_Descripcion',
+                            'desc' => 'fCUU.FCUU_Descripcion  DESC',
+                        ),
+                        //Agregar todos los filtro o quedaran deshabilitados
+                        'FCCO_Lote' => array(
+                            'asc' => 'FCCO_Lote',
+                            'desc' => 'FCCO_Lote  DESC',
+                        ),
+                        'FCCO_Timestamp' => array(
+                            'asc' => 'FCCO_Timestamp',
+                            'desc' => 'FCCO_Timestamp  DESC',
+                        ),
+                        
+                    ),
+                ),
+            ));            
+
+            Yii::app()->session['all'] = $data;
+            Yii::app()->session['desc'] = $model->concatened;
+
         if ($view === null)
             $this->render('view', array(
                 'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'lote'=>$id
@@ -200,6 +256,70 @@ class FccoController extends Controller {
                 ':ini'=> $desde,
                 ':fin'=> $hasta,
             ));
+            
+        $criteria = new CDbCriteria;
+        $criteria->select='*';
+        $criteria->condition = "GCCA_Id = :id 
+                and FCCN_Id =:tipo
+                and FCCO_Timestamp BETWEEN 
+                :ini and :fin";
+
+        $criteria->with=array('fCCU'=>array('with'=>'fCCT', 'fCCT'=>array('with'=>'fCCA')));
+
+        $criteria->params = array(
+                ':id'=>$agencia,
+                ':tipo' => $tipo,
+                ':ini'=> $desde,
+                ':fin'=> $hasta,
+            );
+            $data = new CActiveDataProvider('Fcco', array(
+                'criteria' => $criteria,
+                'pagination'=>false,
+                'sort' => array(
+                    'defaultOrder' => 'FCCA_Id desc',
+                    'attributes' => array(
+                        'GCCA_search' => array(
+                            'asc' => 'gCCA.GCCA_Nombre',
+                            'desc' => 'gCCA.GCCA_Nombre  DESC',
+                        ),
+                        'FCCA_search' => array(
+                            'asc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion',
+                            'desc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion  DESC',
+                        ),
+                        //'GCCD_Nombre' => array(
+                        //'asc' => 'gCCD.GCCD_Nombre',
+                        //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                        //),
+                        'GCCA_Id' ,'FCCN_Id',
+                        'FCCU_Numero' => array(
+                            'asc' => 'fCCU.FCCU_Numero',
+                            'desc' => 'fCCU.FCCU_Numero  DESC',
+                        ),
+                        'FCCU_Serial' => array(
+                            'asc' => 'fCCU.FCCU_Serial',
+                            'desc' => 'fCCU.FCCU_Serial  DESC',
+                        ),
+                        'FCCT_Descripcion' => array(
+                            'asc' => 'fCCT.FCCT_Descripcion',
+                            'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                        ),
+                                              //Agregar todos los filtro o quedaran deshabilitados
+                        'FCCO_Lote' => array(
+                            'asc' => 'FCCO_Lote',
+                            'desc' => 'FCCO_Lote  DESC',
+                        ),
+                        'FCCO_Timestamp' => array(
+                            'asc' => 'FCCO_Timestamp',
+                            'desc' => 'FCCO_Timestamp  DESC',
+                        ),
+                        
+                    ),
+                ),
+            ));            
+
+            Yii::app()->session['all'] = $data;
+            Yii::app()->session['desc'] = $model->concatened;
+            // Yii::app()->session['all'] = array();
             
 
         if ($view === null)
