@@ -30,6 +30,18 @@ class Gcca extends CActiveRecord {
         return parent::model($className);
     }
 
+    public function getEstadisticas(){
+        $stats['CPU'] = Yii::app()->db->createCommand("Select count(*) as CPU from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcca.FCCA_Id = 11 ")->queryRow();
+        $stats['Conexiones'] = Yii::app()->db->createCommand("Select count(*) as Conexiones from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and   fcuu.FCUU_Id = 2 ")->queryRow();
+        $stats['Monitores'] = Yii::app()->db->createCommand("Select count(*) as Monitores from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcct.FCCA_Id = 12 ")->queryRow();
+        $stats['Impresoras'] = Yii::app()->db->createCommand("Select count(*) as Impresoras from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcct.FCCA_Id = 13 ")->queryRow();
+        $stats['Maquinitas'] = Yii::app()->db->createCommand("Select count(*) as Maquinitas from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcct.FCCA_Id = 4 ")->queryRow();
+
+        //1. Consultar todas las asignaciones de la agencias
+        //2. por cada tipo, consultar el total
+
+        return $stats;
+    }
     public function getConcatened() {
         return $this->GCCA_Cod . ' - ' . $this->GCCA_Nombre." | Grupo: ".$this->gCCD->concatened;
     }

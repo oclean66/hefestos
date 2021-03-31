@@ -1,8 +1,10 @@
 <?php
 
-class SiteController extends Controller {
+class SiteController extends Controller
+{
 
-    public function actionLog() {
+    public function actionLog()
+    {
         $model = Pcue::model()->findAll(array("condition" => "PCUE_Date between DATE_SUB(now(), INTERVAL 5 SECOND) and now()"));
         $data = array();
         foreach ($model as $item) {
@@ -15,7 +17,8 @@ class SiteController extends Controller {
         echo json_encode($data);
     }
 
-    public function actionMigrate() {
+    public function actionMigrate()
+    {
         //print_r($_POST);
         $notas = "Inicio: ";
         $dato = "";
@@ -70,7 +73,7 @@ class SiteController extends Controller {
         }
         if (isset($_POST['checkbox'])) {
 
-// print_r($_POST);
+            // print_r($_POST);
             $model = new Gcca;
             $model->GCCA_Cod = $_POST['cod'];
             $model->GCCA_Nombre = $_POST['nombre'];
@@ -88,7 +91,7 @@ class SiteController extends Controller {
                     $notas = $notas . "Agencia Guardada  </br>";
 
                     $notas = $notas . " Actualizado en 2.0: " . Yii::app()->excelencia->createCommand()
-                                    ->update('agencia', array('Estado' => '0'), 'idagencia=:ida and idgrupo=:idg and idbanca=:idb', array(':ida' => $_POST['cod'], ':idg' => $aux, ':idb' => $_POST['banca'])) . "</br>";
+                        ->update('agencia', array('Estado' => '0'), 'idagencia=:ida and idgrupo=:idg and idbanca=:idb', array(':ida' => $_POST['cod'], ':idg' => $aux, ':idb' => $_POST['banca'])) . "</br>";
                 } else {
                     $notas = $notas . "Agencia No Guardada  </br>";
                     echo "</br>";
@@ -102,8 +105,12 @@ class SiteController extends Controller {
 
                 if (isset($model)) {
                     $notas = $notas . " Actualizado en 2.0-" . Yii::app()->excelencia->createCommand()
-                                    ->update('agencia', array('Estado' => '0'), 'idagencia=:ida  and idgrupo=:idg and idbanca=:idb', 
-                                            array(':ida' => $_POST['cod'], ':idg' => $aux, ':idb' => $_POST['banca'])) . "</br>";
+                        ->update(
+                            'agencia',
+                            array('Estado' => '0'),
+                            'idagencia=:ida  and idgrupo=:idg and idbanca=:idb',
+                            array(':ida' => $_POST['cod'], ':idg' => $aux, ':idb' => $_POST['banca'])
+                        ) . "</br>";
                 }
             }
 
@@ -112,7 +119,7 @@ class SiteController extends Controller {
             $row = Fcco::model()->find($criteria);
 
 
-           foreach ($_POST['checkbox'] as $value => $key) {
+            foreach ($_POST['checkbox'] as $value => $key) {
                 //echo $value." - ";
                 $sql = "Select * from computador where idcomputador ='" . $value . "' order by iditem";
                 $computad = Yii::app()->excelencia->createCommand($sql)->queryRow();
@@ -140,12 +147,12 @@ class SiteController extends Controller {
                             $new->GCCA_Id = $model->GCCA_Id;
                             $new->GCCD_Id = $model->GCCD_Id;
                             $new->FCCO_Lote = $row['FCCO_Lote'] + 1;
-                            
+
                             if ($new->save()) {
                                 $notas = $notas . " - asignacion en fcco " . $new->FCCO_Id . "</br>";
                             }
                             $notas = $notas . " Migrado en 2.0: " . Yii::app()->excelencia->createCommand()
-                                            ->update('item', array('idestado' => '9'), 'serialitem=:serial', array(':serial' => $item['serialitem'])) . "</br>";
+                                ->update('item', array('idestado' => '9'), 'serialitem=:serial', array(':serial' => $item['serialitem'])) . "</br>";
                         } else {
                             echo "</br>";
                             print_r($activo->getErrors());
@@ -157,9 +164,13 @@ class SiteController extends Controller {
 
                         $look = Fccu::model()->find('FCCU_Serial="' . $item['serialitem'] . '"');
                         if (isset($look)) {
-                            $prev = Fcco::model()->find('FCCO_Enabled =1 and FCCU_Id=:serial and GCCA_Id =:agencia', 
-                                    array(':serial' => $look->FCCU_Id,
-                                ':agencia' => $model->GCCA_Id));
+                            $prev = Fcco::model()->find(
+                                'FCCO_Enabled =1 and FCCU_Id=:serial and GCCA_Id =:agencia',
+                                array(
+                                    ':serial' => $look->FCCU_Id,
+                                    ':agencia' => $model->GCCA_Id
+                                )
+                            );
                             if (!isset($prev)) {
                                 $new = new Fcco;
                                 $new->FCCO_Enabled = 1;
@@ -213,7 +224,7 @@ class SiteController extends Controller {
                                 $notas = $notas . " - asignacion en fcco " . $new->FCCO_Id . "</br>";
                             }
                             $notas = $notas . " Migrado en 2.0: " . Yii::app()->excelencia->createCommand()
-                                            ->update('conexion', array('idestado' => '9'), 'IMEI=:serial', array(':serial' => $conexion['IMEI'])) . "</br>";
+                                ->update('conexion', array('idestado' => '9'), 'IMEI=:serial', array(':serial' => $conexion['IMEI'])) . "</br>";
                         } else {
                             echo "</br>";
                             print_r($activo->getErrors());
@@ -225,8 +236,10 @@ class SiteController extends Controller {
 
                         if (isset($look)) {
 
-                            $prev = Fcco::model()->find('FCCU_Id=:serial and GCCA_Id =:agencia', array(':serial' => $look->FCCU_Id,
-                                ':agencia' => $model->GCCA_Id));
+                            $prev = Fcco::model()->find('FCCU_Id=:serial and GCCA_Id =:agencia', array(
+                                ':serial' => $look->FCCU_Id,
+                                ':agencia' => $model->GCCA_Id
+                            ));
                             if (!isset($prev)) {
                                 $new = new Fcco;
                                 $new->FCCO_Enabled = 1;
@@ -250,9 +263,9 @@ class SiteController extends Controller {
 
             $log = new Pcue;
             $log->PCUE_Descripcion = 'Usuario ' . Yii::app()->user->Name
-                    . ' ejecuto una migracion 2.0';
+                . ' ejecuto una migracion 2.0';
             $log->PCUE_Action = 'MIGRACION';
-            $log->PCUE_Model = "Agencia";           
+            $log->PCUE_Model = "Agencia";
             $log->PCUE_IdModel = $model->GCCA_Id;
             $log->PCUE_Field = "Migracion 2.0";
             $log->PCUE_Date = new CDbExpression('NOW()');
@@ -262,14 +275,16 @@ class SiteController extends Controller {
 
             $this->redirect(array('fcco/agencia', 'id' => $model->GCCA_Id, 'type' => $notas));/*1 */
         }
-        $this->render('migrate', array('agencia' => $agencia, 'inventario' => $inventario, 'notas' => $notas, 'dato' => $dato
+        $this->render('migrate', array(
+            'agencia' => $agencia, 'inventario' => $inventario, 'notas' => $notas, 'dato' => $dato
         ));
     }
 
     /**
      * Declares class-based actions.
      */
-    public function actions() {
+    public function actions()
+    {
         return array(
             // captcha action renders the CAPTCHA image displayed on the contact page
             'captcha' => array(
@@ -288,7 +303,8 @@ class SiteController extends Controller {
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
 
@@ -299,13 +315,14 @@ class SiteController extends Controller {
     /**
      * This is the action to handle external exceptions.
      */
-    public function actionError() {
+    public function actionError()
+    {
         $this->layout = '//layouts/error';
         if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest)
                 echo $error['message'];
             else
-            //print_r($error);
+                //print_r($error);
                 $this->render('error', $error);
         }
     }
@@ -313,7 +330,8 @@ class SiteController extends Controller {
     /**
      * Displays the contact page
      */
-    public function actionContact() {
+    public function actionContact()
+    {
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
@@ -321,9 +339,9 @@ class SiteController extends Controller {
                 $name = '=?UTF-8?B?' . base64_encode($model->name) . '?=';
                 $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
                 $headers = "From: $name <{$model->email}>\r\n" .
-                        "Reply-To: {$model->email}\r\n" .
-                        "MIME-Version: 1.0\r\n" .
-                        "Content-type: text/plain; charset=UTF-8";
+                    "Reply-To: {$model->email}\r\n" .
+                    "MIME-Version: 1.0\r\n" .
+                    "Content-type: text/plain; charset=UTF-8";
 
                 mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
                 Yii::app()->user->setFlash('contact', 'Thank you for contacting us. We will respond to you as soon as possible.');
@@ -336,7 +354,8 @@ class SiteController extends Controller {
     /**
      * Displays the login page
      */
-    public function actionLogin() {
+    public function actionLogin()
+    {
         $model = new LoginForm;
 
         // if it is ajax validation request
@@ -359,9 +378,67 @@ class SiteController extends Controller {
     /**
      * Logs out the current user and redirect to homepage.
      */
-    public function actionLogout() {
+    public function actionLogout()
+    {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
 
+    /**
+     * Estadísticas del Sistema
+     */
+    public function actionStatistics()
+    {
+
+        $data['activas'] = Gcca::model()->count('GCCA_Status=1');
+        $data['inactivas'] = Gcca::model()->count('GCCA_Status=0');
+
+        //********************* */
+        $criteria = new CDbCriteria();
+        $criteria->select = 'FCCI_Id, count(*) as FCCU_Id';
+        // $criteria->condition ="FCCU_Id > 100";
+        $criteria->group = 'FCCI_Id';
+
+        $tempo = Fccu::model()->findAll($criteria);
+        foreach ($tempo as $key => $value) {
+            // $data['estados'][$key] = array(
+            //     /*'Id'=>$value->FCCI_Id,*/
+            //     'name' => $value->fCCI->FCCI_Descripcion,
+            //     'cantidad' => $value->FCCU_Id
+            // );
+        }
+        //*************************** */
+        $estado = Fcci::model()->findAll();
+        foreach ($estado as $key => $value) {
+            $data['estados'][$key] = array(
+                /*'Id'=>$value->FCCI_Id,*/
+                'name' => $value->FCCI_Descripcion,
+                'cantidad' => $value->total
+            );
+        }
+
+        //*************************** */
+
+        $tm = Fcca::model()->findAll(array('order'=>'FCCA_Descripcion'));
+        foreach ($tm as $value) {
+            $mol = Fcct::model()->findAll('FCCA_Id = '.$value->FCCA_Id." order by FCCT_Descripcion");        
+            $modelosFinal = array();           
+
+            foreach ($mol as $valueP) {                           
+                $modelosFinal[]=array(
+                    'name'=>$valueP->FCCT_Descripcion,
+                    'cantidad'=> $valueP->total
+                );
+            }
+
+            $data['tipos'][$value->FCCA_Id]= array(
+                'name' => $value->FCCA_Descripcion,
+                'cantidad' => $value->total,
+                'modelos' => $modelosFinal
+            );
+        }        
+
+
+        $this->render('statistics', array('data' => $data));
+    }
 }

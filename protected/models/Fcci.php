@@ -22,6 +22,9 @@ class Fcci extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function getTotal(){
+		return Fccu::model()->count('FCCI_Id = '.$this->FCCI_Id);
+	}
 	public function getConcatened(){
 		return $this->FCCI_Id." - ".$this->FCCI_Descripcion;
 	}

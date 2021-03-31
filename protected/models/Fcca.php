@@ -19,7 +19,17 @@ class Fcca extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Fcca the static model class
 	 */
-	public static function model($className=__CLASS__)
+
+	public function getTotal()
+	{
+		$list = $this->fccts;
+		$total = 0;
+		foreach ($list as $key => $value) {
+			$total += $value->total;
+		}
+		return $total;
+	}
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
@@ -41,11 +51,11 @@ class Fcca extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('FCCA_Descripcion, FCUU_Id', 'required'),
-			array('FCCA_Descripcion', 'length', 'max'=>45),
-			array('FCUU_Id', 'length', 'max'=>10),
+			array('FCCA_Descripcion', 'length', 'max' => 45),
+			array('FCUU_Id', 'length', 'max' => 10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FCCA_Id, FCCA_Descripcion, FCUU_Id', 'safe', 'on'=>'search'),
+			array('FCCA_Id, FCCA_Descripcion, FCUU_Id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -83,24 +93,25 @@ class Fcca extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('FCCA_Id',$this->FCCA_Id,true);
-		$criteria->compare('FCCA_Descripcion',$this->FCCA_Descripcion,true);
-		$criteria->compare('FCUU_Id',$this->FCUU_Id,true);
+		$criteria->compare('FCCA_Id', $this->FCCA_Id, true);
+		$criteria->compare('FCCA_Descripcion', $this->FCCA_Descripcion, true);
+		$criteria->compare('FCUU_Id', $this->FCUU_Id, true);
 
 		return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
-            'pagination'=>array(
-                'pageSize'=>500,
-        ),
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 500,
+			),
 		));
 	}
-        public function behaviors() {
-        return array(
-            // Classname => path to Class
-            'LoggableBehavior' =>
-            'application.behaviors.ActiveRecordLogableBehavior',
-        );
-    }
+	public function behaviors()
+	{
+		return array(
+			// Classname => path to Class
+			'LoggableBehavior' =>
+			'application.behaviors.ActiveRecordLogableBehavior',
+		);
+	}
 }

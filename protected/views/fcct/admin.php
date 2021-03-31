@@ -45,6 +45,12 @@ $this->menu=array(
 				'filter' => CHtml::listData(Fcuu::model()->findAll('1 order by FCUU_Descripcion'),'FCUU_Id', 'FCUU_Descripcion'),
 			),
 			array(
+				'name'=>'FCCA_Id',
+				'header'=>'Total',
+				'value'=>'$data->total',
+				'filter' => false,
+			),
+			array(
 				'class'=>'CButtonColumn',
 				'headerHtmlOptions' => array('style' => 'width:83px'),
 				),
