@@ -25,6 +25,7 @@ class Gccd extends CActiveRecord {
      * @param string $className active record class name.
      * @return Gccd the static model class
      */
+    
     public function hijas($id) {
         $aux = '';
         $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " and GCCA_Status = 1 order by GCCA_Cod");
@@ -41,6 +42,11 @@ class Gccd extends CActiveRecord {
 
         return $aux;
     }
+
+    public function getTotal(){
+            return Gcca::model()->count('GCCD_Id = '.$this->GCCD_Id);
+        
+	}
 
     public function hijos($id) {
         $aux = '';

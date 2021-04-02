@@ -29,7 +29,7 @@ class Gcca extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-
+    
     public function getEstadisticas(){
         $stats['CPU'] = Yii::app()->db->createCommand("Select count(*) as CPU from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcca.FCCA_Id = 11 ")->queryRow();
         $stats['Conexiones'] = Yii::app()->db->createCommand("Select count(*) as Conexiones from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and   fcuu.FCUU_Id = 2 ")->queryRow();

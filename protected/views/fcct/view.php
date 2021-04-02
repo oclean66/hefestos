@@ -32,6 +32,7 @@ $this->menu=array(
 		'FCCT_Id',
 		'FCCT_Descripcion',
 		'FCCA_Id',
+		array('name'=>'Total','value'=>$model->total),
 	),
 )); ?>
  </div>

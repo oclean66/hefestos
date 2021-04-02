@@ -392,6 +392,7 @@ class SiteController extends Controller
 
         $data['activas'] = Gcca::model()->count('GCCA_Status=1');
         $data['inactivas'] = Gcca::model()->count('GCCA_Status=0');
+        $data['grupos'] = Gccd::model()->count('GCCD_Estado=1');
 
         //********************* */
         $criteria = new CDbCriteria();
@@ -408,7 +409,7 @@ class SiteController extends Controller
             // );
         }
         //*************************** */
-        $estado = Fcci::model()->findAll();
+        $estado = Fcci::model()->findAll(array('order' => 'FCCI_Descripcion'));
         foreach ($estado as $key => $value) {
             $data['estados'][$key] = array(
                 /*'Id'=>$value->FCCI_Id,*/
@@ -419,24 +420,38 @@ class SiteController extends Controller
 
         //*************************** */
 
-        $tm = Fcca::model()->findAll(array('order'=>'FCCA_Descripcion'));
+        $tm = Fcca::model()->findAll(array('order' => 'FCCA_Descripcion'));
         foreach ($tm as $value) {
-            $mol = Fcct::model()->findAll('FCCA_Id = '.$value->FCCA_Id." order by FCCT_Descripcion");        
-            $modelosFinal = array();           
+            $mol = Fcct::model()->findAll('FCCA_Id = ' . $value->FCCA_Id . " order by FCCT_Descripcion");
+            $modelosFinal = array();
 
-            foreach ($mol as $valueP) {                           
-                $modelosFinal[]=array(
-                    'name'=>$valueP->FCCT_Descripcion,
-                    'cantidad'=> $valueP->total
+            foreach ($mol as $valueP) {
+                $modelosFinal[] = array(
+                    'name' => $valueP->FCCT_Descripcion,
+                    'cantidad' => $valueP->total
                 );
             }
 
-            $data['tipos'][$value->FCCA_Id]= array(
+            $data['tipos'][$value->FCCA_Id] = array(
                 'name' => $value->FCCA_Descripcion,
                 'cantidad' => $value->total,
                 'modelos' => $modelosFinal
             );
-        }        
+        }
+
+        //************************** */
+
+        /*$criteria = new CDbCriteria();
+        $criteria->select = 'GCCD_Id, count(*) as GCCA_Id';
+        $criteria->group = 'GCCD_Id';*/
+
+        $agencia = Gccd::model()->findAll(array('order' => 'GCCD_Nombre'));
+        foreach ($agencia as $key => $value) {
+            $data['agencias'][$key] = array(
+                'name' => $value->GCCD_Nombre,
+                'cantidad' => $value->total
+            );
+        }
 
 
         $this->render('statistics', array('data' => $data));
