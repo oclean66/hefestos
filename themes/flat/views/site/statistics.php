@@ -20,122 +20,38 @@ if (Yii::app()->user->isGuest)
 ?>
 <?php
 /* @var $this SiteController */
-
-$this->pageTitle = Yii::app()->name;
-$baseUrl = Yii::app()->theme->baseUrl;
+    $this->pageTitle = Yii::app()->name;
+    $baseUrl = Yii::app()->theme->baseUrl;
 ?>
-<div class="page-header">
-    <div class="pull-left">
-        <ul class="minitiles">
-            <li class="">
-                <img style="width: 190px;" src="<?php echo Yii::app()->theme->baseUrl; ?>/img/brand.png">
-            </li>
 
-        </ul>
-
-    </div>
-    <div class="pull-right">
-
-        <ul class="stats">
-
-            <li class="lightred">
-                <i class="fa fa-calendar"></i>
-                <div class="details">
-                    <span class="big"><?php echo date('j \d\e M Y'); ?></span>
-                    <span><?php echo date('l, h:ia'); ?></span>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
 
 <!--Logo de dashbord-->
 <div>
 
 
-    <div class="col-sm-12 hide">
-        <ul class="tiles">
-
-            <li class="blue long">
+    <div class="col-sm-12" style="display:flex">
+        <ul class="tiles" style="">
+            <li class="lime long">
                 <a href="#">
-                    <span class="nopadding">
-                        <h5>@oclean66</h5>
-                        <p>Bienvenido, Tenemos nuevas actualizaciones</p>
-                    </span>
-                    <span class="name">
-                        <i class="fa fa-twitter"></i>
-                        <span class="right">09/01/2020</span>
-                    </span>
+                    <span class="count">
+                        <i class="fa fa-desktop"></i> <?php echo $data['activas']; ?></span>
+                    <span class="name">Agencias Activas</span>
                 </a>
             </li>
-
-            <li class="orange ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('gcca/admin'); ?>">
-                    <span class="">
-                        <i class="fa fa-home"></i> </span>
-                    <span class="name">Agencias</span>
+            <li class="red long">
+                <a href="#">
+                    <span class="count">
+                        <i class="fa fa-desktop"></i> <?php echo $data['inactivas']; ?></span>
+                    <span class="name">Agencias Inactivas</span>
                 </a>
             </li>
-
-            <!-- <li class="pink ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fccu/admin'); ?>">
-                    <span class="">
-                        <i class="fa fa-print"></i> </span>
-                    <span class="name">Activos</span>
-                </a>
-            </li> -->
-
-            <li class="darkblue ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fccu/add'); ?>">
-                    <span class="">
-                        <i class="fa fa-star"></i> </span>
-                    <span class="name">Agregar Activo</span>
+            <li class="teal long">
+                <a href="#">
+                    <span class="count">
+                        <i class="fa fa-users"></i> <?php echo $data['grupos']; ?></span>
+                    <span class="name">Grupos Activos</span>
                 </a>
             </li>
-
-            <li class="lime">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/create'); ?>">
-                    <span class="">
-                        <i class="fa fa-plus-square"></i> </span>
-                    <span class="name">Asignar Activo</span>
-                </a>
-            </li>
-
-            <li class="red">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/less'); ?>">
-                    <span class="">
-                        <i class="fa fa-minus-square"></i> </span>
-                    <span class="name">Recibir Activo</span>
-                </a>
-            </li>
-
-
-
-            <li class="teal ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/admin'); ?>">
-                    <span class="">
-                        <i class="fa fa-sitemap"></i> </span>
-                    <span class="name">Arbol</span>
-                </a>
-            </li>
-
-
-            <li class="green ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report.html?FCCN_Id)=2'); ?>">
-                    <span class="">
-                        <i class="fa fa-sign-in"></i> </span>
-                    <span class="name">Entradas</span>
-                </a>
-            </li>
-            <li class="blue ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report.html?FCCN_Id=1'); ?>">
-                    <span class="">
-                        <i class="fa fa-sign-out"></i> </span>
-                    <span class="name">Salidas</span>
-                </a>
-            </li>
-
-
         </ul>
     </div>
 
@@ -150,8 +66,8 @@ $baseUrl = Yii::app()->theme->baseUrl;
                         </a>
                     </h4>
                 </div>
-                <div id="c1" class="panel-collapse collapse" style="height: 0px;" >
-                    <div class="panel-body" >
+                <div id="c1" class="panel-collapse" style="height: 0px;">
+                    <div class="panel-body">
                         <div class="box-content">
                             <ul class="stats">
                                 <?php
@@ -171,8 +87,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
                     <!-- /.panel-body -->
                 </div>
                 <!-- /#c1.panel-collapse collapse in -->
-            </div>
-            <!-- /.panel panel-default -->
+            </div>            
             <div class="panel panel-default teal">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -247,67 +162,10 @@ $baseUrl = Yii::app()->theme->baseUrl;
                     <!-- /.panel-body -->
                 </div>
                 <!-- /#c1.panel-collapse collapse in -->
-            </div>
-            <!-- /.panel panel-default -->
-            <!-- /.panel panel-default -->
+            </div>            
         </div>
-        <!-- /.panel-group -->
     </div>
 
-
-
-
-
-    <div class="col-sm-12" style="display:flex">
-        <ul class="tiles" style="margin:auto">
-            <?php if (Yii::app()->user->checkAccess('action_tcca_index')) { ?>
-                <li class="blue long hide">
-                    <a target="_blank" href="<?php echo Yii::app()->createUrl('tcca'); ?>">
-                        <span class="nopadding">
-                            <i class="fa fa-bookmark"></i> </span>
-                        <p>Tableros</p>
-                        </span>
-                    </a>
-                </li>
-            <?php } ?>
-
-            <li class="lime long">
-                <a href="#">
-                    <span class="count">
-                        <i class="fa fa-desktop"></i> <?php echo $data['activas']; ?></span>
-                    <span class="name">Agencias Activas</span>
-                </a>
-            </li>
-            <li class="red long">
-                <a href="#">
-                    <span class="count">
-                        <i class="fa fa-desktop"></i> <?php echo $data['inactivas']; ?></span>
-                    <span class="name">Agencias Inactivas</span>
-                </a>
-            </li>
-            <li class="teal long">
-                <a href="#">
-                    <span class="count">
-                        <i class="fa fa-users"></i> <?php echo $data['grupos']; ?></span>
-                    <span class="name">Grupos Activos</span>
-                </a>
-            </li>
-        </ul>
-
-
-    </div>
-
-
-
-
-
-
-    <!-- <pre>
-<?php
-
-//print_r($data);
-?>
-</pre> -->
 </div>
 <script type="text/javascript">
     var Tawk_API = Tawk_API || {},
