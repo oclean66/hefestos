@@ -65,8 +65,14 @@ $this->menu = array(
             ),
             array('name' => 'FCCU_Timestamp',
                 'value' => date("d M Y h:i:s A", strtotime($model->FCCU_Timestamp))),
-            array('name' => 'FCCI_Id',
-                'value' => $model->fCCI->FCCI_Descripcion),
+            array(
+                'name' => 'FCCI_Id',
+                'value' => $model->fCCI->FCCI_Descripcion." - ".(
+                    $model->FCCI_Id==5 ? 
+                    Fcco::model()->find('FCCU_Id='.$model->FCCU_Id.' order by FCCO_Id desc')->lugar
+                    : $model->fCCI->FCCI_Descripcion
+                    )
+                ),
             array('name' => 'FCCU_Facturado',
                 'value' => $model->FCCU_Facturado == 0 ? "Sin Facturar" : "Facturado"),
             'FCCU_Cantidad',

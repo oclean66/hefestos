@@ -38,7 +38,10 @@ $this->menu = array(
                 </h3> 
              
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right">Cerrar</button>
-                <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button>
+                <!-- <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button> -->
+                
+                <a class="btn btn-primary" target='_blank' href="/hefestos/fcco/print" style="float:right"><i class="fa fa-print"></i>  Imprimir</a>
+
             </div>
             <div class="box-content" style="padding: 0; padding-top: 10px">
                 <div class="invoice-info">

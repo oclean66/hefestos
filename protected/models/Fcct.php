@@ -19,14 +19,18 @@ class Fcct extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Fcct the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
-
-public function getConcatened() {
-        return $this->FCCT_Descripcion . ' - ' . $this->fCCA->FCCA_Descripcion;
-    }
+	public function getTotal()
+	{
+		return Fccu::model()->count("FCCT_Id = ".$this->FCCT_Id);
+	}
+	public function getConcatened()
+	{
+		return $this->FCCT_Descripcion . ' - ' . $this->fCCA->FCCA_Descripcion;
+	}
 
 	/**
 	 * @return string the associated database table name
@@ -45,11 +49,11 @@ public function getConcatened() {
 		// will receive user inputs.
 		return array(
 			array('FCCT_Descripcion, FCCA_Id', 'required'),
-			array('FCCT_Descripcion', 'length', 'max'=>150),
-			array('FCCA_Id', 'length', 'max'=>10),
+			array('FCCT_Descripcion', 'length', 'max' => 150),
+			array('FCCA_Id', 'length', 'max' => 10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FCCT_Id, FCCT_Descripcion, FCCA_Id', 'safe', 'on'=>'search'),
+			array('FCCT_Id, FCCT_Descripcion, FCCA_Id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -87,24 +91,25 @@ public function getConcatened() {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('FCCT_Id',$this->FCCT_Id,true);
-		$criteria->compare('FCCT_Descripcion',$this->FCCT_Descripcion,true);
-		$criteria->compare('FCCA_Id',$this->FCCA_Id,true); 
+		$criteria->compare('FCCT_Id', $this->FCCT_Id, true);
+		$criteria->compare('FCCT_Descripcion', $this->FCCT_Descripcion, true);
+		$criteria->compare('FCCA_Id', $this->FCCA_Id, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>500,
-		), 
-		)); 
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 500,
+			),
+		));
 	}
-        public function behaviors() {
-        return array(
-            // Classname => path to Class
-            'LoggableBehavior' =>
-            'application.behaviors.ActiveRecordLogableBehavior',
-        );
-    }
+	public function behaviors()
+	{
+		return array(
+			// Classname => path to Class
+			'LoggableBehavior' =>
+			'application.behaviors.ActiveRecordLogableBehavior',
+		);
+	}
 }

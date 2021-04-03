@@ -37,7 +37,7 @@
        
     </tr>  
     <?php   
-   
+  //  print_r($d);
     foreach($d->data as $item)
     {
 

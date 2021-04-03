@@ -146,6 +146,62 @@ class FccoController extends Controller {
 
         $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
 
+        $criteria = new CDbCriteria;
+        $criteria->select='*';
+        $criteria->condition = "FCCO_Lote=:lote and FCCN_Id =:tipo";
+        $criteria->params = array(':lote' => $id, ':tipo' => $tipo);
+            $data = new CActiveDataProvider('Fcco', array(
+                'criteria' => $criteria,
+                'pagination'=>false,
+                'sort' => array(
+                    'defaultOrder' => 'FCCO_Timestamp desc',
+                    'attributes' => array(
+                        'GCCA_search' => array(
+                            'asc' => 'gCCA.GCCA_Nombre',
+                            'desc' => 'gCCA.GCCA_Nombre  DESC',
+                        ),
+                        //'GCCD_Nombre' => array(
+                        //'asc' => 'gCCD.GCCD_Nombre',
+                        //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                        //),
+                    'GCCA_Id' ,'FCCN_Id',
+                        'FCCU_Numero' => array(
+                            'asc' => 'fCCU.FCCU_Numero',
+                            'desc' => 'fCCU.FCCU_Numero  DESC',
+                        ),
+                        'FCCU_Serial' => array(
+                            'asc' => 'fCCU.FCCU_Serial',
+                            'desc' => 'fCCU.FCCU_Serial  DESC',
+                        ),
+                        'FCCT_Descripcion' => array(
+                            'asc' => 'fCCT.FCCT_Descripcion',
+                            'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                        ),
+                        'FCCA_Descripcion' => array(
+                            'asc' => 'fCCA.FCCA_Descripcion',
+                            'desc' => 'fCCA.FCCA_Descripcion  DESC',
+                        ),
+                        'FCUU_Descripcion' => array(
+                            'asc' => 'fCUU.FCUU_Descripcion',
+                            'desc' => 'fCUU.FCUU_Descripcion  DESC',
+                        ),
+                        //Agregar todos los filtro o quedaran deshabilitados
+                        'FCCO_Lote' => array(
+                            'asc' => 'FCCO_Lote',
+                            'desc' => 'FCCO_Lote  DESC',
+                        ),
+                        'FCCO_Timestamp' => array(
+                            'asc' => 'FCCO_Timestamp',
+                            'desc' => 'FCCO_Timestamp  DESC',
+                        ),
+                        
+                    ),
+                ),
+            ));            
+
+            Yii::app()->session['all'] = $data;
+            Yii::app()->session['desc'] = $model->concatened;
+
         if ($view === null)
             $this->render('view', array(
                 'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'lote'=>$id
@@ -200,6 +256,70 @@ class FccoController extends Controller {
                 ':ini'=> $desde,
                 ':fin'=> $hasta,
             ));
+            
+        $criteria = new CDbCriteria;
+        $criteria->select='*';
+        $criteria->condition = "GCCA_Id = :id 
+                and FCCN_Id =:tipo
+                and FCCO_Timestamp BETWEEN 
+                :ini and :fin";
+
+        $criteria->with=array('fCCU'=>array('with'=>'fCCT', 'fCCT'=>array('with'=>'fCCA')));
+
+        $criteria->params = array(
+                ':id'=>$agencia,
+                ':tipo' => $tipo,
+                ':ini'=> $desde,
+                ':fin'=> $hasta,
+            );
+            $data = new CActiveDataProvider('Fcco', array(
+                'criteria' => $criteria,
+                'pagination'=>false,
+                'sort' => array(
+                    'defaultOrder' => 'FCCA_Id desc',
+                    'attributes' => array(
+                        'GCCA_search' => array(
+                            'asc' => 'gCCA.GCCA_Nombre',
+                            'desc' => 'gCCA.GCCA_Nombre  DESC',
+                        ),
+                        'FCCA_search' => array(
+                            'asc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion',
+                            'desc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion  DESC',
+                        ),
+                        //'GCCD_Nombre' => array(
+                        //'asc' => 'gCCD.GCCD_Nombre',
+                        //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                        //),
+                        'GCCA_Id' ,'FCCN_Id',
+                        'FCCU_Numero' => array(
+                            'asc' => 'fCCU.FCCU_Numero',
+                            'desc' => 'fCCU.FCCU_Numero  DESC',
+                        ),
+                        'FCCU_Serial' => array(
+                            'asc' => 'fCCU.FCCU_Serial',
+                            'desc' => 'fCCU.FCCU_Serial  DESC',
+                        ),
+                        'FCCT_Descripcion' => array(
+                            'asc' => 'fCCT.FCCT_Descripcion',
+                            'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                        ),
+                                              //Agregar todos los filtro o quedaran deshabilitados
+                        'FCCO_Lote' => array(
+                            'asc' => 'FCCO_Lote',
+                            'desc' => 'FCCO_Lote  DESC',
+                        ),
+                        'FCCO_Timestamp' => array(
+                            'asc' => 'FCCO_Timestamp',
+                            'desc' => 'FCCO_Timestamp  DESC',
+                        ),
+                        
+                    ),
+                ),
+            ));            
+
+            Yii::app()->session['all'] = $data;
+            Yii::app()->session['desc'] = $model->concatened;
+            // Yii::app()->session['all'] = array();
             
 
         if ($view === null)
@@ -357,16 +477,11 @@ class FccoController extends Controller {
         $model->FCCO_Enabled = 1; //asignado actualmente
         $model->FCCN_Id = 1; //operacion asignado
         $count = array();
+        $count = $agencia->estadisticas; 
 
         //--Estadisticas rapidas
 
-        $count['CPU'] = Yii::app()->db->createCommand("Select count(*) as CPU from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $id . "' and  fcca.FCCA_Id = 11 ")->queryRow();
-        $count['Conexiones'] = Yii::app()->db->createCommand("Select count(*) as Conexiones from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $id . "' and   fcuu.FCUU_Id = 2 ")->queryRow();
-        $count['Monitores'] = Yii::app()->db->createCommand("Select count(*) as Monitores from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $id . "' and  fcct.FCCA_Id = 12 ")->queryRow();
-        $count['Impresoras'] = Yii::app()->db->createCommand("Select count(*) as Impresoras from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $id . "' and  fcct.FCCA_Id = 13 ")->queryRow();
-        $count['Maquinitas'] = Yii::app()->db->createCommand("Select count(*) as Maquinitas from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $id . "' and  fcct.FCCA_Id = 4 ")->queryRow();
-
-
+        
 
 
         if (isset($_GET['Fcco'])) {

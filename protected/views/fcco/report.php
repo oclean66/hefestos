@@ -197,7 +197,7 @@
         ?>
          <tr>
           <th scope="row"><?php echo date("d M",strtotime($value['FCCO_Timestamp']))?></th>
-          <td><?php echo $value->gCCA->GCCA_Cod." - ".$value->gCCA->GCCA_Nombre;?></td>
+          <td><?php echo $value->gCCA->concatened;?></td>
           <td><?php echo CHtml::link(
                 $value['FCCO_Id'],
                 array(
