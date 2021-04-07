@@ -45,10 +45,10 @@
     ?>
     <tr>
         
-        <td><?php echo date("d M Y" , strtotime($item->FCCO_Timestamp)); ?></td>
-        <td><?php echo $item->fCCU->FCCU_Serial; ?></td>        
-        <td><?php echo !isset($item->fCCU->FCCU_Numero)?"":$item->fCCU->FCCU_Numero; ?></td>
-        <td><?php echo $item->fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion." - ".$item->fCCU->fCCT->fCCA->FCCA_Descripcion." - ".$item->fCCU->fCCT->FCCT_Descripcion; ?></td>
+        <td> <?php echo $item->FCCO_Enabled == 0?'<strike>' : ""; ?> <?php echo date("d M Y" , strtotime($item->FCCO_Timestamp)); ?> <?php echo $item->FCCO_Enabled == 0?'</strike>' : ""; ?> </td>
+        <td> <?php echo $item->FCCO_Enabled == 0?'<strike>' : ""; ?> <?php echo $item->fCCU->FCCU_Serial; ?></td>    <?php echo $item->FCCO_Enabled == 0?'</strike>' : ""; ?>      
+        <td> <?php echo $item->FCCO_Enabled == 0?'<strike>' : ""; ?> <?php echo !isset($item->fCCU->FCCU_Numero)?"":$item->fCCU->FCCU_Numero; ?> <?php echo $item->FCCO_Enabled == 0?'</strike>' : ""; ?> </td>
+        <td> <?php echo $item->FCCO_Enabled == 0?'<strike>' : ""; ?> <?php echo $item->fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion." - ".$item->fCCU->fCCT->fCCA->FCCA_Descripcion." - ".$item->fCCU->fCCT->FCCT_Descripcion; ?> <?php echo $item->FCCO_Enabled == 0?'</strike>' : ""; ?> </td>
     </tr>
     <?php 
        
