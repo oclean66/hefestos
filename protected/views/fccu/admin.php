@@ -11,16 +11,31 @@ $this->breadcrumbs = array(
 ?>
 
 
+<div class="col-sm-12">
+    <div class="page-header">
+        <div class="pull-right">
+            <ul class="minitiles">
+                <li class="orange">
+                    <a href="print">
+                        <i class="fa fa-print"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
 <div class="box box-bordered box-color">
     <div class="box-title">
         <h3>
-            <i class="fa fa-th-list"></i>Administrar Activos del Sistema</h3>
+            <i class="fa fa-th-list"></i>Administrar Activos del Sistema
+        </h3>
     </div>
-    
+
     <div class="box-content nopadding">
 
 
-        <?php
+
+            <?php
             $this->widget('zii.widgets.grid.CGridView', array(
                 'id' => 'fccu-grid',
                 'dataProvider' => $model->search(),
@@ -34,8 +49,10 @@ $this->breadcrumbs = array(
                     'selectedPageCssClass' => 'active',
                 ),
                 'columns' => array(
-                    array('name' => 'FCCU_Timestamp', 'header' => 'Fecha de Ingreso',
-                        'value'=>'date("d/m/Y, h:ia",strtotime($data->FCCU_Timestamp))'),
+                    array(
+                        'name' => 'FCCU_Timestamp', 'header' => 'Fecha de Ingreso',
+                        'value' => 'date("d/m/Y, h:ia",strtotime($data->FCCU_Timestamp))'
+                    ),
                     array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->FCCU_Serial'),
                     //campos de busqueda relacionada
                     array(
@@ -86,8 +103,8 @@ $this->breadcrumbs = array(
                     array(
                         'header' => 'Acciones',
                         'class' => 'CButtonColumn',
-                        'deleteButtonLabel'=>"Dar de Baja",
-                        'deleteConfirmation'=>"Seguro desar dar de baja esta activo?",
+                        'deleteButtonLabel' => "Dar de Baja",
+                        'deleteConfirmation' => "Seguro desar dar de baja esta activo?",
                         // 'recibeConfirmation'=>"Seguro desar dar de baja esta activo?",
 
                         'headerHtmlOptions' => array('style' => 'width:83px'),
@@ -95,13 +112,13 @@ $this->breadcrumbs = array(
                         'buttons' => array(
                             'view' => array(
                                 'label' => "Detalles",
-                                'visible'=> 'Yii::app()->user->checkAccess("action_fccu_view")',
+                                'visible' => 'Yii::app()->user->checkAccess("action_fccu_view")',
                                 'url' => 'Yii::app()->createUrl("fccu/view/",array("id"=>$data->FCCU_Id))',
                                 'options' => array('target' => '_blank'),
                             ),
                             'update' => array(
                                 'label' => "Actualizar",
-                                'visible'=> 'Yii::app()->user->checkAccess("action_fccu_update")',
+                                'visible' => 'Yii::app()->user->checkAccess("action_fccu_update")',
                                 'url' => 'Yii::app()->createUrl("fccu/update/",array("id"=>$data->FCCU_Id))',
                                 'options' => array('target' => '_blank'),
                             ),
@@ -109,10 +126,10 @@ $this->breadcrumbs = array(
                                 'label' => 'Recibir', // text label of the button
                                 'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
                                 'visible' => 'Yii::app()->user->checkAccess("action_fccu_recibe") && $data->FCCI_Id == 5', // a PHP expression for determining whether the button is visible
-                                'confirm'=>"Seguro desea Recibir este activo?",    
-                                'confirmation'=>"Seguro Desea Recibir este activo?",
+                                'confirm' => "Seguro desea Recibir este activo?",
+                                'confirmation' => "Seguro Desea Recibir este activo?",
                                 'url' => 'Yii::app()->createUrl("fccu/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
-                                'click'=>"function(){
+                                'click' => "function(){
                                     $.fn.yiiGridView.update('fccu-grid', {
                                         type:'POST',
                                         url:$(this).attr('href'),
@@ -125,21 +142,16 @@ $this->breadcrumbs = array(
                                     return false;
                                 }"
                             ),
-                            'delete' => array(                                
-                                'visible'=>'Yii::app()->user->checkAccess("action_fccu_delete") && $data->FCCI_Id!=5',
-                                'url' =>'Yii::app()->createUrl("fccu/delete/",array("id"=>$data->FCCU_Id))',
+                            'delete' => array(
+                                'visible' => 'Yii::app()->user->checkAccess("action_fccu_delete") && $data->FCCI_Id!=5',
+                                'url' => 'Yii::app()->createUrl("fccu/delete/",array("id"=>$data->FCCU_Id))',
                             ),
                         ),
                     ),
                 ),
             ));
-            
-        ?>
 
+            ?>
+
+        </div>
     </div>
-</div>
-
-
-
-
-
