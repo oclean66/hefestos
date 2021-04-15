@@ -8,9 +8,8 @@ include 'config.php';
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'HEFESTOS',
-    'language' => 'es_es',
-    // 'timeZone' => 'America/Caracas',
-    'sourceLanguage' => 'es',
+    'language' => 'es',
+    'sourceLanguage' => 'en', //Lenguaje de entrada
     'charset' => 'utf-8',
     'theme' => 'flat',
     // preloading 'log' component

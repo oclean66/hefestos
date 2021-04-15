@@ -14,7 +14,7 @@
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'gcca-form',
-            'enableAjaxValidation' => false,
+            'enableAjaxValidation' => true,
             'htmlOptions' => array('class' => 'form-horizontal form-bordered'),
         ));
         ?>
@@ -28,7 +28,7 @@
             <?php echo $form->labelEx($model, 'GCCA_Cod', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php echo $form->textField($model, 'GCCA_Cod', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
-                <?php echo $form->error($model, 'GCCA_Cod', array('class' => 'label label-danger')); ?>
+                <?php echo $form->error($model, 'GCCA_Cod', array('class' => 'label label-danger')); ?>                
             </div>
         </div>
 
@@ -83,13 +83,7 @@
             </div>
         </div>
 
-        <!-- <div class="form-group">
-            <?php echo $form->labelEx($model, 'GCCA_Status', array('class' => 'control-label col-sm-2')); ?>
-            <div class="col-sm-10">
-                <?php echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactiva', '1' => 'Activa'), array('empty' => 'Seleccione','class'=>'')); ?>   
-                <?php echo $form->error($model, 'GCCA_Status', array('class' => 'label label-danger')); ?>
-            </div>
-        </div> -->
+       
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCA_Rif', array('class' => 'control-label col-sm-2')); ?>
@@ -120,6 +114,12 @@
             <div class="col-sm-10">
                 <?php echo $form->textField($model, 'GCCA_Email', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
                 <?php echo $form->error($model, 'GCCA_Email', array('class' => 'label label-danger')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'GCCA_Status', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+            <?php echo $form->labelEx($model, 'Activo', array('class' => '')); ?>                            
             </div>
         </div>
 

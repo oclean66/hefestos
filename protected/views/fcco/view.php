@@ -39,8 +39,22 @@ $this->menu = array(
              
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right">Cerrar</button>
                 <!-- <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button> -->
+                <?php echo isset($lote) ? 
+                    CHtml::link('<i class="fa fa-print"></i>  Imprimir', array('print', 'id'=> $lote, 'tipo'=>$tipo, 'agencia'=>$model->GCCA_Id), array('style'=>'float:right;', 'class'=>'btn btn-primary', 'target'=>'_blank')):                    
+                    CHtml::link('<i class="fa fa-print"></i>  Imprimir', 
+                    // array('print', 'id'=> false, 'tipo'=>$tipo, 'agencia'=>$model->GCCA_Id), 
+                    array(
+                        'viewSalidaDia',
+                        "tipo"=>$tipo, 
+                        "agencia"=>$model->GCCA_Id,
+                        "view"=>1,
+                        "desde" => $desde,
+                        "hasta" => $hasta,
+                        "print" => true
+                    ),
+                    array('style'=>'float:right;', 'class'=>'btn btn-primary', 'target'=>'_blank'));                     
+                     ?>
                 
-                <a class="btn btn-primary" target='_blank' href="/hefestos/fcco/print" style="float:right"><i class="fa fa-print"></i>  Imprimir</a>
 
             </div>
             <div class="box-content" style="padding: 0; padding-top: 10px">

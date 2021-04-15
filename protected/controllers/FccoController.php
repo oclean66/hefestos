@@ -1,24 +1,25 @@
 <?php
 
-class FccoController extends Controller {
+class FccoController extends Controller
+{
 
-    public $layout = '//layouts/column2'; 
+    public $layout = '//layouts/column2';
 
-    public function actionReport($FCCN_Id = null) {
+    public function actionReport($FCCN_Id = null)
+    {
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
-       
+
         if (isset($_POST['desde']) && isset($_POST['hasta'])) {
             $model->desde = strftime("%Y-%m-%d", strtotime($_POST['desde']));
             $model->hasta = strftime("%Y-%m-%d", strtotime($_POST['hasta']));
 
-            if( $model->desde == $model->hasta ){
+            if ($model->desde == $model->hasta) {
                 $model->hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
             }
 
             // $model->FCCO_Timestamp = strftime("%Y-%m-%d", strtotime($_POST['datepicker']));
-        } 
-        else {
+        } else {
             $model->FCCO_Timestamp = date('Y-m-d');
             $model->desde = date('Y-m-d');
             $model->hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
@@ -31,42 +32,42 @@ class FccoController extends Controller {
         // $array = array();
         $query = new CDbCriteria;
         $query->select = "count(*) as FCCO_Id, GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d') as FCCO_Timestamp";
-        $query->condition = "FCCO_Timestamp BETWEEN '".$model->desde."' and '".$model->hasta."' and FCCN_Id = ". $FCCN_Id;
-        $query->group="GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
-        $query->order="FCCO_Timestamp desc";
+        $query->condition = "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
+        $query->group = "GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
+        $query->order = "FCCO_Timestamp desc";
         $agencias = Fcco::model()->findAll($query);
 
         $this->render('report', array(
-            'model' => $model, 
-            'agencias'=>$agencias,
+            'model' => $model,
+            'agencias' => $agencias,
             'FCCN_Id' => $FCCN_Id,
-            'desde'=>$model->desde,
-            'hasta'=>$model->hasta
+            'desde' => $model->desde,
+            'hasta' => $model->hasta
         ));
     }
-    public function actionDetalleReporte($FCCN_Id = 1, $gcca_id){
+    public function actionDetalleReporte($FCCN_Id = 1, $gcca_id)
+    {
         if (isset($_POST['desde']) && isset($_POST['hasta'])) {
-           $desde = strftime("%Y-%m-%d", strtotime($_POST['desde']));
-           $hasta = strftime("%Y-%m-%d", strtotime($_POST['hasta']));
+            $desde = strftime("%Y-%m-%d", strtotime($_POST['desde']));
+            $hasta = strftime("%Y-%m-%d", strtotime($_POST['hasta']));
 
-            if($desde ==$hasta ){
-               $hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
+            if ($desde == $hasta) {
+                $hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
             }
 
             // $model->FCCO_Timestamp = strftime("%Y-%m-%d", strtotime($_POST['datepicker']));
-        } 
-        else {
+        } else {
             $desde = date('Y-m-d');
             $hasta = date('Y-m-d', strtotime($desde . ' +1 day'));
         }
-        
+
         $agencia = Fcco::model()->findAll("
-        FCCO_Timestamp BETWEEN '".$desde."' and '".$hasta."' 
-        and FCCN_Id = ". $FCCN_Id."
-        and GCCA_Id = ".$gcca_id." order by FCCO_Timestamp desc");
-    
-      
-            echo "
+        FCCO_Timestamp BETWEEN '" . $desde . "' and '" . $hasta . "' 
+        and FCCN_Id = " . $FCCN_Id . "
+        and GCCA_Id = " . $gcca_id . " order by FCCO_Timestamp desc");
+
+
+        echo "
             <table class='table table-hover table-condensed'>
                 <thead>
                 <tr>
@@ -76,8 +77,8 @@ class FccoController extends Controller {
                 </tr>
                 </thead>
                 <tbody>";
-                foreach ($agencia as $value) {  
-                echo "<tr>
+        foreach ($agencia as $value) {
+            echo "<tr>
                     <td>
                     {$value->fCCU->FCCU_Serial}
                     </td>
@@ -85,15 +86,15 @@ class FccoController extends Controller {
                     {$value->fCCU->fCCT->fCCA->FCCA_Descripcion}
                     </td>
                     </tr>";
-                }
-            echo "
+        }
+        echo "
                 </tbody>
             </table>
             ";
-           
     }
 
-    public function actionLess() {
+    public function actionLess()
+    {
 
         if (isset($_POST['Fcco'])) {
             // print_r($_POST['Fcco']);
@@ -106,10 +107,10 @@ class FccoController extends Controller {
             foreach ($array as $key => $value) {
 
                 $inventario = Fcco::model()->find('FCCO_Enabled = 1 and FCCN_Id = 1 and FCCU_Id=' . $value . ' order by FCCO_Timestamp DESC');
-                if(isset($inventario)){
+                if (isset($inventario)) {
 
                     $inventario->FCCO_Enabled = 0; // deshabilito los anteriores
-                
+
 
                     $model = new Fcco;
                     $model->FCCO_Timestamp = date('Y-m-d H:i:s');
@@ -125,7 +126,7 @@ class FccoController extends Controller {
                     $item->FCCI_Id = $_POST['Fcco']['FCCI_Id'][$key]; //cambia de estado al seleccionado
 
                     if ($inventario->save() && $model->save() && $item->save()) {
-                //$salida[]=array('serial'=>$inventario->FCCU_Id, 'descripcion'=> $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCU->fCCT->FCCT_Descripcion . " | " . $item->fCCU->FCCU_Numero, 'lugar'=>$item->lugar);
+                        //$salida[]=array('serial'=>$inventario->FCCU_Id, 'descripcion'=> $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCU->fCCT->FCCT_Descripcion . " | " . $item->fCCU->FCCU_Numero, 'lugar'=>$item->lugar);
 
                         echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
                     }
@@ -139,107 +140,59 @@ class FccoController extends Controller {
         }
     }
 
-    public function actionView($id, $tipo = null, $view = null, $agencia) {
-        $model = Gcca::model()->find('GCCA_Id=:id',array(':id'=>$agencia));
+    public function actionView($id, $tipo = null, $view = null, $agencia = null)
+    {
+
+
         if ($tipo == null)
             $tipo = 1;
 
         $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
+        if (isset($agencia))
+            $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
+        else
+            $model = $modelo->gCCA;
+
 
         $criteria = new CDbCriteria;
-        $criteria->select='*';
+        $criteria->select = '*';
         $criteria->condition = "FCCO_Lote=:lote and FCCN_Id =:tipo";
         $criteria->params = array(':lote' => $id, ':tipo' => $tipo);
-            $data = new CActiveDataProvider('Fcco', array(
-                'criteria' => $criteria,
-                'pagination'=>false,
-                'sort' => array(
-                    'defaultOrder' => 'FCCO_Timestamp desc',
-                    'attributes' => array(
-                        'GCCA_search' => array(
-                            'asc' => 'gCCA.GCCA_Nombre',
-                            'desc' => 'gCCA.GCCA_Nombre  DESC',
-                        ),
-                        //'GCCD_Nombre' => array(
-                        //'asc' => 'gCCD.GCCD_Nombre',
-                        //'desc' => 'gCCD.GCCD_Nombre  DESC',
-                        //),
-                    'GCCA_Id' ,'FCCN_Id',
-                        'FCCU_Numero' => array(
-                            'asc' => 'fCCU.FCCU_Numero',
-                            'desc' => 'fCCU.FCCU_Numero  DESC',
-                        ),
-                        'FCCU_Serial' => array(
-                            'asc' => 'fCCU.FCCU_Serial',
-                            'desc' => 'fCCU.FCCU_Serial  DESC',
-                        ),
-                        'FCCT_Descripcion' => array(
-                            'asc' => 'fCCT.FCCT_Descripcion',
-                            'desc' => 'fCCT.FCCT_Descripcion  DESC',
-                        ),
-                        'FCCA_Descripcion' => array(
-                            'asc' => 'fCCA.FCCA_Descripcion',
-                            'desc' => 'fCCA.FCCA_Descripcion  DESC',
-                        ),
-                        'FCUU_Descripcion' => array(
-                            'asc' => 'fCUU.FCUU_Descripcion',
-                            'desc' => 'fCUU.FCUU_Descripcion  DESC',
-                        ),
-                        //Agregar todos los filtro o quedaran deshabilitados
-                        'FCCO_Lote' => array(
-                            'asc' => 'FCCO_Lote',
-                            'desc' => 'FCCO_Lote  DESC',
-                        ),
-                        'FCCO_Timestamp' => array(
-                            'asc' => 'FCCO_Timestamp',
-                            'desc' => 'FCCO_Timestamp  DESC',
-                        ),
-                        
-                    ),
-                ),
-            ));            
 
-            Yii::app()->session['all'] = $data;
-            Yii::app()->session['desc'] = $model->concatened;
 
         if ($view === null)
             $this->render('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'lote'=>$id
+                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
         else
             $this->renderPartial('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'lote'=>$id
+                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
     }
 
-    public function actionViewSalidaDia($tipo = null, $view = null, $agencia) {
+    public function actionViewSalidaDia($tipo = null, $view = null, $agencia, $print = false)
+    {
 
-        $model = Gcca::model()->find('GCCA_Id=:id',array(':id'=>$agencia));
+        $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
 
         if (isset($_POST['desde']) && isset($_POST['hasta'])) {
             $desde = strftime("%Y-%m-%d", strtotime($_POST['desde']));
             $hasta = strftime("%Y-%m-%d", strtotime($_POST['hasta']));
- 
-             if($desde ==$hasta ){
+
+            if ($desde == $hasta) {
                 $hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
-             }
- 
-            
-         } 
-         else if (isset($_GET['desde']) && isset($_GET['hasta'])) {
+            }
+        } else if (isset($_GET['desde']) && isset($_GET['hasta'])) {
             $desde = strftime("%Y-%m-%d", strtotime($_GET['desde']));
             $hasta = strftime("%Y-%m-%d", strtotime($_GET['hasta']));
- 
-             if($desde ==$hasta ){
+
+            if ($desde == $hasta) {
                 $hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
-             }
- 
-            
-         } 
-         else {
-             $desde = date('Y-m-d');
-             $hasta = date('Y-m-d', strtotime($desde . ' +1 day'));
-         }
+            }
+        } else {
+            $desde = date('Y-m-d');
+            $hasta = date('Y-m-d', strtotime($desde . ' +1 day'));
+        }
 
         if ($tipo == null)
             $tipo = 1;
@@ -249,90 +202,93 @@ class FccoController extends Controller {
             and FCCN_Id =:tipo
             and FCCO_Timestamp BETWEEN 
             :ini and :fin  
-            order by FCCO_Timestamp desc", 
+            order by FCCO_Timestamp desc",
             array(
-                ':id'=>$agencia,
+                ':id' => $agencia,
                 ':tipo' => $tipo,
-                ':ini'=> $desde,
-                ':fin'=> $hasta,
-            ));
-            
+                ':ini' => $desde,
+                ':fin' => $hasta,
+            )
+        );
+
         $criteria = new CDbCriteria;
-        $criteria->select='*';
+        $criteria->select = '*';
         $criteria->condition = "GCCA_Id = :id 
                 and FCCN_Id =:tipo
                 and FCCO_Timestamp BETWEEN 
                 :ini and :fin";
 
-        $criteria->with=array('fCCU'=>array('with'=>'fCCT', 'fCCT'=>array('with'=>'fCCA')));
+        $criteria->with = array('fCCU' => array('with' => 'fCCT', 'fCCT' => array('with' => 'fCCA')));
 
         $criteria->params = array(
-                ':id'=>$agencia,
-                ':tipo' => $tipo,
-                ':ini'=> $desde,
-                ':fin'=> $hasta,
-            );
-            $data = new CActiveDataProvider('Fcco', array(
-                'criteria' => $criteria,
-                'pagination'=>false,
-                'sort' => array(
-                    'defaultOrder' => 'FCCA_Id desc',
-                    'attributes' => array(
-                        'GCCA_search' => array(
-                            'asc' => 'gCCA.GCCA_Nombre',
-                            'desc' => 'gCCA.GCCA_Nombre  DESC',
-                        ),
-                        'FCCA_search' => array(
-                            'asc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion',
-                            'desc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion  DESC',
-                        ),
-                        //'GCCD_Nombre' => array(
-                        //'asc' => 'gCCD.GCCD_Nombre',
-                        //'desc' => 'gCCD.GCCD_Nombre  DESC',
-                        //),
-                        'GCCA_Id' ,'FCCN_Id',
-                        'FCCU_Numero' => array(
-                            'asc' => 'fCCU.FCCU_Numero',
-                            'desc' => 'fCCU.FCCU_Numero  DESC',
-                        ),
-                        'FCCU_Serial' => array(
-                            'asc' => 'fCCU.FCCU_Serial',
-                            'desc' => 'fCCU.FCCU_Serial  DESC',
-                        ),
-                        'FCCT_Descripcion' => array(
-                            'asc' => 'fCCT.FCCT_Descripcion',
-                            'desc' => 'fCCT.FCCT_Descripcion  DESC',
-                        ),
-                                              //Agregar todos los filtro o quedaran deshabilitados
-                        'FCCO_Lote' => array(
-                            'asc' => 'FCCO_Lote',
-                            'desc' => 'FCCO_Lote  DESC',
-                        ),
-                        'FCCO_Timestamp' => array(
-                            'asc' => 'FCCO_Timestamp',
-                            'desc' => 'FCCO_Timestamp  DESC',
-                        ),
-                        
+            ':id' => $agencia,
+            ':tipo' => $tipo,
+            ':ini' => $desde,
+            ':fin' => $hasta,
+        );
+        $data = new CActiveDataProvider('Fcco', array(
+            'criteria' => $criteria,
+            'pagination' => false,
+            'sort' => array(
+                'defaultOrder' => 'FCCA_Id desc',
+                'attributes' => array(
+                    'GCCA_search' => array(
+                        'asc' => 'gCCA.GCCA_Nombre',
+                        'desc' => 'gCCA.GCCA_Nombre  DESC',
                     ),
+                    'FCCA_search' => array(
+                        'asc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion',
+                        'desc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion  DESC',
+                    ),
+                    //'GCCD_Nombre' => array(
+                    //'asc' => 'gCCD.GCCD_Nombre',
+                    //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                    //),
+                    'GCCA_Id', 'FCCN_Id',
+                    'FCCU_Numero' => array(
+                        'asc' => 'fCCU.FCCU_Numero',
+                        'desc' => 'fCCU.FCCU_Numero  DESC',
+                    ),
+                    'FCCU_Serial' => array(
+                        'asc' => 'fCCU.FCCU_Serial',
+                        'desc' => 'fCCU.FCCU_Serial  DESC',
+                    ),
+                    'FCCT_Descripcion' => array(
+                        'asc' => 'fCCT.FCCT_Descripcion',
+                        'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                    ),
+                    //Agregar todos los filtro o quedaran deshabilitados
+                    'FCCO_Lote' => array(
+                        'asc' => 'FCCO_Lote',
+                        'desc' => 'FCCO_Lote  DESC',
+                    ),
+                    'FCCO_Timestamp' => array(
+                        'asc' => 'FCCO_Timestamp',
+                        'desc' => 'FCCO_Timestamp  DESC',
+                    ),
+
                 ),
-            ));            
+            ),
+        ));
 
-            Yii::app()->session['all'] = $data;
-            Yii::app()->session['desc'] = $model->concatened;
+        if ($print) {
+
+            // Yii::app()->session['all'] = $data;
+            // Yii::app()->session['desc'] = $model->concatened;
             // Yii::app()->session['all'] = array();
-            
-
-        if ($view === null)
+            $this->renderPartial('print', array('d' => $data, 'model' => $model,  'tipo' => $tipo, 'fecha' => "Resumen " . $desde . " al " . $hasta), false, true);
+        } else   if ($view === null)
             $this->render('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'fecha'=>"Resumen ".$desde." al ".$hasta
+                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model,  'desde' => $desde, 'hasta' => $hasta, 'fecha' => "Resumen " . $desde . " al " . $hasta
             ));
         else
             $this->renderPartial('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo,'model'=>$model, 'fecha'=>"Resumen ". $desde." al ". $hasta, 'resumen'=>true
+                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model, 'desde' => $desde, 'hasta' => $hasta, 'fecha' => "Resumen " . $desde . " al " . $hasta, 'resumen' => true
             ));
     }
 
-    public function actionRecibe($id) {
+    public function actionRecibe($id)
+    {
         // echo $id;
 
         $criteria = new CDbCriteria;
@@ -359,32 +315,33 @@ class FccoController extends Controller {
 
         if ($inventario->save() && $model->save() && $item->save()) {
 
-        //            echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
+            //            echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('fcco/agencia/' . $inventario->GCCA_Id . "?type=1"));
         } else {
             echo "error";
         }
-       
     }
 
-    public function actionEnter($id, $tipo = null, $view = null) {
+    public function actionEnter($id, $tipo = null, $view = null)
+    {
         if ($tipo == null)
             $tipo = 1;
         $model = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array('lote' => $id, 'tipo' => $tipo));
 
 
         $this->render('enter', array(
-            'modelo' => $model, 'tipo' => $tipo, 'lote'=>$id
+            'modelo' => $model, 'tipo' => $tipo, 'lote' => $id
         ));
     }
 
-    public function actionActivos() {
+    public function actionActivos()
+    {
         $request = trim($_GET['term']);
         if ($request != '') {
             $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
-            $data = array(); 
+            $data = array();
             foreach ($model as $item) {
                 $data[$item->FCCU_Id] = array(
                     'id' => $item->FCCU_Id,
@@ -401,7 +358,8 @@ class FccoController extends Controller {
         }
     }
 
-    public function actionAsignados() {
+    public function actionAsignados()
+    {
         $request = trim($_GET['term']);
         if ($request != '') {
             $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =5 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
@@ -423,7 +381,8 @@ class FccoController extends Controller {
         }
     }
 
-    public function actionGrupo($id, $type = null) {
+    public function actionGrupo($id, $type = null)
+    {
         $grupo = Gccd::model()->find('GCCD_Id=:id', array(':id' => $id));
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
@@ -467,7 +426,8 @@ class FccoController extends Controller {
         //        ));
     }
 
-    public function actionAgencia($id, $type = null) {
+    public function actionAgencia($id, $type = null, $print = false)
+    {
 
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
         $model = new Fcco('search');
@@ -477,12 +437,9 @@ class FccoController extends Controller {
         $model->FCCO_Enabled = 1; //asignado actualmente
         $model->FCCN_Id = 1; //operacion asignado
         $count = array();
-        $count = $agencia->estadisticas; 
+        $count = $agencia->estadisticas;
 
         //--Estadisticas rapidas
-
-        
-
 
         if (isset($_GET['Fcco'])) {
 
@@ -499,8 +456,75 @@ class FccoController extends Controller {
 
 
 
+        if ($print) {
+            $criteria = new CDbCriteria;
+            $criteria->select = '*';
+            $criteria->condition = "GCCA_Id = :id 
+                    and FCCN_Id =:tipo
+                    and FCCO_Enabled = 1
+                    and FCCO_Timestamp BETWEEN 
+                    :ini and :fin";
 
-        if ($type == null) {
+            $criteria->with = array('fCCU' => array('with' => 'fCCT', 'fCCT' => array('with' => 'fCCA')));
+
+            $criteria->params = array(
+                ':id' => $id,
+                ':tipo' => 1,
+                ':ini' =>  $model->desde,
+                ':fin' =>  $model->hasta,
+            );
+
+            $data = new CActiveDataProvider('Fcco', array(
+                'criteria' => $criteria,
+                'pagination' => false,
+                'sort' => array(
+                    'defaultOrder' => 'FCCA_Id desc',
+                    'attributes' => array(
+                        'GCCA_search' => array(
+                            'asc' => 'gCCA.GCCA_Nombre',
+                            'desc' => 'gCCA.GCCA_Nombre  DESC',
+                        ),
+                        'FCCA_search' => array(
+                            'asc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion',
+                            'desc' => 'fCCU.fCCT.fCCA.FCCA_Descripcion  DESC',
+                        ),
+                        //'GCCD_Nombre' => array(
+                        //'asc' => 'gCCD.GCCD_Nombre',
+                        //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                        //),
+                        'GCCA_Id', 'FCCN_Id',
+                        'FCCU_Numero' => array(
+                            'asc' => 'fCCU.FCCU_Numero',
+                            'desc' => 'fCCU.FCCU_Numero  DESC',
+                        ),
+                        'FCCU_Serial' => array(
+                            'asc' => 'fCCU.FCCU_Serial',
+                            'desc' => 'fCCU.FCCU_Serial  DESC',
+                        ),
+                        'FCCT_Descripcion' => array(
+                            'asc' => 'fCCT.FCCT_Descripcion',
+                            'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                        ),
+                        //Agregar todos los filtro o quedaran deshabilitados
+                        'FCCO_Lote' => array(
+                            'asc' => 'FCCO_Lote',
+                            'desc' => 'FCCO_Lote  DESC',
+                        ),
+                        'FCCO_Timestamp' => array(
+                            'asc' => 'FCCO_Timestamp',
+                            'desc' => 'FCCO_Timestamp  DESC',
+                        ),
+
+                    ),
+                ),
+            ));
+
+
+            // Yii::app()->session['all'] = $data;
+            // Yii::app()->session['desc'] = $agencia->concatened;
+            // Yii::app()->session['all'] = array();
+            $this->renderPartial('print', array('d' => $data, 'model' => $agencia), false, true);
+        } else if ($type == null) {
             $this->renderPartial('agencia', array(
                 'model' => $model, 'count' => $count, 'type' => $type, 'agencia' => $agencia
             ));
@@ -511,12 +535,77 @@ class FccoController extends Controller {
         }
     }
 
-    public function actionPrint(){
-        $d = $_SESSION['all'];
-        $this->renderPartial('print',array('d'=>$d),false,true);
+    public function actionPrint($id, $tipo = null, $view = null, $agencia)
+    {
+        $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
+        if ($tipo == null)
+            $tipo = 1;
+
+        $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
+
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $criteria->condition = "FCCO_Lote=:lote and FCCN_Id =:tipo";
+        $criteria->params = array(':lote' => $id, ':tipo' => $tipo);
+        $data = new CActiveDataProvider('Fcco', array(
+            'criteria' => $criteria,
+            'pagination' => false,
+            'sort' => array(
+                'defaultOrder' => 'FCCO_Timestamp desc',
+                'attributes' => array(
+                    'GCCA_search' => array(
+                        'asc' => 'gCCA.GCCA_Nombre',
+                        'desc' => 'gCCA.GCCA_Nombre  DESC',
+                    ),
+                    //'GCCD_Nombre' => array(
+                    //'asc' => 'gCCD.GCCD_Nombre',
+                    //'desc' => 'gCCD.GCCD_Nombre  DESC',
+                    //),
+                    'GCCA_Id', 'FCCN_Id',
+                    'FCCU_Numero' => array(
+                        'asc' => 'fCCU.FCCU_Numero',
+                        'desc' => 'fCCU.FCCU_Numero  DESC',
+                    ),
+                    'FCCU_Serial' => array(
+                        'asc' => 'fCCU.FCCU_Serial',
+                        'desc' => 'fCCU.FCCU_Serial  DESC',
+                    ),
+                    'FCCT_Descripcion' => array(
+                        'asc' => 'fCCT.FCCT_Descripcion',
+                        'desc' => 'fCCT.FCCT_Descripcion  DESC',
+                    ),
+                    'FCCA_Descripcion' => array(
+                        'asc' => 'fCCA.FCCA_Descripcion',
+                        'desc' => 'fCCA.FCCA_Descripcion  DESC',
+                    ),
+                    'FCUU_Descripcion' => array(
+                        'asc' => 'fCUU.FCUU_Descripcion',
+                        'desc' => 'fCUU.FCUU_Descripcion  DESC',
+                    ),
+                    //Agregar todos los filtro o quedaran deshabilitados
+                    'FCCO_Lote' => array(
+                        'asc' => 'FCCO_Lote',
+                        'desc' => 'FCCO_Lote  DESC',
+                    ),
+                    'FCCO_Timestamp' => array(
+                        'asc' => 'FCCO_Timestamp',
+                        'desc' => 'FCCO_Timestamp  DESC',
+                    ),
+
+                ),
+            ),
+        ));
+
+        // Yii::app()->session['all'] = $data;
+        // Yii::app()->session['desc'] = $model->concatened;
+
+
+        // $d = $_SESSION['all'];
+        $this->renderPartial('print', array('d' => $data, "model" => $model, "tipo" => $tipo), false, true);
     }
 
-    public function actionCreate($id = null) {
+    public function actionCreate($id = null)
+    {
 
         $model = new Fcco;
         $criteria = new CDbCriteria;
@@ -544,7 +633,7 @@ class FccoController extends Controller {
 
                 $inventario = Fcco::model()->findAll('FCCO_Enabled = 1 and FCCU_Id=' . $item->FCCU_Id);
 
-                foreach ($inventario as $inv){               
+                foreach ($inventario as $inv) {
                     $inv->FCCO_Enabled = 0;
                     $inv->save();
                 }
@@ -557,7 +646,7 @@ class FccoController extends Controller {
                 }
             }
 
-            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia'=>$modelo->GCCA_Id));
+            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia' => $modelo->GCCA_Id));
             // print_r($_POST);
         } else {
             $this->render('create', array(
@@ -565,8 +654,9 @@ class FccoController extends Controller {
             ));
         }
     }
-    
-    public function actionAdmin() {
+
+    public function actionAdmin()
+    {
         $model = new Fcco('search');
 
         $model->unsetAttributes();  // clear any default values
@@ -578,18 +668,19 @@ class FccoController extends Controller {
         ));
     }
 
-    public function loadModel($id) {
+    public function loadModel($id)
+    {
         $model = Fcco::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
 
-    protected function performAjaxValidation($model) {
+    protected function performAjaxValidation($model)
+    {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'fcco-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
     }
-
 }

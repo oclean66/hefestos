@@ -18,7 +18,7 @@ $this->menu = array(
     array('label' => 'Asignar Activos', 'url' => array('create')),
      array('label' => 'Administrar Agencias', 'url' => CController::createUrl('gcca/admin')),
      array('label' => 'Actualizar Agencia', 'url' => CController::createUrl('gcca/update', array('id' => $agencia->GCCA_Id))),
-     array('label' => '<i class="fa fa-print" aria-hidden="true"></i> Imprimir <span class="label label-warning">NUEVO</span>', 'url' => array('print'), 'linkOptions'=>array('target'=>'_blank', 'class'=>'active not-link')),
+     array('label' => '<i class="fa fa-print" aria-hidden="true"></i> Imprimir <span class="label label-warning">NUEVO</span>', 'url' => array('agencia', 'id' => $agencia->GCCA_Id, 'print'=>true), 'linkOptions'=>array('target'=>'_blank', 'class'=>'active not-link')),
 );
 
 foreach ($count as $key => $value) {
