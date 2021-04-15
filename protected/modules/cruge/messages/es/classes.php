@@ -19,6 +19,7 @@ return array(
     'Fcuu' => 'Categoria',
     'Gcca' => 'Agencia',
     'Gccd' => 'Grupo',
+    'Tccd' => 'Tarea',
     'Pcue'=>'Bitacora',
     'Cruge' => 'Usuarios',
     
@@ -69,6 +70,7 @@ return array(
     'action_site_error' => 'Ver Errores',
     'action_site_contact' => 'Contactenos',
     'action_site_log'=>'Ver bitacora en Dashboard',
+    'action_site_statistics'=>'Estadísticas',
     
     'action_gccd_view' => 'Ver Grupos',
     'action_gccd_update' => 'Actualizar Grupos',
@@ -112,6 +114,7 @@ return array(
     'action_fccu_add' => 'Agregar Activos al Sistema por lotes',
     'action_fccu_create'=>'Agregar Activo al Sistema',
     'action_fccu_recibe'=>'Recibir Activos desde Reportes',
+    'action_fccu_print'=>'Imprimir',
 //    'action_fccu_Rellenarmodos'=>'',
 
     
@@ -129,7 +132,8 @@ return array(
     'action_tcca_create' => 'Crear Tableros',
     'action_tcca_admin' => 'Administrar Tableros',
 
-
+    'action_tccd_admin'=>'Administrar Tareas',
+    'action_tccd_test'=> 'Prueba de Correo E',
     
     'action_fccs_view' => 'Ver Factura',
     'action_fccs_update' => 'Actualizar Factura',
@@ -151,6 +155,7 @@ return array(
     'action_fcco_agencia' => 'Ver Activos de una Agencia',
     'action_fcco_admin' => 'Ver Entradas/Salidas',
     'action_fcco_activos' => 'Ver Activos Disponibles',
+    'action_fcco_print'=>'Imprimir',
     
     'action_fccn_view' => 'Ver Operacion',
     'action_fccn_update' => 'Actualizar Operacion',
