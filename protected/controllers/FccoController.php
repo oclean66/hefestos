@@ -401,6 +401,7 @@ class FccoController extends Controller
         $count['Monitores'] = Yii::app()->db->createCommand("Select count(*) as Monitores from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 12 ")->queryRow();
         $count['Impresoras'] = Yii::app()->db->createCommand("Select count(*) as Impresoras from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 13 ")->queryRow();
         $count['Maquinitas'] = Yii::app()->db->createCommand("Select count(*) as Maquinitas from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 4 ")->queryRow();
+
         if (isset($_GET['Fcco'])) {
 
             $model->attributes = $_GET['Fcco'];
@@ -413,11 +414,11 @@ class FccoController extends Controller
 
         if ($type == null) {
             $this->renderPartial('grupo', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo,
+                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo
             ));
         } else {
             $this->render('grupo', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo,
+                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo
             ));
         }
 
@@ -440,6 +441,18 @@ class FccoController extends Controller
         $count = $agencia->estadisticas;
 
         //--Estadisticas rapidas
+            
+            
+                $estadisticas = Fcuu::model()->findAll(array('order' => 'FCUU_Descripcion'));
+                foreach ($estadisticas as $key => $value) {
+                    $data['categorias'][$key] = array(
+                        'name' => $value->FCUU_Descripcion,
+                        'cantidad' => $value->estadisticas
+                    );
+                }
+            
+            
+            
 
         if (isset($_GET['Fcco'])) {
 
@@ -526,11 +539,11 @@ class FccoController extends Controller
             $this->renderPartial('print', array('d' => $data, 'model' => $agencia), false, true);
         } else if ($type == null) {
             $this->renderPartial('agencia', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'agencia' => $agencia
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'data' => $data, 'count' => $count
             ));
         } else {
             $this->render('agencia', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'agencia' => $agencia
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'data' => $data, 'count' => $count
             ));
         }
     }

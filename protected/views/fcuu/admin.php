@@ -29,9 +29,16 @@ array('label'=>'Crear Categoria', 'url'=>array('create')),
 'htmlOptions' => array('class' => 'pagination'),
 'selectedPageCssClass' => 'active',
 ),
-'columns'=>array(
+'columns'=>
+array(
 		'FCUU_Id',
 		'FCUU_Descripcion',
+		array(
+			'name' => 'FCUU_Id',
+			'header' => 'Total',
+			'value' => '$data->estadisticas',
+			'filter' => false,
+		),
 array(
 'class'=>'CButtonColumn','headerHtmlOptions' => array('style' => 'width:83px'),
 ),

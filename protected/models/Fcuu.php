@@ -22,6 +22,16 @@ class Fcuu extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function getEstadisticas()
+	{
+		$list = $this->fccas;
+		$estadisticas = 0;
+		foreach ($list as $key => $value) {
+			$estadisticas += $value->estadisticas;
+		}
+		return $estadisticas;
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
