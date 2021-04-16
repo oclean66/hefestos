@@ -20,8 +20,8 @@ if (Yii::app()->user->isGuest)
 ?>
 <?php
 /* @var $this SiteController */
-    $this->pageTitle = Yii::app()->name;
-    $baseUrl = Yii::app()->theme->baseUrl;
+$this->pageTitle = Yii::app()->name;
+$baseUrl = Yii::app()->theme->baseUrl;
 ?>
 
 
@@ -87,7 +87,7 @@ if (Yii::app()->user->isGuest)
                     <!-- /.panel-body -->
                 </div>
                 <!-- /#c1.panel-collapse collapse in -->
-            </div>            
+            </div>
             <div class="panel panel-default teal">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -136,33 +136,72 @@ if (Yii::app()->user->isGuest)
                     <div class="panel-body">
                         <div class="box-content">
                             <div class="basic-margin" style="display:block">
-                                <?php
+                                <?php $this->widget('zii.widgets.grid.CGridView', array(
+                                    'id' => 'site-grid',
+                                    'dataProvider' => $model->search(),
+                                    'filter' => $model,
+                                    'itemsCssClass' => 'table table-striped table-bordered table-hover',
+                                    'pagerCssClass' => 'table-pagination',
+                                    'pager' => array(
+                                        'htmlOptions' => array('class' => 'pagination'),
+                                        'selectedPageCssClass' => 'active',
+                                    ),
+                                    'columns' =>array(
+                                        array(
+                                            'name' => 'FCCA_Id',
+                                            'value' => '$data->fCCA->FCCA_Descripcion',
+                                            'filter' => CHtml::activeTextField($model, 'FCCA_Id'),
+                                        ),
+                                        array(
+                                            'name' => 'FCCT_Descripcion',
+                                            'header' => 'Modelo',
+                                            'filter' => CHtml::activeTextField($model, 'FCCT_Descripcion'),
+                                            
+                                        ),
+                                        array(
+                                            'name' => 'FCCT_Id',
+                                            'header' => 'Total',
+                                            'value' => '$data->total',
+                                            'filter' => false,
+                                            
+                                        ),
+                                        
+                                    ),
+                                )); ?>
+
+
+                               
+                                <!-- php
                                 foreach ($data['tipos'] as $value) {
                                 ?>
                                     <ul class="stats" style="margin-right: 5px;display:block; ">
-                                        <?php
+                                        php
                                         echo "<h4>" . $value['name'] . " (" . $value['cantidad'] . ") |</h4>";
                                         foreach ($value['modelos'] as $valueX) {
                                         ?>
-                                            <li class=<?php echo $colores[array_rand($colores, 1)]; ?> style="margin-top:3px;">
+                                            <li class=php echo $colores[array_rand($colores, 1)]; ?> style="margin-top:3px;">
                                                 <i class="fa fa-desktop"></i></span>
                                                 <div class="details">
-                                                    <span class="big"> <?php echo $valueX['cantidad']; ?></span>
-                                                    <span style="display:block;text-overflow: Ellipsis;width: 122px;overflow: hidden; white-space: nowrap;"><?php echo $valueX['name']; ?></span>
+                                                    <span class="big"> php echo $valueX['cantidad']; ?></span>
+                                                    <span style="display:block;text-overflow: Ellipsis;width: 122px;overflow: hidden; white-space: nowrap;">?php echo $valueX['name']; ?></span>
                                                 </div>
                                             </li>
-                                        <?php } ?>
+                                        ?php } ?>
                                         <li class="divider"></li>
                                     </ul>
-                                    <!-- <br/> -->
-                                <?php } ?>
+                                     <br/> 
+                                ?php } ?> -->
+                                
+
+                                
+
                             </div>
                         </div>
                     </div>
                     <!-- /.panel-body -->
                 </div>
                 <!-- /#c1.panel-collapse collapse in -->
-            </div>            
+            </div>
         </div>
     </div>
 

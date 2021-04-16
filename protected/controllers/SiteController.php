@@ -453,7 +453,14 @@ class SiteController extends Controller
             );
         }
 
+        $model = new Fcct('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Fcct']))
+            $model->attributes = $_GET['Fcct'];
 
-        $this->render('statistics', array('data' => $data));
+
+        $this->render('statistics', array(
+            'data' => $data, 'model' => $model
+        ));
     }
 }

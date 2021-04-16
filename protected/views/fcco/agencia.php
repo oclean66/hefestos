@@ -20,10 +20,10 @@ $this->menu = array(
      array('label' => 'Actualizar Agencia', 'url' => CController::createUrl('gcca/update', array('id' => $agencia->GCCA_Id))),
      array('label' => '<i class="fa fa-print" aria-hidden="true"></i> Imprimir <span class="label label-warning">NUEVO</span>', 'url' => array('agencia', 'id' => $agencia->GCCA_Id, 'print'=>true), 'linkOptions'=>array('target'=>'_blank', 'class'=>'active not-link')),
 );
-
-foreach ($data['categorias'] as $key => $value) {
-    $this->widget[] = array('label' => $value['name'], 'data' => $value['cantidad']);
+foreach ($count as $key => $value) {
+    $this->widget[] = array('label' => $key, 'data' => $value[$key][0]);
 }
+
 ?>
 
 <div id="modal-1" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">

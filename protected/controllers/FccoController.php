@@ -440,18 +440,7 @@ class FccoController extends Controller
         $count = array();
         $count = $agencia->estadisticas;
 
-        //--Estadisticas rapidas
-            
-            
-                $estadisticas = Fcuu::model()->findAll(array('order' => 'FCUU_Descripcion'));
-                foreach ($estadisticas as $key => $value) {
-                    $data['categorias'][$key] = array(
-                        'name' => $value->FCUU_Descripcion,
-                        'cantidad' => $value->estadisticas
-                    );
-                }
-            
-            
+        //--Estadisticas rapidas                  
             
 
         if (isset($_GET['Fcco'])) {
@@ -539,11 +528,11 @@ class FccoController extends Controller
             $this->renderPartial('print', array('d' => $data, 'model' => $agencia), false, true);
         } else if ($type == null) {
             $this->renderPartial('agencia', array(
-                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'data' => $data, 'count' => $count
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count
             ));
         } else {
             $this->render('agencia', array(
-                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'data' => $data, 'count' => $count
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count
             ));
         }
     }
