@@ -1,7 +1,8 @@
 <img class="imprimir" width="150px" src="/hefestos/themes/flat/img/brand.png" alt="">
 <div id="summary">
-<h4>Inventario de Activos<br/> Fecha: 
-        <?php echo date("d M, Y");?>
+<h4>Inventario de Activos<br/> 
+        <?php echo isset($fecha) ? $fecha . "<br/>" : ""; ?>
+        Fecha de Impresion: <?php echo date("d M, Y");?>
         <br/>
       <?php echo Yii::app()->session['desc'];?>
       </h4>    

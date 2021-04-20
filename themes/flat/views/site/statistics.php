@@ -148,15 +148,14 @@ $baseUrl = Yii::app()->theme->baseUrl;
                                     ),
                                     'columns' =>array(
                                         array(
-                                            'name' => 'FCCA_Id',
-                                            'value' => '$data->fCCA->FCCA_Descripcion',
-                                            'filter' => CHtml::activeTextField($model, 'FCCA_Id'),
-                                        ),
-                                        array(
                                             'name' => 'FCCT_Descripcion',
                                             'header' => 'Modelo',
                                             'filter' => CHtml::activeTextField($model, 'FCCT_Descripcion'),
-                                            
+                                        ),                                            
+                                        array(
+                                            'name' => 'FCCA_Id',
+                                            'value' => '$data->fCCA->FCCA_Descripcion',
+                                            'filter' => false,
                                         ),
                                         array(
                                             'name' => 'FCCT_Id',

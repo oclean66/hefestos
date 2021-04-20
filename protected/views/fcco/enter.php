@@ -52,16 +52,19 @@ $this->menu = array(
                 <table class="table table-striped table-invoice">
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th># Serial</th>
                             <th>Descripcion</th>
                             <th>Lugar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
+                        <?php                          
+                        $id = 1;
                         foreach ($modelo as $model) {
                             ?>   
                             <tr>
+                                <td class="price"><?php echo $id; ?></td>
                                 <td class='price'><?php
                                     echo $model->FCCO_Enabled == 0 ? '<strike>' : '';
                                     echo $model->fCCU->FCCU_Serial;
@@ -79,6 +82,7 @@ $this->menu = array(
                             ?></td>
                             </tr>
                         <?php
+                        $id+=1;
                         }
                         ?>
                     </tbody>

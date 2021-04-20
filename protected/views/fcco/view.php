@@ -1,7 +1,7 @@
 <?php
 /* @var $this FccoController */
 /* @var $model Fcco */
-
+$modell = isset($modelo[0]) ? $modelo[0] : null;
 
 // $model = $modelo[0];
 // Yii::app()->name = "Salida: " . $model->GCCA_Cod . " - " . $model->GCCA_Nombre;
@@ -82,6 +82,7 @@ $this->menu = array(
                             Rif: <?php echo $model->GCCA_Rif; ?>
                             <br><?php echo $model->GCCA_Direccion; ?>
                             <br>Telefono:  <?php echo $model->GCCA_Telefono; ?>
+                            <b><?php echo count($modelo)." activos";?></b>
 
                         </address>
                     </div>
@@ -106,7 +107,7 @@ $this->menu = array(
                                 <td class='name'><?php echo $model->FCCO_Enabled ==0?'<strike>':'';echo $model->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $model->fCCU->fCCT->FCCT_Descripcion . " | " . $model->fCCU->FCCU_Numero; echo $model->FCCO_Enabled ==0?'</strike>':''; ?></td>
 
                             </tr>
-                            <?php
+                            <?php                            
                         }
                         ?>
 

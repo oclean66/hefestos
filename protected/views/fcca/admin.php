@@ -35,10 +35,10 @@ $this->menu = array(
 		'FCCA_Descripcion',
 		array(
 			'name' => 'FCUU_Id',
-			'value' => '$data->fCUU->FCUU_Descripcion'
+			'value' => '$data->fCUU->FCUU_Descripcion',
 		),
 		array(
-			'name' => 'FCUU_Id',
+			'name' => 'FCCA_Id',
 			'header' => 'Total',
 			'value' => '$data->total',
 			'filter' => false,

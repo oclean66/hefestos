@@ -1,3 +1,5 @@
+<?php $modell = isset($modelo[0]) ? $modelo[0] : null; ?>
+
 <img class="imprimir" width="150px" src="/hefestos/themes/flat/img/brand.png" alt="">
 <div id="summary">
   <h4>
@@ -25,7 +27,12 @@
       </address>
     </div>
     <div class="invoice-from">
-
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+      <b><?php echo count($modelo) . " activos"; ?></b> 
     </div>
   </div>
   <br />
@@ -34,6 +41,7 @@
 
   <table width="100%" class="table paleBlueRows">
     <tr>
+      <th>Id</th>
       <th>Fecha</th>
       <th>Serial</th>
       <!-- <th>Numero</th> -->
@@ -41,6 +49,7 @@
 
     </tr>
     <?php
+    $id = 1;
     //  print_r($d);
     foreach ($d->data as $item) {
 
@@ -48,13 +57,14 @@
     ?>
       <tr>
 
+        <td> <?php echo $id; ?></td>
         <td> <?php echo $item->FCCO_Enabled == 0 ? '<strike>' : ""; ?> <?php echo date("d M Y", strtotime($item->FCCO_Timestamp)); ?> <?php echo $item->FCCO_Enabled == 0 ? '</strike>' : ""; ?> </td>
         <td> <?php echo $item->FCCO_Enabled == 0 ? '<strike>' : ""; ?> <?php echo $item->fCCU->FCCU_Serial; ?></td> <?php echo $item->FCCO_Enabled == 0 ? '</strike>' : ""; ?>
         <!-- <td> <?php echo $item->FCCO_Enabled == 0 ? '<strike>' : ""; ?> <?php echo !isset($item->fCCU->FCCU_Numero) ? "" : $item->fCCU->FCCU_Numero; ?> <?php echo $item->FCCO_Enabled == 0 ? '</strike>' : ""; ?> </td> -->
         <td> <?php echo $item->FCCO_Enabled == 0 ? '<strike>' : ""; ?> <?php echo $item->fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion . " - " . $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " - " . $item->fCCU->fCCT->FCCT_Descripcion; ?> <?php echo $item->FCCO_Enabled == 0 ? '</strike>' : ""; ?> </td>
       </tr>
     <?php
-
+    $id+=1; 
     }
     ?>
   </table>

@@ -147,11 +147,11 @@ class FccoController extends Controller
         if ($tipo == null)
             $tipo = 1;
 
-        $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
+        $modell = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
         if (isset($agencia))
             $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
         else
-            $model = $modelo->gCCA;
+            $model = $modell->gCCA;
 
 
         $criteria = new CDbCriteria;
@@ -162,11 +162,11 @@ class FccoController extends Controller
 
         if ($view === null)
             $this->render('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
+                'modelo' => $modell, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
         else
             $this->renderPartial('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
+                'modelo' => $modell, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
     }
 
@@ -480,7 +480,7 @@ class FccoController extends Controller
                 'criteria' => $criteria,
                 'pagination' => false,
                 'sort' => array(
-                    'defaultOrder' => 'FCCA_Id desc',
+                    'defaultOrder' => 'FCCA_Id',
                     'attributes' => array(
                         'GCCA_search' => array(
                             'asc' => 'gCCA.GCCA_Nombre',
@@ -543,7 +543,7 @@ class FccoController extends Controller
         if ($tipo == null)
             $tipo = 1;
 
-        $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
+        $modell = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
 
         $criteria = new CDbCriteria;
         $criteria->select = '*';
@@ -603,7 +603,7 @@ class FccoController extends Controller
 
 
         // $d = $_SESSION['all'];
-        $this->renderPartial('print', array('d' => $data, "model" => $model, "tipo" => $tipo), false, true);
+        $this->renderPartial('print', array('d' => $data, "model" => $model, "tipo" => $tipo, "modelo" => $modell), false, true);
     }
 
     public function actionCreate($id = null)
