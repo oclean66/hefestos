@@ -82,7 +82,7 @@ $this->menu = array(
                             Rif: <?php echo $model->GCCA_Rif; ?>
                             <br><?php echo $model->GCCA_Direccion; ?>
                             <br>Telefono:  <?php echo $model->GCCA_Telefono; ?>
-                            <b><?php echo count($modelo)." activos";?></b>
+                            <br><b><?php echo count($modelo)." activos";?></b>
 
                         </address>
                     </div>
@@ -92,6 +92,7 @@ $this->menu = array(
                     <thead>
                         <tr>
                             <?php echo isset($resumen) ? "<th># Serial</th>":"";?>
+                            <th>Id</th>
                             <th># Serial</th>
                             <th>Descripcion</th>
 
@@ -99,15 +100,18 @@ $this->menu = array(
                     </thead>
                     <tbody>
                         <?php
+                        $id = 1;
                         foreach ($modelo as $model) {
                             ?>   
                             <tr>
+                                <td><?php echo $id; ?></td>
                                 <td class='time <?php echo isset($resumen) ?"":"hide"?>'><?php echo $model->FCCO_Enabled ==0?'<strike>':''; echo date("d M, h:iA", strtotime($model->FCCO_Timestamp)); echo $model->FCCO_Enabled ==0?'</strike>':''; ?></td>
                                 <td class='price'><?php echo $model->FCCO_Enabled ==0?'<strike>':''; echo $model->fCCU->FCCU_Serial; echo $model->FCCO_Enabled ==0?'</strike>':''; ?></td>
                                 <td class='name'><?php echo $model->FCCO_Enabled ==0?'<strike>':'';echo $model->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $model->fCCU->fCCT->FCCT_Descripcion . " | " . $model->fCCU->FCCU_Numero; echo $model->FCCO_Enabled ==0?'</strike>':''; ?></td>
 
                             </tr>
-                            <?php                            
+                            <?php  
+                            $id+=1;                          
                         }
                         ?>
 

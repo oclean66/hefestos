@@ -389,18 +389,12 @@ class FccoController extends Controller
         $model->GCCD_Id = $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
         $model->FCCN_Id = "=1"; //operacion: asignados
         $model->FCCO_Enabled = "=1"; //asignado actualmente
-
-
-
         $count = array();
+        $count = $grupo->estadisticas;
 
         //--Estadisticas rapidas
 
-        $count['CPU'] = Yii::app()->db->createCommand("Select count(*) as CPU from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcca.FCCA_Id = 11 ")->queryRow();
-        $count['Conexiones'] = Yii::app()->db->createCommand("Select count(*) as Conexiones from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcuu.FCUU_Id = 2 ")->queryRow();
-        $count['Monitores'] = Yii::app()->db->createCommand("Select count(*) as Monitores from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 12 ")->queryRow();
-        $count['Impresoras'] = Yii::app()->db->createCommand("Select count(*) as Impresoras from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 13 ")->queryRow();
-        $count['Maquinitas'] = Yii::app()->db->createCommand("Select count(*) as Maquinitas from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 4 ")->queryRow();
+        
 
         if (isset($_GET['Fcco'])) {
 
@@ -437,11 +431,28 @@ class FccoController extends Controller
 
         $model->FCCO_Enabled = 1; //asignado actualmente
         $model->FCCN_Id = 1; //operacion asignado
+
+        //--Estadisticas rapidas     
         $count = array();
         $count = $agencia->estadisticas;
+        
 
-        //--Estadisticas rapidas                  
+        //Historial de Asignaciones Previas
+        $modelos = new Fcco('search');
+        $modelos->unsetAttributes();
+        $modelos->GCCA_Id = $id;
+
+        if (isset($_GET['Fcco'])) {
             
+            $modelos->attributes = $_GET['Fcco'];
+            $modelos->GCCA_Id = $id;
+        }
+        $modelos->FCCO_Enabled = 0; //historial asignado
+        
+        $modelos->desde = date('2000-01-01');
+        $modelos->hasta = date('2025-01-01');
+
+        /************************* */
 
         if (isset($_GET['Fcco'])) {
 
@@ -528,11 +539,11 @@ class FccoController extends Controller
             $this->renderPartial('print', array('d' => $data, 'model' => $agencia), false, true);
         } else if ($type == null) {
             $this->renderPartial('agencia', array(
-                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
         } else {
             $this->render('agencia', array(
-                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
         }
     }

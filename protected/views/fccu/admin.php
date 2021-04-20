@@ -11,8 +11,9 @@ $this->breadcrumbs = array(
 ?>
 
 
-<div class="col-sm-12">
-    <div class="page-header">
+
+ <div class="col-sm-12">
+    <!-- <div class="page-header"> 
         <div class="pull-right">
             <ul class="minitiles">
                 <li class="orange">
@@ -22,13 +23,15 @@ $this->breadcrumbs = array(
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
 
 <div class="box box-bordered box-color">
     <div class="box-title">
         <h3>
             <i class="fa fa-th-list"></i>Administrar Activos del Sistema
         </h3>
+        <button class="btn btn-primary"  style="float:right">
+                <i class="fa fa-print"></i>  Imprimir</button>
     </div>
 
     <div class="box-content nopadding">
@@ -61,7 +64,7 @@ $this->breadcrumbs = array(
                         'value' => '!isset($data->FCCU_Numero)?"No aplica":$data->FCCU_Numero',
                     ),
                     // array(
-                    //     'name' => 'FCUU_Descripcion', 'header' => 'Categoria',
+                        //     'name' => 'FCUU_Descripcion', 'header' => 'Categoria',
                     //     'filter' => CHtml::activeTextField($model, 'FCUU_Descripcion'),
                     //     'value' => '$data->fCCT->fCCA->fCUU->FCUU_Descripcion',
                     // ),
@@ -76,10 +79,10 @@ $this->breadcrumbs = array(
                         'value' => '$data->fCCT->FCCT_Descripcion',
                     ),
                     // array(
-                    //     'name' => 'FCCI_Id', 'header' => 'Estado',
-                    //     'filter' => CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'),
-                    //     'value' => '"<a href=\"#\" rel=\'popover\' data-trigger=\'hover\' title=\'".$data->fCCI->FCCI_Descripcion."\' '
-                    //     . 'data-placement=\'top\' '
+                        //     'name' => 'FCCI_Id', 'header' => 'Estado',
+                        //     'filter' => CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'),
+                        //     'value' => '"<a href=\"#\" rel=\'popover\' data-trigger=\'hover\' title=\'".$data->fCCI->FCCI_Descripcion."\' '
+                        //     . 'data-placement=\'top\' '
                     //     . 'data-content=\'".($data->FCCI_Id==5?Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id)->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
                     //     'type' => 'raw', 'visible' => false,
                     // ),
@@ -92,11 +95,11 @@ $this->breadcrumbs = array(
                         // . 'data-placement=\'top\' '
                         // . 'data-content=\'".($data->FCCI_Id==5?Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id)->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
                         'value' => '"<a href=\"#\" 
-                            rel=\'".( $data->FCCI_Id == 5 ? "popover" : "")."\' 
-                            data-trigger=\'hover\' 
-                            title=\'".$data->fCCI->FCCI_Descripcion."\' 
-                            data-placement=\'top\' 
-                            data-content=\'".( $data->FCCI_Id==5 ? Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id.\' order by FCCO_Id desc\')->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
+                        rel=\'".( $data->FCCI_Id == 5 ? "popover" : "")."\' 
+                        data-trigger=\'hover\' 
+                        title=\'".$data->fCCI->FCCI_Descripcion."\' 
+                        data-placement=\'top\' 
+                        data-content=\'".( $data->FCCI_Id==5 ? Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id.\' order by FCCO_Id desc\')->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
                         'type' => 'raw',
                         'headerHtmlOptions' => array('style' => 'width:120px'),
                     ),
@@ -106,7 +109,7 @@ $this->breadcrumbs = array(
                         'deleteButtonLabel' => "Dar de Baja",
                         'deleteConfirmation' => "Seguro desar dar de baja esta activo?",
                         // 'recibeConfirmation'=>"Seguro desar dar de baja esta activo?",
-
+                        
                         'headerHtmlOptions' => array('style' => 'width:83px'),
                         'template' => '{view} {update} {recibe} {delete}',
                         'buttons' => array(
@@ -134,8 +137,8 @@ $this->breadcrumbs = array(
                                         type:'POST',
                                         url:$(this).attr('href'),
                                         success:function(data) {
-                                                $('#progress').attr('style', 'width:100%');
-                                                $.fn.yiiGridView.update('fccu-grid');
+                                            $('#progress').attr('style', 'width:100%');
+                                            $.fn.yiiGridView.update('fccu-grid');
                                         }
                                     })
                                     $('#progress').attr('style', 'width:0%');
@@ -150,7 +153,7 @@ $this->breadcrumbs = array(
                     ),
                 ),
             ));
-
+            
             ?>
 
         </div>
