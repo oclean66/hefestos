@@ -242,10 +242,22 @@ class FccuController extends Controller {
         if (isset($_GET['Fccu']))
             $model->attributes = $_GET['Fccu'];
 
+
+        /*if ($tipo == null)
+            $tipo = 1;
+        $model = Fccu::model()->findAll("FCCU_Serial=:serial and FCCI_Id=:estado", array('serial' => $id, 'estado' => $tipo));*/
+        
+       /*  $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $criteria->condition = "FCCU_Serial=:serial and FCCI_Id =:estado";
+        $criteria->params = array(':serial' => $id, ':estado' => $tipo); */
+
         $this->render('admin', array(
-            'model' => $model,
+            'model' => $model
         ));
     }
+    
+
 
     public function loadModel($id) {
         $model = Fccu::model()->findByPk($id);
@@ -260,70 +272,4 @@ class FccuController extends Controller {
             Yii::app()->end();
         }
     }
-
-    public function actionPrint($id, $tipo = null, $view = null, $agencia)
-    {
-        $modelos = Fccu::model()->findAll("FCCU_Numero=:numero and FCCI_Id =:tipo", array(':numero' => $id, ':tipo' => $tipo));
-
-        $criteria = new CDbCriteria;
-        $criteria->select = '*';
-        $criteria->condition = "FCCU_Numero=:numero and FCCI_Id =:tipo";
-        $criteria->params = array(':numero' => $id, ':tipo' => $tipo);
-        $data = new CActiveDataProvider('Fccu', array(
-            'criteria' => $criteria,
-            'pagination' => false,
-            'sort' => array(
-                'defaultOrder' => 'FCCU_Timestamp desc',
-                'attributes' => array(
-                    'GCCA_search' => array(
-                        'asc' => 'gCCA.GCCA_Nombre',
-                        'desc' => 'gCCA.GCCA_Nombre  DESC',
-                    ),
-                    //'GCCD_Nombre' => array(
-                    //'asc' => 'gCCD.GCCD_Nombre',
-                    //'desc' => 'gCCD.GCCD_Nombre  DESC',
-                    //),
-                    'GCCA_Id', 'FCCI_Id',
-                    'FCCU_Numero' => array(
-                        'asc' => 'FCCU_Numero',
-                        'desc' => 'FCCU_Numero  DESC',
-                    ),
-                    'FCCU_Serial' => array(
-                        'asc' => 'FCCU_Serial',
-                        'desc' => 'FCCU_Serial  DESC',
-                    ),
-                    'FCCT_Descripcion' => array(
-                        'asc' => 'fCCT.FCCT_Descripcion',
-                        'desc' => 'fCCT.FCCT_Descripcion  DESC',
-                    ),
-                    'FCCA_Descripcion' => array(
-                        'asc' => 'fCCA.FCCA_Descripcion',
-                        'desc' => 'fCCA.FCCA_Descripcion  DESC',
-                    ),
-                    'FCUU_Descripcion' => array(
-                        'asc' => 'fCUU.FCUU_Descripcion',
-                        'desc' => 'fCUU.FCUU_Descripcion  DESC',
-                    ),
-                    //Agregar todos los filtro o quedaran deshabilitados
-                    'FCCU_Lote' => array(
-                        'asc' => 'FCCU_Lote',
-                        'desc' => 'FCCU_Lote  DESC',
-                    ),
-                    'FCCU_Timestamp' => array(
-                        'asc' => 'FCCU_Timestamp',
-                        'desc' => 'FCCU_Timestamp  DESC',
-                    ),
-
-                ),
-            ),
-        ));
-
-        // Yii::app()->session['all'] = $data;
-        Yii::app()->session['desc'] = $model->concatened;
-
-
-        // $d = $_SESSION['all'];
-        $this->renderPartial('print', array('d' => $data), false, true);
-    }
-
 }

@@ -26,6 +26,11 @@ class Fcco extends CActiveRecord {
     public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion;
     public $GCCA_Nombre, $GCCD_Nombre,$desde,$hasta;
 
+    public function getCod() {
+        return isset($this->gCCA) ?
+        $this->gCCA->GCCA_Cod : "No asignado";
+    }
+
     public function getLugar() {
         return isset($this->gCCA) ? 
         $this->gCCA->GCCA_Cod . ' - ' . $this->gCCA->GCCA_Nombre . " | " . $this->gCCA->gCCD->GCCD_Cod . ' - ' . $this->gCCA->gCCD->GCCD_Nombre: 

@@ -9,42 +9,58 @@ $this->breadcrumbs = array(
 
 
 ?>
+<link rel="stylesheet" type="text/css" href="/themes/flat/css/print.css" media="print" />
 
 
-
- <div class="col-sm-12">
-    <!-- <div class="page-header"> 
+<script language="Javascript">
+	function imprSelec(nombre) {
+	  var ficha = document.getElementById(nombre);
+	  var ventimp = window.open(' ', 'popimpr');
+	  ventimp.document.write( ficha.innerHTML );
+	  ventimp.document.close();
+	  ventimp.print( );
+	  ventimp.close();
+	}
+	</script>
+<!--  <div class="col-sm-12">
+    <div class="page-header"> 
         <div class="pull-right">
             <ul class="minitiles">
                 <li class="orange">
-                    <a href="print">
+                    <a href="print.html" target="_blank">
                         <i class="fa fa-print"></i>
                     </a>
                 </li>
             </ul>
         </div>
     </div> -->
-
 <div class="box box-bordered box-color">
     <div class="box-title">
         <h3>
             <i class="fa fa-th-list"></i>Administrar Activos del Sistema
         </h3>
-        <button class="btn btn-primary"  style="float:right">
-                <i class="fa fa-print"></i>  Imprimir</button>
+        
+        <?php
+        /* echo CHtml::link('<i class="fa fa-print"></i>  Imprimir', array('print'), array('class' => 'btn btn-primary', 'style' => 'float:right', 'target' => '_blank')); */
+        ?>
+        
+        <a href="javascript:imprSelec('consulta')">
+        <button class="btn btn-primary" style="float:right" target="_blank">
+                <i class="fa fa-print"></i>  Imprimir
+        </button>
+        </a>
+
     </div>
 
-    <div class="box-content nopadding">
 
-
-
+    <div class="box box-content nopadding" id="consulta">
             <?php
             $this->widget('zii.widgets.grid.CGridView', array(
                 'id' => 'fccu-grid',
                 'dataProvider' => $model->search(),
                 'filter' => $model,
                 'afterAjaxUpdate' => 'ActivarSelects',
-                'itemsCssClass' => 'table table-hover table-nomargin table-condensed',
+                'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
                 'pagerCssClass' => 'table-pagination',
                 'rowCssClassExpression' => '$data->FCCI_Id==7?"alert-purple":($data->FCCI_Id==6?"alert-danger":($data->FCCI_Id==5?"alert-warning":(($data->FCCI_Id==4)?"alert-info":($data->FCCI_Id==3?"alert-alert":(($data->FCCI_Id==2 || $data->FCCI_Id==10)?"alert-default":($data->FCCI_Id==1?"alert-success":""))))))',
                 'pager' => array(
@@ -54,11 +70,13 @@ $this->breadcrumbs = array(
                 'columns' => array(
                     array(
                         'name' => 'FCCU_Timestamp', 'header' => 'Fecha de Ingreso',
-                        'value' => 'date("d/m/Y, h:ia",strtotime($data->FCCU_Timestamp))'
+                        'value' => 'date("d/m/Y, h:ia",strtotime($data->FCCU_Timestamp))',
+                        
                     ),
                     array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->FCCU_Serial'),
                     //campos de busqueda relacionada
                     array(
+                        'htmlOptions' => array('class'=>'remover'),
                         'name' => 'FCCU_Numero', 'header' => 'Numero',
                         'filter' => CHtml::activeTextField($model, 'FCCU_Numero'),
                         'value' => '!isset($data->FCCU_Numero)?"No aplica":$data->FCCU_Numero',
@@ -74,7 +92,8 @@ $this->breadcrumbs = array(
                         'value' => '$data->fCCT->fCCA->FCCA_Descripcion',
                     ),
                     array(
-                        'name' => 'FCCT_Descripcion', 'header' => 'Modelo',
+                        'name' => 'FCCT_Descripcion', 
+                        'header' => 'Modelo',
                         'filter' => CHtml::activeTextField($model, 'FCCT_Descripcion'),
                         'value' => '$data->fCCT->FCCT_Descripcion',
                     ),
@@ -94,14 +113,15 @@ $this->breadcrumbs = array(
                         //'value' => '"<a href=\"#\" rel=\'popover\' data-trigger=\'hover\' title=\'".$data->fCCI->FCCI_Descripcion."\' '
                         // . 'data-placement=\'top\' '
                         // . 'data-content=\'".($data->FCCI_Id==5?Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id)->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
-                        'value' => '"<a href=\"#\" 
+                        /* '"<a href=\"#\" 
                         rel=\'".( $data->FCCI_Id == 5 ? "popover" : "")."\' 
                         data-trigger=\'hover\' 
                         title=\'".$data->fCCI->FCCI_Descripcion."\' 
                         data-placement=\'top\' 
                         data-content=\'".( $data->FCCI_Id==5 ? Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id.\' order by FCCO_Id desc\')->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
                         'type' => 'raw',
-                        'headerHtmlOptions' => array('style' => 'width:120px'),
+                        'headerHtmlOptions' => array('style' => 'width:120px'), */
+                        'value' => '$data->FCCI_Id==5 ? Fcco::model()->find("FCCU_Id=".$data->FCCU_Id. " order by FCCO_Id desc")->cod:$data->fCCI->FCCI_Descripcion',
                     ),
                     array(
                         'header' => 'Acciones',
@@ -114,6 +134,7 @@ $this->breadcrumbs = array(
                         'template' => '{view} {update} {recibe} {delete}',
                         'buttons' => array(
                             'view' => array(
+                                'htmlOptions' => array('class' => 'remover'),
                                 'label' => "Detalles",
                                 'visible' => 'Yii::app()->user->checkAccess("action_fccu_view")',
                                 'url' => 'Yii::app()->createUrl("fccu/view/",array("id"=>$data->FCCU_Id))',

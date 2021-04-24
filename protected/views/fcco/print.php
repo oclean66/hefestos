@@ -32,7 +32,7 @@
     <br/>
     <br/>
     <br/>
-      <b><?php echo count($modelo) . " activos"; ?></b> 
+      <b><?php echo count($d->data ) . " activos"; ?></b> 
     </div>
   </div>
   <br />
