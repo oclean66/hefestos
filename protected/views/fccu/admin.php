@@ -44,7 +44,7 @@ $this->breadcrumbs = array(
         /* echo CHtml::link('<i class="fa fa-print"></i>  Imprimir', array('print'), array('class' => 'btn btn-primary', 'style' => 'float:right', 'target' => '_blank')); */
         ?>
         
-        <a href="javascript:imprSelec('consulta')">
+        <a href="javascript:print()">
         <button class="btn btn-primary" style="float:right" target="_blank">
                 <i class="fa fa-print"></i>  Imprimir
         </button>
@@ -61,7 +61,7 @@ $this->breadcrumbs = array(
                 'filter' => $model,
                 'afterAjaxUpdate' => 'ActivarSelects',
                 'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
-                'pagerCssClass' => 'table-pagination',
+                'pagerCssClass' => 'table-pagination remover',
                 'rowCssClassExpression' => '$data->FCCI_Id==7?"alert-purple":($data->FCCI_Id==6?"alert-danger":($data->FCCI_Id==5?"alert-warning":(($data->FCCI_Id==4)?"alert-info":($data->FCCI_Id==3?"alert-alert":(($data->FCCI_Id==2 || $data->FCCI_Id==10)?"alert-default":($data->FCCI_Id==1?"alert-success":""))))))',
                 'pager' => array(
                     'htmlOptions' => array('class' => 'pagination'),
@@ -76,10 +76,15 @@ $this->breadcrumbs = array(
                     array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->FCCU_Serial'),
                     //campos de busqueda relacionada
                     array(
-                        'htmlOptions' => array('class'=>'remover'),
-                        'name' => 'FCCU_Numero', 'header' => 'Numero',
-                        'filter' => CHtml::activeTextField($model, 'FCCU_Numero'),
+                        'name' => 'FCCU_Numero', 
+                        
+                        'header' => 'Numero',
+                        'headerHtmlOptions' => array('class'=>'remover'),
+                        
                         'value' => '!isset($data->FCCU_Numero)?"No aplica":$data->FCCU_Numero',
+                        'htmlOptions' => array('class'=>'remover'),
+
+                        'filter' => CHtml::activeTextField($model, 'FCCU_Numero'),
                     ),
                     // array(
                         //     'name' => 'FCUU_Descripcion', 'header' => 'Categoria',

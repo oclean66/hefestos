@@ -180,65 +180,102 @@
                 </div>
             </div>
             <!--lote   1 (master)  -->
-            <div id="master" class='hidden'>
-                <div class="col-sm-12 nopadding" style="margin-top:0px; margin-bottom: 10px; ">
-                    <div class="col-sm-6 nopadding">
-                        <div class="form-group">
+            <div id="master" class='row hidden'>
+                <div class="col-sm-12 nopadding" style="margin-bottom: 0px; margin-top:0px">
 
-                            <?php echo CHtml::label('Serial.', 'Serial.', array('class' => 'control-label add-label col-sm-2')); ?>
+                    <div class="col-sm-6">
+                        <div class="form-group nopadding">
+                            <?php echo CHtml::label('Tipo', 'Tipo', array('class' => 'control-label add-label col-sm-2')); ?>
                             <div class="col-sm-10">
-
-                                <?php echo CHtml::textField( 
+                                <?php
+                                echo CHtml::dropDownList(
+                                    'Fccu[FCCA_Id_Master]',
+                                    'Fccu[FCCA_Id_Master]',
+                                    CHtml::listData(Fcca::model()->findAll(), 'FCCA_Id', 'FCCA_Descripcion'),
+                                    array(
+                                        'class' => 'select2-me', 'style' => 'width:25.3% !important;background-color:blue;',
+                                        'ajax' => array(
+                                            'type' => 'POST',
+                                            'url' => CController::createUrl('fccu/Rellenar'),
+                                            // 'success' => 'function(data){ console.log(data); }',
+                                            'update' => '#Fccu_FCCT_Id_Master',
+                                            // 'success'=>'function(){ 
+                                            // var select = document.getElementById("Fccu_FCCT_Id");                   
+                                            //     select.prop("disabled", "disabled");
+                                            // }',
+                                            'beforeSend' => 'function(){
+                                                    
+                                                    var select = document.getElementById("Fccu_FCCT_Id");    				
+                                                    select.options.length = 0;
+                                                    // select.prop("disabled", "disabled");
+                                                    select.options[select.options.length] = new Option("Cargando...", "");}',
+                                        ),
+                                        'prompt' => 'Seleccione un Tipo...'
+                                    )
+                                );
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <?php echo CHtml::label('Modelo', 'Modelo', array('class' => 'control-label add-label col-sm-2')); ?>
+                            <div class="col-sm-10">
+                                <?php echo CHtml::dropDownList('Fccu[FCCT_Id_Master]', 'Fccu[FCCT_Id_Master]', array(), array('empty' => 'Selecciona', 'class' => 'select2-me', 'style' => 'width:25.3% !important')); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-top:0px; margin-bottom: 10px; padding: 0% 5%">
+                        <?php echo CHtml::label('Serial', 'Serial', array('class' => 'control-label add-label')); ?>
+                        <div class="input-group">
+                            <?php echo CHtml::textField(
+                                'Fccu[FCCU_Serial_Master]',
+                                '',
+                                array(
+                                    'placeholder' => 'Codigo de Barras', 'class' => 'form-control add ',
+                                    'id' => 'serial_master', 'size' => 45, 'maxlength' => 45
+                                )
+                            ); ?>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success " onclick="add('master')" type="button">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6" style="margin-bottom: 0px; margin-top:0px;">
+                        <div class="form-group">
+                            <?php //echo CHtml::label('Serial', 'Serial', array('class' => 'control-label add-label col-sm-2')); 
+                            ?>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="text" placeholder="Codigo de Barras" class="form-control add" id="serial_master" size="45" maxlength="45" style="width: 100%;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-success" onclick="add('master')" type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-sm-10">
+                                <?php /*echo CHtml::textField(
                                     'Fccu[FCCU_Serial_Master]',
                                     '',
                                     array(
                                         'placeholder' => 'Codigo de Barras', 'class' => 'form-control add ',
-                                        'id' => 'serial_master', 'size' => 45, 'maxlength' => 45
-                                        )
-                                    ); ?>
-                                    </div>
-                    </div>
-                </div>
-
-
-                    <?php echo CHtml::label('Tipo,', 'Tipo.', array('class' => 'control-label add-label')); ?>
-                    <?php
-                    echo CHtml::dropDownList(
-                        'Fccu[FCCA_Id_Master]',
-                        'Fccu[FCCA_Id_Master]',
-                        CHtml::listData(Fcca::model()->findAll(), 'FCCA_Id', 'FCCA_Descripcion'),
-                        array(
-                            'class' => 'select2-mve', 'style' => 'width:25.3% !important;background-color:blue;',
-                            'ajax' => array(
-                                'type' => 'POST',
-                                'url' => CController::createUrl('fccu/Rellenar'),
-                                // 'success' => 'function(data){ console.log(data); }',
-                                'update' => '#Fccu_FCCT_Id_Master',
-                                // 'success'=>'function(){ 
-                                // var select = document.getElementById("Fccu_FCCT_Id");                   
-                                //     select.prop("disabled", "disabled");
-                                // }',
-                                'beforeSend' => 'function(){
-                            
-                            var select = document.getElementById("Fccu_FCCT_Id");    				
-                                select.options.length = 0;
-                                // select.prop("disabled", "disabled");
-                                select.options[select.options.length] = new Option("Cargando...", "");}',
-                            ),
-                            'prompt' => 'Seleccione un Tipo...'
-                        )
-                    );
-                    ?>
-
-
-                    <?php echo CHtml::label('Modelo', 'Modelo', array('class' => 'control-label add-label')); ?>
-                    <?php echo CHtml::dropDownList('Fccu[FCCT_Id_Master]', 'Fccu[FCCT_Id_Master]', array(), array('empty' => 'Selecciona', 'class' => 'select2-me', 'style' => 'width:25.3%')); ?>
-
-
-                    <button class="btn btn-success" onclick="add('master')" type="button">
-                        <i class="fa fa-plus"></i>
-                    </button>
-
+                                        'id' => 'serial_master', 'size' => 45, 'maxlength' => 45, 'style' => 'width:100%'
+                                    )
+                                ); */ ?>
+                            </div>  
+                        </div>
+                    </div>  -->
+                    <!-- <div class="col-sm-6">
+                        <div class="form-group">
+                            <button class="btn btn-success btn-large" onclick="add('master')" type="button">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div> -->
 
                 </div>
             </div>
