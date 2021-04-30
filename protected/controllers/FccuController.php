@@ -18,9 +18,10 @@ class FccuController extends Controller
                 $fccu_serial = $_POST['Fccu']['FCCU_Serial'];
                 $fcct_id = $_POST['Fccu']['FCCT_Id'];
 
-                $correct = "<div class='label label-success'>Correcto</div>";
-                $alert = "<div class='label label-danger'>Alerta</div>";
+                $correct = "<div class='label label-success'>Procesado</div>";
+                $alert = "<div class='label label-danger'>NO Procesado</div>";
                 $arrayNotificaciones = array();
+                $total=0;
                 foreach ($fccu_serial as $key => $value) {
 
                     $model = new Fccu;
@@ -34,10 +35,12 @@ class FccuController extends Controller
                     $model->FCCT_Id = $fcct_id[$key]; //modelo
                     try {
                         if ($model->save()) {
-                            $arrayNotificaciones[$model->FCCU_Serial] = array(
+                            $total;
+                            $total+=1;
+                            /* $arrayNotificaciones[$model->FCCU_Serial] = array(
                                 'item' => $correct,
                                 'estado' => 'Serial <b style="color: green">' . $model->FCCU_Serial . '</b> Guardado correctamente',
-                            );
+                            ); */
                             // $buenas = $buenas . "Se guardo item " . $value . "</br>";
                         } /* else {
                             //error de model
@@ -48,19 +51,20 @@ class FccuController extends Controller
                         //repetidos
                         $arrayNotificaciones[$model->FCCU_Serial] = array(
                             'item' => $alert,
-                            'estado' => 'No se guardo el serial <b style="color: danger">' . $model->FCCU_Serial . '</b> Se encuentra Repetido' . "&nbsp",
-                            'error' => $exc->getLine()
+                            'estado' => '<b style="color: red">' . $model->FCCU_Serial . '</b> Repetido',
+                            //'error' => $exc->getLine()
                         );
                     }
                 }
+                echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>'; 
                 /* echo "<div class='label label-success'>Correcto</div>";
                 echo "<div class='label label-alert'>Alerta</div>"; */
                 // echo $malas . $buenas;
                 // print_r(json_decode("[[title:'nombre']]"));
                 foreach ($arrayNotificaciones as $value){
                         echo $value['item'] . "&nbsp";
-                        // echo 'Error' . $value['error'];
                         echo $value['estado'] . "</br>";
+                        // echo 'Error' . $value['error'];
                 }
                 return;
             } else if ($_POST['Fccu']['FCUU_Id'] == 2) {
@@ -72,9 +76,10 @@ class FccuController extends Controller
                 $FCCU_MontoMin = $_POST['Fccu']['FCCU_MontoMin'];
                 $FCCU_DiaCorte = $_POST['Fccu']['FCCU_DiaCorte'];
 
-                $correct = "<div class='label label-success'>Correcto</div>";
-                $alert = "<div class='label label-danger'>Alerta</div>";
+                $correct = "<div class='label label-success'>Procesado</div>";
+                $alert = "<div class='label label-danger'>NO Procesado</div>";
                 $arrayNotificaciones = array();
+                $total=0;
                 foreach ($fccu_serial as $key => $value) {
                     $model = new Fccu;
                     $model->FCCU_Serial = str_replace(" ", "", $value);
@@ -91,27 +96,33 @@ class FccuController extends Controller
                     $model->FCCT_Id = $fcct_id; //modelo
                     try {
                         if ($model->save()) {
-                            $arrayNotificaciones[$model->FCCU_Serial] = array(
+                            $total;
+                            $total+=1;
+                            /* $arrayNotificaciones[$model->FCCU_Serial] = array(
                                 'item' => $correct,
                                 'estado' => 'Serial <b style="color: green">' . $model->FCCU_Serial . '</b> Guardado correctamente',
-                            );
+                            ); */
+                    
                             //$buenas = $buenas . "Se guardo item " . $value . "</br>";
                         }
                     } catch (Exception $exc) {
                         //throw new CHttpException(500, $exc->getMessage());
                         $arrayNotificaciones[$model->FCCU_Serial] = array(
                             'item' => $alert,
-                            'estado' => 'No se guardo el serial: <b style="color: red">' . $model->FCCU_Serial . '</b> se encuentra Repetido' . "&nbsp",
-                            'error' => $exc->getMessage()
+                            'estado' => '<b style="color: red">' . $model->FCCU_Serial . '</b> Repetido',
+                            //'error' => $exc->getMessage()
                         );
                         //$malas = $malas . "No se pudo con este " . $model->FCCU_Serial . "</br>"; //$exc->getTraceAsString();
                     }
                 }
+
+                echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>';
                 //echo $malas . $buenas;
+
                 foreach ($arrayNotificaciones as $value){
                     echo $value['item'] . "&nbsp";
-                    //echo 'Error' . $value['error'];
                     echo $value['estado'] . "</br>";
+                    //echo 'Error' . $value['error'];
             }
                 return;
             }
