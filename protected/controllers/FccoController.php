@@ -421,7 +421,7 @@ class FccoController extends Controller
         //        ));
     }
 
-    public function actionAgencia($id, $type = null, $print = false)
+    public function actionAgencia($id, $type = null, $print = false, $excel = false)
     {
 
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
@@ -462,12 +462,19 @@ class FccoController extends Controller
             $model->FCCN_Id = 1;
         }
 
-
-
+        /************************* */
+        
         $model->desde = date('2000-01-01');
         $model->hasta = date('2025-01-01');
+        
+        if ($excel) {
+			//
+			$content = $this->renderPartial("excel", array('model' => $model, 'modelos' => $modelos), true, true);
 
+			Yii::app()->request->sendFile('Historial Agencia ' . $agencia->concatened . '.xls', $content);
+		}
 
+        /************************* */
 
         if ($print) {
             $criteria = new CDbCriteria;

@@ -46,10 +46,7 @@ array('label'=>'Arbol de Sistema', 'url'=>array('/fcco/admin')),
                     
                 ),   
                 array('name' => 'GCCA_Cod',
-                    'value' => 'CHtml::link(
-                        $data->GCCA_Cod, 
-                        Yii::app()->createUrl("fcco/agencia",array("id"=>$data->GCCA_Id,"type"=>$data->GCCA_Id)),
-                        array("target"=>"_blank"))',
+                    'value' => '$data->GCCA_Cod',
                     'type' => 'raw',
                     'headerHtmlOptions' => array('style' => 'width:83px'),
                 ),
@@ -69,12 +66,12 @@ array('label'=>'Arbol de Sistema', 'url'=>array('/fcco/admin')),
                     'buttons' => array(
                         'view' => array( 
                             'label' => "Detalles",
-                            'url' => 'Yii::app()->createUrl("gcca/view/",array("id"=>$data->GCCA_Id))',
+                            'url' => 'Yii::app()->createUrl("fcco/agencia",array("id"=>$data->GCCA_Id,"type"=>$data->GCCA_Id))',/* 'Yii::app()->createUrl("gcca/view/",array("id"=>$data->GCCA_Id))', */
                             'options' => array('target' => '_blank'),
                         ),
                         'update' => array( 
                             'label' => "Detalles", 
-                            'url' => 'Yii::app()->createUrl("gcca/update/",array("id"=>$data->GCCA_Id))',
+                            'url' => 'Yii::app()->createUrl("gcca/update/",array("id"=>$data->GCCA_Id))', 
                             'options' => array('target' => '_blank'),
                         ),
                         ),
