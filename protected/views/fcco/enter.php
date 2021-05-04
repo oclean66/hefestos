@@ -43,6 +43,8 @@ $this->menu = array(
                                 Telefono: (0276) 355-6947
                                 <br>
                                 Telefono Principal: (0276) 356-7958
+                                <br>
+                                Realizado por: <b><?php echo $model->username;?></b>
                             </address>
                         </td>
                         <td style="border:0"> <b><?php echo count($modelo) . " activos"; ?></b></td>

@@ -9,6 +9,7 @@
 
     Fecha de Impresion: <?php echo date("d M, Y"); ?>
     <br />
+    
     <?php echo $model->concatened; ?>
   </h4>
 
@@ -24,6 +25,8 @@
           Telefono: (0276) 355-6947
           <br>
           Telefono Principal: (0276) 356-7958
+          <br />
+          Realizado por: <b><?php echo $modell->username;?></b>
         </address>
       </td>
       <td style="border:0"> <b><?php echo count($d->data) . " activos"; ?></b></td>
