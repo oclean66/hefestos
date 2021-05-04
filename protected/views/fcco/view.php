@@ -73,6 +73,8 @@ $this->menu = array(
                             Telefono: (0276) 355-6947
                             <br>
                             Telefono Principal:  (0276) 356-7958
+                            <br>
+                            Realizado por: <b><?php echo $modell->username;?></b>
                         </address>
                     </div>
                     <div class="invoice-from" style="white-space: normal; width:265px;margin-left:20px">

@@ -39,7 +39,7 @@ class Fcco extends CActiveRecord {
 
     public function getUsername(){
         $user = "";
-        $log = Pcue::model()->find("PCUE_IdModel=:idmodel",array(":idmodel"=>$this->FCCO_Id));
+        $log = Pcue::model()->find("PCUE_Action='INSERTAR' AND PCUE_Model='Fcco' AND PCUE_IdModel=:idmodel",array(":idmodel"=>$this->FCCO_Id));
         if(isset($log))
         $user = $log->PCUE_UserId;
         return $user;
