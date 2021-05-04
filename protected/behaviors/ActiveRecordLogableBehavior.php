@@ -33,7 +33,7 @@ class ActiveRecordLogableBehavior extends CActiveRecordBehavior {
                     . ' actualizo ' . $names . ' en '
                     . CrugeTranslator::t('classes', get_class($this->Owner));
             $log->PCUE_Action = 'ACTUALIZAR';
-            $log->PCUE_Model = get_class($this->Owner);
+            $log->PCUE_Model = CrugeTranslator::t('classes', get_class($this->Owner));
             $id = $this->Owner->getPrimaryKey();
 
             $log->PCUE_IdModel = is_array($id) ? implode(",", $id) : $id;
