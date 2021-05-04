@@ -1,4 +1,4 @@
-<?php $modell = isset($modelo[0]) ? $modelo[0] : null; ?>
+<?php $modell = isset($modelo[0]) ? $modelo[0] : (isset($d->data[0]) ? $d->data[0] : null); ?>
 
 <img class="imprimir" class='brand' width="100px" src="/hefestos/themes/flat/img/brand.png" alt="">
 <div id="summary">
@@ -26,7 +26,7 @@
           <br>
           Telefono Principal: (0276) 356-7958
           <br />
-          Realizado por: <b><?php echo $modell->username;?></b>
+          Realizado por: <b><?php echo isset($modell) ? $modell->username : "";?></b>
         </address>
       </td>
       <td style="border:0"> <b><?php echo count($d->data) . " activos"; ?></b></td>
