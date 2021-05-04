@@ -37,6 +37,13 @@ class Fcco extends CActiveRecord {
         "No asignado";
     }
 
+    public function getUsername(){
+        $user = "";
+        $log = Pcue::model()->find("PCUE_IdModel=:idmodel",array(":idmodel"=>$this->FCCO_Id));
+        if(isset($log))
+        $user = $log->PCUE_UserId;
+        return $user;
+    }
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.

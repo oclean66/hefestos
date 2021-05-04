@@ -161,9 +161,11 @@ $this->menu = array(
                 'header' => 'Operacion',
                 'value' => '$data->fCCN->FCCN_Operacion'),
 
-            array('name' => 'FCCN_Id',
+            array(
+                'name' => 'FCCN_Id',
                 'header' => 'Usuario',
-                'value' => 'Pcue::model()->find("PCUE_IdModel=:idmodel",array(":idmodel"=>$data->FCCO_Id))->PCUE_UserId',
+                'value' => '$data->username',
+                
             ),
                 //array('name' => 'FCCO_Lote', 'type' => 'raw', 'header' => 'Ticket',
             //            'value' => 'CHtml::link("#".$data->FCCO_Lote)',
