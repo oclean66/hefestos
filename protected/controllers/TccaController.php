@@ -8,7 +8,17 @@ class TccaController extends Controller
 	 */
 	public $layout='//layouts/column2';
 	
-	
+	public function actionLista() {
+		$id = $_POST['Tccd']['TCCA_BoardId'];
+
+		$lista = Tcca::model()->findAll('TCCA_BoardId = ' . $id);
+		$lista = CHtml::listData($lista, 'TCCA_Id', 'TCCA_Name');
+		echo CHtml::tag('option', array('value' => ''), 'Selecciona una Lista...', true);
+		foreach ($lista as $valor => $nombre) {
+			echo CHtml::tag('option', array('value' => $valor), CHtml::encode($nombre), true);
+		}
+	}
+
 	public function actionComment(){
 		
 		$event = new Tcct;

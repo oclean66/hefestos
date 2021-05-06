@@ -20,7 +20,7 @@ $this->menu=array(
         <div class="box-title">
             <h3>
                 <i class="fa fa-home"></i>
-                Administrar Tccds.
+                Administrar Tareas
             </h3>
         </div> 
     </div>
@@ -47,6 +47,7 @@ $this->menu=array(
 		'TCCA_Id',
 		*/
 		array(
+			'header' => 'Acciones',
 			'class'=>'CButtonColumn',
 		),
 	),

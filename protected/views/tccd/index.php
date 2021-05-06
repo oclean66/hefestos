@@ -7,12 +7,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Tccd', 'url'=>array('create')),
-	array('label'=>'Manage Tccd', 'url'=>array('admin')),
+	array('label'=>'Crear Tarea', 'url'=>array('create')),
+	array('label'=>'Administrar Tareas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Tccds</h1>
+<h1>Tareas</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
