@@ -135,8 +135,8 @@ $this->breadcrumbs = array(
                         'deleteConfirmation' => "Seguro desar dar de baja esta activo?",
                         // 'recibeConfirmation'=>"Seguro desar dar de baja esta activo?",
                         
-                        'headerHtmlOptions' => array('style' => 'width:83px'),
-                        'template' => '{view} {update} {recibe} {delete}',
+                        'headerHtmlOptions' => array('class' => 'remover','style' => 'width:90px'),
+                        'template' => '{view} {update} {recibe} {report} {delete}',
                         'buttons' => array(
                             'view' => array(
                                 'htmlOptions' => array('class' => 'remover'),
@@ -170,6 +170,13 @@ $this->breadcrumbs = array(
                                     $('#progress').attr('style', 'width:0%');
                                     return false;
                                 }"
+                            ),
+                            'report' => array(
+                                'label' => 'Reportar',
+                                'visible' => 'Yii::app()->user->checkAccess("action_fccu_report") && $data->FCCI_Id!=6',
+                                'url' => 'Yii::app()->createUrl("tccd/create", array("id"=>$data->FCCU_Id))',
+                                'options' => array('target' => '_blank'),
+                                'imageUrl' => Yii::app()->theme->baseUrl . '/img/report1.png',
                             ),
                             'delete' => array(
                                 'visible' => 'Yii::app()->user->checkAccess("action_fccu_delete") && $data->FCCI_Id!=5',

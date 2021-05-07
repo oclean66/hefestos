@@ -82,7 +82,7 @@ class Tccd extends CActiveRecord
 			'TCCD_Created' => 'Creada',
 			'TCCD_Expired' => 'Vence',
 			'TCCD_Archived' => 'Archivada',
-			'TCCD_Order' => 'Orden',
+			'TCCD_Order' => 'Posicion',
 			'TCCA_Id' => 'Tablero',
 		);
 	}

@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 
-	array('label'=>'Crear Tccd', 'url'=>array('create')),
+	array('label'=>'Crear Tarea', 'url'=>array('create')),
 );
 
 ?>
@@ -49,6 +49,7 @@ $this->menu=array(
 		array(
 			'header' => 'Acciones',
 			'class'=>'CButtonColumn',
+			'headerHtmlOptions' => array('style' => 'width:70px'),
 		),
 	),
 )); ?>

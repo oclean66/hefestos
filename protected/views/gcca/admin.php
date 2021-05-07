@@ -70,7 +70,7 @@ array('label'=>'Arbol de Sistema', 'url'=>array('/fcco/admin')),
                             'options' => array('target' => '_blank'),
                         ),
                         'update' => array( 
-                            'label' => "Detalles", 
+                            'label' => "Actualizar", 
                             'url' => 'Yii::app()->createUrl("gcca/update/",array("id"=>$data->GCCA_Id))', 
                             'options' => array('target' => '_blank'),
                         ),

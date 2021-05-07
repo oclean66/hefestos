@@ -113,14 +113,14 @@ $baseUrl = Yii::app()->theme->baseUrl;
 
 
             <li class="green ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report.html?FCCN_Id=2');?>">
+                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report', array('FCCN_Id' => 2));?>">
                     <span class="">
                     <i class="fa fa-sign-in"></i> </span>
                     <span class="name">Entradas</span>
                 </a>
             </li>
             <li class="blue ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report.html?FCCN_Id=1');?>">
+                <a target="_blank" href="<?php echo Yii::app()->createUrl('/fcco/report', array('FCCN_Id' => 1));?>">
                     <span class="">
                     <i class="fa fa-sign-out"></i> </span>
                     <span class="name">Salidas</span>

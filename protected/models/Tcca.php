@@ -77,7 +77,7 @@ class Tcca extends CActiveRecord
 			'TCCA_Name' => 'Nombre',
 			'TCCA_Type' => 'Tipo',
 			'TCCA_BoardId' => 'Id Tablero',
-			'TCCA_Order' => 'Orden',
+			'TCCA_Order' => 'Posicion',
 			'TCCA_Archived' => 'Archivado',
 		);
 	}
