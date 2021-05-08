@@ -6,7 +6,7 @@
 <div class="box box-bordered box-color">
     <div class="box-title">
         <h3>
-            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?> Tarea
+            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?> Tarea <?php echo $model->isNewRecord ? ' ' : $model->TCCD_Id; ?>
         </h3>
     </div>
     <div class="box-content nopadding">
@@ -90,42 +90,49 @@
             </div>
         </div> -->
 
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'Activo Reportado', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+                <?php echo $form->textField($model, 'TCCA_Id'); ?>
+                <?php echo $form->error($model, 'TCCA_Id'); ?>
+            </div>
+        </div>
 
         <div class="form-group">
-                    <label for="textfield" class="control-label col-sm-2">Tablero</label>
-                    <div class="col-sm-10">
-                        <?php
-                        echo CHtml::dropDownList(
-                            'Tccd[TCCA]',
-                            'Tccd[TCCA]',
-                            CHtml::listData(Tcca::model()->findAll(), 'TCCA_BoardId', 'TCCA_Name'),
-                            array(
-                                'class' => 'select2-me', 'style' => 'width:100%', 'prompt' => 'Selecciona un Tablero...',
-                                'ajax' => array(
-                                    'type' => 'POST',
-                                    'url' => CController::createUrl('tccd/Lista'),
-                                    'update' => '#lista',
-                                    'beforeSend' => 'function(){
+            <label for="textfield" class="control-label col-sm-2">Tablero</label>
+            <div class="col-sm-10">
+                <?php
+                echo CHtml::dropDownList(
+                    'Tccd[TCCA]',
+                    'Tccd[TCCA]',
+                    CHtml::listData(Tcca::model()->findAll(), 'TCCA_BoardId', 'TCCA_Name'),
+                    array(
+                        'class' => 'select2-me', 'style' => 'width:100%', 'prompt' => 'Selecciona un Tablero...',
+                        'ajax' => array(
+                            'type' => 'POST',
+                            'url' => CController::createUrl('tccd/Lista'),
+                            'update' => '#lista',
+                            'beforeSend' => 'function(){
                                         var select = document.getElementById("lista");    				
                                         select.options.length = 0;
                                         select.options[select.options.length] = new Option("Cargando...", "");}',
-                                )
-                            )
-                        ); ?>
-                    </div>
+                        )
+                    )
+                ); ?>
             </div>
+        </div>
 
 
         <div class="form-group">
-                <label for="textfield" class="control-label col-sm-2">Lista</label>
-                <div class="col-sm-10">
-                    <?php
-                    echo CHtml::dropDownList('Tccd[TCCA_Id]', 'Tccd[TCCA_Id]', array(), array(
-                        'id' => 'lista', 'empty' => 'Selecciona una Lista...', 'class' => 'select2-me', 'style' => 'width:100%'
-                    ));
-                    ?>
-                </div>
+            <label for="textfield" class="control-label col-sm-2">Lista</label>
+            <div class="col-sm-10">
+                <?php
+                echo CHtml::dropDownList('Tccd[TCCA_Id]', 'Tccd[TCCA_Id]', array(), array(
+                    'id' => 'lista', 'empty' => 'Selecciona una Lista...', 'class' => 'select2-me', 'style' => 'width:100%'
+                ));
+                ?>
             </div>
+        </div>
 
 
         <div class="form-actions col-sm-offset-2 col-sm-10">
