@@ -20,7 +20,7 @@
 
 
 <div class="page-header">
-    <div class="pull-left">
+    <div class="pull-left visible-imprimir">
         <h1>Reporte de <?php echo $model->FCCN_Id == 1 ? "Salidas" : "Entradas" ?></h1>
         <small><?php echo "Desde: ".strftime("%d-%m-%Y", strtotime($model->desde))." - Hasta: ".strftime("%d-%m-%Y", strtotime($model->hasta));?></small>
     </div>
@@ -92,7 +92,7 @@
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content remover">
+  <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="home">
             <?php
                 $this->widget('zii.widgets.grid.CGridView', array(

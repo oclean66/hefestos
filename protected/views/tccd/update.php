@@ -9,13 +9,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tccd', 'url'=>array('index')),
-	array('label'=>'Create Tccd', 'url'=>array('create')),
-	array('label'=>'View Tccd', 'url'=>array('view', 'id'=>$model->TCCD_Id)),
-	array('label'=>'Manage Tccd', 'url'=>array('admin')),
+	//array('label'=>'Lista de Tareas', 'url'=>array('index')),
+	array('label'=>'Crear Tarea', 'url'=>array('create')),
+	array('label'=>'Ver Tarea', 'url'=>array('view', 'id'=>$model->TCCD_Id)),
+	array('label'=>'Administrar Tareas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Tccd <?php echo $model->TCCD_Id; ?></h1>
+<!-- <h1>Actualizar Tarea <?php echo $model->TCCD_Id; ?></h1> -->
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

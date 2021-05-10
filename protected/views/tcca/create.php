@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tcca', 'url'=>array('index')),
-	array('label'=>'Manage Tcca', 'url'=>array('admin')),
+	array('label'=>'Lista de Tableros', 'url'=>array('index')),
+	array('label'=>'Administrar Tableros', 'url'=>array('admin')),
 );
 ?>
 

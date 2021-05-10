@@ -432,7 +432,7 @@ class SiteController extends Controller
                 );
             }
 
-            $data['tipos'][$value->FCCA_Id] = array(
+            $data['tipos'][$value->FCCA_Id] = array( 
                 'name' => $value->FCCA_Descripcion,
                 'cantidad' => $value->total,
                 'modelos' => $modelosFinal
@@ -445,7 +445,7 @@ class SiteController extends Controller
         $criteria->select = 'GCCD_Id, count(*) as GCCA_Id';
         $criteria->group = 'GCCD_Id';*/
 
-        $agencia = Gccd::model()->findAll(array('order' => 'GCCD_Nombre'));
+        $agencia = Gccd::model()->findAll("GCCD_Estado=1 order by GCCD_Nombre"  /* array('order' => 'GCCD_Nombre') */);
         foreach ($agencia as $key => $value) {
             $data['agencias'][$key] = array(
                 'name' => $value->GCCD_Nombre,

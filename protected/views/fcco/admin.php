@@ -1,12 +1,33 @@
 <style type="text/css">
     .dynatree-container {
-        border: 0;
+        border: none !important;
+
     }
+
+    .filetree-callbacks {
+        border: 1px solid #ddd !important;
+        margin-bottom: 5px !important;
+    }
+
     .arbol {
         background-color: #f5f5f5;
         height: 100%
     }
 
+    span.dynatree-node.nuevo>a.dynatree-title {
+        color: red;
+        font-weight: bolder;
+    }
+
+    span.dynatree-node.mas>a.dynatree-title {
+        color: orange;
+        font-weight: bolder;
+    }
+
+    span.dynatree-node.mucho>a.dynatree-title {
+        color: green;
+        font-weight: bolder;
+    }
 </style>
 <?php
 /* @var $this FccoController */
@@ -17,12 +38,11 @@
 
 <div class="row">
 
-
     <div class="col-sm-4">
         <div class="box box-bordered">
             <div class="box-title">
                 <h3>
-                    <i class="fa fa-magic"></i>
+                    <i class="fa fa-sitemap"></i>
                     Arbol del Sistema 4.0
                 </h3>
             </div>
@@ -34,59 +54,83 @@
 
 
     </div>
-    <div class=" col-sm-8" id='place' >
-      
+    <div class=" col-sm-8" id='place' style="overflow:auto;">
+
 
     </div>
 </div>
 
 <script type="text/javascript">
     if ($(".arbol").length > 0) {
-        $(".arbol").each(function () {
+        $(".arbol").each(function() {
             var $el = $(this),
-                    opt = {
-                        autoCollapse: true,
-                        fx: {height: "toggle", duration: 200},
-                    };
+                opt = {
+                    autoCollapse: true,
+                    fx: {
+                        height: "toggle",
+                        duration: 200
+                    },
+                };
             opt.debugLevel = 0;
             if ($el.hasClass("filetree-callbacks")) {
-                opt.onActivate = function (node) {
+                opt.onActivate = function(node) {
                     $.ajax({
-                        url: node.data.url,
-                        beforeSend: function (xhr) {
-                            $('#place').html('<div class="progress progress-striped active" style="margin-top:20px;"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">								<span class="sr-only">45% Complete</span></div></div>');
-                        }
-                    })
-                    .done(function (data) {
+                            url: node.data.url,
+                            beforeSend: function(xhr) {
+                                $("#progress").attr("style", "width:100%");
+                                $("#place").attr("style", "opacity: 50%;")
+                            },
+                            success: function(data) {
+                                var $response = $(data);
 
-                        $("#place").html(data);
-                       
+                                // $response = $response.filter("#informacion");
+                                $("#place").html($response);
 
-                    });
+                                $("#progress").attr("style", "width:0%");
+                                $("#place").attr("style", "opacity: 100%;overflow:auto;");
+                                $('[rel=tooltip]').tooltip();
 
+                                if ($response == "" || $response == undefined) {
+                                    $("#place").html("Algo ocurrio, Recarga esta pagina")
+                                }
+
+                                var board = $("#place");
+                                var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+                                // board.css({"max-height":(h-72)});
+                                var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                                if (w < 768) {
+                                    board.css({
+                                        "max-height": ((h / 2) - 75)
+                                    });
+
+                                } else {
+                                    board.css({
+                                        "max-height": (h - 72)
+                                    });
+                                }
+
+                            }
+                        });
                 };
-            }
-            if ($el.hasClass("filetree-checkboxes")) {
-                opt.checkbox = true;
-
-                opt.onSelect = function (select, node) {
-                    var selNodes = node.tree.getSelectedNodes();
-                    var selKeys = $.map(selNodes, function (node) {
-                        return "[" + node.data.key + "]: '" + node.data.title + "'";
-                    });
-                    $(".checkboxSelect").text(selKeys.join(", "));
-                };
-            }
+            }           
 
             $el.dynatree(opt);
         });
     }
 
-    $(function(){
-        var board = $(".arbol" );
+    $(function() {
+        var board = $(".arbol");
         var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-		board.css({"max-height":(h-140)});
+        var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        if (w < 768) {
+            board.css({
+                "max-height": ((h / 2) - 80)
+            });
+
+        } else {
+            board.css({
+                "max-height": (h - 140)
+            });
+        }
     })
-
 </script>
-

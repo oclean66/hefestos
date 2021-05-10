@@ -1,21 +1,27 @@
 <?php
 
-class FccuController extends Controller {
+class FccuController extends Controller
+{
 
     public $layout = '//layouts/column2';
 
-    public function actionAdd() {
-        $buenas = "";
-        $malas = "";
+    public function actionAdd()
+    {
+        // $buenas = "";
+        // $malas = "";
 
         if (isset($_POST['Fccu'])) {
 
-            if ($_POST['Fccu']['FCUU_Id'] !=2) {
+            if ($_POST['Fccu']['FCUU_Id'] != 2) {
 
                 // print_r($_POST['Fccu']);
                 $fccu_serial = $_POST['Fccu']['FCCU_Serial'];
                 $fcct_id = $_POST['Fccu']['FCCT_Id'];
 
+                $correct = "<div class='label label-success'>Procesado</div>";
+                $alert = "<div class='label label-danger'>NO Procesado</div>";
+                $arrayNotificaciones = array();
+                $total=0;
                 foreach ($fccu_serial as $key => $value) {
 
                     $model = new Fccu;
@@ -29,17 +35,37 @@ class FccuController extends Controller {
                     $model->FCCT_Id = $fcct_id[$key]; //modelo
                     try {
                         if ($model->save()) {
-                            $buenas = $buenas . "Se guardo item " . $value . "</br>";
-                        } else {
+                            $total;
+                            $total+=1;
+                            /* $arrayNotificaciones[$model->FCCU_Serial] = array(
+                                'item' => $correct,
+                                'estado' => 'Serial <b style="color: green">' . $model->FCCU_Serial . '</b> Guardado correctamente',
+                            ); */
+                            // $buenas = $buenas . "Se guardo item " . $value . "</br>";
+                        } /* else {
+                            //error de model
+                            // $arrayNotificaciones[]='no se guardo';
                             //print_r( $model->getErrors());
-                        }
+                        } */
                     } catch (Exception $exc) {
-                       echo $exc->getCode();
-                       echo serialize($model->getErrors()) ;
-                        $malas = $malas . "No se pudo con este " . $model->FCCU_Serial . " </br>"; //;
+                        //repetidos
+                        $arrayNotificaciones[$model->FCCU_Serial] = array(
+                            'item' => $alert,
+                            'estado' => '<b style="color: red">' . $model->FCCU_Serial . '</b> Repetido',
+                            //'error' => $exc->getLine()
+                        );
                     }
                 }
-                echo $malas . $buenas;
+                echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>'; 
+                /* echo "<div class='label label-success'>Correcto</div>";
+                echo "<div class='label label-alert'>Alerta</div>"; */
+                // echo $malas . $buenas;
+                // print_r(json_decode("[[title:'nombre']]"));
+                foreach ($arrayNotificaciones as $value){
+                        echo $value['item'] . "&nbsp";
+                        echo $value['estado'] . "</br>";
+                        // echo 'Error' . $value['error'];
+                }
                 return;
             } else if ($_POST['Fccu']['FCUU_Id'] == 2) {
 
@@ -50,9 +76,13 @@ class FccuController extends Controller {
                 $FCCU_MontoMin = $_POST['Fccu']['FCCU_MontoMin'];
                 $FCCU_DiaCorte = $_POST['Fccu']['FCCU_DiaCorte'];
 
-                foreach ($fccu_serial as $key => $value) {  
+                $correct = "<div class='label label-success'>Procesado</div>";
+                $alert = "<div class='label label-danger'>NO Procesado</div>";
+                $arrayNotificaciones = array();
+                $total=0;
+                foreach ($fccu_serial as $key => $value) {
                     $model = new Fccu;
-                    $model->FCCU_Serial =str_replace(" ", "", $value);
+                    $model->FCCU_Serial = str_replace(" ", "", $value);
                     $model->FCCU_Facturado = 0; //false
                     $model->FCCI_Id = $_POST['Fccu']['FCCI_Id']; //almacen 2
                     //  $model->FCUU_Id = $_POST['Fccu']['FCUU_Id']; //tipo equipo
@@ -61,19 +91,39 @@ class FccuController extends Controller {
                     $model->FCCU_MontoMin = $FCCU_MontoMin[$key];
                     $model->FCCU_DiaCorte = $FCCU_DiaCorte[$key];
                     $model->FCCU_TipoServicio = $_POST['Fccu']['FCCU_TipoServicio'];
-                    $model->FCCU_Numero =trim( preg_replace( "/[\\x00-\\x20]+/" , "" , $FCCU_Numero[$key] ) , "\\x00-\\x20" );
+                    $model->FCCU_Numero = trim(preg_replace("/[\\x00-\\x20]+/", "", $FCCU_Numero[$key]), "\\x00-\\x20");
                     $model->FCCU_Descripcion = "Sin Comentarios";
                     $model->FCCT_Id = $fcct_id; //modelo
                     try {
                         if ($model->save()) {
-                            $buenas = $buenas . "Se guardo item " . $value . "</br>";
+                            $total;
+                            $total+=1;
+                            /* $arrayNotificaciones[$model->FCCU_Serial] = array(
+                                'item' => $correct,
+                                'estado' => 'Serial <b style="color: green">' . $model->FCCU_Serial . '</b> Guardado correctamente',
+                            ); */
+                    
+                            //$buenas = $buenas . "Se guardo item " . $value . "</br>";
                         }
                     } catch (Exception $exc) {
-                        throw new CHttpException(500,$exc->getMessage());
-                        $malas = $malas . "No se pudo con este " . $model->FCCU_Serial . "</br>"; //$exc->getTraceAsString();
+                        //throw new CHttpException(500, $exc->getMessage());
+                        $arrayNotificaciones[$model->FCCU_Serial] = array(
+                            'item' => $alert,
+                            'estado' => '<b style="color: red">' . $model->FCCU_Serial . '</b> Repetido',
+                            //'error' => $exc->getMessage()
+                        );
+                        //$malas = $malas . "No se pudo con este " . $model->FCCU_Serial . "</br>"; //$exc->getTraceAsString();
                     }
                 }
-                echo $malas . $buenas;
+
+                echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>';
+                //echo $malas . $buenas;
+
+                foreach ($arrayNotificaciones as $value){
+                    echo $value['item'] . "&nbsp";
+                    echo $value['estado'] . "</br>";
+                    //echo 'Error' . $value['error'];
+            }
                 return;
             }
         } else {
@@ -83,7 +133,8 @@ class FccuController extends Controller {
         }
     }
 
-    public function actionRecibe($id) {
+    public function actionRecibe($id)
+    {
         //echo $id;
 
         $criteria = new CDbCriteria;
@@ -117,28 +168,30 @@ class FccuController extends Controller {
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         } else {
             return array(
-                'inventario'=>$inventario->getErrors(),
-                'model'=>$model->getErrors(),
-                'item'=>$item->getErrors(),
+                'inventario' => $inventario->getErrors(),
+                'model' => $model->getErrors(),
+                'item' => $item->getErrors(),
             );
         }
-//
-//
-//        
+        //
+        //
+        //        
     }
-/*Funcion para agregar comunicaciones nuevas, lista los modelos*/
-   public function actionRellenarmodos() {
-       $id = $_POST['Fccu']['FCCA'];
+    /*Funcion para agregar comunicaciones nuevas, lista los modelos*/
+    public function actionRellenarmodos()
+    {
+        $id = $_POST['Fccu']['FCCA'];
 
-       $lista = Fcct::model()->findAll('FCCA_Id = ' . $id);
-       $lista = CHtml::listData($lista, 'FCCT_Id', 'FCCT_Descripcion');
-       echo CHtml::tag('option', array('value' => ''), 'Seleccione modelo...', true);
-       foreach ($lista as $valor => $nombre) {
-           echo CHtml::tag('option', array('value' => $valor), CHtml::encode($nombre), true);
-       }
-   }
-/*Funcion para agregar equipos nuevos, lista los modelos*/
-    public function actionRellenar() {
+        $lista = Fcct::model()->findAll('FCCA_Id = ' . $id);
+        $lista = CHtml::listData($lista, 'FCCT_Id', 'FCCT_Descripcion');
+        echo CHtml::tag('option', array('value' => ''), 'Seleccione modelo...', true);
+        foreach ($lista as $valor => $nombre) {
+            echo CHtml::tag('option', array('value' => $valor), CHtml::encode($nombre), true);
+        }
+    }
+    /*Funcion para agregar equipos nuevos, lista los modelos*/
+    public function actionRellenar()
+    {
         $id = $_POST['Fccu']['FCCA_Id_Master'];
 
         $lista = Fcct::model()->findAll('FCCA_Id = ' . $id);
@@ -149,7 +202,8 @@ class FccuController extends Controller {
         }
     }
 
-    public function actionView($id) {
+    public function actionView($id)
+    {
 
         ignore_user_abort(true);
         set_time_limit(0);
@@ -159,21 +213,21 @@ class FccuController extends Controller {
         $modelo->desde = date('2000-01-01');
         $modelo->hasta = date('2025-01-01');
 
-        $modelo->FCCU_Id = $id; 
+        $modelo->FCCU_Id = $id;
         // da madre error de constraint ambiguos
 
 
         $this->render('view', array(
-            'model' => $this->loadModel($id), 
+            'model' => $this->loadModel($id),
             'modelo' => $modelo,
         ));
     }
 
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->loadModel($id);
-        if( $model->FCCI_Id == 5){
-            $this->redirect(array('view', 'id' => $model->FCCU_Id, 'alert'=>"No se puede editar, Este activo se encuentra asignado"));
-
+        if ($model->FCCI_Id == 5) {
+            $this->redirect(array('view', 'id' => $model->FCCU_Id, 'alert' => "No se puede editar, Este activo se encuentra asignado"));
         }
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -186,18 +240,17 @@ class FccuController extends Controller {
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->FCCU_Id));
         }
-      
-            
-            $this->render('update', array(
-                'model' => $model,
-            ));
-        
-        
+
+
+        $this->render('update', array(
+            'model' => $model,
+        ));
     }
 
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new Fccu();
-//        $this->redirect(array('view', 'id' => $model->FCCU_Id));
+        //        $this->redirect(array('view', 'id' => $model->FCCU_Id));
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         if (isset($_POST['Fccu'])) {
@@ -221,7 +274,8 @@ class FccuController extends Controller {
         ));
     }
 
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
 
         $model = $this->loadModel($id);
         $model->FCCI_Id = 6;
@@ -229,13 +283,14 @@ class FccuController extends Controller {
         // $this->redirect(array('view', 'id' => $model->FCCU_Id));
 
 
-//        $this->loadModel($id)->delete();
+        //        $this->loadModel($id)->delete();
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-       if (!isset($_GET['ajax']))
-           $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
-    public function actionAdmin() {
+    public function actionAdmin()
+    {
         $model = new Fccu('search');
 
         $model->unsetAttributes();  // clear any default values
@@ -246,8 +301,8 @@ class FccuController extends Controller {
         /*if ($tipo == null)
             $tipo = 1;
         $model = Fccu::model()->findAll("FCCU_Serial=:serial and FCCI_Id=:estado", array('serial' => $id, 'estado' => $tipo));*/
-        
-       /*  $criteria = new CDbCriteria;
+
+        /*  $criteria = new CDbCriteria;
         $criteria->select = '*';
         $criteria->condition = "FCCU_Serial=:serial and FCCI_Id =:estado";
         $criteria->params = array(':serial' => $id, ':estado' => $tipo); */
@@ -256,17 +311,32 @@ class FccuController extends Controller {
             'model' => $model
         ));
     }
-    
+
+    public function actionReport($id)
+    {
+
+        $model = $this->loadModel($id);
+        $model->FCCI_Id = 6;
+        $model->save();
+        // $this->redirect(array('view', 'id' => $model->FCCU_Id));
 
 
-    public function loadModel($id) {
+        //        $this->loadModel($id)->delete();
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+    }
+
+    public function loadModel($id)
+    {
         $model = Fccu::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
 
-    protected function performAjaxValidation($model) {
+    protected function performAjaxValidation($model)
+    {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'fccu-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();

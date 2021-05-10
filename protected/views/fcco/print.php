@@ -1,6 +1,6 @@
-<?php $modell = isset($modelo[0]) ? $modelo[0] : null; ?>
+<?php $modell = isset($modelo[0]) ? $modelo[0] : (isset($d->data[0]) ? $d->data[0] : null); ?>
 
-<img class="imprimir" width="150px" src="/hefestos/themes/flat/img/brand.png" alt="">
+<img class="imprimir" class='brand' width="100px" src="/hefestos/themes/flat/img/brand.png" alt="">
 <div id="summary">
   <h4>
     <?php echo isset($tipo) ? ($tipo == 1 ? "Reporte de Salida" : "Reporte de Entrada") : "Inventario de equipos en Prestamo" ?>
@@ -9,36 +9,30 @@
 
     Fecha de Impresion: <?php echo date("d M, Y"); ?>
     <br />
+    
     <?php echo $model->concatened; ?>
   </h4>
 
-  <div class="invoice-info">
-    <div class="invoice-to">
-
-      <strong>Comercializadora La Excelencia</strong>
-      <address>
-        Rif: J-29401587-5 <br>
-        Departamento Tecnico
-        <br>Calle 15, Barrio Obrero - San Cristobal
-        <br>
-        Telefono: (0276) 355-6947
-        <br>
-        Telefono Principal: (0276) 356-7958
-      </address>
-    </div>
-    <div class="invoice-from">
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-      <b><?php echo count($d->data ) . " activos"; ?></b> 
-    </div>
-  </div>
+  <table width='100%' class="table paleBlueRows" style="border: 0;text-align: left;">
+    <tr style="border:0">
+      <td style="border:0">
+        <strong>Comercializadora La Excelencia</strong>
+        <address>
+          Rif: J-29401587-5 <br>
+          Departamento Tecnico
+          <br>Calle 15, Barrio Obrero - San Cristobal
+          <br>
+          Telefono: (0276) 355-6947
+          <br>
+          Telefono Principal: (0276) 356-7958
+          <br />
+          Realizado por: <b><?php echo isset($modell) ? $modell->username : "";?></b>
+        </address>
+      </td>
+      <td style="border:0"> <b><?php echo count($d->data) . " activos"; ?></b></td>
+    </tr>
+  </table>
   <br />
-
-
-
   <table width="100%" class="table paleBlueRows">
     <tr>
       <th>Id</th>
@@ -64,14 +58,25 @@
         <td> <?php echo $item->FCCO_Enabled == 0 ? '<strike>' : ""; ?> <?php echo $item->fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion . " - " . $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " - " . $item->fCCU->fCCT->FCCT_Descripcion; ?> <?php echo $item->FCCO_Enabled == 0 ? '</strike>' : ""; ?> </td>
       </tr>
     <?php
-    $id+=1; 
+      $id += 1;
     }
     ?>
   </table>
 </div>
 <style>
+  body {
+    font: 12px 'andele mono', monospace;
+    margin: 10px 0 10px 0px;
+  }
+
+  .brand {
+    visibility: hidden;
+    position: fixed;
+    height: 0px;
+  }
+
   table.paleBlueRows {
-    font-family: "Times New Roman", Times, serif;
+    font: 12px 'andele mono', monospace;
     border: 1px solid #FFFFFF;
     width: 100%;
     /* height: 200px; */
@@ -86,7 +91,7 @@
   }
 
   table.paleBlueRows tbody td {
-    font-size: 13px;
+    font: 12px 'andele mono', monospace;
   }
 
   table.paleBlueRows thead {
@@ -94,7 +99,7 @@
   }
 
   table.paleBlueRows thead th {
-    font-size: 17px;
+    font: 12px 'andele mono', monospace;
     font-weight: normal;
     color: #FFFFFF;
     text-align: center;
@@ -106,7 +111,7 @@
   }
 
   table.paleBlueRows tfoot {
-    font-size: 14px;
+    font: 12px 'andele mono', monospace;
     font-weight: bold;
     color: #333333;
     background: #D0E4F5;
@@ -114,7 +119,7 @@
   }
 
   table.paleBlueRows tfoot td {
-    font-size: 14px;
+    font: 12px 'andele mono', monospace;
   }
 
   .invoice-info .invoice-name {
@@ -126,6 +131,7 @@
   .invoice-info .invoice-to {
     float: left;
     margin-bottom: 30px;
+    font: 12px 'andele mono', monospace;
   }
 
   .invoice-info .invoice-from span,

@@ -127,6 +127,16 @@ class FccoController extends Controller
 
                     if ($inventario->save() && $model->save() && $item->save()) {
                         //$salida[]=array('serial'=>$inventario->FCCU_Id, 'descripcion'=> $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCU->fCCT->FCCT_Descripcion . " | " . $item->fCCU->FCCU_Numero, 'lugar'=>$item->lugar);
+                        $log = new Pcue;
+                        $log->PCUE_Descripcion = 'Usuario inserto en Fcco';
+                        $log->PCUE_Action = 'INSERTAR';
+                        $log->PCUE_Model = 'Fcco' ;
+                        $log->PCUE_IdModel = $model->FCCO_Id;
+                        $log->PCUE_Field = 'TODOS';
+                        $log->PCUE_Date = date("Y-m-d H:i");
+                        $log->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+                        $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
+                        $log->save();
 
                         echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
                     }
@@ -421,7 +431,7 @@ class FccoController extends Controller
         //        ));
     }
 
-    public function actionAgencia($id, $type = null, $print = false)
+    public function actionAgencia($id, $type = null, $print = false, $excel = false)
     {
 
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
@@ -462,12 +472,19 @@ class FccoController extends Controller
             $model->FCCN_Id = 1;
         }
 
-
-
+        /************************* */
+        
         $model->desde = date('2000-01-01');
         $model->hasta = date('2025-01-01');
+        
+        if ($excel) {
+			//
+			$content = $this->renderPartial("excel", array('model' => $model, 'modelos' => $modelos), true, true);
 
+			Yii::app()->request->sendFile('Historial Agencia ' . $agencia->concatened . '.xls', $content);
+		}
 
+        /************************* */
 
         if ($print) {
             $criteria = new CDbCriteria;
@@ -652,7 +669,19 @@ class FccoController extends Controller
                 }
 
                 if ($item->save()) {
-                    $modelo->save();
+                    if($modelo->save()){
+                        //creo la bitacora
+                        $log = new Pcue;
+                        $log->PCUE_Descripcion = 'Usuario inserto en Fcco';
+                        $log->PCUE_Action = 'INSERTAR';
+                        $log->PCUE_Model = 'Fcco' ;
+                        $log->PCUE_IdModel = $modelo->FCCO_Id;
+                        $log->PCUE_Field = 'TODOS';
+                        $log->PCUE_Date = date("Y-m-d H:i");
+                        $log->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+                        $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
+                        $log->save();
+                    }
                     $x[] = $value;
                 } else {
                     $y[] = $value;

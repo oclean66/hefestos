@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 
-	array('label'=>'Crear Tcca', 'url'=>array('create')),
+	array('label'=>'Crear Tablero', 'url'=>array('create')),
 );
 
 ?>
@@ -20,7 +20,7 @@ $this->menu=array(
         <div class="box-title">
             <h3>
                 <i class="fa fa-home"></i>
-                Administrar Tccas.
+                Administrar Tableros
             </h3>
         </div> 
     </div>
@@ -42,6 +42,7 @@ $this->menu=array(
 		'TCCA_Type',
 		'TCCA_BoardId',
 		array(
+			'header' => 'Acciones',
 			'class'=>'CButtonColumn',
 		),
 	),

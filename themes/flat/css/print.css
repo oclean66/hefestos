@@ -1,6 +1,6 @@
 body {
-    font: 10px 'andele mono', monospace;
-    margin: 10px 0 10px 0px;
+    font: 12px 'andele mono', monospace;
+    margin: 0px;
 }
 #content{
     padding: 0 !important;
@@ -19,13 +19,14 @@ body {
 
 .imprimir {
     visibility: visible;
+    display: block;
 }
 tfoot {
     font-weight: bolder;
     border-top: 2px solid #f8a31f;
 }
 
-.remover,.daterangepicker, .tabs,.actions, .filters, .sort-link,
+.remover,.daterangepicker, .tabs,.actions, .filters,
 .collapsed {
     visibility: hidden;
     position: fixed;
@@ -84,25 +85,28 @@ select,
     color: #2a2a2a;
     line-height: 14px;
 }
-
-table,
-tr,
-th,
-td {
+table {
+    font: 12px 'andele mono', monospace;
+    border: 1px solid #FFFFFF;
+    width: 100%;
+    /* height: 200px; */
+   text-align: center;
     border-collapse: collapse;
-    border:1px solid #bdbdbd;
-}
-td{
-    padding-left: 3px;
-}
-a {
-    color: black;
-    text-decoration: none;
-}
+  }
+  table td,
+  table th {
+    border: 1px solid #000000;
+    padding: 3px 2px;
+  }
 
-th {
-    padding-right: 4px;
-}
+  table tbody td {
+    font-size: 13px;
+  }
+
+  table thead {
+    background: #0B6FA4;
+  }
+  
 
 
 /*//table {page-break-after: always;}*/
@@ -158,7 +162,7 @@ tr {
 
 }
 .invoice-from,.invoice-to,address{
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 10px;
 }
 .noImprimir{

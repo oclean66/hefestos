@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tccd', 'url'=>array('index')),
-	array('label'=>'Manage Tccd', 'url'=>array('admin')),
+	array('label'=>'Lista de Tareas', 'url'=>array('index')),
+	array('label'=>'Administrar Tareas', 'url'=>array('admin')),
 );
 ?>
 

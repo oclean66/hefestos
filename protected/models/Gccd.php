@@ -60,7 +60,7 @@ class Gccd extends CActiveRecord {
     }
 
     public function getTotal(){
-            return Gcca::model()->count('GCCD_Id = '.$this->GCCD_Id);
+            return Gcca::model()->count('GCCD_Id = '.$this->GCCD_Id . ' and GCCA_Status = 1');
         
 	}
 
@@ -75,7 +75,7 @@ class Gccd extends CActiveRecord {
 
                 foreach ($gccds as $data) {
 
-                    $aux = $aux . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/'.$data->GCCD_Id.'\',addClass: \'grupo\'">' . $data->GCCD_Cod . ' | ' . $data->GCCD_Nombre;
+                    $aux = $aux . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/'.$data->GCCD_Id.'\',addClass: \'grupo\'">' . $data->GCCD_Cod . ' | ' . $data->GCCD_Nombre . '(' . Gcca::model()->count('GCCD_Id = '.$data->GCCD_Id . ' and GCCA_Status = 1') . ')';
                     $aux = $aux . $this->hijos($data->GCCD_Id);
                     $aux = $aux . '</li>';
                 }

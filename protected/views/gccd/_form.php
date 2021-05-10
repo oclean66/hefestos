@@ -21,7 +21,7 @@
 
 
 
-        <?php echo $form->errorSummary($model, 'Corriga lo siguiente', '', array('class' => 'alert alert-danger alert-dismissable')); ?>
+        <?php echo $form->errorSummary($model, 'Corrija lo siguiente', '', array('class' => 'alert alert-danger alert-dismissable')); ?>
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCD_Cod', array('class' => 'control-label col-sm-2')); ?>
