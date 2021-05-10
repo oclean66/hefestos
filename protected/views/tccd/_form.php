@@ -90,13 +90,7 @@
             </div>
         </div> -->
 
-        <div class="form-group">
-            <?php echo $form->labelEx($model, 'Activo Reportado', array('class' => 'control-label col-sm-2')); ?>
-            <div class="col-sm-10">
-                <?php echo $form->textField($model, 'TCCA_Id'); ?>
-                <?php echo $form->error($model, 'TCCA_Id'); ?>
-            </div>
-        </div>
+        
 
         <div class="form-group">
             <label for="textfield" class="control-label col-sm-2">Tablero</label>
@@ -105,7 +99,7 @@
                 echo CHtml::dropDownList(
                     'Tccd[TCCA]',
                     'Tccd[TCCA]',
-                    CHtml::listData(Tcca::model()->findAll(), 'TCCA_BoardId', 'TCCA_Name'),
+                    CHtml::listData(Tcca::model()->findAll('TCCA_BoardId is null'), 'TCCA_Id', 'TCCA_Name'),
                     array(
                         'class' => 'select2-me', 'style' => 'width:100%', 'prompt' => 'Selecciona un Tablero...',
                         'ajax' => array(
