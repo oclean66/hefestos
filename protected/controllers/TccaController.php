@@ -60,7 +60,7 @@ class TccaController extends Controller
 	 */
 	public function actionView($id)
 	{
-
+		ini_set('memory_limit', '-1');
 		if(isset($_POST['name']) && $_POST['name']=='TCCA_New'){
 			// print_r($_POST);
 				$model=new Tcca;
@@ -137,7 +137,17 @@ class TccaController extends Controller
         }
 		// print_r($accesos);
 		// print_r($users);
-	
+		
+		$tempo = Fccu::model()->findAll();
+		$activos =array();
+		$factivos="";
+        foreach ($tempo as $value) {
+            $factivos.="{id: '".$value->FCCU_Id."', text: '".$value->FCCU_Serial."'},";
+            $activos[$value->FCCU_Id]=array(
+				'id'=>$value->FCCU_Id,
+				'cod'=>$value->FCCU_Serial,
+			);
+        }
 		
 
 		$this->render('view',array(
@@ -148,7 +158,8 @@ class TccaController extends Controller
 			'jusers'=>$fusers,
 			'tags'=>$ftags,
 			'agencias'=>$agencias,
-			'jagencias'=>$fagencias
+			'jagencias'=>$fagencias,
+			'jactivos'=>$factivos
 			
 		));
 	}

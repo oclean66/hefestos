@@ -592,6 +592,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 						cargarTarjeta($('#comentInput').attr('card'));
 					}
 				});
+				$('#FCCU_List').editable({
+					showbuttons: 'bottom',
+					placement: 'left',
+					source: [<?php echo $jactivos; ?>],
+					select2: {
+						multiple: true,
+						formatInputTooShort: function() {
+							return "Ingrese 3 caracteres";
+						},
+						formatNoMatches: function() {
+							return "Sin resultados";
+						},
+						formatSearching: function() {
+							return "Buscando...";
+						},
+						minimumInputLength: 3
+					},
+					success: function() {
+						cargarTarjeta($('#comentInput').attr('card'));
+					}
+				});
 
 
 
@@ -723,6 +744,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 							showbuttons: 'bottom',
 							placement: 'left',
 							source: [<?php echo $jagencias; ?>],
+							select2: {
+								formatInputTooShort: function() {
+									return "Ingrese 3 caracteres";
+								},
+								formatNoMatches: function() {
+									return "Sin resultados";
+								},
+								formatSearching: function() {
+									return "Buscando...";
+								},
+								multiple: true,
+								minimumInputLength: 3
+							},
+							success: function() {
+								cargarTarjeta($('#comentInput').attr('card'));
+							}
+						});
+						$('#FCCU_List').editable({
+							showbuttons: 'bottom',
+							placement: 'left',
+							source: [<?php echo $jactivos; ?>],
 							select2: {
 								formatInputTooShort: function() {
 									return "Ingrese 3 caracteres";
@@ -1043,6 +1085,27 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 				showbuttons: 'bottom',
 				placement: 'left',
 				source: [<?php echo $jagencias; ?>],
+				select2: {
+					multiple: true,
+					formatInputTooShort: function() {
+						return "Ingrese 3 caracteres";
+					},
+					formatNoMatches: function() {
+						return "Sin resultados";
+					},
+					formatSearching: function() {
+						return "Buscando...";
+					},
+					minimumInputLength: 3
+				},
+				success: function() {
+					cargarTarjeta($('#comentInput').attr('card'));
+				}
+			});
+			$('#FCCU_List').editable({
+				showbuttons: 'bottom',
+				placement: 'left',
+				source: [<?php echo $jactivos; ?>],
 				select2: {
 					multiple: true,
 					formatInputTooShort: function() {

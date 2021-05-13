@@ -173,7 +173,7 @@ $this->breadcrumbs = array(
                             ),
                             'report' => array(
                                 'label' => 'Reportar',
-                                'visible' => 'Yii::app()->user->checkAccess("action_fccu_report") && $data->FCCI_Id!=6',
+                                'visible' => 'Yii::app()->user->checkAccess("action_fccu_report")',
                                 'url' => 'Yii::app()->createUrl("tccd/create", array("id"=>$data->FCCU_Id))',
                                 'options' => array('target' => '_blank'),
                                 'imageUrl' => Yii::app()->theme->baseUrl . '/img/report1.png',
