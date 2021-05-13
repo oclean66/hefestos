@@ -127,7 +127,7 @@
                             'label' => '<i class="fa fa-eye"></i>',
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_view")',
                             'url' => 'Yii::app()->createUrl("fccu/view/",array("id"=>$data->FCCU_Id))',
-                            'options' => array('target' => '_blank', 'class' => 'remover btn btn-sm btn-orange', 'title' => 'Ver'),
+                            'options' => array('target' => '_blank', 'class' => 'not-link remover btn btn-sm btn-orange', 'title' => 'Ver'),
                         ),
                         'update' => array(
                             'label' => '<i class="fa fa-pencil"></i> Editar',
@@ -135,14 +135,21 @@
                             'url' => 'Yii::app()->createUrl("fccu/update/",array("id"=>$data->FCCU_Id))',
                             'options' => array(
                                 'target' => '_blank',
-                                'class' => 'remover btn btn-sm btn-info text-left',
+                                'class' => 'not-link remover btn btn-sm btn-info text-left',
                                 'title' => 'Editar'
                             ),
                             'imageUrl' => false,
                         ),
                         'recibe' => array(
-                            'label' => 'Recibir', // text label of the button
-                            'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
+                            // 'label' => 'Recibir', // text label of the button
+                            'label' => '<i class="fa fa-mail-reply"></i> Recibir',
+                            // 'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
+                            'imageUrl'=>false,
+                            'options' => array(
+                                // 'target' => '_blank', 
+                                'class' => 'not-link btn btn-sm btn-satblue',
+                                'title'=>'Reportar'    
+                            ),
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_recibe") && $data->FCCI_Id == 5', // a PHP expression for determining whether the button is visible
                             'confirm' => "Seguro desea Recibir este activo?",
                             'confirmation' => "Seguro Desea Recibir este activo?",
@@ -167,7 +174,7 @@
                             'url' => 'Yii::app()->createUrl("tccd/create", array("id"=>$data->FCCU_Id))',
                             'options' => array(
                                 'target' => '_blank', 
-                                'class' => 'btn btn-sm btn-orange',
+                                'class' => 'not-link btn btn-sm btn-orange',
                                 'title'=>'Reportar'    
                             ),
                             // 'imageUrl' => Yii::app()->theme->baseUrl . '/img/report1.png',
@@ -183,7 +190,7 @@
 
                             'options' => array(
                                
-                                'class' => 'btn btn-sm btn-danger',
+                                'class' => 'not-link btn btn-sm btn-danger',
                                 'title'=>'Dar de Baja'    
                             ),
                             // 'label' => '<button class="btn btn-sm btn-orange"> <i class="fa fa-warning"></i> Reportar</button>',

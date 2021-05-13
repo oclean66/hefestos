@@ -92,12 +92,15 @@ class TccdController extends Controller
 			$labels = $model->tccls;
 			$cols = Tccm::model()->findAll('TCCM_Model="TCCD" and TCCM_Status="Colaborador" and TCCM_IdModel=:id', array(":id" => $id));
 			$pagencias = Tcga::model()->findAll('TCCD_Id=:id', array(":id" => $id));
+			$act = TccdHasFccu::model()->findAll('TCCD_Id=:id', array(':id'=>$id));
 			// print_r($cols);
 			$colaboradores = "";
 			$agencias = "";
+			$activos = "";
 			$tags = "";
 			$tagVal = '';
 			$usersVal = '';
+			$activosVal = '';
 			$agenciasVal = '';
 			foreach ($labels as $tag) {
 				$tagVal .= $tag->TCCL_Id . ',';
@@ -110,6 +113,10 @@ class TccdController extends Controller
 			foreach ($pagencias as $key) {
 				$agenciasVal .= $key->GCCA_Id . ',';
 				$agencias .= '<div class="alert alert-warning" style="padding:5px;margin-right:3px;margin-bottom:5px;"><i class="fa fa-desktop"></i> ' . $key->gCCA->GCCA_Cod . " - " . $key->gCCA->GCCA_Nombre . '<br/>Telefono: ' . $key->gCCA->GCCA_Telefono . '</br>Direccion: ' . $key->gCCA->GCCA_Direccion . '</div>';
+			}
+			foreach ($act as $key) {
+				$activosVal .= $key->FCCU_Id . ',';
+				$activos .= '<div class="alert alert-warning" style="padding:5px;margin-right:3px;margin-bottom:5px;"><i class="fa fa-thumb-tack"></i> ' . $key->fccu->FCCU_Serial . " - " . $key->fccu->fCCT->fCCA->FCCA_Descripcion . " (" . $key->fccu->fCCT->FCCT_Descripcion . ')</div>';
 			}
 
 
@@ -139,8 +146,11 @@ class TccdController extends Controller
 
 						' . (count($pagencias) > 0 ? '<br/><br/>
 							<h5 style="margin-top:5px;font-weight:bolder;">Agencias</h5><div style="max-height:150px;overflow:auto;">' . $agencias . '</div>' : "") . '
-				
-					<h5 style="margin-top:5px;font-weight:bolder;">Descripcion</h5>
+							
+						' . (count($act) > 0 ? '<br/><br/>
+							<h5 style="margin-top:5px;font-weight:bolder;">Activos</h5><div style="max-height:150px;overflow:auto;">' . $activos . '</div>' : "") . '
+					
+								<h5 style="margin-top:5px;font-weight:bolder;">Descripcion</h5>
 					<p 
 						id="TCCD_Description" 
 						class="description" 
@@ -247,6 +257,17 @@ class TccdController extends Controller
 						data-url="' . Yii::app()->createUrl('tccd/update', array('id' => $model->TCCD_Id)) . '" 
 						data-value="' . $agenciasVal . '" 
 						data-title="Agencia"><i class="fa fa-desktop"></i>  Agencia
+					</a>
+					<a href="#"	id="FCCU_List" 
+						class="btn btn-info btn-block"
+						data-type="select2" 
+						data-placement="bottom"
+						data-autotext="never"
+						data-tpl=\'<input type="hidden">\' 
+						data-pk="' . $model->TCCD_Id . '" 
+						data-url="' . Yii::app()->createUrl('tccd/update', array('id' => $model->TCCD_Id)) . '" 
+						data-value="' . $activosVal . '" 
+						data-title="Activo"><i class="fa fa-thumb-tack"></i>  Activo
 					</a>
 
 					<h5 style="font-weight:bolder;">Operaciones</h5>
@@ -580,6 +601,36 @@ class TccdController extends Controller
 						if ($label->save()) {
 						} else {
 							print_r($label->getErrors());
+						}
+					}
+				}
+			}
+
+			// if($model->save()){
+
+			$this->saveActivity("edito", Yii::app()->user->id, " las agencias de la tarjeta", $model->TCCD_Id);
+			echo CJSON::encode($model);
+
+			// }else{
+			// throw new CHttpException(404,'The requested page does not exist.');
+			// }
+		}
+		if (isset($_POST['name']) && $_POST['name'] == 'FCCU_List') {
+
+			TccdHasFccu::model()->deleteAll('TCCD_Id=:id', array(':id' => $id));
+
+			if (isset($_POST['value'])) {
+				$values = $_POST['value'];
+
+				foreach ($values as $val) {
+					// echo $val;
+					if ($val != '0') {
+						$activo = new TccdHasFccu;
+						$activo->TCCD_Id = $id;
+						$activo->FCCU_Id = $val;
+						if ($activo->save()) {
+						} else {
+							print_r($activo->getErrors());
 						}
 					}
 				}
