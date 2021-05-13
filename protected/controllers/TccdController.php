@@ -364,45 +364,32 @@ class TccdController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($ref = '')
+	public function actionCreate($id='')
 	{
 		$model = new Tccd;
-		$model->TCCD_Description = $ref;
-		if (isset($_POST['name']) && $_POST['name'] == 'TCCA_New') {
-			// print_r($_POST);
-			// $model=new Tcca;
-			$model->TCCD_Title = $_POST['value'];
-			$model->TCCA_Id = $_POST['pk'];
-			$model->TCCD_Order = Tccd::model()->count('TCCA_Id=' . $_POST['pk']);
-			$model->TCCD_Created = date("Y-m-d H:i");
+		$activo = Fccu::model()->find('FCCU_Id = :id', array(':id'=>$id));
+		$model->TCCD_Created = date("Y-m-d H:i");
+		if(isset($activo)){
+			$model->TCCD_Title = $activo->FCCU_Serial;
+			$model->TCCD_Description = "Se ha reportado el activo #".$activo->FCCU_Serial." ";
+		}
 
-			if ($model->save()) {
+		
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+
+		if (isset($_POST['Tccd'])) {
+			$model->attributes = $_POST['Tccd'];
+			if ($model->save()){
 				$access = new Tccm;
 				$access->TCCM_IdModel = $model->TCCD_Id;
 				$access->TCCM_Model = "TCCD";
 				$access->TCCM_IdUser = Yii::app()->user->id;
 				$access->TCCM_Status = 'Administrador';
 				$access->save();
-
-				echo CJSON::encode(array(
-					'TCCD_Title' => $model->TCCD_Title,
-					'TCCD_Id' => $model->TCCD_Id,
-					'TCCA_Id' => $model->TCCA_Id,
-					'TCCD_Created' => date("d M, h:ia", strtotime($model->TCCD_Created)),
-				));
 				$this->saveActivity("creo", Yii::app()->user->id, "esta tarjeta", $model->TCCD_Id);
-				return $model;
-			} else {
-				throw new CHttpException(404, 'The requested page does not exist.');
+				$this->redirect(array('/tcca/view', 'id' => $model->tCCA->TCCA_BoardId,'card' => $model->TCCD_Id));
 			}
-		}
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
-
-		if (isset($_POST['Tccd'])) {
-			$model->attributes = $_POST['Tccd'];
-			if ($model->save())
-				$this->redirect(array('view', 'id' => $model->TCCD_Id));
 		}
 
 		$this->render('create', array(

@@ -448,7 +448,7 @@ class SiteController extends Controller
         $agencia = Gccd::model()->findAll("GCCD_Estado=1 order by GCCD_Nombre"  /* array('order' => 'GCCD_Nombre') */);
         foreach ($agencia as $key => $value) {
             $data['agencias'][$key] = array(
-                'name' => $value->GCCD_Nombre,
+                'name' => $value->GCCD_Cod ." ".$value->GCCD_Nombre,
                 'cantidad' => $value->total
             );
         }

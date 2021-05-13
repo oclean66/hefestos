@@ -7,30 +7,31 @@
 <div class="box box-bordered box-color">
     <div class="box-title">
         <h3>
-            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?>Fccd</h3>
+            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?>Fccd
+        </h3>
     </div>
     <div class="box-content nopadding">
 
-        <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'fccd-form',
-	'enableAjaxValidation'=>false,
-	'htmlOptions' => array('class' => 'form-horizontal form-bordered'),
-)); ?>
+        <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'fccd-form',
+            'enableAjaxValidation' => false,
+            'htmlOptions' => array('class' => 'form-horizontal form-bordered'),
+        )); ?>
 
 
 
-        <?php echo $form->errorSummary($model,'Corriga lo siguiente','', array('class' => 'alert alert-danger alert-dismissable')); ?>
+        <?php echo $form->errorSummary($model, 'Corriga lo siguiente', '', array('class' => 'alert alert-danger alert-dismissable')); ?>
 
-                    <div class="form-group">
-                <?php echo $form->labelEx($model,'FCCD_Descripcion',array('class'=>'control-label col-sm-2')); ?>
-                <div class="col-sm-10">
-                    <?php echo $form->textField($model,'FCCD_Descripcion',array('class'=>'form-control','size'=>45,'maxlength'=>45)); ?>
-                    <?php echo $form->error($model,'FCCD_Descripcion',array('class' => 'label label-danger')); ?>
-                </div>
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'FCCD_Descripcion', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+                <?php echo $form->textField($model, 'FCCD_Descripcion', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
+                <?php echo $form->error($model, 'FCCD_Descripcion', array('class' => 'label label-danger')); ?>
             </div>
+        </div>
 
-                    <div class="form-actions col-sm-offset-2 col-sm-10">
-            <?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar',array('class' => 'btn btn-primary')); ?>
+        <div class="form-actions col-sm-offset-2 col-sm-10">
+            <?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar', array('class' => 'btn btn-primary')); ?>
         </div>
 
         <?php $this->endWidget(); ?>

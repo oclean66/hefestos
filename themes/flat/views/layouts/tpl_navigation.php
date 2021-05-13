@@ -251,7 +251,7 @@ if (isset($_GET['card'])) {
 
             $.ajax({
                 type: "POST",
-                url: "https://kingdeportes.com/hefestos/tccn/delete/" + $(this).attr('id'),
+                url: "<?php echo Yii::app()->createUrl("tccn/delete")?>" + "?id=" + $(this).attr('id'),
                 beforeSend: function(xhr) {
                     jQuery('#progress').attr('style', 'width:100%');
 
@@ -271,7 +271,7 @@ if (isset($_GET['card'])) {
     function removerAll() {
         // alert("removiendo");
         $.ajax({
-            url: "https://kingdeportes.com/hefestos/tccn/remove/",
+            url: "<?php echo Yii::app()->createUrl("tccn/remove")?>",
             beforeSend: function(xhr) {
                 jQuery('#progress').attr('style', 'width:100%');
 

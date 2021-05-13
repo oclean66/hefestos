@@ -30,7 +30,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'TCCD_Description', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'TCCD_Description', array('size' => 45, 'maxlength' => 45)); ?>
+                <?php echo $form->textField($model, 'TCCD_Description', array('size' => 255, 'maxlength' => 255)); ?>
                 <?php echo $form->error($model, 'TCCD_Description'); ?>
             </div>
         </div>
@@ -43,21 +43,21 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <?php echo $form->labelEx($model, 'TCCD_Expired', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php echo $form->textField($model, 'TCCD_Expired'); ?>
                 <?php echo $form->error($model, 'TCCD_Expired'); ?>
             </div>
-        </div>
+        </div> -->
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <?php echo $form->labelEx($model, 'TCCD_Order', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php echo $form->textField($model, 'TCCD_Order'); ?>
                 <?php echo $form->error($model, 'TCCD_Order'); ?>
             </div>
-        </div>
+        </div> -->
 
 
         <!-- <div class="form-group">
