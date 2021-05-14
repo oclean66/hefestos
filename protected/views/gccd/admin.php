@@ -4,7 +4,7 @@
 /* @var $model Gccd */
 
 $this->menu = array(
-    array('label' => 'Arbol de Grupos', 'url' => array('/gccd/index')),
+    array('label' => 'Arbol de Grupos', 'url' => array('/fcco/admin')),
     array('label' => 'Crear Grupo', 'url' => array('create')),
 );
 
@@ -50,7 +50,47 @@ $this->menu = array(
                     array(
                         'class' => 'CButtonColumn',
                         'header' => 'Acciones',
-                        'headerHtmlOptions'=>array('style'=>'width:100px')
+                        'headerHtmlOptions'=>array('class' => 'remover', 'style'=>'width:100px'),
+                        'template' => '{view}
+                                            <div class="btn-group">
+                                                <a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
+                                                    <i class="fa fa-bars"></i>
+                                                </a>
+                                                <ul class="dropdown-menu pull-right" style="min-width:0">
+                                                    <li>{update}</li>
+                                                    <li>{delete}</li>
+                                                </ul>
+                                            </div>',
+                        'buttons' => array(
+                            'view' => array(
+                                'imageUrl' => false,
+                                'label' => '<i class="fa fa-eye"></i>',
+                                'url' => 'Yii::app()->createUrl("gccd/".$data->GCCD_Id)',
+                                'options' => array(
+                                    'target' => '_blank',
+                                    'class' => 'btn btn-sm btn-orange', 'title' => 'Detalles'
+                                ),
+                            ),
+                            'update' => array(
+                                'imageUrl' => false,
+                                'label' => '<i class="fa fa-pencil"></i>  Editar',
+                                'visible' => 'Yii::app()->user->checkAccess("action_gccd_update")',
+                                'url' => 'Yii::app()->createUrl("gccd/update/", array("id"=>$data->GCCD_Id))',
+                                'options' => array(
+                                    'target' => '_blank',
+                                    'class' => 'btn btn-sm btn-info'
+                                ),
+                            ),
+                            'delete' => array(
+                                'imageUrl' => false,
+                                'label' => '<i class="fa fa-trash-o"></i>  Eliminar',
+                                'visible' => 'Yii::app()->user->checkAccess("action_gccd_delete")',
+                                'url' => 'Yii::app()->createUrl("gccd/delete/", array("id"=>$data->GCCD_Id))',
+                                'options' => array(
+                                    'class' => 'btn btn-sm btn-danger'
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ));
