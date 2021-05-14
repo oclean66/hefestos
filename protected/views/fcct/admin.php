@@ -52,7 +52,50 @@ $this->menu=array(
 			),
 			array(
 				'class'=>'CButtonColumn',
-				'headerHtmlOptions' => array('style' => 'width:83px'),
+				'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:83px'),
+				'template' => '{view}
+									<div class="btn-group">
+										<a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
+											<i class="fa fa-bars"></i>
+										</a>
+										<ul class="dropdown-menu pull-right" style="min-width:0">
+											<li>{update}</li>
+											<li>{delete}</li>
+										</ul>
+									</div',
+				'buttons' => array(
+					'view' => array(
+						'imageUrl' => false,
+						'url' => 'Yii::app()->createUrl("fcct/".$data->FCCT_Id)',
+						'label' => '<i class="fa fa-eye"></i>',
+						'options' => array(
+							'target' => '_blank',
+							'class' => 'btn btn-sm btn-orange',
+							'title' => 'Detalles'
+						),
+					),
+					'update' => array(
+						'imageUrl' => false,
+						'visible' => 'Yii::app()->user->checkAccess("action_fcct_update")',
+						'url' => 'Yii::app()->createUrl("fcct/update/", array("id"=>$data->FCCT_Id))',
+						'label' => '<i class="fa fa-pencil"></i>  Editar',
+						'options' => array(
+							'target' => '_blank',
+							'class' => 'btn btn-sm btn-info',
+							'title' => 'Editar'
+						),
+					),
+					'delete' => array(
+						'imageUrl' => false,
+						'visible' => 'Yii::app()->user->checkAccess("action_fcct_delete")',
+						'url' => 'Yii::app()->createUrl("fcct/delete", array("id"=>$data->FCCT_Id))',
+						'label' => '<i class="fa fa-trash-o"></i>  Eliminar',
+						'options' => array(
+							'class' => 'btn btn-sm btn-danger',
+							'title' => 'Eliminar'
+						),
+					),
+				),
 				),
 			),
 			)); ?>
