@@ -31,8 +31,8 @@ array('label'=>'Arbol de Sistema', 'url'=>array('/fcco/admin')),
             'pagerCssClass' => 'table-pagination',
             'htmlOptions' => array('style' => 'overflow:auto'),
             'pager' => array(
-                'htmlOptions' => array('class' => 'pagination'),
-                'selectedPageCssClass' => 'active',
+                'htmlOptions' => array('class' => 'pagination remover'),
+                'selectedPageCssClass' => 'active', 
             ),
             'columns' => array(
                 array(
@@ -61,19 +61,37 @@ array('label'=>'Arbol de Sistema', 'url'=>array('/fcco/admin')),
                 'GCCA_Telefono',
                 array(
                     'class' => 'CButtonColumn', 
-                    'headerHtmlOptions' => array('style' => 'width:83px'),
-                    'template' => '{view} {update} {delete}',
+                    'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:83px'),
+                    'template' => '{view} 
+                                        <div class="btn-group">
+                                            <a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
+                                                <i class="fa fa-bars"></i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right" style="min-width:0">
+                                                <li>{update}</li>
+                                                <li>{delete}</li>
+                                            </ul>
+                                        </div>',
                     'buttons' => array(
                         'view' => array( 
-                            'label' => "Detalles",
+                            'imageUrl' => false,
+                            'label' => '<i class="fa fa-eye"></i>',
                             'url' => 'Yii::app()->createUrl("fcco/agencia",array("id"=>$data->GCCA_Id,"type"=>$data->GCCA_Id))',/* 'Yii::app()->createUrl("gcca/view/",array("id"=>$data->GCCA_Id))', */
-                            'options' => array('target' => '_blank'),
+                            'options' => array('target' => '_blank', 'class' => 'not-link btn btn-sm btn-orange', 'title' => 'Detalles'),
                         ),
                         'update' => array( 
-                            'label' => "Actualizar", 
+                            'label' => '<i class="fa fa-pencil"></i> Editar', 
                             'url' => 'Yii::app()->createUrl("gcca/update/",array("id"=>$data->GCCA_Id))', 
-                            'options' => array('target' => '_blank'),
+                            'options' => array('target' => '_blank', 'class' => 'not-link  btn btn-sm btn-info text-left', 'title' => 'Editar'),
+                            'imageUrl' => false,
                         ),
+                        'delete' => array(
+                            'label' => '<i class="fa fa-trash-o"></i> Eliminar',
+                            'visible' => 'Yii::app()->user->checkAccess("action_gcca_delete")',
+                            'url' => 'Yii::app()->createUrl("gcca/delete/", array("id"=>$data->GCCA_Id))',
+                            'imageUrl' => false,
+                            'options' => array('class' => 'not-link btn btn-sm btn-danger', 'title' => 'Eliminar'),
+                        )
                         ),
                 ),
             ),
