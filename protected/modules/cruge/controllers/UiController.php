@@ -284,6 +284,8 @@ class UiController extends Controller {
 
         if (isset($_POST[CrugeUtil::config()->postNameMappings['CrugeStoredUser']])) {
             $model->attributes = $_POST[CrugeUtil::config()->postNameMappings['CrugeStoredUser']];
+            $model->username = strtolower($model->username);
+            $model->email  = strtolower($model->email);
 
             $model->terminosYCondiciones = true;
 
@@ -1069,7 +1071,7 @@ class UiController extends Controller {
                 $rbac->getUsersAssigned($authItemName), $pageSize, $boolLoadCustomFields
         );
         $allUsersDataProvider = $um->listAllUsersDataProvider(
-                array(), $pageSize, $boolLoadCustomFields);
+                array('state'=> 1), $pageSize, $boolLoadCustomFields);
 
         $this->render(
                 'rbacusersassignments'
