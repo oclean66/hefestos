@@ -38,7 +38,7 @@ class Controller extends CController
     {
         $noti = new Tccn;
         $noti->TCCN_IdUSer = $id;
-        $noti->TCCN_Title = substr($title,0,45);
+        $noti->TCCN_Title = substr($title,0,160);
         $noti->TCCN_Created = date("Y-m-d H:i");
         $noti->TCCN_Read = 0;
         $noti->TCCN_Url = $url;
