@@ -47,8 +47,8 @@ class TccaController extends Controller
 		foreach ($users as $value) {
 			if(Yii::app()->user->id!=$value->TCCM_IdUser)
 			$this-> sendNotification(
-				$id=$value->TCCM_IdUser, 
-				$title = "<b>".Yii::app()->user->name."</b> comento en la tarjeta <b>".$card->TCCD_Title."</b>: '".substr($_POST['comment'],0,25)."...'",
+				$id=$value->TCCM_IdUser, 				
+				$title = "<b>".Yii::app()->user->name."</b> comento en la tarjeta <b>".$card->TCCD_Title."</b>: '".$_POST['comment']."...'",
 				$url = Yii::app()->createUrl('tcca/view',array('id'=>$card->tCCA->TCCA_BoardId,'card'=>$_POST['idCard']))						
 			);
 		}

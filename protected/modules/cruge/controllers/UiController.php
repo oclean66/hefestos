@@ -220,8 +220,9 @@ class UiController extends Controller {
     public function actionEditProfile() {
 
         // $this->layout = CrugeUtil::config()->editProfileLayout;
-
-
+        $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id,'teletoken');
+        $campoNombre->value =  substr(crc32(Yii::app()->user->id), -4);;
+        $campoNombre->save();
 
         if (!Yii::app()->user->isGuest) {
             $this->_editUserProfile(Yii::app()->user->user, false);
@@ -231,6 +232,10 @@ class UiController extends Controller {
     }
 
     public function actionUserManagementUpdate($id) {
+        $campoNombre = Yii::app()->user->um->getFieldValueInstance($id,'teletoken');
+        $campoNombre->value =  substr(crc32($id), -4);;
+        $campoNombre->save();
+
         $this->_editUserProfile(Yii::app()->user->um->loadUserById($id), true);
     }
 
@@ -301,6 +306,10 @@ class UiController extends Controller {
                 if (Yii::app()->user->um->save($model, 'insert')) {
 
                     $this->onNewUser($model, $newPwd);
+
+                    $campoNombre = Yii::app()->user->um->getFieldValueInstance($model->iduser,'teletoken');
+                    $campoNombre->value =  substr(crc32($model->iduser), -4);;
+                    $campoNombre->save();
 
                     $this->redirect(array('usermanagementadmin'));
                 }
