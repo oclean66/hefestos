@@ -90,7 +90,10 @@ if (isset($_GET['card'])) {
                                     )
                                 ),
                                 array(
-                                    'label' => 'Facturacion*', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                                    'label' => 'Facturacion*', 'url' => '#', 
+                                    'visible' => $admin, 
+                                    'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 
+                                    'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                                     'items' => array(
                                         array('label' => 'Asignar', 'url' => array('#')),
                                         array('label' => 'Recargar', 'url' => array('#')),
@@ -156,7 +159,11 @@ if (isset($_GET['card'])) {
     <div class="user">
         <div class="dropdown">
             <?php
-            $var = !Yii::app()->user->isGuest ? Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : "";
+            $var = !Yii::app()->user->isGuest ? ( 
+                    Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ? 
+                        Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : 
+                        Yii::app()->user->name 
+                ) : "Invitado";
 
             $this->widget('zii.widgets.CMenu', array(
                 'htmlOptions' => array('class' => 'main-nav'),
@@ -166,7 +173,7 @@ if (isset($_GET['card'])) {
                     array(
                         'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img src="' . $baseUrl . '/img/demo/user-avatar.png" alt="">',
                         'url' => '#', 'visible' => $visible,
-                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"),
+                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 
                         'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                         'items' => array(
                             array('label' => 'Bitacora', 'url' => array('/pcue'), 'visible' => Yii::app()->user->checkAccess('controller_pcue')),

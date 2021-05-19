@@ -77,7 +77,7 @@ abstract class CrugeMailerBase extends CApplicationComponent {
 		// Yii::log("email:\n".$tmp."\n","info");
 		// return $ret;
 		if(empty($from)) {
-				$from = array($this->mailfrom=>"Soporte Hefestos");		
+				$from = array($this->mailfrom=>"Soporte Tecnico Hefestos");		
 			}		
 			if(is_null($attachment)) {
 				$message = $this->container->getMessenger( $this->subjectprefix.$subject)			

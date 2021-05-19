@@ -23,6 +23,7 @@
         }
         $cols[] = array('name' => $fieldName, 'value' => $value, 'filter' => $filter, 'type' => $type);
     }
+    $cols[] = array('name' => 'iduser', 'header'=>'Telegram Token','value' => 'Yii::app()->user->um->getFieldValue($data->iduser,"teletoken")', 'filter' => false);
 
     $cols[] = array(
         'class' => 'CButtonColumn',

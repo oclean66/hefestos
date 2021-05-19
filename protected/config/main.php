@@ -48,7 +48,7 @@ return array(
             'class' => 'system.gii.GiiModule',
             'password' => '1234',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters' => array('190.97.233.2', '::1'),
+            'ipFilters' => array('*', '::1'),
         ),
         
     ),

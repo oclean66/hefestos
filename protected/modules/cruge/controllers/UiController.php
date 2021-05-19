@@ -220,8 +220,9 @@ class UiController extends Controller {
     public function actionEditProfile() {
 
         // $this->layout = CrugeUtil::config()->editProfileLayout;
-
-
+        $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id,'teletoken');
+        $campoNombre->value =  substr(crc32(Yii::app()->user->id), -4);;
+        $campoNombre->save();
 
         if (!Yii::app()->user->isGuest) {
             $this->_editUserProfile(Yii::app()->user->user, false);
@@ -231,6 +232,10 @@ class UiController extends Controller {
     }
 
     public function actionUserManagementUpdate($id) {
+        $campoNombre = Yii::app()->user->um->getFieldValueInstance($id,'teletoken');
+        $campoNombre->value =  substr(crc32($id), -4);;
+        $campoNombre->save();
+
         $this->_editUserProfile(Yii::app()->user->um->loadUserById($id), true);
     }
 
@@ -284,6 +289,8 @@ class UiController extends Controller {
 
         if (isset($_POST[CrugeUtil::config()->postNameMappings['CrugeStoredUser']])) {
             $model->attributes = $_POST[CrugeUtil::config()->postNameMappings['CrugeStoredUser']];
+            $model->username = strtolower($model->username);
+            $model->email  = strtolower($model->email);
 
             $model->terminosYCondiciones = true;
 
@@ -299,6 +306,10 @@ class UiController extends Controller {
                 if (Yii::app()->user->um->save($model, 'insert')) {
 
                     $this->onNewUser($model, $newPwd);
+
+                    $campoNombre = Yii::app()->user->um->getFieldValueInstance($model->iduser,'teletoken');
+                    $campoNombre->value =  substr(crc32($model->iduser), -4);;
+                    $campoNombre->save();
 
                     $this->redirect(array('usermanagementadmin'));
                 }
@@ -1069,7 +1080,7 @@ class UiController extends Controller {
                 $rbac->getUsersAssigned($authItemName), $pageSize, $boolLoadCustomFields
         );
         $allUsersDataProvider = $um->listAllUsersDataProvider(
-                array(), $pageSize, $boolLoadCustomFields);
+                array('state'=> 1), $pageSize, $boolLoadCustomFields);
 
         $this->render(
                 'rbacusersassignments'
