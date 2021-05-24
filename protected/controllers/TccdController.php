@@ -147,7 +147,7 @@ class TccdController extends Controller
 						' . (count($pagencias) > 0 ? '<br/><br/>
 							<h5 style="margin-top:5px;font-weight:bolder;">Agencias</h5><div style="max-height:150px;overflow:auto;">' . $agencias . '</div>' : "") . '
 							
-						' . (count($act) > 0 ? '<br/><br/>
+						' . (count($act) > 0 ? '<br/>
 							<h5 style="margin-top:5px;font-weight:bolder;">Activos</h5><div style="max-height:150px;overflow:auto;">' . $activos . '</div>' : "") . '
 					
 								<h5 style="margin-top:5px;font-weight:bolder;">Descripcion</h5>
