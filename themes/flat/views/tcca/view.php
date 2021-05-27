@@ -50,7 +50,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 			<div class="btn-group /*hidden-768*/">
 
 				<div class="dropdown">
-					<a href="#" class="btn btn-primary" data-toggle="dropdown" rel="tooltip" data-placement="bottom" title="" data-original-title="Participantes del Tablero">
+					<a href="#" class="btn btn-primary not-link" data-toggle="dropdown" rel="tooltip" data-placement="top" title="" data-original-title="Participantes del Tablero">
 						<i class="fa fa-group"></i>
 						<span class="caret"></span>
 					</a>
@@ -200,7 +200,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 			<div class="btn-group /*hidden-768*/">
 
 				<div class="dropdown">
-					<a href="#" class="btn btn-primary" data-toggle="dropdown" rel="tooltip" data-placement="bottom" title="" data-original-title="Opciones del Tablero">
+					<a href="#" class="btn btn-primary not-link" data-toggle="dropdown" rel="tooltip" data-placement="top" title="" data-original-title="Opciones del Tablero">
 						<i class="fa fa-cog"></i>
 						<span class="caret"></span>
 					</a>
@@ -837,7 +837,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					ui.item.removeAttr('data-previndex');
 					$.ajax({
 						//url:"https://kingdeportes.com/hefestos/tcca/update/"+ui.item.attr('data-id'),
-						url: "<?php echo Yii::app()->createUrl("tccd/view"); ?>?id=" + ui.item.attr('data-id'),
+						url: "<?php echo Yii::app()->createUrl("tccd/update"); ?>?id=" + ui.item.attr('data-id'),
 
 						method: "POST",
 						data: {
@@ -904,7 +904,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 				$.ajax({
 					//url:"https://kingdeportes.com/hefestos/tccd/update/"+ui.item.attr('data-id'),
-					url: "<?php echo Yii::app()->createUrl("tccd/view"); ?>?id=" + ui.item.attr('data-id'),
+					url: "<?php echo Yii::app()->createUrl("tccd/update"); ?>?id=" + ui.item.attr('data-id'),
 					method: "POST",
 					data: {
 						"name": "TCCA_Id",
@@ -968,7 +968,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					ui.item.removeAttr('data-previndex');
 					$.ajax({
 						//url:"https://kingdeportes.com/hefestos/tccd/update/"+ui.item.attr('data-id'),
-						url: "<?php echo Yii::app()->createUrl("tccd/view"); ?>?id=" + ui.item.attr('data-id'),
+						url: "<?php echo Yii::app()->createUrl("tccd/update"); ?>?id=" + ui.item.attr('data-id'),
 						method: "POST",
 						data: {
 							"Tccd": {

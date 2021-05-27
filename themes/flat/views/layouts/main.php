@@ -144,7 +144,7 @@
     </body>   
     <script>
       
-      $('a:not(.dropdown-toggle):not(.mobile-sidebar-toggle)').click(function() {
+      $('a:not(.dropdown-toggle):not(.mobile-sidebar-toggle):not(.not-link)').click(function() {
         $('#progress').attr('style', 'width:100%');
     });    
 
