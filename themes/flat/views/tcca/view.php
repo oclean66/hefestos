@@ -837,7 +837,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					ui.item.removeAttr('data-previndex');
 					$.ajax({
 						//url:"https://kingdeportes.com/hefestos/tcca/update/"+ui.item.attr('data-id'),
-						url: "<?php echo Yii::app()->createUrl("tccd/view"); ?>?id=" + ui.item.attr('data-id'),
+						url: "<?php echo Yii::app()->createUrl("tccd/update"); ?>?id=" + ui.item.attr('data-id'),
 
 						method: "POST",
 						data: {
@@ -904,7 +904,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 				$.ajax({
 					//url:"https://kingdeportes.com/hefestos/tccd/update/"+ui.item.attr('data-id'),
-					url: "<?php echo Yii::app()->createUrl("tccd/view"); ?>?id=" + ui.item.attr('data-id'),
+					url: "<?php echo Yii::app()->createUrl("tccd/update"); ?>?id=" + ui.item.attr('data-id'),
 					method: "POST",
 					data: {
 						"name": "TCCA_Id",
@@ -968,7 +968,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					ui.item.removeAttr('data-previndex');
 					$.ajax({
 						//url:"https://kingdeportes.com/hefestos/tccd/update/"+ui.item.attr('data-id'),
-						url: "<?php echo Yii::app()->createUrl("tccd/view"); ?>?id=" + ui.item.attr('data-id'),
+						url: "<?php echo Yii::app()->createUrl("tccd/update"); ?>?id=" + ui.item.attr('data-id'),
 						method: "POST",
 						data: {
 							"Tccd": {
