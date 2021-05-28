@@ -64,7 +64,7 @@ if (isset($_GET['card'])) {
                     )
                 ),
                 array(
-                    'label' => 'Configuracion <span class="caret"></span>', 'url' => '#', 'visible' => Yii::app()->user->checkAccess('#'), 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                    'label' => 'Configuracion <span class="caret"></span>', 'url' => '#', 'visible' => Yii::app()->user->checkAccess('controller_site'), 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                     'items' => array(
                         array('label' => 'Grupos', 'url' => array('/gccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_gccd_admin')),
                         array('label' => 'Agencias', 'url' => array('/gcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_gcca_admin')),
