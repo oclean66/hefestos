@@ -31,9 +31,11 @@ class FccoController extends Controller
 
         // $array = array();
         $query = new CDbCriteria;
-        $query->select = "count(*) as FCCO_Id, GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d') as FCCO_Timestamp";
-        $query->condition = "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
-        $query->group = "GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
+        $query->with = 'gCCA';
+        $query->select = "count(*) as FCCO_Id, GCCA_Id, FCCO_Timestamp";
+        
+        $query->condition = $model->GCCA_Id != '' ? "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id." and t.GCCA_Id = ".$model->GCCA_Id : "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
+        $query->group = "t.GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
         $query->order = "FCCO_Timestamp desc";
         $agencias = Fcco::model()->findAll($query);
 
