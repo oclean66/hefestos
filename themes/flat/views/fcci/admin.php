@@ -56,7 +56,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				),
 				'update' => array(
 					'imageUrl' => false,
-					'visble' => 'Yii::app()->user->checkAccess("action_fcci_update")',
+					'visible' => 'Yii::app()->user->checkAccess("action_fcci_update")',
 					'url' => 'Yii::app()->createUrl("fcci/update/", array("id"=>$data->FCCI_Id))',
 					'label' => '<i class="fa fa-pencil"></i>  Editar',
 					'options' => array(

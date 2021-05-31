@@ -78,7 +78,7 @@ if (isset($_GET['card'])) {
                         array('label' => 'Operador de Lineas', 'url' => array('/fccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccd_admin')),
                         array('label' => 'Migrar de 2.0', 'url' => array('/site/migrate'), 'visible' => Yii::app()->user->checkAccess('action_site_migrate')),
                         array(
-                            'label' => 'Operaciones* <span class="caret"></span>', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                            'label' => 'Operaciones*', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                             'items' => array(
 
                                 array(
