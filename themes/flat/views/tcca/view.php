@@ -801,7 +801,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 		});
 
 		// $.fn.editableform.buttons  = '<button type="submit" class="editable-submit">ok</button><button type="button" class="editable-cancel">cancel</button>';
-		$.fn.editableform.buttons = '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="glyphicon glyphicon-ok"></i></button><button type="button" class="btn btn-danger btn-sm editable-cancel"><i class="glyphicon glyphicon-remove"></i></button>';
+		//$.fn.editableform.buttons = '<button type="submit" class="btn btn-primary btn-sm editable-submit"><i class="glyphicon glyphicon-ok"></i></button><button type="button" class="btn btn-danger btn-sm editable-cancel"><i class="glyphicon glyphicon-remove"></i></button>';
+		$.fn.editableform.buttons = '<button type="submit" class="btn-sm editable-submit" style="color:green; border:none"><i class="glyphicon glyphicon-ok"></i></button><button type="button" class="btn-sm editable-cancel" style="color:red; border:none"><i class="glyphicon glyphicon-remove"></i></button>';
 		//---------
 
 		var area = $("#large-grid");

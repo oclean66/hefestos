@@ -25,6 +25,21 @@ class TccdController extends Controller
 		}
 	}
 
+	public function actionhideComment($id)
+	{
+		$comment = Tcct::model()->find('TCCT_Id=' . $id.' and TCCT_idUser ='.Yii::app()->user->id);
+		if(isset($comment)){
+			$comment->TCCT_Text = $comment->TCCT_Type . " " . $comment->TCCT_Text;
+			$comment->TCCT_Type = "hide";
+			if ($comment->save()) {
+				echo "ok";
+			} else {
+				echo "false";
+			}
+		}else
+		echo "false";
+		
+	}
 	public function actionTest()
 	{
 		Yii::app()->crugemailer->sendEmail(
@@ -52,47 +67,67 @@ class TccdController extends Controller
 			$timeline = Tcct::model()->findAll('TCCD_Id=:id', array(':id' => $id));
 			$table = "";
 			foreach ($timeline as $event) {
-				$table = $table . '<tr style="display: table-row;">
+				$table = $table . '<tr style="display: table-row;text-decoration:' . ($event->TCCT_Type == 'hide' ? 'line-through' : '') . '">
 			<td>
-				<span class="label 
-				' . ($event->TCCT_Type == 'comento' ? 'label-info' : '') . ' 
-				' . ($event->TCCT_Type == 'creo' ? 'label-success' : '') . '
-				' . ($event->TCCT_Type == 'movio' ? 'label-warning' : '') . '
-				' . ($event->TCCT_Type == 'edito' ? 'label-warning' : '') . '
-				' . ($event->TCCT_Type == 'archivo' || $event->TCCT_Type == 'desarchivo' ? 'label-danger' : '') . '
-				' . ($event->TCCT_Type == 'oculto' || $event->TCCT_Type == 'desoculto' ? 'label-danger' : '') . '
+				<span style="color: 
+				' . ($event->TCCT_Type == 'comento' ? 'powderblue' : '') . ' 
+				' . ($event->TCCT_Type == 'creo' ? 'mediumspringgreen' : '') . '
+				' . ($event->TCCT_Type == 'movio' ? 'darkorange' : '') . '
+				' . ($event->TCCT_Type == 'edito' ? 'brown' : '') . '
+				' . ($event->TCCT_Type == 'archivo' || $event->TCCT_Type == 'desarchivo' ? 'orangered' : '') . '
+				' . ($event->TCCT_Type == 'oculto' || $event->TCCT_Type == 'desoculto' ? 'orangered' : '') . '
+				' . ($event->TCCT_Type == 'hide' ? 'red' : '') . '
 				 ">
 								
 					<i class="fa 
 					' . ($event->TCCT_Type == 'comento' ? 'fa-comment' : '') . ' 
 					' . ($event->TCCT_Type == 'creo' ? 'fa-plus' : '') . '
-					' . ($event->TCCT_Type == 'movio' ? 'fa-comment' : '') . '
+					' . ($event->TCCT_Type == 'movio' ? 'fa-exchange' : '') . '
 					' . ($event->TCCT_Type == 'edito' ? 'fa-pencil' : '') . '
 					' . ($event->TCCT_Type == 'archivo' || $event->TCCT_Type == 'desarchivo' ? 'fa-save' : '') . '
-					' . ($event->TCCT_Type == 'oculto' || $event->TCCT_Type == 'desoculto' ? 'fa-save' : '') . '
+					' . ($event->TCCT_Type == 'oculto' || $event->TCCT_Type == 'desoculto' ? 'fa-save' : '') . ' 
+					' . ($event->TCCT_Type == 'hide' ? 'fa-times' : '') . '
 					"></i>
 
 				</span>
 				
-				<span class="pull-right">' . date("M d, h:i", strtotime($event->TCCT_Timestamp)) . '</span>
+				<span class="pull-right">' . date("M d, h:i", strtotime($event->TCCT_Timestamp)) . '' . ($event->TCCT_Type == 'comento' ? '<button id="c-' . $event->TCCT_Id . '" style="color:red; border:none" onClick="
+				alert(\'¿Deseas eliminar este comentario?\'),
+				$.ajax({
+					url:\'' .  Yii::app()->createUrl('tccd/hideComment', array('id' => $event->TCCT_Id)) . '\',
+					type:\'POST\',
+					beforeSend:function(){
+
+					}
+				})
+				.done(function(){
+					$(\'#c-' . $event->TCCT_Id . '\').addClass(\'hide\');
+					cargarTarjeta(\'' . $model->TCCD_Id . '\');
+				});" 
+				type="button"><i class="fa fa-trash-o"></i></button>' : '') . '
+				  
+				</span>
 				
-				<a href="#">' . Yii::app()->user->um->loadUserById($event->TCCT_IdUser, true)->username . '</a> ' . $event->TCCT_Type . '  
+				<a href="#">' . Yii::app()->user->um->loadUserById($event->TCCT_IdUser, true)->username .
+					'</a> ' . ($event->TCCT_Type !='hide' ? $event->TCCT_Type : '') . '  
 				
 				' . ($event->TCCT_Type == 'comento' ? "<b>" . $event->TCCT_Text . "</b>" : '') . '
 				' . ($event->TCCT_Type == 'creo' ? $event->TCCT_Text : '') . '
 				' . ($event->TCCT_Type == 'edito' ? $event->TCCT_Text : '') . '
 				' . ($event->TCCT_Type == 'movio' ? $event->TCCT_Text : '') . '
+				' . ($event->TCCT_Type == 'hide' ? $event->TCCT_Text : '') . '
 				' . ($event->TCCT_Type == 'archivo' || $event->TCCT_Type == 'desarchivo' ? $event->TCCT_Text : '') . '
 				' . ($event->TCCT_Type == 'oculto' || $event->TCCT_Type == 'desoculto' ? $event->TCCT_Text : '') . '
 				
 			</td>
 			</tr>';
 			}
+			/* class="btn btn-danger btn-mini btn-circle" */
 
 			$labels = $model->tccls;
 			$cols = Tccm::model()->findAll('TCCM_Model="TCCD" and TCCM_Status="Colaborador" and TCCM_IdModel=:id', array(":id" => $id));
 			$pagencias = Tcga::model()->findAll('TCCD_Id=:id', array(":id" => $id));
-			$act = TccdHasFccu::model()->findAll('TCCD_Id=:id', array(':id'=>$id));
+			$act = TccdHasFccu::model()->findAll('TCCD_Id=:id', array(':id' => $id));
 			// print_r($cols);
 			$colaboradores = "";
 			$agencias = "";
@@ -104,7 +139,7 @@ class TccdController extends Controller
 			$agenciasVal = '';
 			foreach ($labels as $tag) {
 				$tagVal .= $tag->TCCL_Id . ',';
-				$tags .= '<h5 style="display:inline"><span class="label label-' . $tag->TCCL_Color . '" style="padding:5px;margin-right:3px;"><i class="fa ' . $tag->TCCL_Icon . '"></i> ' . $tag->TCCL_Label . '</span></h5>';
+				$tags .= '<h5 style="display:inline"><span class="label label-' . $tag->TCCL_Color . '" style="padding:5px;margin-right:3px"><i class="fa ' . $tag->TCCL_Icon . '"></i> ' . $tag->TCCL_Label . '</span></h5>';
 			}
 			foreach ($cols as $key) {
 				$usersVal .= $key->TCCM_IdUser . ',';
@@ -364,46 +399,45 @@ class TccdController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($id='')
+	public function actionCreate($id = '')
 	{
 		$model = new Tccd;
-		$activo = Fccu::model()->find('FCCU_Id = :id', array(':id'=>$id));
+		$activo = Fccu::model()->find('FCCU_Id = :id', array(':id' => $id));
 		$model->TCCD_Created = date("Y-m-d H:i");
-		if(isset($activo)){
+		if (isset($activo)) {
 			$model->TCCD_Title = $activo->FCCU_Serial;
-			$model->TCCD_Description = "Se ha reportado el activo #".$activo->FCCU_Serial." ";
+			$model->TCCD_Description = "Se ha reportado el activo #" . $activo->FCCU_Serial . " ";
 		}
 
 		// Con este se crean las tarjetas desde tableros
-		if(isset($_POST['name']) && $_POST['name']=='TCCA_New'){
+		if (isset($_POST['name']) && $_POST['name'] == 'TCCA_New') {
 			// print_r($_POST);
-				// $model=new Tcca;
-				$model->TCCD_Title = $_POST['value'];
-				$model->TCCA_Id=$_POST['pk'];
-				$model->TCCD_Order=Tccd::model()->count('TCCA_Id='.$_POST['pk']);
-				// $model->TCCA_BoardId=$id;
-				$model->TCCD_Created=date("Y-m-d H:i");			
+			// $model=new Tcca;
+			$model->TCCD_Title = $_POST['value'];
+			$model->TCCA_Id = $_POST['pk'];
+			$model->TCCD_Order = Tccd::model()->count('TCCA_Id=' . $_POST['pk']);
+			// $model->TCCA_BoardId=$id;
+			$model->TCCD_Created = date("Y-m-d H:i");
 
-				if($model->save()){
-					$access = new Tccm;
-					$access->TCCM_IdModel=$model->TCCD_Id;
-					$access->TCCM_Model="TCCD";
-					$access->TCCM_IdUser = Yii::app()->user->id;
-					$access->TCCM_Status='Administrador';
-					$access->save();
+			if ($model->save()) {
+				$access = new Tccm;
+				$access->TCCM_IdModel = $model->TCCD_Id;
+				$access->TCCM_Model = "TCCD";
+				$access->TCCM_IdUser = Yii::app()->user->id;
+				$access->TCCM_Status = 'Administrador';
+				$access->save();
 
-					echo CJSON::encode(array(
-						'TCCD_Title'=>$model->TCCD_Title,
-						'TCCD_Id'=>$model->TCCD_Id,
-						'TCCA_Id'=>$model->TCCA_Id,
-						'TCCD_Created'=>date("d M, h:ia",strtotime($model->TCCD_Created)),
-					));
-					$this->saveActivity("creo", Yii::app()->user->id, "esta tarjeta", $model->TCCD_Id);
-					return $model;
-
-			 }else{
-				throw new CHttpException(404,'The requested page does not exist.');
-			 }
+				echo CJSON::encode(array(
+					'TCCD_Title' => $model->TCCD_Title,
+					'TCCD_Id' => $model->TCCD_Id,
+					'TCCA_Id' => $model->TCCA_Id,
+					'TCCD_Created' => date("d M, h:ia", strtotime($model->TCCD_Created)),
+				));
+				$this->saveActivity("creo", Yii::app()->user->id, "esta tarjeta", $model->TCCD_Id);
+				return $model;
+			} else {
+				throw new CHttpException(404, 'The requested page does not exist.');
+			}
 		}
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -411,7 +445,7 @@ class TccdController extends Controller
 		//Con este se crean las tarjetas desde formulario
 		if (isset($_POST['Tccd'])) {
 			$model->attributes = $_POST['Tccd'];
-			if ($model->save()){
+			if ($model->save()) {
 				$access = new Tccm;
 				$access->TCCM_IdModel = $model->TCCD_Id;
 				$access->TCCM_Model = "TCCD";
@@ -419,7 +453,7 @@ class TccdController extends Controller
 				$access->TCCM_Status = 'Administrador';
 				$access->save();
 				$this->saveActivity("creo", Yii::app()->user->id, "esta tarjeta", $model->TCCD_Id);
-				$this->redirect(array('/tcca/view', 'id' => $model->tCCA->TCCA_BoardId,'card' => $model->TCCD_Id));
+				$this->redirect(array('/tcca/view', 'id' => $model->tCCA->TCCA_BoardId, 'card' => $model->TCCD_Id));
 			}
 		}
 
