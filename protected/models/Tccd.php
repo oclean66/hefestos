@@ -76,14 +76,14 @@ class Tccd extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TCCD_Id' => 'Tccd',
-			'TCCD_Title' => 'Tccd Title',
-			'TCCD_Description' => 'Tccd Description',
-			'TCCD_Created' => 'Tccd Created',
-			'TCCD_Expired' => 'Tccd Expired',
-			'TCCD_Archived' => 'Tccd Archived',
-			'TCCD_Order' => 'Tccd Order',
-			'TCCA_Id' => 'Tcca',
+			'TCCD_Id' => 'Id',
+			'TCCD_Title' => 'Titulo',
+			'TCCD_Description' => 'Descripcion',
+			'TCCD_Created' => 'Creada',
+			'TCCD_Expired' => 'Vence',
+			'TCCD_Archived' => 'Archivada',
+			'TCCD_Order' => 'Posicion',
+			'TCCA_Id' => 'Tablero',
 		);
 	}
 

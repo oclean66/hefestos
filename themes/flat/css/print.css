@@ -1,71 +1,47 @@
 body {
-    font: 12px 'andele mono',monospace;
-    //margin: 5px 0 5px 0px;
-    border: 1px solid;
-    // width: 23cm;
-    // height:200px;
-
-    /*size:8.5in 110in;*/ 
-    //margin:.5in .5in .5in .5in; 
-    mso-header-margin:.5in; 
-    mso-footer-margin:.5in; 
-    mso-paper-source:0;
-    position: relative;
+    font: 12px 'andele mono', monospace;
+    margin: 0px;
 }
-.col-sm-12{
-    padding: 1px;
+#content{
+    padding: 0 !important;
+    height: unset !important;
 }
-
-#print-footer {
-    display: block;
-    position: absolute;
-    bottom: 43px;
-    left:0;
-}
-#logo{
-    visibility:visible;
+#logo {
+    visibility: visible;
     height: 40px
+}
 
-}
-.price,.name{
-    padding: 2px !important;
-    padding-left: 5px !important;
-}
-.btn, .breadcrumb,.left,#fcco-grid,.box-color {
+.btn,
+.breadcrumb {
     visibility: hidden;
     position: fixed;
 }
-.modal-body{
-    display: table;
-}
-.box,.modal-body,.modal-content,#modal-1,.modal-dialog{
-    height: 100%;
-    overflow: hidden;
-    width:7in;
-}
-.modal-content{
-    -webkit-box-sizing: content-box;
-    border: none;
-    
-}
-.visible-imprimir{
-    visibility: visible;
-    display: block;
-}
+
 .imprimir {
     visibility: visible;
     display: block;
 }
-.remover{
+tfoot {
+    font-weight: bolder;
+    border-top: 2px solid #f8a31f;
+}
+
+.remover,.daterangepicker, .tabs,.actions, .filters,
+.collapsed {
     visibility: hidden;
     position: fixed;
     height: 0px;
-}
-input, select, .button-column{
-    visibility: hidden;
+    display: none;
 }
 
-.yiiPager{
+input,
+select,
+.button-column {
+    visibility: hidden;
+    display: none;
+}
+
+.yiiPager {
     visibility: hidden;
 }
 
@@ -74,10 +50,110 @@ input, select, .button-column{
     position: fixed;
     height: 0px;
 }
-.main-nav,#footer,#left, .mobile-sidebar-toggle, .toggle-nav, #brand,.user,.mobile-nav,.progress{
+
+.main-nav,
+#footer,
+#left,
+.mobile-sidebar-toggle,
+.toggle-nav,
+#brand,
+.user,
+.mobile-nav,
+.progress {
     visibility: hidden;
     position: fixed;
     height: 0px;
+}
+
+.table {
+    visibility: visible;
+    width: 100%;
+}
+
+.pull-right,
+.minitiles {
+    visibility: hidden;
+    display: none;
+}
+
+.pull-left {
+    width: 100%;
+}
+
+.pull-left h1 {
+    font-size: 14px;
+    color: #2a2a2a;
+    line-height: 14px;
+}
+table {
+    font: 12px 'andele mono', monospace;
+    border: 1px solid #FFFFFF;
+    width: 100%;
+    /* height: 200px; */
+   text-align: center;
+    border-collapse: collapse;
+  }
+  table td,
+  table th {
+    border: 1px solid #000000;
+    padding: 3px 2px;
+  }
+
+  table tbody td {
+    font-size: 13px;
+  }
+
+  table thead {
+    background: #0B6FA4;
+  }
+  
+
+
+/*//table {page-break-after: always;}*/
+
+.panel-collapse collapse in {
+    overflow: hidden;
+}
+
+#myTab {
+    padding: 0;
+}
+
+#myTab li {
+    visibility: hidden;
+    display: none;
+}
+
+.collapse {
+    visibility: hidden;
+    display: none;
+}
+
+.collapse.in {
+    visibility: visible;
+    display: block;
+}
+
+.txway {
+    top: -5px;
+    right: 0;
+}
+
+table {
+    page-break-inside: always
+}
+
+tr {
+    page-break-inside: avoid;
+    page-break-after: always
+}
+.tab-pane{
+    visibility: hidden;
+    display: none;
+}
+.tab-pane.active{
+    visibility: visible;
+    display: block;
 }
 
 /*Propias del proyecto inventario*/
@@ -86,7 +162,9 @@ input, select, .button-column{
 
 }
 .invoice-from,.invoice-to,address{
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 10px;
 }
-
+.noImprimir{
+    display: none;
+}

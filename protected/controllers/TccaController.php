@@ -8,7 +8,17 @@ class TccaController extends Controller
 	 */
 	public $layout='//layouts/column2';
 	
-	
+	public function actionLista() {
+		$id = $_POST['Tccd']['TCCA_BoardId'];
+
+		$lista = Tcca::model()->findAll('TCCA_BoardId = ' . $id);
+		$lista = CHtml::listData($lista, 'TCCA_Id', 'TCCA_Name');
+		echo CHtml::tag('option', array('value' => ''), 'Selecciona una Lista...', true);
+		foreach ($lista as $valor => $nombre) {
+			echo CHtml::tag('option', array('value' => $valor), CHtml::encode($nombre), true);
+		}
+	}
+
 	public function actionComment(){
 		
 		$event = new Tcct;
@@ -37,8 +47,8 @@ class TccaController extends Controller
 		foreach ($users as $value) {
 			if(Yii::app()->user->id!=$value->TCCM_IdUser)
 			$this-> sendNotification(
-				$id=$value->TCCM_IdUser, 
-				$title = "<b>".Yii::app()->user->name."</b> comento en la tarjeta <b>".$card->TCCD_Title."</b>: '".substr($_POST['comment'],0,25)."...'",
+				$id=$value->TCCM_IdUser, 				
+				$title = "<b>".Yii::app()->user->name."</b> comento en la tarjeta <b>".$card->TCCD_Title."</b>: '".$_POST['comment']."...'",
 				$url = Yii::app()->createUrl('tcca/view',array('id'=>$card->tCCA->TCCA_BoardId,'card'=>$_POST['idCard']))						
 			);
 		}
@@ -50,7 +60,7 @@ class TccaController extends Controller
 	 */
 	public function actionView($id)
 	{
-
+		ini_set('memory_limit', '-1');
 		if(isset($_POST['name']) && $_POST['name']=='TCCA_New'){
 			// print_r($_POST);
 				$model=new Tcca;
@@ -127,7 +137,17 @@ class TccaController extends Controller
         }
 		// print_r($accesos);
 		// print_r($users);
-	
+		
+		$tempo = Fccu::model()->findAll();
+		$activos =array();
+		$factivos="";
+        foreach ($tempo as $value) {
+            $factivos.="{id: '".$value->FCCU_Id."', text: '".$value->FCCU_Serial."'},";
+            $activos[$value->FCCU_Id]=array(
+				'id'=>$value->FCCU_Id,
+				'cod'=>$value->FCCU_Serial,
+			);
+        }
 		
 
 		$this->render('view',array(
@@ -138,7 +158,8 @@ class TccaController extends Controller
 			'jusers'=>$fusers,
 			'tags'=>$ftags,
 			'agencias'=>$agencias,
-			'jagencias'=>$fagencias
+			'jagencias'=>$fagencias,
+			'jactivos'=>$factivos
 			
 		));
 	}

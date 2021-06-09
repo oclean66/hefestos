@@ -25,6 +25,22 @@ class Gccd extends CActiveRecord {
      * @param string $className active record class name.
      * @return Gccd the static model class
      */
+
+    public function getEstadisticas()
+    {
+        $stats['Equipos'] = Yii::app()->db->createCommand("Select count(*) as Equipos from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 1 ")->queryRow();
+        $stats['Herramientas'] = Yii::app()->db->createCommand("Select count(*) as Herramientas from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 5 ")->queryRow();
+        $stats['Suministros'] = Yii::app()->db->createCommand("Select count(*) as Suministros from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 3 ")->queryRow();
+        $stats['Conexiones'] = Yii::app()->db->createCommand("Select count(*) as Conexiones from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 2 ")->queryRow();
+        $stats['Publicidad'] = Yii::app()->db->createCommand("Select count(*) as Publicidad from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 4 ")->queryRow();
+        $stats['Inmobiliario'] = Yii::app()->db->createCommand("Select count(*) as Inmobiliario from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 7 ")->queryRow();
+        $stats['Electrodomesticos'] = Yii::app()->db->createCommand("Select count(*) as Electrodomesticos from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 6 ")->queryRow();
+
+        //1. Consultar todas las asignaciones de los grupos
+        //2. Consultar el total por categoria
+
+        return $stats;
+    }
     
     public function hijas($id) {
         $aux = '';
@@ -44,7 +60,7 @@ class Gccd extends CActiveRecord {
     }
 
     public function getTotal(){
-            return Gcca::model()->count('GCCD_Id = '.$this->GCCD_Id);
+            return Gcca::model()->count('GCCD_Id = '.$this->GCCD_Id . ' and GCCA_Status = 1');
         
 	}
 
@@ -59,7 +75,7 @@ class Gccd extends CActiveRecord {
 
                 foreach ($gccds as $data) {
 
-                    $aux = $aux . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/'.$data->GCCD_Id.'\',addClass: \'grupo\'">' . $data->GCCD_Cod . ' | ' . $data->GCCD_Nombre;
+                    $aux = $aux . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/'.$data->GCCD_Id.'\',addClass: \'grupo\'">' . $data->GCCD_Cod . ' | ' . $data->GCCD_Nombre . ' (' . (Gcca::model()->count('GCCD_Id = '.$data->GCCD_Id . ' and GCCA_Status = 1') + Gccd::model()->count('GCCD_IdSuperior = '.$data->GCCD_Id . ' and GCCD_Estado = 1')) . ')';
                     $aux = $aux . $this->hijos($data->GCCD_Id);
                     $aux = $aux . '</li>';
                 }

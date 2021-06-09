@@ -23,21 +23,41 @@
         }
         $cols[] = array('name' => $fieldName, 'value' => $value, 'filter' => $filter, 'type' => $type);
     }
+    $cols[] = array('name' => 'iduser', 'header'=>'Telegram Token','value' => 'Yii::app()->user->um->getFieldValue($data->iduser,"teletoken")', 'filter' => false);
 
     $cols[] = array(
         'class' => 'CButtonColumn',
         'header' => 'Acciones',
-        'template' => '{update} {eliminar}',
+        'template' => '<div class="btn group">
+                            <a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right" style="min-width:0">
+                                <li>{update}</li>
+                                <li>{eliminar}</li>
+                            </ul>
+                        </div>',
         'deleteConfirmation' => CrugeTranslator::t('admin', 'Are you sure you want to delete this user'),
         'buttons' => array(
             'update' => array(
-                'label' => CrugeTranslator::t('admin', 'Update User'),
-                'url' => 'array("usermanagementupdate","id"=>$data->getPrimaryKey())'
+                'imageUrl' => false,
+                'label' =>  '<i class="fa fa-pencil"></i>  Editar',  /* CrugeTranslator::t('admin', 'Update User'), */
+                'url' => 'array("usermanagementupdate","id"=>$data->getPrimaryKey())',
+                'options' => array(
+                    'target' => '_blank',
+                    'class' => 'not-link btn btn-sm btn-info text-left',
+                    'title' => 'Editar Usuario'
+                )
             ),
             'eliminar' => array(
-                'label' => CrugeTranslator::t('admin', 'Delete User'),
-                'imageUrl' => Yii::app()->user->ui->getResource("delete.png"),
-                'url' => 'array("usermanagementdelete","id"=>$data->getPrimaryKey())'
+                'imageUrl' => false,
+                /* 'imageUrl' => Yii::app()->user->ui->getResource("delete.png"), */
+                'label' =>  '<i class="fa fa-trash-o"></i>  Eliminar',  /* CrugeTranslator::t('admin', 'Delete User'), */
+                'url' => 'array("usermanagementdelete","id"=>$data->getPrimaryKey())',
+                'options' => array(
+                    'class' => 'not-link btn btn-sm btn-danger',
+                    'title' => 'Eliminar Usuario'
+                )
             ),
         ),
     );

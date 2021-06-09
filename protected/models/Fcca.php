@@ -29,6 +29,11 @@ class Fcca extends CActiveRecord
 		}
 		return $total;
 	}
+
+	public function getEstadisticas()
+	{
+		return Fcct::model()->count('FCCA_Id = ' . $this->FCCA_Id);
+	}
 	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);

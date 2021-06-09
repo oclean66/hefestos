@@ -1,0 +1,21 @@
+{"user_id" : "1879618115","chat_id" : "1879618115","username" : "KINGDEPORTES", "listen": "completed", "cruge_user_id":"1"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{"user_id" : "937379153","chat_id" : "937379153","username" : "oclean66", "listen": "completed", "cruge_user_id":"4"}
+
+
+
+{"user_id" : "1194771164","chat_id" : "1194771164","username" : "sugarlia", "listen": "completed", "cruge_user_id":"33"}

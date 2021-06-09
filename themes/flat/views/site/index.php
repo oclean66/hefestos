@@ -61,13 +61,15 @@ $baseUrl = Yii::app()->theme->baseUrl;
                 </a>
             </li>
 
-            <li class="orange "> 
+            <li class="orange"> 
+            <?php if(Yii::app()->user->checkAccess('action_gcca_admin')){ ?>
                 <a target="_blank" href="<?php echo Yii::app()->createUrl('gcca/admin');?>">
                     <span class="">
                         <i class="fa fa-home"></i> </span>
                     <span class="name">Agencias</span>
                 </a>
             </li>
+            <?php }; ?>
 
             <!-- <li class="pink ">
                 <a target="_blank" href="<?php echo Yii::app()->createUrl('fccu/admin');?>">
@@ -78,54 +80,65 @@ $baseUrl = Yii::app()->theme->baseUrl;
             </li> -->
 
             <li class="darkblue ">
+            <?php if(Yii::app()->user->checkAccess('action_fccu_add')){ ?>
                 <a target="_blank" href="<?php echo Yii::app()->createUrl('fccu/add');?>">
                     <span class="">
                         <i class="fa fa-star"></i> </span>
                     <span class="name">Agregar Activo</span>
                 </a>
             </li>
+            <?php }; ?>
 
             <li class="lime">
+            <?php if(Yii::app()->user->checkAccess('action_fcco_create')){ ?>
                 <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/create');?>">
                     <span class="">
                         <i class="fa fa-plus-square"></i> </span>
                     <span class="name">Asignar Activo</span>
                 </a>
             </li>
-
+            <?php }; ?>
+            
             <li class="red">
+            <?php if(Yii::app()->user->checkAccess('action_fcco_less')){ ?>
                 <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/less');?>">
                     <span class="">
                         <i class="fa fa-minus-square"></i> </span>
                     <span class="name">Recibir Activo</span>
                 </a>
             </li>
+            <?php }; ?>
 
 
             
             <li class="teal ">
+            <?php if(Yii::app()->user->checkAccess('action_fcco_admin')){ ?>
                 <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/admin');?>">
                     <span class="">
                     <i class="fa fa-sitemap"></i> </span>
                     <span class="name">Arbol</span>
                 </a>
             </li>
+            <?php }; ?>
 
-
+            <?php if(Yii::app()->user->checkAccess('action_fcco_report')){ ?>
             <li class="green ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report.html?FCCN_Id=2');?>">
+                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report', array('FCCN_Id' => 2));?>">
                     <span class="">
                     <i class="fa fa-sign-in"></i> </span>
                     <span class="name">Entradas</span>
                 </a>
             </li>
+            
+
             <li class="blue ">
-                <a target="_blank" href="<?php echo Yii::app()->createUrl('fcco/report.html?FCCN_Id=1');?>">
+                <a target="_blank" href="<?php echo Yii::app()->createUrl('/fcco/report', array('FCCN_Id' => 1));?>">
                     <span class="">
                     <i class="fa fa-sign-out"></i> </span>
                     <span class="name">Salidas</span>
                 </a>
             </li>
+            <?php };?>
 
     
         </ul>

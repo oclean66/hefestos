@@ -73,12 +73,12 @@ class Tcca extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'TCCA_Id' => 'Tcca',
-			'TCCA_Name' => 'Tcca Name',
-			'TCCA_Type' => 'Tcca Type',
-			'TCCA_BoardId' => 'Tcca Board',
-			'TCCA_Order' => 'Tcca Order',
-			'TCCA_Archived' => 'Tcca Archived',
+			'TCCA_Id' => 'Id Tarjeta',
+			'TCCA_Name' => 'Nombre',
+			'TCCA_Type' => 'Tipo',
+			'TCCA_BoardId' => 'Id Tablero',
+			'TCCA_Order' => 'Posicion',
+			'TCCA_Archived' => 'Archivado',
 		);
 	}
 

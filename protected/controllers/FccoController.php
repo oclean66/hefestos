@@ -31,9 +31,11 @@ class FccoController extends Controller
 
         // $array = array();
         $query = new CDbCriteria;
-        $query->select = "count(*) as FCCO_Id, GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d') as FCCO_Timestamp";
-        $query->condition = "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
-        $query->group = "GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
+        $query->with = 'gCCA';
+        $query->select = "count(*) as FCCO_Id, GCCA_Id, FCCO_Timestamp";
+        
+        $query->condition = $model->GCCA_Id != '' ? "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id." and t.GCCA_Id = ".$model->GCCA_Id : "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
+        $query->group = "t.GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
         $query->order = "FCCO_Timestamp desc";
         $agencias = Fcco::model()->findAll($query);
 
@@ -127,6 +129,16 @@ class FccoController extends Controller
 
                     if ($inventario->save() && $model->save() && $item->save()) {
                         //$salida[]=array('serial'=>$inventario->FCCU_Id, 'descripcion'=> $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCU->fCCT->FCCT_Descripcion . " | " . $item->fCCU->FCCU_Numero, 'lugar'=>$item->lugar);
+                        $log = new Pcue;
+                        $log->PCUE_Descripcion = 'Usuario inserto en Fcco';
+                        $log->PCUE_Action = 'INSERTAR';
+                        $log->PCUE_Model = 'Fcco' ;
+                        $log->PCUE_IdModel = $model->FCCO_Id;
+                        $log->PCUE_Field = 'TODOS';
+                        $log->PCUE_Date = date("Y-m-d H:i");
+                        $log->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+                        $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
+                        $log->save();
 
                         echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
                     }
@@ -147,11 +159,11 @@ class FccoController extends Controller
         if ($tipo == null)
             $tipo = 1;
 
-        $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
+        $modell = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
         if (isset($agencia))
             $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
         else
-            $model = $modelo->gCCA;
+            $model = $modell->gCCA;
 
 
         $criteria = new CDbCriteria;
@@ -162,11 +174,11 @@ class FccoController extends Controller
 
         if ($view === null)
             $this->render('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
+                'modelo' => $modell, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
         else
             $this->renderPartial('view', array(
-                'modelo' => $modelo, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
+                'modelo' => $modell, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
     }
 
@@ -389,18 +401,13 @@ class FccoController extends Controller
         $model->GCCD_Id = $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
         $model->FCCN_Id = "=1"; //operacion: asignados
         $model->FCCO_Enabled = "=1"; //asignado actualmente
-
-
-
         $count = array();
+        $count = $grupo->estadisticas;
 
         //--Estadisticas rapidas
 
-        $count['CPU'] = Yii::app()->db->createCommand("Select count(*) as CPU from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcca.FCCA_Id = 11 ")->queryRow();
-        $count['Conexiones'] = Yii::app()->db->createCommand("Select count(*) as Conexiones from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcuu.FCUU_Id = 2 ")->queryRow();
-        $count['Monitores'] = Yii::app()->db->createCommand("Select count(*) as Monitores from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 12 ")->queryRow();
-        $count['Impresoras'] = Yii::app()->db->createCommand("Select count(*) as Impresoras from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 13 ")->queryRow();
-        $count['Maquinitas'] = Yii::app()->db->createCommand("Select count(*) as Maquinitas from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $id . "' and fcct.FCCA_Id = 4 ")->queryRow();
+        
+
         if (isset($_GET['Fcco'])) {
 
             $model->attributes = $_GET['Fcco'];
@@ -413,11 +420,11 @@ class FccoController extends Controller
 
         if ($type == null) {
             $this->renderPartial('grupo', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo,
+                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo
             ));
         } else {
             $this->render('grupo', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo,
+                'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo
             ));
         }
 
@@ -426,7 +433,7 @@ class FccoController extends Controller
         //        ));
     }
 
-    public function actionAgencia($id, $type = null, $print = false)
+    public function actionAgencia($id, $type = null, $print = false, $excel = false)
     {
 
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
@@ -436,10 +443,28 @@ class FccoController extends Controller
 
         $model->FCCO_Enabled = 1; //asignado actualmente
         $model->FCCN_Id = 1; //operacion asignado
+
+        //--Estadisticas rapidas     
         $count = array();
         $count = $agencia->estadisticas;
+        
 
-        //--Estadisticas rapidas
+        //Historial de Asignaciones Previas
+        $modelos = new Fcco('search');
+        $modelos->unsetAttributes();
+        $modelos->GCCA_Id = $id;
+
+        if (isset($_GET['Fcco'])) {
+            
+            $modelos->attributes = $_GET['Fcco'];
+            $modelos->GCCA_Id = $id;
+        }
+        $modelos->FCCO_Enabled = 0; //historial asignado
+        
+        $modelos->desde = date('2000-01-01');
+        $modelos->hasta = date('2025-01-01');
+
+        /************************* */
 
         if (isset($_GET['Fcco'])) {
 
@@ -449,12 +474,19 @@ class FccoController extends Controller
             $model->FCCN_Id = 1;
         }
 
-
-
+        /************************* */
+        
         $model->desde = date('2000-01-01');
         $model->hasta = date('2025-01-01');
+        
+        if ($excel) {
+			//
+			$content = $this->renderPartial("excel", array('model' => $model, 'modelos' => $modelos), true, true);
 
+			Yii::app()->request->sendFile('Historial Agencia ' . $agencia->concatened . '.xls', $content);
+		}
 
+        /************************* */
 
         if ($print) {
             $criteria = new CDbCriteria;
@@ -478,7 +510,7 @@ class FccoController extends Controller
                 'criteria' => $criteria,
                 'pagination' => false,
                 'sort' => array(
-                    'defaultOrder' => 'FCCA_Id desc',
+                    'defaultOrder' => 'FCCA_Id',
                     'attributes' => array(
                         'GCCA_search' => array(
                             'asc' => 'gCCA.GCCA_Nombre',
@@ -526,11 +558,11 @@ class FccoController extends Controller
             $this->renderPartial('print', array('d' => $data, 'model' => $agencia), false, true);
         } else if ($type == null) {
             $this->renderPartial('agencia', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'agencia' => $agencia
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
         } else {
             $this->render('agencia', array(
-                'model' => $model, 'count' => $count, 'type' => $type, 'agencia' => $agencia
+                'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
         }
     }
@@ -541,7 +573,7 @@ class FccoController extends Controller
         if ($tipo == null)
             $tipo = 1;
 
-        $modelo = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
+        $modell = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
 
         $criteria = new CDbCriteria;
         $criteria->select = '*';
@@ -601,7 +633,7 @@ class FccoController extends Controller
 
 
         // $d = $_SESSION['all'];
-        $this->renderPartial('print', array('d' => $data, "model" => $model, "tipo" => $tipo), false, true);
+        $this->renderPartial('print', array('d' => $data, "model" => $model, "tipo" => $tipo, "modelo" => $modell), false, true);
     }
 
     public function actionCreate($id = null)
@@ -639,7 +671,19 @@ class FccoController extends Controller
                 }
 
                 if ($item->save()) {
-                    $modelo->save();
+                    if($modelo->save()){
+                        //creo la bitacora
+                        $log = new Pcue;
+                        $log->PCUE_Descripcion = 'Usuario inserto en Fcco';
+                        $log->PCUE_Action = 'INSERTAR';
+                        $log->PCUE_Model = 'Fcco' ;
+                        $log->PCUE_IdModel = $modelo->FCCO_Id;
+                        $log->PCUE_Field = 'TODOS';
+                        $log->PCUE_Date = date("Y-m-d H:i");
+                        $log->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+                        $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
+                        $log->save();
+                    }
                     $x[] = $value;
                 } else {
                     $y[] = $value;

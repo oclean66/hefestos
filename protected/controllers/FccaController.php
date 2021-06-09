@@ -59,7 +59,7 @@ class FccaController extends Controller {
             $model->attributes = $_GET['Fcca'];
 
         $this->render('admin', array(
-            'model' => $model,
+            'model' => $model
         ));
     }
 

@@ -49,7 +49,7 @@ if (isset($_GET['card'])) {
 
 
                 array(
-                    'label' => 'Reportes <span class="caret"></span>', 'url' => '#', 'visible' => $visible, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                    'label' => 'Reportes <span class="caret"></span>', 'url' => '#', 'visible' => Yii::app()->user->checkAccess('controller_site'), 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                     'items' => array(
                         array('label' => 'Arbol de Asignaciones', 'url' => array('/fcco/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcco_admin')),
                         array('label' => 'Reporte de Salidas', 'url' => $this->createUrl('/fcco/report', array('FCCN_Id' => 1)), 'visible' => Yii::app()->user->checkAccess('action_fcco_report')),
@@ -64,7 +64,7 @@ if (isset($_GET['card'])) {
                     )
                 ),
                 array(
-                    'label' => 'Configuracion <span class="caret"></span>', 'url' => '#', 'visible' => $visible, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                    'label' => 'Configuracion <span class="caret"></span>', 'url' => '#', 'visible' => Yii::app()->user->checkAccess('controller_site'), 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                     'items' => array(
                         array('label' => 'Grupos', 'url' => array('/gccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_gccd_admin')),
                         array('label' => 'Agencias', 'url' => array('/gcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_gcca_admin')),
@@ -78,7 +78,7 @@ if (isset($_GET['card'])) {
                         array('label' => 'Operador de Lineas', 'url' => array('/fccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccd_admin')),
                         array('label' => 'Migrar de 2.0', 'url' => array('/site/migrate'), 'visible' => Yii::app()->user->checkAccess('action_site_migrate')),
                         array(
-                            'label' => 'Operaciones* <span class="caret"></span>', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                            'label' => 'Operaciones*', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                             'items' => array(
 
                                 array(
@@ -90,7 +90,10 @@ if (isset($_GET['card'])) {
                                     )
                                 ),
                                 array(
-                                    'label' => 'Facturacion*', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                                    'label' => 'Facturacion*', 'url' => '#', 
+                                    'visible' => $admin, 
+                                    'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 
+                                    'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                                     'items' => array(
                                         array('label' => 'Asignar', 'url' => array('#')),
                                         array('label' => 'Recargar', 'url' => array('#')),
@@ -156,7 +159,17 @@ if (isset($_GET['card'])) {
     <div class="user">
         <div class="dropdown">
             <?php
-            $var = !Yii::app()->user->isGuest ? Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : "";
+            $avatar = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value;
+            if($avatar != ''){
+                $profPic = $avatar;
+            }else{
+                $profPic = $baseUrl . '/img/demo/user-avatar.png';
+            }
+            $var = !Yii::app()->user->isGuest ? ( 
+                    Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ? 
+                        Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : 
+                        Yii::app()->user->name 
+                ) : "Invitado";
 
             $this->widget('zii.widgets.CMenu', array(
                 'htmlOptions' => array('class' => 'main-nav'),
@@ -164,9 +177,9 @@ if (isset($_GET['card'])) {
                 'encodeLabel' => false,
                 'items' => array(
                     array(
-                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img src="' . $baseUrl . '/img/demo/user-avatar.png" alt="">',
+                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="30" src="'.$profPic.'" alt="">',
                         'url' => '#', 'visible' => $visible,
-                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"),
+                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 
                         'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                         'items' => array(
                             array('label' => 'Bitacora', 'url' => array('/pcue'), 'visible' => Yii::app()->user->checkAccess('controller_pcue')),
@@ -234,6 +247,11 @@ if (isset($_GET['card'])) {
 
     </div>
 </div>
+<img src="<?php echo Yii::app()->theme->baseUrl . "/img/logo-big.png"; ?>" alt="" class="imprimir" srcset="" style="width: 50px;position: absolute;right: 1px;z-index: 1;">
+<div class="imprimir" style="position: absolute;top:70px;right: 1px;z-index: 1;">
+    <?php echo Yii::app()->locale->dateFormatter->format("d MMM hh:mma", strtotime('-4 hours')) ?>
+</div>
+
 
 <script>
     $(".notification").click(function(e) {
@@ -246,7 +264,7 @@ if (isset($_GET['card'])) {
 
             $.ajax({
                 type: "POST",
-                url: "https://kingdeportes.com/hefestos/tccn/delete/" + $(this).attr('id'),
+                url: "<?php echo Yii::app()->createUrl("tccn/delete")?>" + "?id=" + $(this).attr('id'),
                 beforeSend: function(xhr) {
                     jQuery('#progress').attr('style', 'width:100%');
 
@@ -266,7 +284,7 @@ if (isset($_GET['card'])) {
     function removerAll() {
         // alert("removiendo");
         $.ajax({
-            url: "https://kingdeportes.com/hefestos/tccn/remove/",
+            url: "<?php echo Yii::app()->createUrl("tccn/remove")?>",
             beforeSend: function(xhr) {
                 jQuery('#progress').attr('style', 'width:100%');
 

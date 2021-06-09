@@ -26,12 +26,24 @@ class Fcco extends CActiveRecord {
     public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion;
     public $GCCA_Nombre, $GCCD_Nombre,$desde,$hasta;
 
+    public function getCod() {
+        return isset($this->gCCA) ?
+        $this->gCCA->GCCA_Cod : "No asignado";
+    }
+
     public function getLugar() {
         return isset($this->gCCA) ? 
         $this->gCCA->GCCA_Cod . ' - ' . $this->gCCA->GCCA_Nombre . " | " . $this->gCCA->gCCD->GCCD_Cod . ' - ' . $this->gCCA->gCCD->GCCD_Nombre: 
         "No asignado";
     }
 
+    public function getUsername(){
+        $user = "";
+        $log = Pcue::model()->find("PCUE_IdModel=:idmodel AND PCUE_Action='INSERTAR' ", array(":idmodel" => $this->FCCO_Id));  //("PCUE_Action='INSERTAR' AND PCUE_Model='Transacciones' AND PCUE_IdModel=:idmodel",array(":idmodel"=>$this->FCCO_Id));
+        if(isset($log))
+        $user = $log->PCUE_UserId;
+        return $user;
+    }
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
