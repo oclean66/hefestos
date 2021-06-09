@@ -159,6 +159,12 @@ if (isset($_GET['card'])) {
     <div class="user">
         <div class="dropdown">
             <?php
+            $avatar = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value;
+            if($avatar != ''){
+                $profPic = $avatar;
+            }else{
+                $profPic = $baseUrl . '/img/demo/user-avatar.png';
+            }
             $var = !Yii::app()->user->isGuest ? ( 
                     Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ? 
                         Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : 
@@ -171,7 +177,7 @@ if (isset($_GET['card'])) {
                 'encodeLabel' => false,
                 'items' => array(
                     array(
-                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img src="' . $baseUrl . '/img/demo/user-avatar.png" alt="">',
+                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="30" src="'.$profPic.'" alt="">',
                         'url' => '#', 'visible' => $visible,
                         'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 
                         'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),

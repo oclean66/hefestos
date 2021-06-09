@@ -30,83 +30,23 @@
                 ));
                 ?>
                 <div class="col-sm-2">
-                    <?php
-                    @$actualizar = $_REQUEST['actualizar'];
-                    @$error = false;
-                    //Array de archivos permitidos
-                    @$archivos_disp_ar = array('jpeg', 'jpg', 'png');
-                    //Carpeta en donde se guardan las imagenes
-                    @$carpeta = '/hefestos/themes/flat/avatars/';
-                    //Recibo el campo de la imagen
-                    @$imagen = $_FILES['imagen']['tmp_name'];
-                    //Se guarda el nombre real de la imagen en una variable
-                    @$nombre_orig = $_FILES['imagen']['name'];
-                    //Verificamos el tipo de archivo
-                    @$array_nombre = explode('.', $nombre_orig);
-                    @$cuenta_arr_nombre = count($array_nombre);
-                    @$extension = strtolower($array_nombre[--$cuenta_arr_nombre]);
-                    //Le asignamos un nombre unico a la imagen
-                    @$nombre_nuevo = time() . ' - ' . rand(0, 100) . ' . ' . $extension;
-                    //Nuevo nombre junto con la carpeta
-                    @$nombre_nuevo_con_carpeta = $carpeta . $nombre_nuevo;
-
-                    if (isset($actualizar)) {
-                        if (!in_array($extension, $archivos_disp_ar)) { {
-                                @$errores['imagen'] = "Esto no es una imagen";
-                                $error = true;
-                            }
-                            if (trim($imagen) == '') {
-                                @$errores['imagen'] = "Ingresa una imagen";
-                                $error = true;
-                            }
-                        } else
-                            @$errores['imagen'] = '';
-                    }
-                    if (isset($actualizar) && $error == false) {
-                        $id = $_SESSION['iduser'];
-                        $actualiza = "Update cruge_session Set picture='$nombre_nuevo' Where iduser='$id'";
-                        $resultado = $link->query($actualiza);
-                        $mover_archivos = move_uploaded_file($imagen, $nombre_nuevo_con_carpeta);
-
-                        $select_foto = "SELECT picture FROM cruge_session WHERE iduser='$id'" or die("Error en la consulta" . mysqli_error($link));
-                        $res_foto = $link->query($select_foto);
-                        $ses = $res_foto->fetch_assoc();
-                        $_SESSION['iduser'] = $ses['picture'];
-
-                        echo "Se le asigno nuevo nombre de imagen: " . $nombre_nuevo . "</br>";
-                        // echo '<img style="width:40%; margin-top:10px" src="user/' . $_SESSION['iduser'] . '" alt="'. $_SESSION['username'] .'"/>';
-                        echo "<img style='width:40%; margin-top:10px' src='user/{$_SESSION['iduser']}' alt='{$_SESSION['username']}'/>";
-                    } else { ?>
-                        <div class="demo-wrap upload-dedmo" style="padding:30px 22px 0px 22px">
-                            <div class="thumbnail" id="imagen" style="width: 125px; height:125px; padding:4px; border: 1px solid #ddd; border-radius: 6px">
-                                <img id="imgperfil" src="<?php echo Yii::app()->theme->baseUrl . "/img/avatars/" . (isset($_SESSION['picture']) ? $_SESSION['picture'] : 'user.png'); ?>" alt="Imagen de Perfil">
-                            </div>
-                            <div id="upload-demo" class="croppie-container">
-                                <div class="cr-boundary" aria-dropeffect="none"><canvas class="cr-image" alt="preview" aria-grabbed="false"></canvas>
-                                    <div class="cr-viewport cr-vp-circle" tabindex="0" style="width: 100px; height: 100px;"></div>
-                                    <div class="cr-overlay"></div>
-                                </div>
-                                <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom"></div>
-                            </div>
-
+                    <div style="padding:30px 0px 0px 22px">
+                        <div class="thumbnail" id="imagenpreview" style="width: 125px; height:125px; border:none; border-radius: 6px">
+                            <img id="imgperfil" src="<?php echo Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value; ?>" alt="<?php echo Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value; ?>">
                         </div>
-                            <input type="file" id="upload" value="Choose a file" accept="image/*">
-                        <div class="btn btn-orange btn-block" style="overflow: hidden; width:160px">
 
-                            <input id="subir" name="subir" type="file" style="opacity: 0; position: absolute" />
-                            <i class="fa fa-camera"></i> Subir Imagen
-                            <?php
-                            if (isset($actulizar))
-                                //nombre de la imagen
-                                print("VALUE='$imagen'/>\n");
-                            else
-                                print("/>\n");
-                            if (@$errores['imagen'] != "")
-                                //Mostrar errores
-                                print("<BR><SPAN CLASS='error'>" . @$errores['imagen'] . "</SPAN>");
-                            ?>
-                        </div>
-                    <?php } ?>
+                        <div id="upload-demo" class="hide"></div>
+                    </div>
+                    <div class="btn btn-orange btn-block" style="overflow: hidden; width:160px">
+                        <input id="upload" name="subir" type="file" style="opacity: 0; position: absolute; padding:0px 0px 0px 20px" />
+                        <i class="fa fa-camera"></i> Subir Imagen
+                    </div>
+                    <div class="upload-result btn btn-orange btn-block hide" style="overflow: hidden; width:160px">
+                        <input id="avatar" name="avatar" type="hidden" style="opacity: 0; position: absolute" />
+                        <i class="fa fa-check"></i> Finalizar
+                    </div>
+                    <?php //}  
+                    ?>
                 </div>
 
                 <div class="col-sm-10 ">
@@ -196,14 +136,17 @@
 
 
                         foreach ($model->getFields() as $f) {
-                            echo "<div class='form-group'>";
-                            // aqui $f es una instancia que implementa a: ICrugeField
-                            echo Yii::app()->user->um->getLabelField($f);
-                            echo "<div class='col-sm-10'>";
-                            echo Yii::app()->user->um->getInputField($model, $f);
-                            echo $form->error($model, $f->fieldname);
-                            echo "</div>";
-                            echo "</div>";
+                            if ($f->fieldname != 'avatar') {
+
+                                echo "<div class='form-group'>";
+                                // aqui $f es una instancia que implementa a: ICrugeField
+                                echo Yii::app()->user->um->getLabelField($f);
+                                echo "<div class='col-sm-10'>";
+                                echo Yii::app()->user->um->getInputField($model, $f);
+                                echo $form->error($model, $f->fieldname);
+                                echo "</div>";
+                                echo "</div>";
+                            }
                         }
                     }
                     ?>
@@ -243,16 +186,12 @@ if ($boolIsUserManagement)
 <?php $this->endWidget(); ?>
 </div>
 <script>
-
-    $(function(){
-
-    
+    $(function() {
         var $uploadCrop;
-        
+
         function readFile(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 reader.onload = function(e) {
                     $('.upload-demo').addClass('ready');
                     $uploadCrop.croppie('bind', {
@@ -260,27 +199,43 @@ if ($boolIsUserManagement)
                     }).then(function() {
                         console.log('jQuery bind complete');
                     });
-
                 }
-
                 reader.readAsDataURL(input.files[0]);
             } else {
-                swal("Sorry - you're browser doesn't support the FileReader API");
+                $.gritter.add({
+                    position: 'bottom-left',
+                    // (string | mandatory) the heading of the notification
+                    title: 'Sorry',
+                    sticky: true,
+                    image: "http://localhost/hefestos/themes/flat/img/icons/RegEdit.png",
+                    time_alive: 1000,
+                    // (string | mandatory) the text inside the notification
+                    text: 'youre browser doesnt support the FileReader API',
+                });
+                // swal("Sorry - you're browser doesn't support the FileReader API");
             }
         }
         console.log("cargando");
 
-        // $uploadCrop = $('#upload-demo').croppie({
-        //     viewport: {
-        //         width: 100,
-        //         height: 100,
-        //         type: 'circle'
-        //     },
-        //     enableExif: true
-        // });
+        $uploadCrop = $('#upload-demo').croppie({
+            enableExif: true,
+
+            viewport: {
+                width: 100,
+                height: 100,
+                type: 'circle'
+            },
+            boundary: {
+                width: 100,
+                height: 100
+            }
+        });
 
         $('#upload').on('change', function() {
-            console.log("cambio");
+            // console.log("cambio"),
+            $('#imagenpreview').addClass('hide');
+            $('#upload-demo').removeClass('hide');
+            $('.upload-result').removeClass('hide');
             readFile(this);
         });
         $('.upload-result').on('click', function(ev) {
@@ -288,30 +243,16 @@ if ($boolIsUserManagement)
                 type: 'canvas',
                 size: 'viewport'
             }).then(function(resp) {
-                popupResult({
-                    src: resp
-                });
+                // popupResult({
+                //     src: resp
+                // });
+                console.log(resp);
+
+                $('#avatar').val(resp);
+                $('#crugestoreduser-form').submit();
             });
         });
-    })
 
-    // function showMyImage(fileInput) {
-    //     var files = fileInput.files;
-    //     for (var i = 0; i < files.length; i++) {
-    //         var file = files[i];
-    //         var imageType = /image.*/;
-    //         if (!file.type.match(imageType)) {
-    //             continue;
-    //         }
-    //         var img = document.getByElementById("imgperfil");
-    //         img.file = file;
-    //         var reader = new FileReader();
-    //         reader.onload = (function(aImg) {
-    //             return function(e) {
-    //                 aImg.src = e.target.result;
-    //             };
-    //         })(img);
-    //         reader.readAsDataURL(file);
-    //     }
-    // }
+    });
+  
 </script>

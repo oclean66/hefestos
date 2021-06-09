@@ -139,7 +139,7 @@ class TccdController extends Controller
 			$agenciasVal = '';
 			foreach ($labels as $tag) {
 				$tagVal .= $tag->TCCL_Id . ',';
-				$tags .= '<h5 style="display:inline"><span class="label label-' . $tag->TCCL_Color . '" style="padding:5px;margin-right:3px;"><i class="fa ' . $tag->TCCL_Icon . '"></i> ' . $tag->TCCL_Label . '</span></h5>';
+				$tags .= '<h5 style="display:inline"><span class="label label-' . $tag->TCCL_Color . '" style="padding:5px;margin-right:3px"><i class="fa ' . $tag->TCCL_Icon . '"></i> ' . $tag->TCCL_Label . '</span></h5>';
 			}
 			foreach ($cols as $key) {
 				$usersVal .= $key->TCCM_IdUser . ',';
