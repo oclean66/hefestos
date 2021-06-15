@@ -58,7 +58,7 @@ $this->menu = array(
 				),
 				'update' => array(
 					'imageUrl' => false,
-					'visble' => 'Yii::app()->user->checkAccess("action_fccn_update")',
+					'visible' => 'Yii::app()->user->checkAccess("action_fccn_update")',
 					'url' => 'Yii::app()->createUrl("fccn/update/", array("id"=>$data->FCCN_Id))',
 					'label' => '<i class="fa fa-pencil"></i>  Editar',
 					'options' => array(

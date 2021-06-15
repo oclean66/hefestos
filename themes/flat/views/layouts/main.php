@@ -31,6 +31,9 @@
         //<!-- select2 -->
         $cs->registerCssFile($baseUrl . '/css/plugins/select2/select2.css', 'screen');
 
+        //<!-- croppie -->
+        $cs->registerCssFile($baseUrl . '/css/plugins/croppie/croppie.css', 'screen');
+
         //<!-- Theme CSS -->        
         $cs->registerCssFile($baseUrl . '/css/style.css','screen');
         //<!-- Color CSS -->
@@ -80,12 +83,17 @@
         //<!-- Validation -->
         $cs->registerScriptFile($baseUrl . '/js/plugins/validation/jquery.validate.min.js');
         $cs->registerScriptFile($baseUrl . '/js/plugins/validation/additional-methods.min.js');
+        
+        //<!-- croppie -->
+        $cs->registerScriptFile($baseUrl . '/js/plugins/croppie/croppie.min.js');
+        
         //<!-- Theme framework -->
         $cs->registerScriptFile($baseUrl . '/js/eakroko.min.js');
         //<!-- Theme scripts -->
         $cs->registerScriptFile($baseUrl . '/js/application.min.js');
         //<!-- Just for demonstration -->
         $cs->registerScriptFile($baseUrl . '/js/demonstration.min.js');
+
 
         //        <!-- select2 -->
         //	<script src="js/plugins/select2/select2.min.js"></script>

@@ -78,7 +78,7 @@ if (isset($_GET['card'])) {
                         array('label' => 'Operador de Lineas', 'url' => array('/fccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccd_admin')),
                         array('label' => 'Migrar de 2.0', 'url' => array('/site/migrate'), 'visible' => Yii::app()->user->checkAccess('action_site_migrate')),
                         array(
-                            'label' => 'Operaciones* <span class="caret"></span>', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
+                            'label' => 'Operaciones*', 'url' => '#', 'visible' => $admin, 'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                             'items' => array(
 
                                 array(
@@ -159,6 +159,12 @@ if (isset($_GET['card'])) {
     <div class="user">
         <div class="dropdown">
             <?php
+            $avatar = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value;
+            if($avatar != ''){
+                $profPic = $avatar;
+            }else{
+                $profPic = $baseUrl . '/img/demo/user-avatar.png';
+            }
             $var = !Yii::app()->user->isGuest ? ( 
                     Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ? 
                         Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : 
@@ -171,7 +177,7 @@ if (isset($_GET['card'])) {
                 'encodeLabel' => false,
                 'items' => array(
                     array(
-                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img src="' . $baseUrl . '/img/demo/user-avatar.png" alt="">',
+                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="30" src="'.$profPic.'" alt="">',
                         'url' => '#', 'visible' => $visible,
                         'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 
                         'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),

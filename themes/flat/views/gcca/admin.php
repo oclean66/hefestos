@@ -81,6 +81,7 @@ array('label'=>'Arbol de Sistema', 'url'=>array('/fcco/admin')),
                         ),
                         'update' => array( 
                             'label' => '<i class="fa fa-pencil"></i> Editar', 
+                            'visible' => 'Yii::app()->user->checkAccess("action_gcca_update")',
                             'url' => 'Yii::app()->createUrl("gcca/update/",array("id"=>$data->GCCA_Id))', 
                             'options' => array('target' => '_blank', 'class' => 'not-link  btn btn-sm btn-info text-left', 'title' => 'Editar'),
                             'imageUrl' => false,
