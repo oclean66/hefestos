@@ -7,7 +7,8 @@
 <div class="box box-bordered box-color">
     <div class="box-title">
         <h3>
-            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?>Agencia</h3>
+            <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?>Agencia
+        </h3>
     </div>
     <div class="box-content nopadding">
 
@@ -28,7 +29,7 @@
             <?php echo $form->labelEx($model, 'GCCA_Cod', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php echo $form->textField($model, 'GCCA_Cod', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
-                <?php echo $form->error($model, 'GCCA_Cod', array('class' => 'label label-danger')); ?>                
+                <?php echo $form->error($model, 'GCCA_Cod', array('class' => 'label label-danger')); ?>
             </div>
         </div>
 
@@ -44,34 +45,37 @@
         <!--//-------------------------------------------------->
         <?php
         if (!$model->isNewRecord) {
-            ?>
+        ?>
             <div class="form-group">
                 <?php echo $form->labelEx($model, 'Grupo:', array('class' => 'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                    <?php echo isset($model->GCCD_Id) ?  $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => '')) : 'Sin Padre'; ?>                         
+                    <?php echo isset($model->GCCD_Id) ?  $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => '')) : 'Sin Padre'; ?>
                     <?php echo $form->error($model, 'GCCD_Id', array('class' => 'label label-danger')); ?>
-                </div>  </div>
-            <?php
+                </div>
+            </div>
+        <?php
         } else if ($model->isNewRecord && $id != null) {
-            ?>
+        ?>
 
             <div class="form-group">
                 <?php echo $form->labelEx($model, 'Grupo:', array('class' => 'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
                     <?php echo CHtml::textField('padre', $model->gCCD->Concatened, array('disabled' => 'disabled')); ?>
                     <?php echo $form->error($model, 'GCCD_Id', array('class' => 'label label-danger')); ?>
-                </div>  </div>
-            <?php
+                </div>
+            </div>
+        <?php
         } else if ($model->isNewRecord && $id == null) {
-            ?>
+        ?>
             <div class="form-group">
                 <?php echo $form->labelEx($model, 'Grupo:', array('class' => 'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
                     <?php echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => ''));
                     ?>
                     <?php echo $form->error($model, 'GCCD_Id', array('class' => 'label label-danger')); ?>
-                </div>  </div>
-            <?php
+                </div>
+            </div>
+        <?php
         }
         ?>
         <!--//-------------------------------------------------->
@@ -83,7 +87,7 @@
             </div>
         </div>
 
-       
+
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCA_Rif', array('class' => 'control-label col-sm-2')); ?>
@@ -108,8 +112,8 @@
                 <?php echo $form->error($model, 'GCCA_Telefono', array('class' => 'label label-danger')); ?>
             </div>
         </div>
-        
-          <div class="form-group">
+
+        <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCA_Email', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php echo $form->textField($model, 'GCCA_Email', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
@@ -119,7 +123,12 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'GCCA_Status', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-            <?php echo $form->labelEx($model, 'Activo', array('class' => '')); ?>                            
+                <?php
+                if (Yii::app()->user->checkAccess('webmaster')) {
+                    echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactivo', '1' => "Activa", "2" => "Oculta"), array('empty' => 'Sin Grupo', 'class' => ''));
+                } else
+                    echo $form->labelEx($model, $model->GCCA_Status == 0 ? "Inactiva" : ($model->GCCA_Status == 1 ? "Activa" : "Oculta"), array('class' => '')); ?>
+
             </div>
         </div>
 
