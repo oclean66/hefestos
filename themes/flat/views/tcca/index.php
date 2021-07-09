@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <!-- <ul class="tiles" style='margin:0'>
+            <ul class="tiles" style='margin:0'>
 
                 <?php
 
@@ -73,22 +73,24 @@
                     </a>
                 </li>
 
-            </ul> -->
+            </ul>
 
 
-            <div class="panel-group panel-widget col-sm-6" style='margin:0'>
-            <?php echo $data['tableros']; ?>
-            <div class="panel panel-default lime">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="#modal-1" data-toggle="modal" target="_blank">
-                            <i class="fa fa-plus-square"></i>
-                            Agregar Tablero
-                        </a>
-                    </h4>
+            <!-- <div class="panel-group panel-widget col-sm-6" style='margin:0'>
+                <?php
+                echo $data['tablero'];
+                echo $data['tabla'];
+                ?>
+                <div class="panel panel-default lime">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#modal-1" data-toggle="modal" target="_blank">
+                                <i class="fa fa-plus-square"></i>
+                                Agregar Tablero
+                            </a>
+                        </h4>
+                    </div>
                 </div>
-            </div>
-
                 <?php
                 foreach ($dataProvider as $value) {
                     if (!$value['TCCA_Archived']) {
@@ -110,39 +112,47 @@
                 ?>
 
 
+            </div> -->
+        </div>
+    </div>
+    <div id="archivados" class="col-sm-12 nopadding hide">
+        <div class="box">
+            <div class="box-title">
+                <h3>Tableros Archivados</h3>
             </div>
         </div>
-        <div id="archivados" class="col-sm-6 nopadding hide">
-            <div class="box">
-                <div class="box-title">
-                    <h3>Tableros Archivados</h3>
-                </div>
-            </div>
-            <div class="panel-group panel-widget" style='margin:0'>
+        <!-- <div class="panel-group panel-widget" style='margin:0'> -->
 
-                <?php
+        <ul class="tiles" style="margin: 0;">
+            <?php
 
-                foreach ($dataProvider as $value) {
-                    if ($value['TCCA_Archived']) {
-                ?>
-                        <div class='panel panel-default <?php echo $value['TCCA_Archived'] ? "pink long" : "blue long"; ?>'>
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a href="<?php echo Yii::app()->createUrl('tcca/view', array('id' => $value['TCCA_Id'])); ?>">
-                                        <?php echo $value['TCCA_Name']; ?>
-                                        <br />
-                                        <small style="color:white;"><?php echo $value['TCCA_Archived'] ? "Archivado" : ""; ?></small>
-                                    </a>
-                                </h4>
-                            </div>
-                        </div>
-                <?php
-                    }
+            foreach ($dataProvider as $value) {
+                if ($value['TCCA_Archived']) {
+            ?>
+                    <!-- <div class='panel panel-default <?php echo $value['TCCA_Archived'] ? "pink long" : "blue long"; ?>'> -->
+                    <li class='<?php echo $value['TCCA_Archived'] ? "pink long" : "blue long"; ?>'>
+                        <!-- <div class="panel-heading">
+                                <h4 class="panel-title"> -->
+                        <a href="<?php echo Yii::app()->createUrl('tcca/view', array('id' => $value['TCCA_Id'])); ?>">
+                            <span class="noppading">
+                                <h5>
+                                    <?php echo $value['TCCA_Name']; ?>
+                                    <br />
+                                    <small style="color:white;"><?php echo $value['TCCA_Archived'] ? "Archivado" : ""; ?></small>
+                                </h5>
+                            </span>
+                        </a>
+                        <!-- </h4>
+                            </div> -->
+                    </li>
+                    <!-- </div> -->
+            <?php
                 }
-                ?>
+            }
+            ?>
 
-            </div>
-        </div>
+        </ul>
+        <!-- </div> -->
     </div>
 
 </div>

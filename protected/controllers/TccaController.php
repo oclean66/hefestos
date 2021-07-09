@@ -263,7 +263,8 @@ class TccaController extends Controller
 	public function actionIndex()
 	{
 
-		$data['tableros'] = Tcca::model()->count('TCCA_Type=0 and TCCA_Archived is null');
+		$data['tablero'] = Tcca::model()->count('TCCA_Type=0 and TCCA_Archived is null and TCCA_ViewBy="BOARD"');
+		$data['tabla'] = Tcca::model()->count('TCCA_Type=0 and TCCA_Archived is null and TCCA_ViewBy="TABLA"');
 
 		$model=new Tcca;
 

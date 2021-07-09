@@ -215,13 +215,13 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 									array(
 										'type' => 'POST',
 										'beforeSend' => 'function() {           
-													$("#List-' . $model->TCCA_Id . '").css("opacity","0.5");
-												}',
+											$("#List-' . $model->TCCA_Id . '").css("opacity","0.5");
+										}',
 										'complete' => 'function(data, value) {
-												console.log(data, value);
-												if(data.responseText=="Archived")
-												window.location.replace("https://kingdeportes.com/hefestos/tcca");
-												}',
+											console.log(data, value);
+											if(data.responseText=="Archived")
+											window.location.replace("https://kingdeportes.com/hefestos/tcca");
+										}',
 									)
 								);
 								?>
@@ -233,6 +233,25 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					</ul>
 				</div>
 			</div>
+			<!-- <div class="btn-group /*hidden-768*/">
+				<div class="dropdown"> -->
+			<a href="#" class="btn not-link" id="viewTabla">
+				<i class="fa fa-eye"></i> Ver en Lista
+				<!-- <span class="caret"></span> -->
+			</a>
+			<a href="#" class="btn not-link hide" id="viewBoard">
+				<i class="fa fa-eye"></i> Ver en Tablero
+			</a>
+			<!-- <ul class="dropdown-menu dropdown-menu-right">
+						<li id="tabla">
+							<a href="#"> Ver en Lista</a>
+						</li>
+						<li  class="hide" id="board">
+							<a href="#"> Ver en Tablero</a>
+						</li>
+					</ul> -->
+			<!-- </div>
+			</div> -->
 
 
 
@@ -244,13 +263,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 
 
+<!-- VISTA EN FORMA DE TABLERO -->
 
 <div id="large-grid" style="display:flex;overflow:auto;">
 	<?php
 	foreach ($lists as $value) {
-		// print_r($value);
+		//print_r($value);
 	?>
 		<div class="box box-small" id="List-<?php echo $value['TCCA_Id']; ?>" data-board="<?php echo $model->TCCA_Id; ?>" data-pos="<?php echo $value['TCCA_Order']; ?>" data-toggle="modal" data-id="<?php echo $value['TCCA_Id']; ?>">
+
 			<!-- <div class="progress"> <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:45%"><span class="sr-only">45% Complete</span></div> </div> -->
 
 			<div class="box-title" style="margin-top:0px;padding-bottom:5px">
@@ -397,6 +418,96 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 </div>
 
+<!-- VISTA EN FORMA DE LISTA -->
+
+<div id="viewTabla">
+	<table>
+		<?php foreach ($lists as $value) { ?>
+			<thead class="col-sm-12" id="List-<?php echo $value['TCCA_Id']; ?>" data-board="<?php echo $model->TCCA_Id; ?>" data-pos="<?php echo $value['TCCA_Order']; ?>" data-toggle="modal" data-id="<?php echo $value['TCCA_Id']; ?>">
+				<th class="col-sm-6" style="margin-top:0px;padding-bottom:5px">
+					<h3>
+						<i class="fa fa-inbox"></i>
+						<span data-url="<?php echo Yii::app()->createUrl('tcca/update', array('id' => $value['TCCA_Id'])) ?>" class="listTitle" data-placement="right" id="TCCA_Name" data-type="text" data-pk="<?php echo $value['TCCA_Id']; ?>" data-id="<?php echo $value['TCCA_Id']; ?>" data-original-title="Nombre de la Lista">
+							<?php //echo $value['TCCA_Name']." (".$value['TCCA_Order'].")"
+							?>
+							<?php echo $value['TCCA_Name']; ?>
+						</span>
+						<?php echo "(" . count($value['TCCA_Tasks']) . ")"; ?>
+						
+
+							<span class="dropdown">
+								<a href="#" class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-bars"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li class="dropdown-header">Opciones</li>
+									<!-- <li>
+										<a href="#" onclick="$('#TCCA_New<?php echo $value["TCCA_Id"]; ?>').innerHtml=Date()">Agregar Tarjeta</a>
+									</li> -->
+									<!-- <li>
+										<a href="#">Ordenar por...</a>
+									</li> -->
+									<!-- <li class="divider"></li> -->
+									<!-- <li>
+										
+										<?php
+										echo CHtml::ajaxLink(
+											'Archivar todas las tarjetas',          // the link body (it will NOT be HTML-encoded.)
+											array('deleteAll', 'id' => $value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+											array(
+												'type' => 'POST',
+												'beforeSend' => 'function() {           
+													$("#List-' . $value['TCCA_Id'] . '").css("opacity","0.5");
+												}',
+												'complete' => 'function(data, value) {
+													console.log(data, value);
+													if(data.responseText=="All Archived")
+													{
+														$("#List-' . $value['TCCA_Id'] . '").css("opacity","1");
+														  $("#Board-' . $value['TCCA_Id'] . '").html("");
+													  }
+												}',
+											)
+										);
+										?>
+									</li> -->
+									<!-- <li>
+										<a href="#">Tarjetas Archivadas</a>
+									</li>
+									
+									<li class="divider"></li> -->
+									<li>
+										<!-- <a href="#">Archivar Esta Lista</a> -->
+										<?php
+										echo CHtml::ajaxLink(
+											'Archivar Esta Lista',          // the link body (it will NOT be HTML-encoded.)
+											array('delete', 'id' => $value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+											array(
+												'type' => 'POST',
+												'beforeSend' => 'function() {           
+													$("#List-' . $value['TCCA_Id'] . '").css("opacity","0.5");
+												 }',
+												'complete' => 'function(data, value) {
+												  console.log(data, value);
+												  if(data.responseText=="Archived")
+													  $("#List-' . $value['TCCA_Id'] . '").addClass("hidden");
+												}',
+											)
+										);
+										?>
+									</li>
+								</ul>
+							</span>
+
+						
+					</h3>
+				</th>
+			</thead>
+		<?php } ?>
+	</table>
+</div>
+
+
 <!-- <pre>
 <?php
 // print_r($agencias);
@@ -495,10 +606,22 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 	let isCard = false;
 	const params = <?php echo json_encode($_GET); ?>
 
+
+
 	$(function() {
 
 
 
+		$("#viewTabla").click(function() {
+			$("#viewBoard").removeClass("hide")
+			$("#viewTabla").addClass("hide")
+			$("#large-grid").addClass("hide")
+		});
+		$("#viewBoard").click(function() {
+			$("#viewTabla").removeClass("hide")
+			$("#viewBoard").addClass("hide")
+			$("#large-grid").removeClass("hide")
+		});
 		// Abrir una tarea
 		$(".alert-card").click(function() {
 			// $( "#modal-ajax" ).load(  );
