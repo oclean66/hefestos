@@ -263,7 +263,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 
 
-<!-- VISTA EN FORMA DE TABLERO -->
+<!-- VISTA EN FORMA DE TABLERO PREDETERMINADA -->
 
 <div id="large-grid" style="display:flex;overflow:auto;">
 	<?php
@@ -418,112 +418,130 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 </div>
 
-<!-- VISTA EN FORMA DE LISTA -->
+<!-- VISTA EN FORMA DE LISTA PREDETERMINADA -->
 
-<div id="viewTabla">
-	<table>
+<div id="viewTabla1" class="hide">
+	<table class="col-sm-12">
 		<?php foreach ($lists as $value) { ?>
-			<thead class="col-sm-12" id="List-<?php echo $value['TCCA_Id']; ?>" data-board="<?php echo $model->TCCA_Id; ?>" data-pos="<?php echo $value['TCCA_Order']; ?>" data-toggle="modal" data-id="<?php echo $value['TCCA_Id']; ?>">
-				<th class="col-sm-6" style="margin-top:0px;padding-bottom:5px">
+			<tr class="col-sm-12" id="List-<?php echo $value['TCCA_Id']; ?>" data-board="<?php echo $model->TCCA_Id; ?>" data-pos="<?php echo $value['TCCA_Order']; ?>" data-toggle="modal" data-id="<?php echo $value['TCCA_Id']; ?>">
+				<th class="col-sm-12" style="margin-top:0px;padding-bottom:5px">
 					<h3>
 						<i class="fa fa-inbox"></i>
 						<span data-url="<?php echo Yii::app()->createUrl('tcca/update', array('id' => $value['TCCA_Id'])) ?>" class="listTitle" data-placement="right" id="TCCA_Name" data-type="text" data-pk="<?php echo $value['TCCA_Id']; ?>" data-id="<?php echo $value['TCCA_Id']; ?>" data-original-title="Nombre de la Lista">
-							<?php //echo $value['TCCA_Name']." (".$value['TCCA_Order'].")"
-							?>
 							<?php echo $value['TCCA_Name']; ?>
 						</span>
 						<?php echo "(" . count($value['TCCA_Tasks']) . ")"; ?>
-						
-
-							<span class="dropdown">
-								<a href="#" class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-bars"></i>
-								</a>
-								<ul class="dropdown-menu dropdown-menu-right">
-									<li class="dropdown-header">Opciones</li>
-									<!-- <li>
-										<a href="#" onclick="$('#TCCA_New<?php echo $value["TCCA_Id"]; ?>').innerHtml=Date()">Agregar Tarjeta</a>
-									</li> -->
-									<!-- <li>
-										<a href="#">Ordenar por...</a>
-									</li> -->
-									<!-- <li class="divider"></li> -->
-									<!-- <li>
-										
-										<?php
-										echo CHtml::ajaxLink(
-											'Archivar todas las tarjetas',          // the link body (it will NOT be HTML-encoded.)
-											array('deleteAll', 'id' => $value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
-											array(
-												'type' => 'POST',
-												'beforeSend' => 'function() {           
+						<span class="dropdown">
+							<a href="#" class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-bars"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li class="dropdown-header">Opciones</li>
+								<?php
+								echo CHtml::ajaxLink(
+									'Archivar todas las tarjetas',          // the link body (it will NOT be HTML-encoded.)
+									array('deleteAll', 'id' => $value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+									array(
+										'type' => 'POST',
+										'beforeSend' => 'function() {           
 													$("#List-' . $value['TCCA_Id'] . '").css("opacity","0.5");
 												}',
-												'complete' => 'function(data, value) {
-													console.log(data, value);
-													if(data.responseText=="All Archived")
-													{
+										'complete' => 'function(data, value) {
+											console.log(data, value);
+											if(data.responseText=="All Archived")
+											{
 														$("#List-' . $value['TCCA_Id'] . '").css("opacity","1");
-														  $("#Board-' . $value['TCCA_Id'] . '").html("");
-													  }
+														$("#Board-' . $value['TCCA_Id'] . '").html("");
+													}
 												}',
-											)
-										);
-										?>
-									</li> -->
-									<!-- <li>
-										<a href="#">Tarjetas Archivadas</a>
-									</li>
-									
-									<li class="divider"></li> -->
-									<li>
-										<!-- <a href="#">Archivar Esta Lista</a> -->
-										<?php
-										echo CHtml::ajaxLink(
-											'Archivar Esta Lista',          // the link body (it will NOT be HTML-encoded.)
-											array('delete', 'id' => $value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
-											array(
-												'type' => 'POST',
-												'beforeSend' => 'function() {           
+									)
+								);
+								?>
+								</li>
+								<li>
+									<?php
+									echo CHtml::ajaxLink(
+										'Archivar Esta Lista',          // the link body (it will NOT be HTML-encoded.)
+										array('delete', 'id' => $value['TCCA_Id']), // the URL for the AJAX request. If empty, it is assumed to be the current URL.
+										array(
+											'type' => 'POST',
+											'beforeSend' => 'function() {           
 													$("#List-' . $value['TCCA_Id'] . '").css("opacity","0.5");
-												 }',
-												'complete' => 'function(data, value) {
+												}',
+											'complete' => 'function(data, value) {
 												  console.log(data, value);
 												  if(data.responseText=="Archived")
-													  $("#List-' . $value['TCCA_Id'] . '").addClass("hidden");
+												  $("#List-' . $value['TCCA_Id'] . '").addClass("hidden");
 												}',
-											)
-										);
-										?>
-									</li>
-								</ul>
-							</span>
-
-						
+										)
+									);
+									?>
+								</li>
+							</ul>
+						</span>
 					</h3>
 				</th>
-			</thead>
+			</tr>
+			<tr id="Board-<?php echo $value['TCCA_Id']; ?>" data-pk="<?php echo $value['TCCA_Id']; ?>" data-id="<?php echo $value['TCCA_Id']; ?>" class="box-content board connectedSortable sortable col-sm-12">
+				<?php
+				foreach ($value['TCCA_Tasks'] as $task) {
+				?>
+					<td id="Task-<?php echo $task->TCCD_Id; ?>" class="col-sm-12 alert alert-card <?php echo isset($task->TCCD_Expired) && date("Y-m-d") > date("Y-m-d", strtotime($task->TCCD_Expired)) ? "active" : ""; ?>" style="float: right;" data-board="<?php echo $value['TCCA_Id']; ?>" data-pos="<?php echo $task->TCCD_Order; ?>" data-toggle="modal" data-id="<?php echo $task->TCCD_Id; ?>" data-target=".bs-example-modal-lg">
+
+						<small style="<?php echo isset($task->TCCD_Expired) && date("Y-m-d") > date("Y-m-d", strtotime($task->TCCD_Expired)) ? "color:black;" : "color:darkorange;"; ?>"><b><?php echo date("d M, h:ia", strtotime($task->TCCD_Created)); ?></b></small>
+						<?php //echo "(".$task->TCCD_Order.") ".$task->TCCD_Title; 
+						?>
+						<?php echo $task->TCCD_Archived ? ' <small class="pull-right"><i class="fa fa-save"></i> </small> ' : ''; ?>
+						<br />
+						<?php echo $task->TCCD_Title; ?>
+						<br />
+						<div class="toolbar" style="display:flow-root;">
+							<!-- <i class="fa fa-square-o"></i>
+											<i class="fa fa-refresh"></i>
+											<i class="fa fa-inbox"></i>
+											<i class="fa fa-exclamation-triangle"></i>
+											<i class="fa fa-trash-o"></i> -->
+
+							<?php echo $task->TCCD_Expired ? ' <small>' . (date("Y-m-d") > date("Y-m-d", strtotime($task->TCCD_Expired)) ? "<b>" : "") . '<i class="fa fa-clock-o"></i> ' . date("d M", strtotime($task->TCCD_Expired)) . (date("Y-m-d") > date("Y-m-d", strtotime($task->TCCD_Expired)) ? "</b>" : "") . "</small> " : ''; ?>
+							<?php
+
+							$comments = Tcct::model()->findAll('TCCD_Id=:id and TCCT_Type="comento"', array(':id' => $task->TCCD_Id));
+							echo count($comments) > 0 ? ' <small><i class="fa fa-comment-o"></i> ' . count($comments) . '</small> ' : '';
+
+							$colss = Tccm::model()->findAll('TCCM_Model="TCCD" and TCCM_Status="Colaborador" and TCCM_IdModel=:id', array(':id' => $task->TCCD_Id));
+							echo count($colss) > 0 ? ' <small><i class="fa fa-user"></i> ' . count($colss) . '</small> ' : '';
+
+
+							$listas = $task->tccls;
+							foreach ($listas as $tag) {
+								echo '<small class="pull-right" style="margin-left:3px;"><i class="fa ' . $tag->TCCL_Icon . '"></i> </small> ';
+							}
+							?>
+
+
+
+						</div>
+					</td>
+				<?php
+				}
+				?>
+			</tr>
 		<?php } ?>
 	</table>
 </div>
 
 
 <!-- <pre>
-<?php
-// print_r($agencias);
-?>
+	<?php
+	// print_r($agencias);
+	?>
 </pre> -->
 
 
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
-
 			<div class="modal-body" id="modal-ajax">
-
-
-
-
 			</div>
 		</div>
 	</div>
@@ -614,12 +632,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 
 		$("#viewTabla").click(function() {
 			$("#viewBoard").removeClass("hide")
+			$("#viewTabla1").removeClass("hide")
 			$("#viewTabla").addClass("hide")
 			$("#large-grid").addClass("hide")
 		});
 		$("#viewBoard").click(function() {
 			$("#viewTabla").removeClass("hide")
 			$("#viewBoard").addClass("hide")
+			$("#viewTabla1").addClass("hide")
 			$("#large-grid").removeClass("hide")
 		});
 		// Abrir una tarea
