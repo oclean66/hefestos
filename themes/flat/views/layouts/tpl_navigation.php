@@ -90,9 +90,9 @@ if (isset($_GET['card'])) {
                                     )
                                 ),
                                 array(
-                                    'label' => 'Facturacion*', 'url' => '#', 
-                                    'visible' => $admin, 
-                                    'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 
+                                    'label' => 'Facturacion*', 'url' => '#',
+                                    'visible' => $admin,
+                                    'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"),
                                     'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                                     'items' => array(
                                         array('label' => 'Asignar', 'url' => array('#')),
@@ -159,17 +159,17 @@ if (isset($_GET['card'])) {
     <div class="user">
         <div class="dropdown">
             <?php
-            $avatar = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value;
-            if($avatar != ''){
+            $avatar = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar');
+            if (isset($avatar)) $avatar = $avatar->value;
+            else $avatar = '';
+            if ($avatar != '') {
                 $profPic = $avatar;
-            }else{
+            } else {
                 $profPic = $baseUrl . '/img/avatars/user.png';
             }
-            $var = !Yii::app()->user->isGuest ? ( 
-                    Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ? 
-                        Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : 
-                        Yii::app()->user->name 
-                ) : "Invitado";
+            $var = !Yii::app()->user->isGuest ? (Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ?
+                Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') :
+                Yii::app()->user->name) : "Invitado";
 
             $this->widget('zii.widgets.CMenu', array(
                 'htmlOptions' => array('class' => 'main-nav'),
@@ -177,9 +177,9 @@ if (isset($_GET['card'])) {
                 'encodeLabel' => false,
                 'items' => array(
                     array(
-                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="30" src="'.$profPic.'" alt="">',
+                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="30" src="' . $profPic . '" alt="">',
                         'url' => '#', 'visible' => $visible,
-                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 
+                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"),
                         'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                         'items' => array(
                             array('label' => 'Bitacora', 'url' => array('/pcue'), 'visible' => Yii::app()->user->checkAccess('controller_pcue')),
@@ -264,7 +264,7 @@ if (isset($_GET['card'])) {
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo Yii::app()->createUrl("tccn/delete")?>" + "?id=" + $(this).attr('id'),
+                url: "<?php echo Yii::app()->createUrl("tccn/delete") ?>" + "?id=" + $(this).attr('id'),
                 beforeSend: function(xhr) {
                     jQuery('#progress').attr('style', 'width:100%');
 
@@ -284,7 +284,7 @@ if (isset($_GET['card'])) {
     function removerAll() {
         // alert("removiendo");
         $.ajax({
-            url: "<?php echo Yii::app()->createUrl("tccn/remove")?>",
+            url: "<?php echo Yii::app()->createUrl("tccn/remove") ?>",
             beforeSend: function(xhr) {
                 jQuery('#progress').attr('style', 'width:100%');
 

@@ -22,6 +22,10 @@
             </div>
             <div class="box-content nopadding">
                 <?php
+                $avatar = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar');
+                if(isset($avatar)) $avatar = $avatar->value;
+                if($avatar == '') $avatar = Yii::app()->theme->baseUrl.'/img/avatars/user.png';
+
                 $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'crugestoreduser-form',
                     'htmlOptions' => array('class' => 'form-horizontal form-bordered'),
@@ -32,7 +36,7 @@
                 <div class="col-sm-2">
                     <div style="padding:30px 0px 0px 22px">
                         <div class="thumbnail" id="imagenpreview" style="width: 125px; height:125px; border:none; border-radius: 6px">
-                            <img id="imgperfil" src="<?php echo Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value; ?>" alt="<?php echo Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value; ?>">
+                            <img id="imgperfil" src="<?php echo $avatar; ?>" alt="avatar">
                         </div>
 
                         <div id="upload-demo" class="hide"></div>
