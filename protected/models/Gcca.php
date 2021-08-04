@@ -63,7 +63,7 @@ class Gcca extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('GCCD_Id, GCCA_Cod, GCCA_Nombre, GCCA_Direccion, GCCA_Status, GCCA_Rif, GCCA_Responsable, GCCA_Telefono,GCCA_Email', 'required'),
-            array('GCCA_Cod', 'unique'),
+            array('GCCA_Cod', 'unique','on'=>'insert'),
             array('GCCA_Status', 'numerical', 'integerOnly' => true),
             array('GCCD_Id', 'length', 'max' => 10),
              array('GCCA_Direccion', 'length', 'max' => 160),

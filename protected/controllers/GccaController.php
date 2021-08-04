@@ -10,6 +10,36 @@ class GccaController extends Controller
 
 
 
+	public function actionAssign()
+	{
+
+		$val1 = $_GET['val1'];
+		$val2 = $_GET['val2'];
+
+		$model = $this->loadModel($val1, $val2);
+
+		if ($model->GCCA_Status == 0) {
+			
+			$model->GCCA_Status = 1;
+			$estado = '<i class="fa fa-check"></i> Activa';
+		} else if ($model->GCCA_Status == 1) {
+			
+			$model->GCCA_Status = 2;
+			$estado = '<i class="fa fa-eye-slash"></i> Oculta';
+		} else if ($model->GCCA_Status == 2) {
+			
+			$model->GCCA_Status = 0;
+			$estado = '<i class="fa fa-times"></i> Inactiva';
+			
+		}
+		if ($model->save()) {
+			echo $estado;
+		} else {
+			echo "Error";
+			print_r($model->getErrors());
+		}
+	}
+
 	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
@@ -90,7 +120,8 @@ class GccaController extends Controller
 		if (isset($_POST['Gcca'])) {
 			$model->attributes = $_POST['Gcca'];
 			if ($model->save())
-				$this->redirect(array('view', 'id' => $model->GCCA_Id));
+				// $this->redirect(array('view', 'id' => $model->GCCA_Id));
+				$this->redirect(array('fcco/agencia', 'id' => $model->GCCA_Id, 'type' => 'completed'));
 		}
 
 		$this->render('update', array(

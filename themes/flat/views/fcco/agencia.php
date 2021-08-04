@@ -1,6 +1,31 @@
 <?php
 /* @var $this FccoController */
 /* @var $model Fcco */
+$botonEstado = Yii::app()->user->checkAccess('action_gcca_assign') ?
+    CHtml::link(
+        $agencia->GCCA_Status == 1 ?
+            "<i class=\"fa fa-check\"></i> Activa" : ($agencia->GCCA_Status == 2 ? "<i class='fa fa-eye-slash'></i> Oculta" :
+                "<i class=\"fas fa-print\"></i>  Inactiva"),
+        '#',
+        array(
+            'class' => "btn not-link",
+            'id' => 'agenciabtn',
+            'name' => 'agenciabtn',
+            'onClick' => CHtml::ajax(array(
+                'type' => 'GET',
+                'url' => array("gcca/assign", 'val1' => $agencia->GCCA_Id, 'val2' => $agencia->GCCD_Id),
+                'beforeSend' => "function(){
+                                $('#agenciabtn').prop('disabled', 'disabled');                                
+
+                            }",
+                'success' => "function( data ){
+                                $('#agenciabtn').html(data);   
+                                // $('#agenciabtn').prop('disabled', false);                                
+                            }"
+            ))
+        )
+    ) : '';
+
 
 $this->breadcrumbs = array(
     'Fccos' => array('index'),
@@ -29,13 +54,29 @@ foreach ($count as $key => $value) {
 <!-- Informacion Basica  -->
 
 <div class="row">
-    <div class="col-sm-8">
-        <div class="box box-bordered box-color print">
-            <div class="box-title" style="">
+    <div class="col-sm-12">
+        <div class="box ">
+            <div class="box-title">
                 <h3>
 
-                    <i class="fa fa-th-list"></i>Agencia <?php echo $agencia->concatened; ?>
+                    <!-- <i class="fa fa-view"></i>-->
+                    <i class="fa fa-desktop"></i>
+                    AGENCIA <?php echo $agencia->concatened; ?>
                 </h3>
+                <!-- <br /> -->
+
+                <div class="actions">
+
+                    <?php echo $botonEstado; ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="box box-bordered box-color box-small print">
+            <div class="box-title nomargin">
+                <h3><i class="fa fa-th-list"></i> Datos Basicos</h3>
             </div>
 
 
@@ -45,13 +86,14 @@ foreach ($count as $key => $value) {
                 'htmlOptions' => array('class' => 'table table-hover table-nomargin table-condensed', 'style' => ''),
                 'attributes' => array(
                     //'GCCA_Id',
-                    
+
                     'GCCA_Cod',
                     'GCCA_Nombre',
                     array('name' => 'GCCD_Id', 'value' => $agencia->gCCD->concatened),
                     'GCCA_Direccion',
                     // 'GCCA_Status',
-                    array('name' => 'GCCA_Status', 'value' => $agencia->GCCA_Status == 1 ? "Activva" : "Inactiva"),
+                    array('name' => 'GCCA_Status', 'value' =>$agencia->GCCA_Status == 1 ? "Activa" : ($agencia->GCCA_Status == 2 ? "Oculta" : "Inactiva")
+                ),
                     'GCCA_Rif',
                     'GCCA_Responsable',
                     'GCCA_Telefono',
@@ -60,18 +102,34 @@ foreach ($count as $key => $value) {
             ?>
         </div>
     </div>
-            <div class="col-sm-4">
-                <div class="page-header">
-                    <div class="pull-right">
-                        <ul class="minitiles">
-                            <li class="orange">
-                                <a href="<?php echo Yii::app()->createUrl('fcco/agencia', array('id' => $model->gCCA->GCCA_Id, 'excel' => true)) ?>">
-                                    <i class="fa fa-download"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+    <div class="col-sm-6 hide" style="margin-top: 20px;">
+
+        <ul class="stats">
+            <li class="blue">
+                <i class="fa fa-shopping-cart"></i>
+                <div class="details">
+                    <span class="big">75</span>
+                    <span>Equipos</span>
                 </div>
-            </div>
+            </li>
+            <li class="green">
+                <i class="fa fa-money"></i>
+                <div class="details">
+                    <span class="big">24</span>
+                    <span>Conexiones</span>
+                </div>
+            </li>
+            <li class="orange">
+                <i class="fa fa-calendar"></i>
+                <div class="details">
+                    <span class="big">0</span>
+                    <span>Publicidad</span>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
 </div>
 
 
@@ -103,7 +161,7 @@ foreach ($count as $key => $value) {
 
 
 <!-- Activos Asignados -->
-<div class="box box-bordered box-color hidden-print">
+<div class="box box-bordered box-color box-small hidden-print">
     <div class="box-title">
         <a target="_blank" href="<?php echo Yii::app()->createUrl("gcca/view", array("id" => $agencia->GCCA_Id)) ?>">
             <h3>
@@ -229,12 +287,17 @@ foreach ($count as $key => $value) {
 <!-- Historial de Asignaciones Previas -->
 
 
-<div class="box box-bordered box-color print">
+<div class="box box-bordered box-color box-small green print">
     <div class="box-title">
         <a>
             <h3><i class="fa fa-search"></i>
                 Historial de Asignaciones Previas
             </h3>
+            <div class="actions">
+                <a class='btn btn-sm' href="<?php echo Yii::app()->createUrl('gcca/view', array('id' => $model->GCCA_Id, 'excel' => true)) ?>">
+                    <i class="fa fa-download"></i> Descargar </a>
+
+            </div>
         </a>
     </div>
     <div class="box-content nopadding">
