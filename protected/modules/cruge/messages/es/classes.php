@@ -84,7 +84,8 @@ return array(
     'action_gcca_view' => 'Ver Agencia',
     'action_gcca_update' => 'Actualizar Agencia',
     'action_gcca_index' => 'X',
-    'action_gcca_delete' => 'Desactivar Agencia',
+    'action_gcca_assign'=>'Activar/Inactivar Agencia',
+    'action_gcca_delete' => 'Ocultar Agencia',
     'action_gcca_create' => 'Crear Agencia',
     'action_gcca_admin' => 'Administrar Agencias',
     

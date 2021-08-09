@@ -123,7 +123,10 @@ class Gcca extends CActiveRecord {
         $criteria->compare('GCCA_Rif', $this->GCCA_Rif, true);
         $criteria->compare('GCCA_Responsable', $this->GCCA_Responsable, true);
         $criteria->compare('GCCA_Telefono', $this->GCCA_Telefono, true);
-         $criteria->compare('GCCA_Email', $this->GCCA_Email, true);
+        $criteria->compare('GCCA_Email', $this->GCCA_Email, true);
+
+        if (!Yii::app()->user->isSuperAdmin)
+        $criteria->addInCondition('GCCA_Status',array(0,1,2));
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

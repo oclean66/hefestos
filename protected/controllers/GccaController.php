@@ -22,12 +22,8 @@ class GccaController extends Controller
 			
 			$model->GCCA_Status = 1;
 			$estado = '<i class="fa fa-check"></i> Activa';
-		} else if ($model->GCCA_Status == 1) {
-			
-			$model->GCCA_Status = 2;
-			$estado = '<i class="fa fa-eye-slash"></i> Oculta';
-		} else if ($model->GCCA_Status == 2) {
-			
+		} else {
+					
 			$model->GCCA_Status = 0;
 			$estado = '<i class="fa fa-times"></i> Inactiva';
 			
@@ -136,18 +132,16 @@ class GccaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$object = $this->loadModel($id);
-		if ($object->GCCA_Status == 0) {
-			$object->GCCA_Status = 1;
-		} else {
-			$object->GCCA_Status = 0;
-		}
+		$object = $this->loadModel($id);		
+		$object->GCCA_Status = 2;
+		$object->GCCA_Cod = "D-".$object->GCCA_Cod;
 		$object->save();
 		// ->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if (!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('fcco/agencia', 'id' => $object->GCCA_Id, 'type' => 'completed'));
+
 	}
 
 

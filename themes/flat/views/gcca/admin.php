@@ -38,7 +38,14 @@ $this->menu = array(
                 array(
                     'name' => 'GCCA_Status',
                     'header' => 'Estado',
-                    'value' => '($data->GCCA_Status==0?"<i class=\"fa fa-times\"></i>":($data->GCCA_Status==1?"<i class=\"fa fa-check\"></i>":($data->GCCA_Status==3?"<i class=\"fa fa-eye-slash\"></i>":"<i class=\"fas fa-print\"></i>")))." ".$data->GCCA_Id',
+                    'value' => '($data->GCCA_Status==0?
+                    "<i class=\"fa fa-times\"></i>":
+                        ($data->GCCA_Status==1?
+                        "<i class=\"fa fa-check\"></i>":
+                        ($data->GCCA_Status==2?
+                        "<i class=\"fa fa-eye-slash\"></i>":
+                        "<i class=\"fa fa-warning\"></i>"
+                        )))." ".$data->GCCA_Id',
                     'type' => 'raw',
                     'filter' => CHtml::dropDownList(
                         'Gcca[GCCA_Status]',
@@ -46,7 +53,7 @@ $this->menu = array(
                         array(
                             '0' => " Inactivas",
                             "1" => "Activas",
-                            "2" => "Oculta"
+                            "2" => "Ocultas"
                         ),
                         array('empty' => 'Todas')
                     ),
@@ -84,6 +91,7 @@ $this->menu = array(
                         'view' => array(
                             'imageUrl' => false,
                             'label' => '<i class="fa fa-eye"></i>',
+                            'visible' => 'Yii::app()->user->checkAccess("action_fcco_agencia")',
                             'url' => 'Yii::app()->createUrl("fcco/agencia",array("id"=>$data->GCCA_Id,"type"=>$data->GCCA_Id))',/* 'Yii::app()->createUrl("gcca/view/",array("id"=>$data->GCCA_Id))', */
                             'options' => array('target' => '_blank', 'class' => 'not-link btn btn-sm btn-orange', 'title' => 'Detalles'),
                         ),
@@ -95,11 +103,11 @@ $this->menu = array(
                             'imageUrl' => false,
                         ),
                         'delete' => array(
-                            'label' => '<i class="fa fa-trash-o"></i> Eliminar',
+                            'label' => '<i class="fa fa-trash-o"></i> Ocultar',
                             'visible' => 'Yii::app()->user->checkAccess("action_gcca_delete")',
                             'url' => 'Yii::app()->createUrl("gcca/delete/", array("id"=>$data->GCCA_Id))',
                             'imageUrl' => false,
-                            'options' => array('class' => 'not-link btn btn-sm btn-danger', 'title' => 'Eliminar'),
+                            'options' => array('class' => 'not-link btn btn-sm btn-danger', 'title' => 'Ocultar'),
                         )
                     ),
                 ),

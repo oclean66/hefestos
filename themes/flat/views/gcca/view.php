@@ -4,10 +4,8 @@
 $botonEstado = Yii::app()->user->checkAccess('action_gcca_assign') ?
 	CHtml::link(
 		$model->GCCA_Status == 1 ?
-			"<i class=\"fa fa-check\"></i> Activa" : (
-				$model->GCCA_Status == 2 ? "<i class='fa fa-eye-slash'></i> Oculta" :
-				"<i class=\"fas fa-print\"></i>  Inactiva"
-			),
+			"<i class=\"fa fa-check\"></i> Activa" : ($model->GCCA_Status == 2 ? "<i class='fa fa-eye-slash'></i> Oculta" :
+				"<i class=\"fas fa-print\"></i>  Inactiva"),
 		'#',
 		array(
 			'class' => "btn not-link",
@@ -35,11 +33,32 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
 	//array('label'=>'List Gcca', 'url'=>array('index')),
-	array('label' => 'Crear Agencia', 'url' => array('create')),
-	array('label' => 'Activos de Agencia', 'url' => Yii::app()->createUrl('fcco/agencia', array('id' => $model->GCCA_Id, 'type' => 1))),
-	array('label' => 'Actualizar Agencia', 'url' => array('update', 'id' => $model->GCCA_Id)),
-	array('label' => 'Borrar Agencia', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->GCCA_Id), 'confirm' => 'Are you sure you want to delete this item?')),
-	array('label' => 'Administrar Agencias', 'url' => array('admin')),
+	// array('label' => 'Crear Agencia', 'url' => array('create')),
+	array(
+		'label' => 'Ver Activos de Agencia',
+		'url' => Yii::app()->createUrl('fcco/agencia', array('id' => $model->GCCA_Id, 'type' => 1)),
+		'visible' => Yii::app()->user->checkAccess("action_fcco_agencia")
+
+	),
+	array(
+		'label' => 'Actualizar Agencia',
+		'url' => array('update', 'id' => $model->GCCA_Id),
+		'visible' => Yii::app()->user->checkAccess("action_gcca_update")
+	),
+	array(
+		'label' => 'Ocultar Agencia',
+		'url' => '#',
+		'linkOptions' => array(
+			'submit' => array('delete', 'id' => $model->GCCA_Id),
+			'confirm' => 'Seguro quieres OCULTAR esta agencia?'
+		),
+		'visible' => Yii::app()->user->checkAccess("action_gcca_delete")
+	),
+	array(
+		'label' => 'Administrar Agencias',
+		'url' => array('admin'),
+		'visible' => Yii::app()->user->checkAccess("action_gcca_admin")
+	),
 );
 ?>
 <div class="row">
