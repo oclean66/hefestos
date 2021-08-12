@@ -30,6 +30,18 @@ class Gcca extends CActiveRecord {
         return parent::model($className);
     }
     
+    public function getComments(){
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id", array(':id'=>$this->GCCA_Id));
+        return $comments;
+    }
+
+    public function setComment($content){
+
+        $comment = new PCUE;
+        $comment->PCUE_Detalles = $content;
+
+        return $comment;
+    }
     public function getEstadisticas(){
         $stats['Equipos'] = Yii::app()->db->createCommand("Select count(*) as Equipos from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcuu.FCUU_Id = 1 ")->queryRow();
         $stats['Herramientas'] = Yii::app()->db->createCommand("Select count(*) as Herramientas from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcuu.FCUU_Id = 5 ")->queryRow();
