@@ -159,12 +159,17 @@ foreach ($count as $key => $value) {
                 </table>
 
             </div>
-            <form action="#" method="POST" class="form-vertical" style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f" onsubmit="event.preventDefault();  comentar();">
+            <form 
+            action="<?php echo Yii::app()->createUrl('/fcco/agencia',array( 'id'=> $agencia->GCCA_Id, 'type' => 1));?>" 
+            method="POST" 
+            class="form-vertical" 
+            style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f" 
+            >
                 <div class="form-group" style="padding:5px; margin:0">
 
                     <div class="input-group">
 
-                        <input id="comentInput" card="89" type="text" placeholder="Escribe un comentario.." class="form-control">
+                        <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." class="form-control">
                         <div class="input-group-btn">
                             <button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
                         </div>

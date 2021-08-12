@@ -435,8 +435,17 @@ class FccoController extends Controller
 
     public function actionAgencia($id, $type = null, $print = false, $excel = false)
     {
-
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
+
+
+        //Si envian un comentario
+        if(isset($_POST['comment'])){
+            // print_r($_POST['comment']);
+            $comentario = $agencia->setComment($_POST['comment']);
+            print_r($comentario);
+
+        }
+
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
         $model->GCCA_Id = $id;
