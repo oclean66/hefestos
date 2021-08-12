@@ -63,7 +63,7 @@ class Gcca extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('GCCD_Id, GCCA_Cod, GCCA_Nombre, GCCA_Direccion, GCCA_Status, GCCA_Rif, GCCA_Responsable, GCCA_Telefono,GCCA_Email', 'required'),
-            array('GCCA_Cod', 'unique'),
+            array('GCCA_Cod', 'unique','on'=>'insert'),
             array('GCCA_Status', 'numerical', 'integerOnly' => true),
             array('GCCD_Id', 'length', 'max' => 10),
              array('GCCA_Direccion', 'length', 'max' => 160),
@@ -123,7 +123,10 @@ class Gcca extends CActiveRecord {
         $criteria->compare('GCCA_Rif', $this->GCCA_Rif, true);
         $criteria->compare('GCCA_Responsable', $this->GCCA_Responsable, true);
         $criteria->compare('GCCA_Telefono', $this->GCCA_Telefono, true);
-         $criteria->compare('GCCA_Email', $this->GCCA_Email, true);
+        $criteria->compare('GCCA_Email', $this->GCCA_Email, true);
+
+        if (!Yii::app()->user->isSuperAdmin)
+        $criteria->addInCondition('GCCA_Status',array(0,1,2));
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

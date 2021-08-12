@@ -15,7 +15,7 @@ if (isset($_GET['card'])) {
 
 
 
-    <a href="<?php echo $this->createUrl('site/index') ?>" id="brand">Hefestos</a>
+    <a href="<?php echo $this->createUrl('/site/index') ?>" id="brand">Hefestos</a>
 
     <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Menu">
         <i class="fa fa-bars"></i>
@@ -177,7 +177,7 @@ if (isset($_GET['card'])) {
                 'encodeLabel' => false,
                 'items' => array(
                     array(
-                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="30" src="'.$profPic.'" alt="">',
+                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="25" src="'.$profPic.'" alt="">',
                         'url' => '#', 'visible' => $visible,
                         'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 
                         'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),

@@ -120,18 +120,17 @@
                 <?php echo $form->error($model, 'GCCA_Email', array('class' => 'label label-danger')); ?>
             </div>
         </div>
-        <div class="form-group">
-            <?php echo $form->labelEx($model, 'GCCA_Status', array('class' => 'control-label col-sm-2')); ?>
-            <div class="col-sm-10">
-                <?php
-                if (Yii::app()->user->checkAccess('webmaster')) {
-                    echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactivo', '1' => "Activa", "2" => "Oculta"), array('empty' => 'Sin Grupo', 'class' => ''));
-                } else
-                    echo $form->labelEx($model, $model->GCCA_Status == 0 ? "Inactiva" : ($model->GCCA_Status == 1 ? "Activa" : "Oculta"), array('class' => '')); ?>
+        <?php if (Yii::app()->user->isSuperAdmin) { ?>
+            <div class="form-group">
+                <?php echo $form->labelEx($model, 'GCCA_Status', array('class' => 'control-label col-sm-2')); ?>
+                <div class="col-sm-10">
+                    <?php
 
+                    echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactivo', '1' => "Activa", "2" => "Oculta", "3"=>"Borrado"));
+                    ?>
+                </div>
             </div>
-        </div>
-
+        <?php } ?>
         <div class="form-actions col-sm-offset-2 col-sm-10">
             <?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar', array('class' => 'btn btn-primary')); ?>
         </div>

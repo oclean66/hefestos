@@ -2,10 +2,32 @@
 /* @var $this FccoController */
 /* @var $model Fcco */
 
-$this->breadcrumbs = array(
-    'Fccos' => array('index'),
-    'Administrar',
-);
+$xx = Yii::app()->user->checkAccess('action_gccd_assign') ?
+    CHtml::link(
+        $grupo->GCCD_Estado == 1 ? "<i class='fa fa-check'></i>Activo" : ($grupo->GCCD_Estado == 2 ? "<i class='fa fa-eye-slash'></i> Oculto" : "<i class=\"fa fa-times\"></i> Inactivo"),
+        '#',
+        array(
+            'class' => 'btn btn-mini',
+            'id' => 'grupobtn',
+            'name' => 'grupobtn',
+            'onClick' => CHtml::ajax(
+                array(
+                    'type' => 'GET',
+                    'url' => array("gccd/assign", 'val1' => $grupo->GCCD_Id),
+                    'beforesend' => "function(){
+                $('#grupobtn').prop('disabled', true);                                
+                
+            }",
+                    'success' => "function( data ){
+                $('#grupobtn').html(data);                                        
+                $('#grupobtn').prop('disabled', false);                                
+            }",
+                )
+            ),
+        )
+    ) : '';
+
+
 
 $this->menu = array(
     array('label' => 'Ver grupo padre', 'visible' => isset($grupo->GCCD_IdSuperior),
@@ -17,12 +39,65 @@ foreach ($count as $key => $value) {
 }
 ?>
 
+<div class="row">
+	<!-- Cabecera -->
+	<div class="col-sm-12">
+		<div class="box ">
+			<div class="box-title">
+				<h3>
+
+					<!-- <i class="fa fa-view"></i>-->
+					<i class="fa fa-users"></i>
+					GRUPO <?php echo $grupo->concatened; ?>
+				</h3>
+				<!-- <br /> -->
+
+				<div class="actions">
+
+					<?php echo $xx; ?>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 ">
+		<div class="box box-bordered box-small green box-color">
+			<div class="box-title nomargin">
+				<h3>
+				<i class="fa fa-th-list"></i> Datos Basicos
+				</h3>
+			</div>
 
 
-<div class="box box-bordered box-color">
+			<?php $this->widget('zii.widgets.CDetailView', array(
+				'data' => $grupo,
+				'id' => 'view',
+				'htmlOptions' => array('class' => 'table table-hover table-nomargin table-condensed'),
+				'attributes' => array(
+					'GCCD_Id',
+					'GCCD_Cod',
+					'GCCD_Nombre',
+					array('name' => 'GCCD_IdSuperior', 'value' => isset($grupo->GCCD_IdSuperior) ? $grupo->gCCDIdSuperior->concatened : "Sin Padre"),
+
+					array(
+						'name' => 'GCCD_Estado',
+						'value' => $grupo->GCCD_Estado == 1 ? "Activa" : ($grupo->GCCD_Estado == 2 ? "Oculto": "Inactivo")
+					),
+					'GCCD_Responsable',
+					'GCCD_Telefono',
+				),
+			)); ?>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="box box-bordered box-color box-small">
     <div class="box-title">
         <h3>
-            <i class="fa fa-th-list"></i>Grupo <?php echo '(' . $grupo->GCCD_Id . ') ' . $grupo->getConcatened(); ?></h3>
+            <i class="fa fa-th-list"></i> Total de Asignaciones Activas
+        </h3>
     </div>
     <div class="box-content nopadding" >
 
@@ -59,7 +134,7 @@ foreach ($count as $key => $value) {
                     'value' => '$data->fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion',
                 ),
                 // array(
-                //     'name' => 'FCCA_Descripcion', 'header' => 'Tipo',
+                //     'name' => 'FCCA_Descripcion', 'header' => 'Tipo', 
                 //     'filter' => CHtml::activeTextField($model, 'FCCA_Descripcion'),
                 //     'value' => '$data->fCCU->fCCT->fCCA->FCCA_Descripcion',
                 // ),
@@ -70,8 +145,10 @@ foreach ($count as $key => $value) {
                 ),
                 array(
                     'name' => 'GCCA_Nombre', 'header' => 'Agencia',
-                    'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'),
+                    'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'), 
                     'value' => '$data->gCCA->GCCA_Nombre',
+                    'type'=>'raw',
+                    'value'=>'CHtml::link($data->gCCA->GCCA_Nombre, array("fcco/agencia","id"=>$data->GCCA_Id, "type"=>"view"))',
                 ),
                  array(
                    'name' => 'GCCD_Nombre', 'header' => 'Grupo',

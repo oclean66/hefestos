@@ -28,15 +28,9 @@
     $cols[] = array(
         'class' => 'CButtonColumn',
         'header' => 'Acciones',
-        'template' => '<div class="btn group">
-                            <a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
-                                <i class="fa fa-bars"></i>
-                            </a>
-                            <ul class="dropdown-menu pull-right" style="min-width:0">
-                                <li>{update}</li>
-                                <li>{eliminar}</li>
-                            </ul>
-                        </div>',
+        'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:160px'),
+
+        'template' => '<div class="btn-group">{update}{eliminar}</div>',
         'deleteConfirmation' => CrugeTranslator::t('admin', 'Are you sure you want to delete this user'),
         'buttons' => array(
             'update' => array(

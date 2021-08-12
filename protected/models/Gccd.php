@@ -182,7 +182,7 @@ class Gccd extends CActiveRecord {
         $criteria->compare('GCCD_Cod', $this->GCCD_Cod, true);
         $criteria->compare('GCCD_Nombre', $this->GCCD_Nombre, true);
         $criteria->compare('GCCD_IdSuperior', $this->GCCD_IdSuperior, false);
-        $criteria->compare('GCCD_Estado', 1);
+        $criteria->compare('GCCD_Estado', $this->GCCD_Estado, false);
         $criteria->compare('GCCD_Responsable', $this->GCCD_Responsable, true);
         $criteria->compare('GCCD_Telefono', $this->GCCD_Telefono, true);
 

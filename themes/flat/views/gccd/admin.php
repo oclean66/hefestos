@@ -15,7 +15,7 @@ $this->menu = array(
         <div class="box-title">
             <h3>
                 <i class="fa fa-users"></i>
-               Administrar Grupos               
+                Administrar Grupos
             </h3>
         </div>
         <div class="box-content nopadding">
@@ -35,22 +35,34 @@ $this->menu = array(
                 'ajaxUpdate' => true,
                 'columns' => array(
                     //array('name' => 'GCCD_Cod', 'header' => 'Codigo'),
-                    array('name' => 'GCCD_Cod',
+                    array(
+                        'name' => 'GCCD_Cod',
                         'value' => 'CHtml::link($data->GCCD_Cod, Yii::app()->createUrl("fcco/grupo",array("id"=>$data->GCCD_Id,"type"=>$data->GCCD_Id)))',
-                        'type' => 'raw'),
+                        'type' => 'raw'
+                    ),
                     array('name' => 'GCCD_Nombre', 'header' => 'Nombre'),
                     array(
-                        'name' => 'GCCD_IdSuperior','header'=>'Padre',
+                        'name' => 'GCCD_IdSuperior', 'header' => 'Padre',
                         'value' => '$data->GCCD_IdSuperior==null ? "" : $data->gCCDIdSuperior->concatened',
                         'filter' => CHtml::listData(Gccd::model()->findAll('1 order by GCCD_Cod'), 'GCCD_Id', 'concatened'),
                     ),
-                    array('name' => 'GCCD_Estado', 'header' => 'Estado',  'value' => '$data->GCCD_Estado==1 ? "Activa" : "Inactiva"',),
+                    array(
+                        'name' => 'GCCD_Estado',
+                        'header' => 'Estado',
+                        'value' => '$data->GCCD_Estado==1 ? "Activa" : ($data->GCCD_Estado==2 ? "Oculta" : "Inactiva") ',
+                        'filter' => array(
+                            '' => 'Todos',
+                            '0' => 'Inactivos',
+                            '1' => 'Activos',
+                            '2' => 'Ocultos',
+                        ),
+                    ),
                     // array('name' => 'GCCD_Responsable', 'header' => 'Responsable'),
                     // array('name' => 'GCCD_Telefono', 'header' => 'Telefono'),
                     array(
                         'class' => 'CButtonColumn',
                         'header' => 'Acciones',
-                        'headerHtmlOptions'=>array('class' => 'remover', 'style'=>'width:100px'),
+                        'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:100px'),
                         'template' => '{view}
                                             <div class="btn-group">
                                                 <a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">

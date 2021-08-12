@@ -8,6 +8,30 @@ class GccdController extends Controller {
      */
     public $layout = '//layouts/column2';
 
+    public function actionAssign()
+    {
+
+        $id = $_GET['val1'];
+        //   echo $id;
+        $model = $this->loadModel($id);
+
+        if ($model->GCCD_Estado == 0) {
+            $model->GCCD_Estado = 1;
+            $estado = '<i class="fa fa-check"></i> Activos';
+        } else if ($model->GCCD_Estado == 1) {
+            $model->GCCD_Estado = 2;
+            $estado = '<i class="fa fa-eye-slash"></i> Oculta';
+        } else if ($model->GCCD_Estado == 2) {
+            $model->GCCD_Estado = 0;
+            $estado = '<i class="fa fa-times"></i> Inactivo';
+        } 
+        if ($model->save()) {
+            echo $estado;
+            // echo $model->GCCD_Estado;
+            // echo  $model->getErrors();
+        }
+    }
+
     public function actionRellenarmodos() {
         //print_r($_POST);
         $id = $_POST['Fcco']['GCCD_Id'];
