@@ -444,6 +444,26 @@ class FccoController extends Controller
             $comentario = $agencia->setComment($_POST['comment']);
             print_r($comentario);
 
+            /* $comment = New Pcue;
+            $comment->PCUE_Model = "Gcca";
+            $comment->PCUE_IdModel = $agencia;
+            $comment->PCUE_Descripcion = "Usuario comento en la agencia";
+            $comment->PCUE_Action = "Comentar";
+            $comment->PCUE_Field = "TODOS";
+            $comment->PCUE_Date = date("Y-m-d H:i");
+            $comment->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+            $comment->PCUE_Detalles = $_POST['comment']; */
+
+            $comment = new Pcue;
+            $comment->PCUE_Descripcion = 'Usuario comento en la agencia';
+            $comment->PCUE_Action = 'COMENTAR';
+            $comment->PCUE_Model = 'Gcca' ;
+            $comment->PCUE_IdModel = $agencia->GCCA_Id;
+            $comment->PCUE_Field = 'TODOS';
+            $comment->PCUE_Date = date("Y-m-d H:i");
+            $comment->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+            $comment->PCUE_Detalles = $_POST['comment'];
+            $comment->save();
         }
 
         $model = new Fcco('search');

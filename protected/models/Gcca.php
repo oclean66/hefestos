@@ -31,13 +31,19 @@ class Gcca extends CActiveRecord {
     }
     
     public function getComments(){
-        $comments = Pcue::model()->findAll("PCUE_IdModel = :id", array(':id'=>$this->GCCA_Id));
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Action='COMENTAR'", array(':id'=>$this->GCCA_Id));
         return $comments;
     }
 
     public function setComment($content){
 
         $comment = new PCUE;
+        /* $comment->PCUE_Descripcion = 'Usuario comento en la agencia';
+        $comment->PCUE_Action = 'COMENTAR';
+        $comment->PCUE_IdModel = $this->GCCA_Id;
+        $comment->PCUE_Field = 'TODOS';
+        $comment->PCUE_Date = date("Y-m-d H:i");
+        $comment->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name; */
         $comment->PCUE_Detalles = $content;
 
         return $comment;

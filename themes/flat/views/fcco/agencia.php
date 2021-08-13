@@ -137,7 +137,7 @@ foreach ($count as $key => $value) {
                 <table class="table table-nohead" id="activityTable">
                     <tbody>
                         <?php foreach ($agencia->comments as $value) {
-                            echo "<tr><td>12 Comentario</td></tr>";
+                            echo "<tr><td>". date("Y-m-d H:i", strtotime($value->PCUE_Date)) ."</b> ". $value->PCUE_Descripcion ." - ". $value->PCUE_Detalles ."</td></tr>";
                         }?>
                         <?php  ?>
                         <?php echo "<tr><td>11 Comentario</td></tr>"; ?>
@@ -519,3 +519,20 @@ foreach ($count as $key => $value) {
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<script>
+    function comentar(){
+        $.ajax({
+            url: 'comment',
+            type: "POST",
+            data:{
+                comment: $('#comentInput').val()
+            },
+            beforeSend: function(){
+                $('#commentSend').prop("disabled", true);
+				$('#comentInput').prop("disabled", true);
+				$('#commentSend').html("Enviando.."); 
+            }
+        })
+    }
+</script>
