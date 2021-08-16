@@ -258,8 +258,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'preview' => array(
                     'label' => 'Ver Ticket',
                     'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->GCCA_Id))',
-                    'imageUrl' => Yii::app()->theme->baseUrl . "/img/file.png",
+                    'imageUrl' => false,
+                    'label' => '<i class="fa fa-file"></i>',
+
                     'options' => array(
+                        'class' => 'not-link btn btn-sm btn-orange', 
+                        'title' => 'Ver Ticket',
                         'ajax' => array(
                             'type' => 'GET',
                             // ajax post will use 'url' specified above
@@ -285,3 +289,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
     ),
 ));
 ?>
+
+<script>
+    $('#activity').scrollTop( $('#activityTable').height());
+   
+</script>

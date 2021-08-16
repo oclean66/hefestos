@@ -26,7 +26,7 @@ class Gcca extends CActiveRecord
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return Gcca the static model class
-     */
+     */ 
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -34,20 +34,21 @@ class Gcca extends CActiveRecord
 
     public function getComments()
     {
-        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Action='COMENTAR' order by PCUE_Date asc", array(':id' => $this->GCCA_Id));
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Model = 'Agencia' order by PCUE_Date asc", array(':id' => $this->GCCA_Id));
         return $comments;
     }
 
     public function setComment($content)
     {
 
-        $comment = Pcue::model()->find("PCUE_Detalles =:pre", array(':pre' => $content));
+        $comment = Pcue::model()->find("PCUE_Detalles =:pre and PCUE_IdModel = :id and PCUE_Model = 'Agencia'", array(':pre' => $content, ':id' => $this->GCCA_Id));
         if (!isset($comment)) {
 
             $comment = new PCUE;
             $comment->PCUE_Descripcion = '';
             $comment->PCUE_Action = 'COMENTAR';
             $comment->PCUE_IdModel = $this->GCCA_Id;
+            $comment->PCUE_Model = "Agencia";
             $comment->PCUE_Field = 'TODOS';
             $comment->PCUE_Date = date("Y-m-d H:i:s");
             $comment->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
@@ -130,7 +131,7 @@ class Gcca extends CActiveRecord
             'GCCA_Cod' => 'Cod',
             'GCCA_Nombre' => 'Nombre',
             'GCCA_Direccion' => 'Direccion',
-            'GCCA_Status' => 'Status',
+            'GCCA_Status' => 'Estado',
             'GCCA_Rif' => 'Rif',
             'GCCA_Responsable' => 'Responsable',
             'GCCA_Telefono' => 'Telefono',

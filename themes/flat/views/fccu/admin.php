@@ -147,7 +147,7 @@
                             'imageUrl'=>false,
                             'options' => array(
                                 // 'target' => '_blank', 
-                                'class' => 'not-link btn btn-sm btn-satblue',
+                                'class' => 'not-link btn btn-sm btn-red',
                                 'title'=>'Reportar'    
                             ),
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_recibe") && $data->FCCI_Id == 5', // a PHP expression for determining whether the button is visible
