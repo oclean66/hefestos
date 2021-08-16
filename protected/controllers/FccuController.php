@@ -208,6 +208,7 @@ class FccuController extends Controller
         ignore_user_abort(true);
         set_time_limit(0);
 
+        $model = $this->loadModel($id);
         $modelo = new Fcco('search');
         $modelo->unsetAttributes();
         $modelo->desde = date('2000-01-01');
@@ -215,10 +216,17 @@ class FccuController extends Controller
 
         $modelo->FCCU_Id = $id;
         // da madre error de constraint ambiguos
+        if (isset($_POST['comment']) && $_POST['comment'] != '') {
 
+            $re = $model->setComment($_POST['comment']);
+            echo "<!-- Error ";
+            print_r($re);
+            echo " -->";
+            
+        }
 
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
             'modelo' => $modelo,
         ));
     }
