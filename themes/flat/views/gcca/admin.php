@@ -93,7 +93,11 @@ $this->menu = array(
                             'label' => '<i class="fa fa-eye"></i>',
                             'visible' => 'Yii::app()->user->checkAccess("action_fcco_agencia")',
                             'url' => 'Yii::app()->createUrl("fcco/agencia",array("id"=>$data->GCCA_Id,"type"=>$data->GCCA_Id))',/* 'Yii::app()->createUrl("gcca/view/",array("id"=>$data->GCCA_Id))', */
-                            'options' => array('target' => '_blank', 'class' => 'not-link btn btn-sm btn-orange', 'title' => 'Detalles'),
+                            'options' => array(
+                                'target' => '_blank', 
+                                'class' => 'not-link btn btn-sm btn-orange', 
+                                'title' => 'Detalles'
+                            ),
                         ),
                         'update' => array(
                             'label' => '<i class="fa fa-pencil"></i> Editar',

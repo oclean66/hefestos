@@ -124,7 +124,7 @@ foreach ($count as $key => $value) {
             ?>
         </div>
     </div>
-    <div class="col-sm-6 hide" style="margin-top: 0px;">
+    <div class="col-sm-6 " style="margin-top: 0px;">
 
         <div class="box box-color box-bordered orange box-small">
             <div class="box-title " style="margin: 0;">
@@ -136,20 +136,25 @@ foreach ($count as $key => $value) {
             <div class="box-content" id="activity" style="padding:0;min-height:165px;max-height: 165px;overflow: auto;">
                 <table class="table table-nohead" id="activityTable">
                     <tbody>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-
+                        <?php foreach ($agencia->comments as $value) {
+                            echo "<tr><td><b>". date("d M H:i", strtotime($value->PCUE_Date)) .": </b> ". $value->PCUE_Descripcion ." - ". $value->PCUE_Detalles ."</td></tr>";
+                        }?>
+                
                     </tbody>
                 </table>
 
             </div>
-            <form action="#" method="POST" class="form-vertical" style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f" onsubmit="event.preventDefault();  comentar();">
+            <form 
+            action="<?php echo Yii::app()->createUrl('/fcco/agencia',array( 'id'=> $agencia->GCCA_Id, 'type' => 1));?>" 
+            method="POST" 
+            class="form-vertical" 
+            style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f" 
+            >
                 <div class="form-group" style="padding:5px; margin:0">
 
                     <div class="input-group">
 
-                        <input id="comentInput" card="89" type="text" placeholder="Escribe un comentario.." class="form-control">
+                        <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." value="" class="form-control">
                         <div class="input-group-btn">
                             <button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
                         </div>
@@ -226,6 +231,13 @@ foreach ($count as $key => $value) {
                         'columns' => array(
                             array(
                                 'name' => 'FCCO_Timestamp',
+                                'header' => '',
+                                'type' => 'raw',
+                                'value' => '"<button class=\'btn btn-orange\'>".(++$row)."</button>"',
+                                'filter'=>false
+                            ),
+                            array(
+                                'name' => 'FCCO_Timestamp',
                                 'header' => 'Fecha de Asignacion',
                                 'type' => 'raw',
                                 'value' => 'date("d M Y" , strtotime($data->FCCO_Timestamp))."<br/>".date("h:i:s A" , strtotime($data->FCCO_Timestamp))'
@@ -274,42 +286,54 @@ foreach ($count as $key => $value) {
                             array(
                                 'class' => 'CButtonColumn',
                                 'header' => 'Accion',
+                                'headerHtmlOptions'=>array('style'=>'width:75px'),
                                 //'htmlOptions'=>array('class'=>'btn btn-primary'),
-                                'template' => '{preview}{recibe}',
+                                'template' => '<div class="btn-group">
+                                      {preview}
+                                      {recibe}
+                                    </div>',
                                 //-----------------------------------------------------------------------
                                 'buttons' => array(
                                     'preview' =>
                                     array(
                                         'label' => 'Ver Ticket',
+                                        
                                         'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>1,"view"=>1,"agencia"=>' . $agencia->GCCA_Id . '))',
-                                        'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
+                                        // 'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
+                                        'imageUrl' => false,
+                                        'label' => '<i class="fa fa-file"></i>',
+
                                         'options' => array(
+                                            'class' => 'not-link btn btn-sm btn-orange', 
+                                            'title' => 'Ver Ticket',
                                             'ajax' => array(
                                                 'type' => 'GET',
                                                 // ajax post will use 'url' specified above 
                                                 'url' => "js:$(this).attr('href')",
-
                                                 'update' => '#ticketVirtual',
-                                                'beforeSend' => "function(){                                
-                                       $('#modal-1').modal('show');
-                                       $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');                                      
-                                    }",
+                                                    'beforeSend' => "function(){                                
+                                                    $('#modal-1').modal('show');
+                                                    $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');                                      
+                                                }",
                                                 'complete' => "function(){
-                                        $('#ticketVirtual').removeClass('loading');                                 
-                                    }",
+                                                    $('#ticketVirtual').removeClass('loading');                                 
+                                                }",
                                             ),
-                                        ),
-                                        //'options'=>array(
-                                        //'class'=>'btn',
-                                        //'id'=>$data->FCCO_Lote
-                                        //),
+                                        ),                                      
                                     ),
 
                                     'recibe' => array(
-                                        'label' => 'Recibir', // text label of the button
+                                        // 'label' => 'Recibir', // text label of the button
                                         'url' => 'Yii::app()->createUrl("fcco/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
-                                        'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
+                                        // 'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
+                                        'imageUrl' => false,
+                                        'label' => '<i class="fa fa-reply"></i>',
                                         //'visible' =>'$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
+                                        'options' => array(
+                                            // 'target' => '_blank', 
+                                            'class' => 'not-link btn btn-sm btn-red', 
+                                            'title' => 'Recibir'
+                                        ),
                                     ),
                                 ),
                                 //-----------------------------------------------------------------------
@@ -405,6 +429,7 @@ foreach ($count as $key => $value) {
                             'header' => 'Accion',
                             //'htmlOptions'=>array('class'=>'btn btn-primary'),
                             'template' => '{preview}{recibe}',
+                            'template' => '{preview}',
                             //-----------------------------------------------------------------------
                             'buttons' => array(
                                 'preview' =>
@@ -413,7 +438,12 @@ foreach ($count as $key => $value) {
                                     // 'visible'=>'$data->FCCN_Id==1?true:false',
                                     'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1, "agencia"=>"' . $model->GCCA_Id . '"))',
                                     'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
+                                    'imageUrl' => false,
+                                    'label' => '<i class="fa fa-file"></i>',
+
                                     'options' => array(
+                                        'class' => 'not-link btn btn-sm btn-orange', 
+                                        'title' => 'Ver Ticket',
                                         'ajax' => array(
                                             'type' => 'GET',
                                             // ajax post will use 'url' specified above 
@@ -435,13 +465,13 @@ foreach ($count as $key => $value) {
                                     //),
                                 ),
 
-                                'recibe' => array(
-                                    'visible' => '$data->FCCN_Id==1?true:false',
-                                    'label' => 'Recibir', // text label of the button
-                                    'url' => 'Yii::app()->createUrl("fcco/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
-                                    'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
-                                    //'visible' =>'$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
-                                ),
+                                // 'recibe' => array(
+                                //     'visible' => '$data->FCCN_Id==1?true:false',
+                                //     'label' => 'Recibir', // text label of the button
+                                //     'url' => 'Yii::app()->createUrl("fcco/recibe",array("id"=>$data->FCCU_Id))', // a PHP expression for generating the URL of the button
+                                //     'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
+                                //     //'visible' =>'$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
+                                // ),
                             ),
                             //-----------------------------------------------------------------------
                         ),
@@ -474,3 +504,8 @@ foreach ($count as $key => $value) {
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+<script>
+    $('#activity').scrollTop( $('#activityTable').height());
+   
+</script>

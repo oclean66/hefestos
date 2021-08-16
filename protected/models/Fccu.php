@@ -55,6 +55,33 @@ class Fccu extends CActiveRecord {
         return 'fccu';
     }
 
+    public function getComments()
+    {
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Action='COMENTAR' order by PCUE_Date asc", array(':id' => $this->FCCU_Id));
+        return $comments;
+    }
+
+    public function setComment($content)
+    {
+
+        $comment = Pcue::model()->find("PCUE_Detalles =:pre", array(':pre' => $content));
+        if (!isset($comment)) {
+
+            $comment = new PCUE;
+            $comment->PCUE_Descripcion = '';
+            $comment->PCUE_Action = 'COMENTAR';
+            $comment->PCUE_IdModel = $this->FCCU_Id;
+            $comment->PCUE_Field = 'TODOS';
+            $comment->PCUE_Date = date("Y-m-d H:i:s");
+            $comment->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
+            $comment->PCUE_Detalles = $content;
+            if(!$comment->save()){
+                return $comment->getError();
+            }
+        }
+        return $comment->attributes;
+    }
+
     /**
      * @return array validation rules for model attributes.
      */
