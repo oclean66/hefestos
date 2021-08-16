@@ -33,8 +33,8 @@ class FccoController extends Controller
         $query = new CDbCriteria;
         $query->with = 'gCCA';
         $query->select = "count(*) as FCCO_Id, GCCA_Id, FCCO_Timestamp";
-        
-        $query->condition = $model->GCCA_Id != '' ? "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id." and t.GCCA_Id = ".$model->GCCA_Id : "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
+
+        $query->condition = $model->GCCA_Id != '' ? "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id . " and t.GCCA_Id = " . $model->GCCA_Id : "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
         $query->group = "t.GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
         $query->order = "FCCO_Timestamp desc";
         $agencias = Fcco::model()->findAll($query);
@@ -132,11 +132,11 @@ class FccoController extends Controller
                         $log = new Pcue;
                         $log->PCUE_Descripcion = 'Usuario inserto en Fcco';
                         $log->PCUE_Action = 'INSERTAR';
-                        $log->PCUE_Model = 'Fcco' ;
+                        $log->PCUE_Model = 'Fcco';
                         $log->PCUE_IdModel = $model->FCCO_Id;
                         $log->PCUE_Field = 'TODOS';
                         $log->PCUE_Date = date("Y-m-d H:i");
-                        $log->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+                        $log->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
                         $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
                         $log->save();
 
@@ -406,7 +406,7 @@ class FccoController extends Controller
 
         //--Estadisticas rapidas
 
-        
+
 
         if (isset($_GET['Fcco'])) {
 
@@ -438,32 +438,15 @@ class FccoController extends Controller
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
 
 
+        // print_r($_POST);
         //Si envian un comentario
-        if(isset($_POST['comment'])){
-            // print_r($_POST['comment']);
-            $comentario = $agencia->setComment($_POST['comment']);
-            print_r($comentario);
+        if (isset($_POST['comment']) && $_POST['comment'] != '') {
 
-            /* $comment = New Pcue;
-            $comment->PCUE_Model = "Gcca";
-            $comment->PCUE_IdModel = $agencia;
-            $comment->PCUE_Descripcion = "Usuario comento en la agencia";
-            $comment->PCUE_Action = "Comentar";
-            $comment->PCUE_Field = "TODOS";
-            $comment->PCUE_Date = date("Y-m-d H:i");
-            $comment->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
-            $comment->PCUE_Detalles = $_POST['comment']; */
-
-            $comment = new Pcue;
-            $comment->PCUE_Descripcion = 'Usuario comento en la agencia';
-            $comment->PCUE_Action = 'COMENTAR';
-            $comment->PCUE_Model = 'Gcca' ;
-            $comment->PCUE_IdModel = $agencia->GCCA_Id;
-            $comment->PCUE_Field = 'TODOS';
-            $comment->PCUE_Date = date("Y-m-d H:i");
-            $comment->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
-            $comment->PCUE_Detalles = $_POST['comment'];
-            $comment->save();
+            $re = $agencia->setComment($_POST['comment']);
+            echo "<!-- Error ";
+            print_r($re);
+            echo " -->";
+            
         }
 
         $model = new Fcco('search');
@@ -476,7 +459,7 @@ class FccoController extends Controller
         //--Estadisticas rapidas     
         $count = array();
         $count = $agencia->estadisticas;
-        
+
 
         //Historial de Asignaciones Previas
         $modelos = new Fcco('search');
@@ -484,12 +467,12 @@ class FccoController extends Controller
         $modelos->GCCA_Id = $id;
 
         if (isset($_GET['Fcco'])) {
-            
+
             $modelos->attributes = $_GET['Fcco'];
             $modelos->GCCA_Id = $id;
         }
         $modelos->FCCO_Enabled = 0; //historial asignado
-        
+
         $modelos->desde = date('2000-01-01');
         $modelos->hasta = date('2025-01-01');
 
@@ -504,16 +487,16 @@ class FccoController extends Controller
         }
 
         /************************* */
-        
+
         $model->desde = date('2000-01-01');
         $model->hasta = date('2025-01-01');
-        
-        if ($excel) {
-			//
-			$content = $this->renderPartial("excel", array('model' => $model, 'modelos' => $modelos), true, true);
 
-			Yii::app()->request->sendFile('Historial Agencia ' . $agencia->concatened . '.xls', $content);
-		}
+        if ($excel) {
+            //
+            $content = $this->renderPartial("excel", array('model' => $model, 'modelos' => $modelos), true, true);
+
+            Yii::app()->request->sendFile('Historial Agencia ' . $agencia->concatened . '.xls', $content);
+        }
 
         /************************* */
 
@@ -700,16 +683,16 @@ class FccoController extends Controller
                 }
 
                 if ($item->save()) {
-                    if($modelo->save()){
+                    if ($modelo->save()) {
                         //creo la bitacora
                         $log = new Pcue;
                         $log->PCUE_Descripcion = 'Usuario inserto en Fcco';
                         $log->PCUE_Action = 'INSERTAR';
-                        $log->PCUE_Model = 'Fcco' ;
+                        $log->PCUE_Model = 'Fcco';
                         $log->PCUE_IdModel = $modelo->FCCO_Id;
                         $log->PCUE_Field = 'TODOS';
                         $log->PCUE_Date = date("Y-m-d H:i");
-                        $log->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name;
+                        $log->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
                         $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
                         $log->save();
                     }

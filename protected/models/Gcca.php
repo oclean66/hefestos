@@ -19,36 +19,47 @@
  * @property Fcco[] $fccos
  * @property Gccd $gCCD
  */
-class Gcca extends CActiveRecord {
+class Gcca extends CActiveRecord
+{
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return Gcca the static model class
      */
-    public static function model($className = __CLASS__) {
+    public static function model($className = __CLASS__)
+    {
         return parent::model($className);
     }
-    
-    public function getComments(){
-        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Action='COMENTAR'", array(':id'=>$this->GCCA_Id));
+
+    public function getComments()
+    {
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Action='COMENTAR' order by PCUE_Date asc", array(':id' => $this->GCCA_Id));
         return $comments;
     }
 
-    public function setComment($content){
+    public function setComment($content)
+    {
 
-        $comment = new PCUE;
-        /* $comment->PCUE_Descripcion = 'Usuario comento en la agencia';
-        $comment->PCUE_Action = 'COMENTAR';
-        $comment->PCUE_IdModel = $this->GCCA_Id;
-        $comment->PCUE_Field = 'TODOS';
-        $comment->PCUE_Date = date("Y-m-d H:i");
-        $comment->PCUE_UserId = Yii::app()->user->id." - ".Yii::app()->user->name; */
-        $comment->PCUE_Detalles = $content;
+        $comment = Pcue::model()->find("PCUE_Detalles =:pre", array(':pre' => $content));
+        if (!isset($comment)) {
 
-        return $comment;
+            $comment = new PCUE;
+            $comment->PCUE_Descripcion = '';
+            $comment->PCUE_Action = 'COMENTAR';
+            $comment->PCUE_IdModel = $this->GCCA_Id;
+            $comment->PCUE_Field = 'TODOS';
+            $comment->PCUE_Date = date("Y-m-d H:i:s");
+            $comment->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
+            $comment->PCUE_Detalles = $content;
+            if(!$comment->save()){
+                return $comment->getError();
+            }
+        }
+        return $comment->attributes;
     }
-    public function getEstadisticas(){
+    public function getEstadisticas()
+    {
         $stats['Equipos'] = Yii::app()->db->createCommand("Select count(*) as Equipos from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcuu.FCUU_Id = 1 ")->queryRow();
         $stats['Herramientas'] = Yii::app()->db->createCommand("Select count(*) as Herramientas from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcuu.FCUU_Id = 5 ")->queryRow();
         $stats['Suministros'] = Yii::app()->db->createCommand("Select count(*) as Suministros from fcco, fccu, fcct, fcca, fcuu where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and  fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = '" . $this->GCCA_Id . "' and  fcuu.FCUU_Id = 3 ")->queryRow();
@@ -62,29 +73,32 @@ class Gcca extends CActiveRecord {
 
         return $stats;
     }
-    public function getConcatened() {
-        return $this->GCCA_Cod . ' - ' . $this->GCCA_Nombre." | Grupo: ".$this->gCCD->concatened;
+    public function getConcatened()
+    {
+        return $this->GCCA_Cod . ' - ' . $this->GCCA_Nombre . " | Grupo: " . $this->gCCD->concatened;
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName() {
+    public function tableName()
+    {
         return 'gcca';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules() {
+    public function rules()
+    {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
             array('GCCD_Id, GCCA_Cod, GCCA_Nombre, GCCA_Direccion, GCCA_Status, GCCA_Rif, GCCA_Responsable, GCCA_Telefono,GCCA_Email', 'required'),
-            array('GCCA_Cod', 'unique','on'=>'insert'),
+            array('GCCA_Cod', 'unique', 'on' => 'insert'),
             array('GCCA_Status', 'numerical', 'integerOnly' => true),
             array('GCCD_Id', 'length', 'max' => 10),
-             array('GCCA_Direccion', 'length', 'max' => 160),
+            array('GCCA_Direccion', 'length', 'max' => 160),
             array('GCCA_Cod, GCCA_Nombre,  GCCA_Rif, GCCA_Responsable, GCCA_Telefono', 'length', 'max' => 45),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -95,7 +109,8 @@ class Gcca extends CActiveRecord {
     /**
      * @return array relational rules.
      */
-    public function relations() {
+    public function relations()
+    {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -107,7 +122,8 @@ class Gcca extends CActiveRecord {
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'GCCA_Id' => 'Id',
             'GCCD_Id' => 'Grupo',
@@ -126,7 +142,8 @@ class Gcca extends CActiveRecord {
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search() {
+    public function search()
+    {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -144,22 +161,22 @@ class Gcca extends CActiveRecord {
         $criteria->compare('GCCA_Email', $this->GCCA_Email, true);
 
         if (!Yii::app()->user->isSuperAdmin)
-        $criteria->addInCondition('GCCA_Status',array(0,1,2));
+            $criteria->addInCondition('GCCA_Status', array(0, 1, 2));
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
-            'sort'=>array(
-                'defaultOrder'=>'GCCA_Cod',
+            'sort' => array(
+                'defaultOrder' => 'GCCA_Cod',
             ),
         ));
     }
-    public function behaviors() {
+    public function behaviors()
+    {
         return array(
             // Classname => path to Class
             'LoggableBehavior' =>
             'application.behaviors.ActiveRecordLogableBehavior',
         );
     }
-
 }

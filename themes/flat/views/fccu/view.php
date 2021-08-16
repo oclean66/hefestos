@@ -164,38 +164,20 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
             <div class="box-content" id="activity" style="padding:0;min-height:270px;max-height: 270px;overflow: auto;">
                 <table class="table table-nohead" id="activityTable">
                     <tbody>
-                        <?php 
-                        $data = Pcue::model()->findAll('(PCUE_IdModel=:id and PCUE_Model="Fccu") or (PCUE_Descripcion like "%' . $model->FCCU_Serial . '%") order by PCUE_Id desc', array(':id' => $model->FCCU_Id));
-                        foreach ($data as $value) {
-                            echo "<tr><td>" . date("d M, h:ia", strtotime($value->PCUE_Date)) . "</b> " . $value->PCUE_Descripcion . " - " . $value->PCUE_Detalles . "</td></tr>";                            
-                        }
-                        ?>
-                        <?php echo "<tr><td>12 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>11 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>10 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>9 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>8 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>3. Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>2. Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>1. Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>0. Comentario</td></tr>"; ?>
+                        <?php foreach ($model->comments as $value) {
+                            echo "<tr><td><b>" . date("d M H:i", strtotime($value->PCUE_Date)) . ": </b> " . $value->PCUE_Descripcion . " - " . $value->PCUE_Detalles . "</td></tr>";
+                        } ?>
 
                     </tbody>
                 </table>
 
             </div>
-            <form action="#" method="POST" class="form-vertical" style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f" onsubmit="event.preventDefault();  comentar();">
+            <form action="<?php echo Yii::app()->createUrl('/fccu/view', array('id' => $model->FCCU_Id, 'type' => 1)); ?>" method="POST" class="form-vertical" style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f">
                 <div class="form-group" style="padding:5px; margin:0">
 
                     <div class="input-group">
 
-                        <input id="comentInput" card="89" type="text" placeholder="Escribe un comentario.." class="form-control">
+                        <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." value="" class="form-control">
                         <div class="input-group-btn">
                             <button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
                         </div>

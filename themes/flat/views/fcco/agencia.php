@@ -137,24 +137,9 @@ foreach ($count as $key => $value) {
                 <table class="table table-nohead" id="activityTable">
                     <tbody>
                         <?php foreach ($agencia->comments as $value) {
-                            echo "<tr><td>". date("Y-m-d H:i", strtotime($value->PCUE_Date)) ."</b> ". $value->PCUE_Descripcion ." - ". $value->PCUE_Detalles ."</td></tr>";
+                            echo "<tr><td><b>". date("d M H:i", strtotime($value->PCUE_Date)) .": </b> ". $value->PCUE_Descripcion ." - ". $value->PCUE_Detalles ."</td></tr>";
                         }?>
-                        <?php  ?>
-                        <?php echo "<tr><td>11 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>10 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>9 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>8 Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>3. Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>2. Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>1. Comentario</td></tr>"; ?>
-                        <?php echo "<tr><td>0. Comentario</td></tr>"; ?>
-
+                
                     </tbody>
                 </table>
 
@@ -169,7 +154,7 @@ foreach ($count as $key => $value) {
 
                     <div class="input-group">
 
-                        <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." class="form-control">
+                        <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." value="" class="form-control">
                         <div class="input-group-btn">
                             <button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
                         </div>
@@ -521,18 +506,6 @@ foreach ($count as $key => $value) {
 </div>
 
 <script>
-    function comentar(){
-        $.ajax({
-            url: 'comment',
-            type: "POST",
-            data:{
-                comment: $('#comentInput').val()
-            },
-            beforeSend: function(){
-                $('#commentSend').prop("disabled", true);
-				$('#comentInput').prop("disabled", true);
-				$('#commentSend').html("Enviando.."); 
-            }
-        })
-    }
+    $('#activity').scrollTop( $('#activityTable').height());
+   
 </script>
