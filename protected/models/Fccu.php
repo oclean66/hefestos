@@ -57,18 +57,18 @@ class Fccu extends CActiveRecord {
 
     public function getComments()
     {
-        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Model = 'Activos' order by PCUE_Date asc", array(':id' => $this->FCCU_Id));
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Model in ('Activos', 'Fccu') order by PCUE_Date asc", array(':id' => $this->FCCU_Id));
         return $comments;
     }
 
     public function setComment($content)
     {
 
-        $comment = Pcue::model()->find("PCUE_Detalles =:pre and PCUE_IdModel = :id and PCUE_Model = 'Activos'", array(':pre' => $content, ':id' => $this->FCCU_Id));
+        $comment = Pcue::model()->find("PCUE_Detalles =:pre and PCUE_IdModel = :id and PCUE_Model in ('Activos', 'Fccu')", array(':pre' => $content, ':id' => $this->FCCU_Id));
         if (!isset($comment)) {
 
             $comment = new PCUE;
-            $comment->PCUE_Descripcion = '';
+            $comment->PCUE_Descripcion = 'Usuario '.strtoupper(Yii::app()->user->name).' comento';
             $comment->PCUE_Action = '';
             $comment->PCUE_IdModel = $this->FCCU_Id;
             $comment->PCUE_Model = "Activos";
