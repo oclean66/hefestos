@@ -34,7 +34,12 @@ class Gcca extends CActiveRecord
 
     public function getComments()
     {
-        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Model in ('Agencia','Gcca') order by PCUE_Date asc", array(':id' => $this->GCCA_Id));
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Action='COMENTAR' and PCUE_Model in ('Agencia','Gcca') order by PCUE_Date asc", array(':id' => $this->GCCA_Id));
+        return $comments;
+    }
+    public function getAlerts()
+    {
+        $comments = Pcue::model()->findAll("PCUE_IdModel = :id and PCUE_Action!='COMENTAR' and PCUE_Model in ('Agencia','Gcca') order by PCUE_Date desc", array(':id' => $this->GCCA_Id));
         return $comments;
     }
 
@@ -160,6 +165,9 @@ class Gcca extends CActiveRecord
         $criteria->compare('GCCA_Responsable', $this->GCCA_Responsable, true);
         $criteria->compare('GCCA_Telefono', $this->GCCA_Telefono, true);
         $criteria->compare('GCCA_Email', $this->GCCA_Email, true);
+
+        // if (!Yii::app()->user->isSuperAdmin)
+            $criteria->addInCondition('GCCD_Id', Gccd::model()->arrayHijos(Yii::app()->user->grupo));
 
         if (!Yii::app()->user->isSuperAdmin)
             $criteria->addInCondition('GCCA_Status', array(0, 1, 2));

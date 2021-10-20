@@ -1,4 +1,5 @@
 <?php
+// print_r($errores);
 /* @var $this GccaController */
 /* @var $model Gcca */
 $botonEstado = Yii::app()->user->checkAccess('action_gcca_assign') ?
@@ -85,7 +86,14 @@ $this->menu = array(
 				<div class="actions">
 
 					<?php echo $botonEstado; ?>
-
+					<?php echo Yii::app()->user->checkAccess('action_gcca_update') ?
+                        CHtml::link(
+                            '<i class="fa fa-pencil"></i> Editar',
+                            array('/gcca/update', 'id' => $model->GCCA_Id),
+                            array('class' => 'btn btn-success btn-mini', 'target' => '_blank')
+                        ) :
+                        "";
+                    ?>
 				</div>
 			</div>
 		</div>

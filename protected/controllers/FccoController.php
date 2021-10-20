@@ -411,7 +411,7 @@ class FccoController extends Controller
         if (isset($_GET['Fcco'])) {
 
             $model->attributes = $_GET['Fcco'];
-            $model->GCCD_Id = $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
+            $model->GCCD_Id = "=" . $id; //array de gccd hijos, actualmente solo veo inventario propio del grupo
             $model->FCCN_Id = "=1"; //operacion: asignados
             $model->FCCO_Enabled = "=1"; //asignado actualmente
         }
@@ -436,8 +436,6 @@ class FccoController extends Controller
     public function actionAgencia($id, $type = null, $print = false, $excel = false)
     {
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
-
-
         // print_r($_POST);
         //Si envian un comentario
         if (isset($_POST['comment']) && $_POST['comment'] != '') {
@@ -446,7 +444,6 @@ class FccoController extends Controller
             echo "<!-- Error ";
             print_r($re);
             echo " -->";
-            
         }
 
         $model = new Fcco('search');
@@ -498,6 +495,29 @@ class FccoController extends Controller
             Yii::app()->request->sendFile('Historial Agencia ' . $agencia->concatened . '.xls', $content);
         }
 
+        /************************* */
+         //Verificamos inconsistencia de grupo incorrecto en fcco, al cambiar de grupo una agencia, los fcco no se actualizan
+
+         $inc = Fcco::model()->findAll("GCCA_Id =:id AND fcco_enabled = 1 AND fccn_id = 1 AND GCCD_Id != :padre", array(":padre" => $agencia->GCCD_Id, ':id' => $agencia->GCCA_Id));
+         $temp = array();
+         foreach ($inc as $key => $value) {
+             $temp[$value->FCCO_Id] = "Item_id: [" . $value->FCCU_Id . "], GCCD_Id: [" . $value->GCCD_Id . " => " . $agencia->GCCD_Id . "]";
+             $value->GCCD_Id = $agencia->GCCD_Id;
+             $value->save();
+         }
+         if (count($inc) > 0) {
+
+             Yii::app()->crugemailer->sendEmail(
+                 "Hemos Actualizado los siguientes registros FCCO<br/>Ubicacion: " . $agencia->concatened . " " .
+                     "<pre>" . json_encode(
+                         $temp,
+                         JSON_PRETTY_PRINT
+                     ) . "</pre>",
+                 array('oclean66@gmail.com'),
+                 null,
+                 $agencia->concatened
+             );
+         }
         /************************* */
 
         if ($print) {
@@ -573,6 +593,7 @@ class FccoController extends Controller
                 'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
         } else {
+        
             $this->render('agencia', array(
                 'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
