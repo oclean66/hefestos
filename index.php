@@ -12,4 +12,4 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 require_once($yii);
 Yii::createWebApplication($config)->run();
 
-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
+// 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
