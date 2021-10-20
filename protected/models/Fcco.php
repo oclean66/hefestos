@@ -158,7 +158,7 @@ class Fcco extends CActiveRecord {
         $criteria->compare('FCCN_Id', $this->FCCN_Id, true);
         $criteria->compare('t.FCCU_Id', $this->FCCU_Id);
         $criteria->compare('GCCA_Id', $this->GCCA_Id, false);
-        $criteria->compare('GCCD_Id', $this->GCCD_Id, false);
+        $criteria->compare('t.GCCD_Id', $this->GCCD_Id, false);
 //      $criteria->condition = "GCCA_Id=" . $this->GCCA_Id;
 //      $criteria->condition = "FCCO_Enabled=" . $this->FCCO_Enabled;
     //  $criteria->condition = "GCCD_Id=" . $this->GCCD_Id;

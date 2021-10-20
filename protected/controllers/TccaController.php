@@ -8,6 +8,9 @@ class TccaController extends Controller
 	 */
 	public $layout='//layouts/column2';
 	
+	public function actionDashboard(){
+		$this->render('dashboard');
+	}
 	public function actionLista() {
 		$id = $_POST['Tccd']['TCCA_BoardId'];
 
