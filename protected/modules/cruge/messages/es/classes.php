@@ -80,6 +80,7 @@ return array(
     'action_gccd_delete' => 'Desactivar Grupo',
     'action_gccd_create' => 'Crear Grupo',
     'action_gccd_admin' => 'Administrar Grupos',
+    'action_gccd_assign'=>'Ocultar Grupo',
     
     'action_gcca_view' => 'Ver Agencia',
     'action_gcca_update' => 'Actualizar Agencia',
@@ -116,7 +117,7 @@ return array(
     'action_fccu_create'=>'Agregar Activo al Sistema',
     'action_fccu_recibe'=>'Recibir Activos desde Reportes',
     'action_fccu_print'=>'Imprimir',
-//    'action_fccu_Rellenarmodos'=>'',
+   'action_fccu_Rellenarmodos'=>'Buscar Activos',
 
     
     'action_fcct_view' => 'Ver Modelos',
@@ -157,6 +158,7 @@ return array(
     'action_fcco_admin' => 'Ver Entradas/Salidas',
     'action_fcco_activos' => 'Ver Activos Disponibles',
     'action_fcco_print'=>'Imprimir',
+    'action_fcco_viewSalidaDia'=>'Reporte Estadisticas',
     
     'action_fccn_view' => 'Ver Operacion',
     'action_fccn_update' => 'Actualizar Operacion',

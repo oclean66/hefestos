@@ -389,6 +389,7 @@ foreach ($count as $key => $value) {
                                         // 'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
                                         'imageUrl' => false,
                                         'label' => '<i class="fa fa-reply"></i>',
+                                        'visible' => 'Yii::app()->user->checkAccess("action_fcco_recibe")',
                                         //'visible' =>'$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
                                         'options' => array(
                                             // 'target' => '_blank', 
