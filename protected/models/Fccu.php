@@ -241,5 +241,28 @@ class Fccu extends CActiveRecord {
             'application.behaviors.ActiveRecordLogableBehavior',
         );
     }
+    public function resumenTab(){
+        $resumen= TccdHasFccu::model()->findAll(
+            "FCCU_Id = :xyz", array(":xyz"=> $this->FCCU_Id) 
+        );
+        $data=array();
+        foreach($resumen as $d){
+            
+            $data[] = array(
+                'tablero_id'=>$d->tccd->tCCA->tCCABoard->TCCA_Id,
+                'tablero_name'=>$d->tccd->tCCA->tCCABoard->TCCA_Name, 
+                'lista_id'=>$d->tccd->tCCA->TCCA_Id, 
+                'lista_name'=>$d->tccd->tCCA->TCCA_Name,
+                'tarea_id'=>$d->tccd->TCCD_Id,
+                'tarea_name'=>$d->tccd->TCCD_Title,
+                'desc_tarea'=>$d->tccd->TCCD_Description,
+                'serial' => $this->FCCU_Serial
+            );
+        }
+      
+        return $data;
+
+    
+    }
 
 }

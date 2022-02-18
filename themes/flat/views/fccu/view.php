@@ -39,6 +39,13 @@ $this->menu = array(
 <?php
 echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> {$_GET['alert']}</div>" : "";
 ?>
+
+
+
+
+
+
+
 <div class="row">
     <div class="col-sm-6">
         <div class="box box-bordered box-color box-small">
@@ -154,43 +161,96 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
     </div>
     <div class="col-sm-6 " style="margin-top: 0px;">
 
-        <div class="box box-color box-bordered orange box-small">
-            <div class="box-title ">
-                <h3>
-                    <i class="fa fa-bullhorn"></i> Actividad Reciente
-                </h3>
 
-            </div>
-            <div class="box-content" id="activity" style="padding:0;min-height:270px;max-height: 270px;overflow: auto;">
-                <table class="table table-nohead" id="activityTable">
-                    <tbody>
-                        <?php foreach ($model->comments as $value) {
-                            echo "<tr><td><b>" . date("d M H:i", strtotime($value->PCUE_Date)) . ": </b> " . $value->PCUE_Descripcion . " - " . $value->PCUE_Detalles . "</td></tr>";
-                        } ?>
 
-                    </tbody>
-                </table>
-
-            </div>
-            <form action="<?php echo Yii::app()->createUrl('/fccu/view', array('id' => $model->FCCU_Id, 'type' => 1)); ?>" method="POST" class="form-vertical" style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f">
-                <div class="form-group" style="padding:5px; margin:0">
-
-                    <div class="input-group">
-
-                        <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." value="" class="form-control">
-                        <div class="input-group-btn">
-                            <button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
+    <div class="box box-bordered box-color orange">
+        <div class="box-title">
+        
         </div>
+        <div class="box-content nopadding">
+            <ul class="tabs tabs-inline tabs-top">
+                <li class="active">
+                    <a href="#first11" data-toggle="tab">
+                        <i class="fa fa-bullhorn"></i> &nbsp;Actividad Reciente</a>
+                </li>
+                <li>
+                    <a href="#second22" data-toggle="tab">
+                        <i class="fa fa-share"></i> &nbsp; Historial del activo</a>
+                </li>
+            </ul>
+            <div class="tab-content  tab-content-inline tab-content-bottom">
+                <div class="tab-pane active" id="first11">
+                     <!--ACTIVIDAD RECIENTE-->
+
+                     <div id="activity" style="padding:0;min-height:270px;max-height: 270px;overflow: auto;">
+                        <table class="table table-nohead" id="activityTable">
+                            <tbody>
+                                <?php foreach ($model->comments as $value) {
+                                    echo "<tr><td><b>" . date("d M H:i", strtotime($value->PCUE_Date)) . ": </b> " . $value->PCUE_Descripcion . " - " . $value->PCUE_Detalles . "</td></tr>";
+                                } ?>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <form action="<?php echo Yii::app()->createUrl('/fccu/view', array('id' => $model->FCCU_Id, 'type' => 1)); ?>" method="POST" class="form-vertical" >
+                        <div class="form-group"  style="margin:0 !important">
+
+                            <div class="input-group">
+
+                                <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." value="" class="form-control">
+                                <div class="input-group-btn">
+                                    <button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                <!--ACTIVIDAD RECIENTE-->
+                </div>
+                <div class="tab-pane" id="second22">
+<!------------------------------------------------------------------------------------------------>
+                    <div id="activity" style="padding:0;min-height:270px;max-height: 270px;overflow: auto;">
+                        <table class="table " id="activityTable">
+                            <thead>
+                                <tr>
+                                    <th>Tablero</th>
+                                    <th>Tarea</th>
+                                    <th>Descripcion</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($resumen AS $value) { ?>
+                                    <tr>
+                                        <td><?= $value['tablero_name'] ?></td>
+                                        <td><?= $value['tarea_name'] ?></td>
+                                        <td><?= $value['desc_tarea'] ?></td>
+                                        <td>
+                                            <a href="<?php echo Yii::app()->createUrl('/tcca/'.$value['tablero_id']).'?card='.$value['tarea_id']; ?>" target="_blank" >
+                                                <i class="fa fa-link" > </i>
+                                            </a>
+                                        </td>
+                                    <tr>
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+<!------------------------------------------------------------------------------------------------>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+
+    
+
 
     </div>
 
 </div>
-
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -285,3 +345,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
     ),
 ));
 ?>
+

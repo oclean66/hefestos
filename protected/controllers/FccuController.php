@@ -214,20 +214,25 @@ class FccuController extends Controller
         $modelo->desde = date('2000-01-01');
         $modelo->hasta = date('2025-01-01');
 
-        $modelo->FCCU_Id = $id;
+        $modelo->FCCU_Id = $id;    
+        $resumen=$model->resumenTab(); 
+       
         // da madre error de constraint ambiguos
         if (isset($_POST['comment']) && $_POST['comment'] != '') {
-
+          
             $re = $model->setComment($_POST['comment']);
+          
             echo "<!-- Error ";
             print_r($re);
             echo " -->";
             
         }
+        
 
         $this->render('view', array(
             'model' => $model,
             'modelo' => $modelo,
+            'resumen' => $resumen,
         ));
     }
 
