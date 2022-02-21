@@ -170,11 +170,11 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
         <div class="box-content nopadding">
             <ul class="tabs tabs-inline tabs-top">
                 <li class="active">
-                    <a href="#first11" data-toggle="tab">
+                    <a href="#first11" data-toggle="tab" class="not-link">
                         <i class="fa fa-bullhorn"></i> &nbsp;Actividad Reciente</a>
                 </li>
                 <li>
-                    <a href="#second22" data-toggle="tab">
+                    <a href="#second22" data-toggle="tab" class="not-link">
                         <i class="fa fa-share"></i> &nbsp; Historial del activo</a>
                 </li>
             </ul>
@@ -226,7 +226,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                                         <td><?= $value['tarea_name'] ?></td>
                                         <td><?= $value['desc_tarea'] ?></td>
                                         <td>
-                                            <a href="<?php echo Yii::app()->createUrl('/tcca/'.$value['tablero_id']).'?card='.$value['tarea_id']; ?>" target="_blank" >
+                                            <a href="<?php echo Yii::app()->createUrl('/tcca/'.$value['tablero_id']).'?card='.$value['tarea_id']; ?>" target="_blank" class="not-link">
                                                 <i class="fa fa-link" > </i>
                                             </a>
                                         </td>
