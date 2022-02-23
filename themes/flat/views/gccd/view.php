@@ -53,7 +53,14 @@ $this->menu = array(
 				<div class="actions">
 
 					<?php echo $xx; ?>
-
+					<?php echo Yii::app()->user->checkAccess('action_gccd_update') ?
+                        CHtml::link(
+                            '<i class="fa fa-pencil"></i> Editar',
+                            array('/gccd/update', 'id' => $model->GCCD_Id),
+                            array('class' => 'btn btn-success btn-mini', 'target' => '_blank')
+                        ) :
+                        "";
+                    ?>
 				</div>
 			</div>
 		</div>

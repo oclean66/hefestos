@@ -36,7 +36,7 @@ class GccdController extends Controller {
         //print_r($_POST);
         $id = $_POST['Fcco']['GCCD_Id'];
 //
-        $lista = Gcca::model()->findAll('GCCD_Id = :id',array(':id'=>$id));
+        $lista = Gcca::model()->findAll('GCCD_Id = :id and GCCA_Status=1',array(':id'=>$id));
         $lista = CHtml::listData($lista, 'GCCA_Id', 'concatened');
         echo CHtml::tag('option', array('value' => ''), 'Seleccione agencia...', true);
         foreach ($lista as $valor => $nombre) {
@@ -87,9 +87,36 @@ class GccdController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Gccd'])) {
+            // print_r($_POST);
             $model->attributes = $_POST['Gccd'];
-            if ($model->save())
-                $this->redirect(array('admin'));
+            if(isset($_POST['Public'])){
+                $url = 'http://91.121.116.131/gecko/api/list/model/gccd';
+
+
+                $options = array(
+                    'http' => array(
+                        'header' => "Content-type: application/json",
+                        'method' => 'GET',
+
+                    ),
+                );
+                $context = stream_context_create($options);
+                $ajax_list = json_decode(file_get_contents($url, false, $context), true);
+
+                GccaPublic::model()->deleteAll('GCCD_Id =:id', array(':id' => $model->GCCD_Id));
+                foreach ($_POST['Public'] as $key => $value) {
+                    $p = new GccaPublic;
+                    $p->PUBLIC_GCCD_Id =  $value;
+                    $p->PUBLIC = $ajax_list[$value];
+                    $p->GCCD_Id = $id;
+                    $p->save();
+                }
+                // print_r($_POST['Public']);
+            }
+            // if ($model->save()){
+                // $this->redirect(array('admin'));
+
+            // }
         }
 
         $this->render('update', array(

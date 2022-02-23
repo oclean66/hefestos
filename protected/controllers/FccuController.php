@@ -305,6 +305,8 @@ class FccuController extends Controller
     public function actionAdmin()
     {
         $model = new Fccu('search');
+        ini_set('memory_limit', '-1');
+
 
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Fccu']))

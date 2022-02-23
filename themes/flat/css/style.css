@@ -4598,6 +4598,9 @@ label, input, button, select, textarea {
 .theme-colors li span.grey-4 {
   background: #999999;
 }
+.theme-colors li span.justdark {
+  background: #181818;
+}
 
 #navigation {
   background: #368ee0;
@@ -4904,6 +4907,7 @@ label, input, button, select, textarea {
 #navigation .main-nav > li > a .caret {
   border-top-color: #fff;
 }
+
 #navigation .user {
   float: right;
 }
@@ -6741,8 +6745,8 @@ label, input, button, select, textarea {
   padding: 3px 5px;
 }
 .tiles.tiles-small > li:hover:before {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
 }
 .tiles.tiles-small > li > a {
   width: 80px;
@@ -8858,4 +8862,56 @@ a:focus {
 }
 .input-block{
   width: 100%;
+}
+.select2-input {
+  min-width: 100px
+}
+
+.toolbar {
+  padding-top: 5px
+}
+
+.box-small.list {
+  border: 1px solid #d3d3d3;
+  border-radius: 3px;
+  padding: 5px;
+  margin-right: 5px;
+  background: #eee;
+  min-width: 320px;
+  height: fit-content
+}
+
+.board {
+  overflow: auto;
+  height: 100%;
+  background: #eee !important
+}
+
+.alert-card {
+  background-color: #fff;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 14px;
+  box-shadow: 0 1px 2px #a0a0a0
+}
+
+.alert-card.active {
+  background-color: #faa
+}
+
+.alert-dismissable .close {
+  right: 0
+}
+
+.ui-state-highlightme {
+  height: 300px !important;
+  background: #deffde;
+  border-radius: 5px
+}
+
+.ui-state-highlighttw {
+  background: #deffde !important
 }
