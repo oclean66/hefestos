@@ -63,8 +63,9 @@ $this->menu = array(
                         'class' => 'CButtonColumn',
                         'header' => 'Acciones',
                         'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:100px'),
-                        'template' => '{view}
-                                            <div class="btn-group">
+                        'template' => '{view}'.(
+                                    Yii::app()->user->checkAccess("action_gccd_update") || Yii::app()->user->checkAccess("action_gccd_delete") ? 
+                                            '<div class="btn-group">
                                                 <a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
                                                     <i class="fa fa-bars"></i>
                                                 </a>
@@ -72,7 +73,7 @@ $this->menu = array(
                                                     <li>{update}</li>
                                                     <li>{delete}</li>
                                                 </ul>
-                                            </div>',
+                                            </div>' : ''),
                         'buttons' => array(
                             'view' => array(
                                 'imageUrl' => false,

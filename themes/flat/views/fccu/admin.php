@@ -97,7 +97,7 @@
                         data-content=\'".( $data->FCCI_Id==5 ? Fcco::model()->find(\'FCCU_Id=\'.$data->FCCU_Id.\' order by FCCO_Id desc\')->lugar:$data->fCCI->FCCI_Descripcion)."\'>".$data->fCCI->FCCI_Descripcion."</a>"',
                         'type' => 'raw',
                         'headerHtmlOptions' => array('style' => 'width:120px'), */
-                    'value' => '$data->FCCI_Id==5 ? Fcco::model()->find("FCCU_Id=".$data->FCCU_Id. " order by FCCO_Id desc")->cod:$data->fCCI->FCCI_Descripcion',
+                    'value' => '$data->FCCI_Id==5 && Fcco::model()->find("FCCU_Id=".$data->FCCU_Id. " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc") ? Fcco::model()->find("FCCU_Id=".$data->FCCU_Id. " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc")->cod : ($data->FCCI_Id==5 ? "*** ":"").$data->fCCI->FCCI_Descripcion',
                 ),
                 array(
                     'header' => 'Acciones',
@@ -147,7 +147,7 @@
                             'imageUrl'=>false,
                             'options' => array(
                                 // 'target' => '_blank', 
-                                'class' => 'not-link btn btn-sm btn-satblue',
+                                'class' => 'not-link btn btn-sm btn-red',
                                 'title'=>'Reportar'    
                             ),
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_recibe") && $data->FCCI_Id == 5', // a PHP expression for determining whether the button is visible

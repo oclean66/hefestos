@@ -75,44 +75,48 @@
             if ($el.hasClass("filetree-callbacks")) {
                 opt.onActivate = function(node) {
                     $.ajax({
-                            url: node.data.url,
-                            beforeSend: function(xhr) {
-                                $("#progress").attr("style", "width:100%");
-                                $("#place").attr("style", "opacity: 50%;")
-                            },
-                            success: function(data) {
-                                var $response = $(data);
+                        url: node.data.url,
+                        beforeSend: function(xhr) {
+                            $("#progress").attr("style", "width:100%");
+                            $("#place").attr("style", "opacity: 50%;")
+                        },
+                        success: function(data) {
+                            var $response = $(data);
 
-                                // $response = $response.filter("#informacion");
-                                $("#place").html($response);
+                            // $response = $response.filter("#informacion");
+                            $("#place").html($response);
 
-                                $("#progress").attr("style", "width:0%");
-                                $("#place").attr("style", "opacity: 100%;overflow:auto;");
-                                $('[rel=tooltip]').tooltip();
+                            $("#progress").attr("style", "width:0%");
+                            $("#place").attr("style", "opacity: 100%;overflow:auto;");
+                            $('[rel=tooltip]').tooltip();
 
-                                if ($response == "" || $response == undefined) {
-                                    $("#place").html("Algo ocurrio, Recarga esta pagina")
-                                }
-
-                                var board = $("#place");
-                                var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-                                // board.css({"max-height":(h-72)});
-                                var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-                                if (w < 768) {
-                                    board.css({
-                                        "max-height": ((h / 2) - 75)
-                                    });
-
-                                } else {
-                                    board.css({
-                                        "max-height": (h - 72)
-                                    });
-                                }
-
+                            if ($response == "" || $response == undefined) {
+                                $("#place").html("Algo ocurrio, Recarga esta pagina")
                             }
-                        });
+
+                            var board = $("#place");
+                            // 'afterAjaxUpdate' => 'ActivarSelects',
+                            $("select").select2();
+                            $(".select2-container").css('width', '100%');
+                            $("input[type='text']").addClass("form-control");
+                            var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+                            // board.css({"max-height":(h-72)});
+                            var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                            if (w < 768) {
+                                board.css({
+                                    "max-height": ((h / 2) - 75)
+                                });
+
+                            } else {
+                                board.css({
+                                    "max-height": (h - 72)
+                                });
+                            }
+
+                        }
+                    });
                 };
-            }           
+            }
 
             $el.dynatree(opt);
         });

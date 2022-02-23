@@ -77,16 +77,17 @@ $this->menu = array(
                 array(
                     'class' => 'CButtonColumn',
                     'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:83px'),
-                    'template' => '{view} 
-                                        <div class="btn-group">
+                    'template' => '{view} '.(
+                                Yii::app()->user->checkAccess("action_gcca_update") || Yii::app()->user->checkAccess("action_gcca_delete") ? 
+                                        '<div class="btn-group">
                                             <a href="#" data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
                                                 <i class="fa fa-bars"></i>
                                             </a>
-                                            <ul class="dropdown-menu pull-right" style="min-width:0">
+                                           <ul class="dropdown-menu pull-right" style="min-width:0">
                                                 <li>{update}</li>
                                                 <li>{delete}</li>
                                             </ul>
-                                        </div>',
+                                        </div>' : '' ),
                     'buttons' => array(
                         'view' => array(
                             'imageUrl' => false,

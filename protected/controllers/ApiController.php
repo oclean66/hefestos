@@ -161,7 +161,7 @@ class ApiController extends Controller
 		} else if (isset($method['inline_query'])) {
 			$data = array(
 				"inline_query_id" => $method['inline_query']['query'],
-				"method"=>"answerInlineQuery",
+				"method" => "answerInlineQuery",
 				"results" => array(
 					array(
 						"type" => "photo",
@@ -175,6 +175,66 @@ class ApiController extends Controller
 
 		$this->_sendResponse(200, CJSON::encode($data));
 	}
+	public function actionList()
+	{
+		$data = array();
 
-	
+		switch ($_GET['model']) {
+			case 'fcco':
+				$model = GccaPublic::model()->findAll('PUBLIC_GCCD_Id=:cod', array(':cod'=>$_GET['gccd']));
+				$data = array(
+					'resultados' => 0,
+					'items' => array()
+				);
+				
+				foreach ($model as $key => $value) {
+					$final=array();
+					$historial = Fcco::model()->findAll('FCCO_Enabled = 1 and FCCN_Id = 1 and GCCD_Id = :id order by GCCA_Id, FCCO_Lote desc', array(':id'=>$value->GCCD_Id));
+					foreach ($historial as $hvalue) {
+						$final[]=array(
+							"FCCO_Id" =>  $hvalue->FCCO_Id,
+							"FCCO_Timestamp" =>  $hvalue->FCCO_Timestamp,
+							"FCCO_Lote" =>  $hvalue->FCCO_Lote,
+							"GCCA_Id" =>  $hvalue->GCCA_Id,							
+							"GCCA_Cod" =>  $hvalue->gCCA->GCCA_Cod,							
+							"GCCA_Nombre" =>  $hvalue->gCCA->concatened,							
+							"FCCO_Descripcion" =>  $hvalue->FCCO_Descripcion,
+							"FCCU_Serial" =>  $hvalue->fCCU->FCCU_Serial,
+							"FCCT_Modelo" =>  $hvalue->fCCU->fCCT->FCCT_Descripcion,
+							"FCCA_Tipo" =>  $hvalue->fCCU->fCCT->fCCA->FCCA_Descripcion,
+						);
+					}
+					$data['resultados']+=count($historial);
+					$data['items'][]=array(
+						"GCCD_Nombre"=>$value->gCCD->concatened,
+						"Historial"=>$final,
+					);
+				}
+				// $data = $model;
+				break;
+			default:
+				$this->_sendResponse(501, sprintf('Error: Mode <b>list</b> is not implemented for model <b>%s</b>', $_GET['model']));
+				exit;
+		}
+
+		$this->_sendResponse(200, CJSON::encode($data));
+	}
+	/**Publicaciones del API */
+	public function actionPublic(){
+		
+		// $this->render('public', array(
+		// 	'data'=> GccaPublic::model()->findAll()
+		// ));
+
+		$model = new GccaPublic('search');
+		$model->unsetAttributes();  // clear any default values
+		// $model->GCCA_Status = 1;
+		if (isset($_GET['GccaPublic']))
+			$model->attributes = $_GET['GccaPublic'];
+
+		$this->render('public', array(
+			'model' => $model,
+		));
+
+	}
 }

@@ -18,14 +18,23 @@
  * @property Gccd $gCCDIdSuperior
  * @property Gccd[] $gccds
  */
-class Gccd extends CActiveRecord {
+class Gccd extends CActiveRecord
+{
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return Gccd the static model class
      */
-
+    public function getPublic()
+    {
+        $data = array();
+        $list = GccaPublic::model()->findAll('GCCD_Id =:id', array(':id' => $this->GCCD_Id));
+        foreach ($list as $key => $value) {
+            $data[]=$value->PUBLIC_GCCD_Id;
+        }
+        return $data;
+    }
     public function getEstadisticas()
     {
         $stats['Equipos'] = Yii::app()->db->createCommand("Select count(*) as Equipos from fcco, fccu, fcct, fcca, fcuu, gcca, gccd where fcco.FCCO_Enabled = 1 and fcco.FCCN_Id = 1 and fcco.FCCU_Id = fccu.FCCU_Id and fccu.FCCT_Id = fcct.FCCT_Id and fcct.FCCA_Id = fcca.FCCA_Id and fcca.FCUU_Id = fcuu.FCUU_Id and fcco.GCCA_Id = gcca.GCCA_id and gcca.GCCD_Id = gccd.GCCD_id and gccd.GCCD_Id = '" . $this->GCCD_Id . "' and fcuu.FCUU_Id = 1 ")->queryRow();
@@ -41,8 +50,9 @@ class Gccd extends CActiveRecord {
 
         return $stats;
     }
-    
-    public function hijas($id) {
+
+    public function hijas($id)
+    {
         $aux = '';
         $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " and GCCA_Status = 1 order by GCCA_Cod");
 
@@ -59,12 +69,13 @@ class Gccd extends CActiveRecord {
         return $aux;
     }
 
-    public function getTotal(){
-            return Gcca::model()->count('GCCD_Id = '.$this->GCCD_Id . ' and GCCA_Status = 1');
-        
-	}
+    public function getTotal()
+    {
+        return Gcca::model()->count('GCCD_Id = ' . $this->GCCD_Id . ' and GCCA_Status = 1');
+    }
 
-    public function hijos($id) {
+    public function hijos($id)
+    {
         $aux = '';
         $gccds = Gccd::model()->findAll("GCCD_IdSuperior=" . $id . " and GCCD_Estado=1 order by GCCD_Cod");
         $gccas = Gcca::model()->findAll("GCCD_Id=" . $id . " and GCCA_Status = 1 order by GCCA_Cod");
@@ -75,7 +86,7 @@ class Gccd extends CActiveRecord {
 
                 foreach ($gccds as $data) {
 
-                    $aux = $aux . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/'.$data->GCCD_Id.'\',addClass: \'grupo\'">' . $data->GCCD_Cod . ' | ' . $data->GCCD_Nombre . ' (' . (Gcca::model()->count('GCCD_Id = '.$data->GCCD_Id . ' and GCCA_Status = 1') + Gccd::model()->count('GCCD_IdSuperior = '.$data->GCCD_Id . ' and GCCD_Estado = 1')) . ')';
+                    $aux = $aux . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/' . $data->GCCD_Id . '\',addClass: \'grupo\'">' . $data->GCCD_Cod . ' | ' . $data->GCCD_Nombre . ' (' . (Gcca::model()->count('GCCD_Id = ' . $data->GCCD_Id . ' and GCCA_Status = 1') + Gccd::model()->count('GCCD_IdSuperior = ' . $data->GCCD_Id . ' and GCCD_Estado = 1')) . ')';
                     $aux = $aux . $this->hijos($data->GCCD_Id);
                     $aux = $aux . '</li>';
                 }
@@ -83,7 +94,7 @@ class Gccd extends CActiveRecord {
             if (count($gccas)) {
                 foreach ($gccas as $data) {
 
-                    $aux = $aux . '<li id="' . $data->GCCA_Id . '"  data="url: \'agencia/'.$data->GCCA_Id.'\',addClass: \'agencia\'">' . $data->GCCA_Cod . ' | ' . $data->GCCA_Nombre . '</li>';
+                    $aux = $aux . '<li id="' . $data->GCCA_Id . '"  data="url: \'agencia/' . $data->GCCA_Id . '\',addClass: \'agencia\'">' . $data->GCCA_Cod . ' | ' . $data->GCCA_Nombre . '</li>';
                 }
             }
             $aux = $aux . '</ul>';
@@ -93,39 +104,47 @@ class Gccd extends CActiveRecord {
         return $aux;
     }
 
-    public function arbol() {
+    public function arbol()
+    {
+        // $nodo = Yii::app()->user->grupo;
+
         $arbol = '<ul id="arbol" style="border:0">';
-        $data = Gccd::model()->find("GCCD_Id = 1 ");
-        
-            $arbol = $arbol . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/'.$data->GCCD_Id.'\',addClass: \'banca\'">' . "(".$data->GCCD_Id.")".$data->GCCD_Cod . ' | ' . $data->GCCD_Nombre;
-            $arbol = $arbol . $this->hijos($data->GCCD_Id);
-            $arbol = $arbol . $this->hijas($data->GCCD_Id);
-            $arbol = $arbol . '</li>';
-       
+        $data = Gccd::model()->find("GCCD_Id = " . Yii::app()->user->grupo);
+        // $data = Gccd::model()->find("GCCD_Id = 1 ");
+
+        $arbol = $arbol . '<li id="' . $data->GCCD_Id . '"  data="url: \'grupo/' . $data->GCCD_Id . '\',addClass: \'banca\'">' . "(" . $data->GCCD_Id . ")" . $data->GCCD_Cod . ' | ' . $data->GCCD_Nombre;
+        $arbol = $arbol . $this->hijos($data->GCCD_Id);
+        $arbol = $arbol . $this->hijas($data->GCCD_Id);
+        $arbol = $arbol . '</li>';
+
 
         $arbol = $arbol . '</ul>';
         return $arbol;
     }
 
-    public static function model($className = __CLASS__) {
+    public static function model($className = __CLASS__)
+    {
         return parent::model($className);
     }
 
-    public function getConcatened() {
+    public function getConcatened()
+    {
         return $this->GCCD_Cod . ' - ' . $this->GCCD_Nombre;
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName() {
+    public function tableName()
+    {
         return 'gccd';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules() {
+    public function rules()
+    {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -142,7 +161,8 @@ class Gccd extends CActiveRecord {
     /**
      * @return array relational rules.
      */
-    public function relations() {
+    public function relations()
+    {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -150,13 +170,16 @@ class Gccd extends CActiveRecord {
             'gccas' => array(self::HAS_MANY, 'Gcca', 'GCCD_Id'),
             'gCCDIdSuperior' => array(self::BELONGS_TO, 'Gccd', 'GCCD_IdSuperior'),
             'gccds' => array(self::HAS_MANY, 'Gccd', 'GCCD_IdSuperior'),
+            'gccaPublic' => array(self::HAS_MANY, 'GccaPublic', 'GCCD_Id'),
+
         );
     }
 
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'GCCD_Id' => 'ID',
             'GCCD_Cod' => 'Cod',
@@ -168,11 +191,35 @@ class Gccd extends CActiveRecord {
         );
     }
 
+    public function arrayHijos($id, $keep = true)
+    {
+        if (!isset($id))
+            return array();
+
+        $gccd = Gccd::model()->findAll('GCCD_IdSuperior=' . $id . ' order by GCCD_Cod asc');
+
+        if ($keep) {
+            $var = isset($id) ? array($id) : array();
+            foreach ($gccd as $value) {
+                $var = array_merge($var, $this->arrayHijos($value->GCCD_Id));
+            }
+        } else {
+            $var = array();
+            foreach ($gccd as $value) {
+                $var[] = $value->GCCD_Id;
+            }
+        }
+
+        // ksort($var);
+        return $var;
+    }
+    
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search() {
+    public function search()
+    {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -186,17 +233,21 @@ class Gccd extends CActiveRecord {
         $criteria->compare('GCCD_Responsable', $this->GCCD_Responsable, true);
         $criteria->compare('GCCD_Telefono', $this->GCCD_Telefono, true);
 
+        // if (!Yii::app()->user->isSuperAdmin)
+            $criteria->addInCondition('GCCD_Id', Gccd::model()->arrayHijos(Yii::app()->user->grupo));
+
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100)
         ));
     }
-    public function behaviors() {
+    public function behaviors()
+    {
         return array(
             // Classname => path to Class
             'LoggableBehavior' =>
             'application.behaviors.ActiveRecordLogableBehavior',
         );
     }
-
 }

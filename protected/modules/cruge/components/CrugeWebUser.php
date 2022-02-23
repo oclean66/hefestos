@@ -261,6 +261,15 @@ class CrugeWebUser extends CWebUser implements IWebUser
         return "";
     }
 
+    public function getGrupo()
+    {
+        $u = $this->getUser();
+        if ($u != null) {
+            return $u->GCCD_Id;
+        }
+        return "";
+    }
+    
 	protected function restoreFromCookie()
 	{
 		// invocada cuando allowAutoLogin es true.
