@@ -1,4 +1,4 @@
-<div id="footer" class="navbar navbar-default navbar-fixed-bottom" style="min-height: 25px;">
+<div id="footer" class="navbar navbar-inverse navbar-fixed-bottom remover" style="min-height: 25px; background-color:#2b343b">
     <div class="container-fluid">
         <p class="navbar-text navbar-right" style='margin:0; padding:0;'>
             <?php

@@ -4598,6 +4598,9 @@ label, input, button, select, textarea {
 .theme-colors li span.grey-4 {
   background: #999999;
 }
+.theme-colors li span.justdark {
+  background: #181818;
+}
 
 #navigation {
   background: #368ee0;
@@ -4904,6 +4907,7 @@ label, input, button, select, textarea {
 #navigation .main-nav > li > a .caret {
   border-top-color: #fff;
 }
+
 #navigation .user {
   float: right;
 }

@@ -76,8 +76,8 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     ),
                     array(
                         'name' => 'FCCI_Id',
-                        'value' => $model->fCCI->FCCI_Descripcion . " - " . ($model->FCCI_Id == 5 ?
-                            Fcco::model()->find('FCCU_Id=' . $model->FCCU_Id . ' order by FCCO_Id desc')->lugar
+                        'value' => $model->fCCI->FCCI_Descripcion . " - " . ($model->FCCI_Id == 5 && Fcco::model()->find("FCCU_Id=".$model->FCCU_Id. " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc")?
+                        Fcco::model()->find("FCCU_Id=".$model->FCCU_Id. " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc")->lugar
                             : $model->fCCI->FCCI_Descripcion)
                     ),
                     array(
@@ -245,6 +245,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'value' => '$data->username',
 
         ),
+        'FCCO_Enabled',
         //array('name' => 'FCCO_Lote', 'type' => 'raw', 'header' => 'Ticket',
         //            'value' => 'CHtml::link("#".$data->FCCO_Lote)',
         //        ),

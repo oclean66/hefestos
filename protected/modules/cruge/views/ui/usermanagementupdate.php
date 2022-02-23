@@ -6,6 +6,7 @@
   $boolIsUserManagement:
   true o false.  si es true indica que esta operandose bajo el action de adminstracion de usuarios, si es false indica que se esta operando bajo 'editar tu perfil'
  */
+// print_r($model->attributes);
 ?>
 
 <div class="row">
@@ -32,7 +33,7 @@
                 <div class="col-sm-2">
                     <div style="padding:30px 0px 0px 22px">
                         <div class="thumbnail" id="imagenpreview" style="width: 125px; height:125px; border:none; border-radius: 6px">
-                            <img id="imgperfil" src="<?php echo Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value; ?>" alt="<?php echo Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value; ?>">
+                            <img id="imgperfil" src="<?php echo Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value != '' ? Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value : "https://kingdeportes.com/hefestos/themes/flat/img/avatars/user-picture.png"; ?>" alt="<?php echo Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value; ?>">
                         </div>
 
                         <div id="upload-demo" class="hide"></div>
