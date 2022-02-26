@@ -75,6 +75,8 @@ return array(
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                // array('api/list', 'pattern' => 'api/<model:\w+>', 'verb' => 'GET,OPTIONS'),
+
             ),
         ),
 

@@ -108,16 +108,37 @@
           
         }');
 
+        $theme =  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme') == "" ? "orange" :  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
 
     ?>
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo $baseUrl ?>/img/logo.png" />
     <!-- Apple devices Homescreen icon -->
     <link rel="apple-touch-icon-precomposed" href="img/logo-big.png" />
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: orange;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
 </head>
 
-<body data-mobile-sidebar="button" class="theme-orange" data-theme="theme-orange" onload="$('#progress').attr('style', 'width:0%')">
+<body data-mobile-sidebar="button" class="theme-<?php echo $theme; ?>" data-theme="theme-<?php echo $theme; ?>" onload="$('#progress').attr('style', 'width:0%')">
     <div id="navigation" class="navbar-fixed-top">
         <!-- Require the navigation -->
         <?php require_once('tpl_navigation.php') ?>

@@ -1,5 +1,6 @@
 <?php
 /* @var $this FccoController */
+// print_r($errores);
 /* @var $model Fcco */
 $botonEstado = Yii::app()->user->checkAccess('action_gcca_assign') ?
     CHtml::link(
@@ -89,6 +90,14 @@ foreach ($count as $key => $value) {
                 <div class="actions">
 
                     <?php echo $botonEstado; ?>
+                    <?php echo Yii::app()->user->checkAccess('action_gcca_update') ?
+                        CHtml::link(
+                            '<i class="fa fa-pencil"></i> Editar',
+                            array('/gcca/update', 'id' => $model->GCCA_Id),
+                            array('class' => 'btn btn-success btn-mini', 'target' => '_blank')
+                        ) :
+                        "";
+                    ?>
 
                 </div>
             </div>
@@ -127,6 +136,62 @@ foreach ($count as $key => $value) {
     <div class="col-sm-6 " style="margin-top: 0px;">
 
         <div class="box box-color box-bordered orange box-small">
+            <div class="box-title" style="margin: 0;">
+
+                <ul class="tabs tabs-left">
+                    <li class="active">
+                        <a href="#t7" class='not-link' data-toggle="tab"><i class="fa fa-comment"></i> Comentarios</a>
+                    </li>
+                    <li class="">
+                        <a href="#t8" class='not-link' data-toggle="tab"><i class="fa fa-bullhorn"></i> Actualizaciones</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="box-content">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="t7">
+                        <div id="activity" style="padding:0;min-height:165px;max-height: 165px;overflow: auto;">
+
+                            <table class="table table-nohead" id="activityTable">
+                                <tbody>
+                                    <?php foreach ($agencia->comments as $value) {
+                                        echo "<tr><td><b>" . date("d M H:i", strtotime($value->PCUE_Date)) . ": </b> " . $value->PCUE_Descripcion . " - " . $value->PCUE_Detalles . "</td></tr>";
+                                    } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <form action="<?php echo Yii::app()->createUrl('/fcco/agencia', array('id' => $agencia->GCCA_Id, 'type' => 1)); ?>" method="POST" class="form-vertical">
+                            <div class="form-group" style="padding:0px; margin:0; margin-top:5px">
+
+                                <div class="input-group">
+
+                                    <input id="comentInput" name="comment" type="text" placeholder="Escribe un comentario.." value="" class="form-control">
+                                    <div class="input-group-btn">
+                                        <button id="commentSend" class="btn btn-success" type="submit">Enviar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="t8">
+                        <div id="alerts" style="padding:0;min-height:200px;max-height: 200px;overflow: auto;">
+                            <table class="table table-nohead" id="aletsTable">
+                                <tbody>
+                                    <?php foreach ($agencia->alerts as $value) {
+                                        echo "<tr><td><b>" . date("d M H:i", strtotime($value->PCUE_Date)) . ": </b> " . $value->PCUE_Descripcion . " - " . $value->PCUE_Detalles . "</td></tr>";
+                                    } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="box box-color box-bordered orange box-small">
             <div class="box-title " style="margin: 0;">
                 <h3>
                     <i class="fa fa-bullhorn"></i> Actividad Reciente
@@ -137,19 +202,14 @@ foreach ($count as $key => $value) {
                 <table class="table table-nohead" id="activityTable">
                     <tbody>
                         <?php foreach ($agencia->comments as $value) {
-                            echo "<tr><td><b>". date("d M H:i", strtotime($value->PCUE_Date)) .": </b> ". $value->PCUE_Descripcion ." - ". $value->PCUE_Detalles ."</td></tr>";
-                        }?>
-                
+                            echo "<tr><td><b>" . date("d M H:i", strtotime($value->PCUE_Date)) . ": </b> " . $value->PCUE_Descripcion . " - " . $value->PCUE_Detalles . "</td></tr>";
+                        } ?>
+
                     </tbody>
                 </table>
 
             </div>
-            <form 
-            action="<?php echo Yii::app()->createUrl('/fcco/agencia',array( 'id'=> $agencia->GCCA_Id, 'type' => 1));?>" 
-            method="POST" 
-            class="form-vertical" 
-            style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f" 
-            >
+            <form action="<?php echo Yii::app()->createUrl('/fcco/agencia', array('id' => $agencia->GCCA_Id, 'type' => 1)); ?>" method="POST" class="form-vertical" style="border-left:2px solid #f8a31f; border-right:2px solid #f8a31f; border-bottom:2px solid #f8a31f">
                 <div class="form-group" style="padding:5px; margin:0">
 
                     <div class="input-group">
@@ -162,7 +222,7 @@ foreach ($count as $key => $value) {
                 </div>
             </form>
 
-        </div>
+        </div> -->
 
     </div>
 
@@ -234,7 +294,7 @@ foreach ($count as $key => $value) {
                                 'header' => '',
                                 'type' => 'raw',
                                 'value' => '"<button class=\'btn btn-orange\'>".(++$row)."</button>"',
-                                'filter'=>false
+                                'filter' => false
                             ),
                             array(
                                 'name' => 'FCCO_Timestamp',
@@ -248,7 +308,8 @@ foreach ($count as $key => $value) {
                                 'value' => '$data->fCCU->FCCU_Serial'
                             ),
                             //verificacion
-                            // array('name' => 'GCCA_Id', 'header' => 'Agencia','visible'=>Yii::app()->user->isSuperAdmin),
+                            array('name' => 'GCCA_Id', 'header' => 'Agencia', 'visible' => Yii::app()->user->isSuperAdmin),
+                            array('name' => 'GCCD_Id', 'header' => 'Grupo', 'visible' => Yii::app()->user->isSuperAdmin),
                             // array('name' => 'FCCN_Id', 'header' => 'tipo','visible'=>Yii::app()->user->isSuperAdmin),
                             // array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
                             // array(
@@ -286,7 +347,7 @@ foreach ($count as $key => $value) {
                             array(
                                 'class' => 'CButtonColumn',
                                 'header' => 'Accion',
-                                'headerHtmlOptions'=>array('style'=>'width:75px'),
+                                'headerHtmlOptions' => array('style' => 'width:75px'),
                                 //'htmlOptions'=>array('class'=>'btn btn-primary'),
                                 'template' => '<div class="btn-group">
                                       {preview}
@@ -297,21 +358,21 @@ foreach ($count as $key => $value) {
                                     'preview' =>
                                     array(
                                         'label' => 'Ver Ticket',
-                                        
+
                                         'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>1,"view"=>1,"agencia"=>' . $agencia->GCCA_Id . '))',
                                         // 'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
                                         'imageUrl' => false,
                                         'label' => '<i class="fa fa-file"></i>',
 
                                         'options' => array(
-                                            'class' => 'not-link btn btn-sm btn-orange', 
+                                            'class' => 'not-link btn btn-sm btn-orange',
                                             'title' => 'Ver Ticket',
                                             'ajax' => array(
                                                 'type' => 'GET',
                                                 // ajax post will use 'url' specified above 
                                                 'url' => "js:$(this).attr('href')",
                                                 'update' => '#ticketVirtual',
-                                                    'beforeSend' => "function(){                                
+                                                'beforeSend' => "function(){                                
                                                     $('#modal-1').modal('show');
                                                     $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');                                      
                                                 }",
@@ -319,7 +380,7 @@ foreach ($count as $key => $value) {
                                                     $('#ticketVirtual').removeClass('loading');                                 
                                                 }",
                                             ),
-                                        ),                                      
+                                        ),
                                     ),
 
                                     'recibe' => array(
@@ -328,10 +389,11 @@ foreach ($count as $key => $value) {
                                         // 'imageUrl' => Yii::app()->theme->baseUrl . '/img/computer_go.png', // image URL of the button. If not set or false, a text link is used
                                         'imageUrl' => false,
                                         'label' => '<i class="fa fa-reply"></i>',
+                                        'visible' => 'Yii::app()->user->checkAccess("action_fcco_recibe")',
                                         //'visible' =>'$data->FCCI_Id==5?true:false', // a PHP expression for determining whether the button is visible
                                         'options' => array(
                                             // 'target' => '_blank', 
-                                            'class' => 'not-link btn btn-sm btn-red', 
+                                            'class' => 'not-link btn btn-sm btn-red',
                                             'title' => 'Recibir'
                                         ),
                                     ),
@@ -392,13 +454,13 @@ foreach ($count as $key => $value) {
 
                         // array('name' => 'FCCO_Enabled','visible'=>Yii::app()->user->isSuperAdmin),
 
-                        array(
-                            'value' => '"<b>".$data->gCCA->gCCD->concatened."</b><br/><small>".$data->gCCD->concatened."</small>"',
-                            'header' => 'Grupo Incorrecto',
-                            'type' => 'raw',
-                            // 'headerHtmlOptions'=>array('style'=>'width:200px'),
-                            'visible' => Yii::app()->user->isSuperAdmin
-                        ),
+                        // array(
+                        //     'value' => '"<b>".$data->gCCA->gCCD->concatened."</b><br/><small>".$data->gCCD->concatened."</small>"',
+                        //     'header' => 'Grupo Incorrecto',
+                        //     'type' => 'raw',
+                        //     // 'headerHtmlOptions'=>array('style'=>'width:200px'),
+                        //     'visible' => Yii::app()->user->isSuperAdmin
+                        // ),
                         //campos de busqueda relacionada
                         array(
                             'name' => 'FCCU_Numero', 'header' => 'Numero',
@@ -442,7 +504,7 @@ foreach ($count as $key => $value) {
                                     'label' => '<i class="fa fa-file"></i>',
 
                                     'options' => array(
-                                        'class' => 'not-link btn btn-sm btn-orange', 
+                                        'class' => 'not-link btn btn-sm btn-orange',
                                         'title' => 'Ver Ticket',
                                         'ajax' => array(
                                             'type' => 'GET',
@@ -506,6 +568,5 @@ foreach ($count as $key => $value) {
 </div>
 
 <script>
-    $('#activity').scrollTop( $('#activityTable').height());
-   
+    $('#activity').scrollTop($('#activityTable').height());
 </script>

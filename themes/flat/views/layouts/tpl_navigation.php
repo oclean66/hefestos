@@ -1,4 +1,7 @@
 <?php
+        $theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'tema');
+
+
 $url = Yii::app()->request->requestUri;
 if (isset($_GET['card'])) {
     $url = Yii::app()->createUrl('tcca/view', array('id' => $_GET['id']));
@@ -69,12 +72,13 @@ if (isset($_GET['card'])) {
                         array('label' => 'Grupos', 'url' => array('/gccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_gccd_admin')),
                         array('label' => 'Agencias', 'url' => array('/gcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_gcca_admin')),
                         array('label' => 'Activos', 'url' => array('/fccu/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccu_admin')),
-                        array('label' => 'Usuarios del Sistema', 'url' => array('/cruge/ui/usermanagementadmin'), 'visible' => Yii::app()->user->checkAccess('action_ui_usermanagementadmin')),
+                        array('label' => 'Publicaciones', 'url' => array('/api/public'), 'visible' => Yii::app()->user->checkAccess('action_api_public')),
                         array('label' => 'Tipo de Activos', 'url' => array('/fcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcca_admin')),
                         array('label' => 'Modelos de Activos', 'url' => array('/fcct/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcct_admin')),
                         array('label' => 'Categorias de Activos*', 'url' => array('/fcuu/admin'), 'visible' => $admin),
                         array('label' => 'Operaciones con Activos', 'url' => array('/fccn/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccn_admin')),
                         array('label' => 'Estado de Activos', 'url' => array('/fcci/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcci_admin')),
+
                         array('label' => 'Operador de Lineas', 'url' => array('/fccd/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccd_admin')),
                         array('label' => 'Migrar de 2.0', 'url' => array('/site/migrate'), 'visible' => Yii::app()->user->checkAccess('action_site_migrate')),
                         array(
@@ -90,9 +94,9 @@ if (isset($_GET['card'])) {
                                     )
                                 ),
                                 array(
-                                    'label' => 'Facturacion*', 'url' => '#', 
-                                    'visible' => $admin, 
-                                    'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"), 
+                                    'label' => 'Facturacion*', 'url' => '#',
+                                    'visible' => $admin,
+                                    'itemOptions' => array('class' => 'dropdown-submenu', 'tabindex' => "-1"),
                                     'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                                     'items' => array(
                                         array('label' => 'Asignar', 'url' => array('#')),
@@ -102,6 +106,7 @@ if (isset($_GET['card'])) {
                                 ),
                             )
                         ),
+                        array('label' => 'Usuarios del Sistema', 'url' => array('/cruge/ui/usermanagementadmin'), 'visible' => Yii::app()->user->checkAccess('action_ui_usermanagementadmin')),
                     )
                 ),
             ),
@@ -157,19 +162,34 @@ if (isset($_GET['card'])) {
     </div>
 
     <div class="user">
+        <ul class="icon-nav">
+
+            <li class="dropdown colo ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-<?php echo $theme == 'justdark' ? "moon" : "sun"; ?>-o"></i>
+                </a>
+                <ul class="dropdown-menu pull-right theme-colors" style="min-width: 88px;">
+                    <li>
+                        <span class="orange"></span>
+                        <span class="justdark"></span>
+
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+
         <div class="dropdown">
             <?php
             $avatar = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar')->value;
-            if($avatar != ''){
+            if ($avatar != '') {
                 $profPic = $avatar;
-            }else{
+            } else {
                 $profPic = $baseUrl . '/img/demo/user-avatar.png';
             }
-            $var = !Yii::app()->user->isGuest ? ( 
-                    Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ? 
-                        Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') : 
-                        Yii::app()->user->name 
-                ) : "Invitado";
+            $var = !Yii::app()->user->isGuest ? (Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') != '' ?
+                Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') :
+                Yii::app()->user->name) : "Invitado";
 
             $this->widget('zii.widgets.CMenu', array(
                 'htmlOptions' => array('class' => 'main-nav'),
@@ -177,9 +197,9 @@ if (isset($_GET['card'])) {
                 'encodeLabel' => false,
                 'items' => array(
                     array(
-                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="25" src="'.$profPic.'" alt="">',
+                        'label' => '<i class="icon-user"></i>  ' . $var . '  <span class="caret"></span><img width="25" src="' . $profPic . '" alt="">',
                         'url' => '#', 'visible' => $visible,
-                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"), 
+                        'itemOptions' => array('class' => 'dropdown', 'tabindex' => "-1"),
                         'linkOptions' => array('class' => 'dropdown-toggle', 'data-toggle' => "dropdown"),
                         'items' => array(
                             array('label' => 'Bitacora', 'url' => array('/pcue'), 'visible' => Yii::app()->user->checkAccess('controller_pcue')),
@@ -242,7 +262,7 @@ if (isset($_GET['card'])) {
 
 
 </div>
-<div class="progress progress-striped active" style="margin: 0; height: 5px;background: #eee;">
+<div class="progress progress-striped active" style="margin: 0; height: 5px;background: rgba(5,0,0,0.12);">
     <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
 
     </div>
@@ -264,7 +284,7 @@ if (isset($_GET['card'])) {
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo Yii::app()->createUrl("tccn/delete")?>" + "?id=" + $(this).attr('id'),
+                url: "<?php echo Yii::app()->createUrl("tccn/delete") ?>" + "?id=" + $(this).attr('id'),
                 beforeSend: function(xhr) {
                     jQuery('#progress').attr('style', 'width:100%');
 
@@ -284,7 +304,7 @@ if (isset($_GET['card'])) {
     function removerAll() {
         // alert("removiendo");
         $.ajax({
-            url: "<?php echo Yii::app()->createUrl("tccn/remove")?>",
+            url: "<?php echo Yii::app()->createUrl("tccn/remove") ?>",
             beforeSend: function(xhr) {
                 jQuery('#progress').attr('style', 'width:100%');
 

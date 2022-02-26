@@ -35,6 +35,9 @@
                                 <li>
                                     <a href="#" id='boton' class="not-link"> Ver Tableros Archivados</a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo Yii::app()->createUrl("/tcca/dashboard");?>" >Tableros V2</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

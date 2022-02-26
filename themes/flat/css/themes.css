@@ -4269,3 +4269,134 @@ ul > li.grey-4, .label-grey-4 {
 .theme-grey-4 #main .box.box-bordered.box-color .box-content {
   border-color: #999999;
 }
+
+/* JUST DARK */
+.theme-justdark ::-webkit-scrollbar-thumb {
+  background: #2b343b;
+}
+.theme-justdark .form-horizontal.form-bordered .form-group [class*="col-"] {
+  border: none;
+}
+.theme-justdark  ::-webkit-scrollbar-track {
+  background: #1e272e;
+}
+.theme-justdark .tabs.tabs-inline.tabs-top > li.active > a, .theme-justdark .tabs.tabs-inline.tabs-top > li > a:hover {
+  background: #2b343b;
+  color: #ccc;
+}
+.theme-justdark .tabs.tabs-inline.tabs-top > li > a {
+  background: #1e272e;
+}
+.theme-justdark .jumbotron{
+  background-color: rgba(0, 0, 0, 0.06);
+}
+.theme-justdark .form-control, .theme-justdark .select2-container .select2-choice, .theme-justdark .daterangepicker, .theme-justdark .select2-drop {
+  background-color: #3f4d57;
+  color: #f2f2f2;
+  border: 1px solid #838383;
+}
+.theme-justdark .arbol, .theme-justdark .daterangepicker .calendar-table {
+  background-color: #2b343b;
+}
+.theme-justdark ul.dynatree-container a {
+  color: #bcbcbc;
+  border: none;
+}
+.theme-justdark tr.grupo a {
+  color: #368ee0;
+}
+.theme-justdark .daterangepicker .ranges li:hover {
+  background-color: #035e8b;
+}
+.theme-justdark .panel-group.panel-widget .panel-heading {
+  background: #1f3647;
+}
+.theme-justdark .panel-group.panel-widget .panel .panel-heading .panel-title > a {
+  color:#ccc;
+}
+.theme-justdark .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  color: #ccc;
+  background-color: #1f3647;
+  border: 1px solid #ddd;
+}
+.theme-justdark .nav-tabs>li>a {
+  border: none;
+}
+.theme-justdark .nav>li>a:hover, .nav>li>a:focus {
+  background-color: #1f3647;
+}
+.theme-justdark .alert-danger {
+  background-color: #ff434352;
+  color: #ff7876;
+}
+.theme-justdark .alert-info {
+  background-color: #004b70;
+  color: #47baf3;
+}
+.theme-justdark a {
+  color: #ccc;
+}
+.theme-justdark .alert-warning {
+  background-color: rgba(255, 214, 0, 0.25);
+  color: #ccc;
+}
+.theme-justdark .panel-group.panel-widget .panel {
+  border:  none;
+}
+.theme-justdark .table.table-hover tr:hover > td, .theme-justdark .table-mail tbody tr.warning > td{
+  background-color: #3f4d57;
+}
+.theme-justdark #left, .theme-justdark .dropdown-menu, .theme-justdark .modal-content, .theme-justdark .panel, .theme-justdark .panel-footer, .theme-justdark pre {
+  color: #ccc;
+  background-color: #2b343b;
+}
+.theme-justdark #left .subnav .subnav-title .toggle-subnav {
+  color: #ccc;
+}
+.theme-justdark #left .subnav .subnav-menu > li > a ,  .theme-justdark .box .box-title h3, .theme-justdark .form-horizontal.form-bordered .form-group .control-label, .theme-justdark .dropdown-menu>li>a {
+  color: #ccc;
+}
+.theme-justdark .box.box-bordered.box-color .box-title, .theme-justdark .box.box-color .box-title {
+  background: #2b343b;
+  border-color: #2b343b;
+}
+.theme-justdark .box.box-bordered.box-color .box-content {
+  border-color: #2b343b;
+}
+.theme-justdark #left .subnav .subnav-menu > li > a:hover, .theme-justdark #left .subnav .subnav-menu > li.active > a  {
+  background: #3f4d57;
+}
+
+.theme-justdark .form-horizontal.form-bordered .form-group, .theme-justdark .form-horizontal.form-bordered .form-group [class*="col-"] {
+  background: #2b343b;
+}
+.theme-justdark .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
+  background-color: #2b343b;
+}
+body.theme-justdark, .theme-justdark #main, .theme-justdark .box .box-content, .theme-justdark .table tr th{
+  background-color: #1e272e;
+  color: #999999;
+}
+.theme-justdark .box .box-title .actions .btn {
+  color: #ccc;
+  
+}
+.theme-justdark #navigation {
+  background: #2b343b;
+}
+.theme-justdark .table>thead>tr>th, .theme-justdark  .table>tbody>tr>th, .theme-justdark  .table>tfoot>tr>th, .theme-justdark  .table>thead>tr>td, .theme-justdark  .table>tbody>tr>td, .theme-justdark .table>tfoot>tr>td {
+  border-top: 1px solid #333;
+}
+
+.theme-justdark .panel-group.panel-widget .panel .panel-heading:hover, .theme-justdark span.dynatree-active a, .theme-justdark ul.dynatree-container a:hover{
+  text-decoration: none;
+  background: #365873 !important;
+}
+.theme-justdark .ui-datepicker, .theme-justdark ul.dynatree-container, .theme-justdark ul.dynatree-container a:focus, .theme-justdark span.dynatree-focused a:link{
+  background: #1e272e;
+}
+.theme-justdark .ui-widget-header {
+color: #ccc;
+}
+/* //----------------------- */
+

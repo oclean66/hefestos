@@ -15,6 +15,9 @@
  * @property string $regdate    fecha de registro
  * @property string $actdate    fecha de activacion
  * @property string $logondate    ultimo login exitoso
+ * @property integer $GCCD_Id    Grupo al que pertenece
+
+
  * @author: Christian Salazar H. <christiansalazarh@gmail.com> @salazarchris74
  * @license protected/modules/cruge/LICENSE
  */
@@ -197,6 +200,11 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
         }
     }
 
+    public function getGrupo()
+    {
+        return $this->GCCD_Id;
+    }
+    
     /**
     @retuns string nombre de usuario (para login).
      */
@@ -370,6 +378,7 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
         // class name for the relations automatically generated below.
         return array(
             'sessions' => array(self::HAS_MANY, 'crugesession', 'iduser'),
+            'gccd' => array(self::BELONGS_TO, 'Gccd', 'GCCD_Id'),
         );
     }
 

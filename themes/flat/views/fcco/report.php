@@ -113,7 +113,13 @@
                 ),
                 'columns' => array(
                     array('name' => 'FCCO_Lote'),
-                    array('name' => 'desde', 'header' => 'Fecha/Hora', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
+
+                    array(
+                        'name' => 'desde',
+                        'header' => 'Fecha/Hora',
+                        'type' => 'raw',
+                        'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))."<br/><b>".$data->username."</b>"'
+                    ),
                     //array('name' => 'FCCO_Timestamp', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
                     //array('name' => 'hasta', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
 
@@ -253,7 +259,7 @@
 
 
 
-           <!--  <table class="table table-hover table-condensed">
+            <!--  <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -312,7 +318,3 @@
     </div>
 
 </div>
-
-
-
-

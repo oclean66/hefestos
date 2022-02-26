@@ -30,8 +30,10 @@ $xx = Yii::app()->user->checkAccess('action_gccd_assign') ?
 
 
 $this->menu = array(
-    array('label' => 'Ver grupo padre', 'visible' => isset($grupo->GCCD_IdSuperior),
-        'url' => CController::createUrl('grupo', array('id' => !isset($grupo->GCCD_IdSuperior) ? "$grupo->GCCD_Id" : $grupo->GCCD_IdSuperior, 'type' => 1))),
+    array(
+        'label' => 'Ver grupo padre', 'visible' => isset($grupo->GCCD_IdSuperior),
+        'url' => CController::createUrl('grupo', array('id' => !isset($grupo->GCCD_IdSuperior) ? "$grupo->GCCD_Id" : $grupo->GCCD_IdSuperior, 'type' => 1))
+    ),
     array('label' => 'Asignar Activos', 'url' => array('create')),
 );
 foreach ($count as $key => $value) {
@@ -40,55 +42,79 @@ foreach ($count as $key => $value) {
 ?>
 
 <div class="row">
-	<!-- Cabecera -->
-	<div class="col-sm-12">
-		<div class="box ">
-			<div class="box-title">
-				<h3>
+    <!-- Cabecera -->
+    <div class="col-sm-12">
+        <div class="box ">
+            <div class="box-title">
+                <h3>
 
-					<!-- <i class="fa fa-view"></i>-->
-					<i class="fa fa-users"></i>
-					GRUPO <?php echo $grupo->concatened; ?>
-				</h3>
-				<!-- <br /> -->
+                    <!-- <i class="fa fa-view"></i>-->
+                    <i class="fa fa-users"></i>
+                    GRUPO <?php echo $grupo->concatened; ?>
+                </h3>
+                <!-- <br /> -->
 
-				<div class="actions">
+                <div class="actions">
 
-					<?php echo $xx; ?>
+                    <?php echo $xx; ?>
+                    <?php echo Yii::app()->user->checkAccess('action_gccd_update') ?
+                        CHtml::link(
+                            '<i class="fa fa-pencil"></i> Editar',
+                            array('/gccd/update', 'id' => $model->GCCD_Id),
+                            array('class' => 'btn btn-success btn-mini', 'target' => '_blank')
+                        ) :
+                        "";
+                    ?>
 
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-6 ">
-		<div class="box box-bordered box-small green box-color">
-			<div class="box-title nomargin">
-				<h3>
-				<i class="fa fa-th-list"></i> Datos Basicos
-				</h3>
-			</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 ">
+        <div class="box box-bordered box-small green box-color">
+            <div class="box-title nomargin">
+                <h3>
+                    <i class="fa fa-th-list"></i> Datos Basicos
+                </h3>
+            </div>
 
 
-			<?php $this->widget('zii.widgets.CDetailView', array(
-				'data' => $grupo,
-				'id' => 'view',
-				'htmlOptions' => array('class' => 'table table-hover table-nomargin table-condensed'),
-				'attributes' => array(
-					'GCCD_Id',
-					'GCCD_Cod',
-					'GCCD_Nombre',
-					array('name' => 'GCCD_IdSuperior', 'value' => isset($grupo->GCCD_IdSuperior) ? $grupo->gCCDIdSuperior->concatened : "Sin Padre"),
+            <?php $this->widget('zii.widgets.CDetailView', array(
+                'data' => $grupo,
+                'id' => 'view',
+                'htmlOptions' => array('class' => 'table table-hover table-nomargin table-condensed'),
+                'attributes' => array(
+                    'GCCD_Id',
+                    'GCCD_Cod',
+                    'GCCD_Nombre',
+                    array('name' => 'GCCD_IdSuperior', 'value' => isset($grupo->GCCD_IdSuperior) ? $grupo->gCCDIdSuperior->concatened : "Sin Padre"),
 
-					array(
-						'name' => 'GCCD_Estado',
-						'value' => $grupo->GCCD_Estado == 1 ? "Activa" : ($grupo->GCCD_Estado == 2 ? "Oculto": "Inactivo")
-					),
-					'GCCD_Responsable',
-					'GCCD_Telefono',
-				),
-			)); ?>
-		</div>
-	</div>
+                    array(
+                        'name' => 'GCCD_Estado',
+                        'value' => $grupo->GCCD_Estado == 1 ? "Activa" : ($grupo->GCCD_Estado == 2 ? "Oculto" : "Inactivo")
+                    ),
+                    'GCCD_Responsable',
+                    'GCCD_Telefono',
+                ),
+            )); ?>
+        </div>
+    </div>
+    <form class="form-horizontal form-bordered" id="gccd-form" action="#" method="post">
+
+        <div class="form-group">
+            <div class="col-sm-6">
+
+                <h6>Publicado:</h6>                
+                <?php
+                $list = GccaPublic::model()->findAll("GCCD_Id =:id", array(":id" => $grupo->GCCD_Id)); 
+                foreach ($list as $key => $value) {
+                    // echo '<span class="label label-info">'.$value->PUBLIC.'</span>';
+                    echo '<div style="padding:5px;margin-bottom: 5px;" class="alert alert-warning alert-dismissable"><strong>'.$value->PUBLIC.'</strong></div>';                                    
+                }
+                ?>
+            </div>
+        </div>
+    </form>
 </div>
 
 
@@ -99,7 +125,7 @@ foreach ($count as $key => $value) {
             <i class="fa fa-th-list"></i> Total de Asignaciones Activas
         </h3>
     </div>
-    <div class="box-content nopadding" >
+    <div class="box-content nopadding">
 
 
         <?php
@@ -145,16 +171,16 @@ foreach ($count as $key => $value) {
                 ),
                 array(
                     'name' => 'GCCA_Nombre', 'header' => 'Agencia',
-                    'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'), 
+                    'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'),
                     'value' => '$data->gCCA->GCCA_Nombre',
-                    'type'=>'raw',
-                    'value'=>'CHtml::link($data->gCCA->GCCA_Nombre, array("fcco/agencia","id"=>$data->GCCA_Id, "type"=>"view"))',
+                    'type' => 'raw',
+                    'value' => 'CHtml::link($data->gCCA->GCCA_Nombre, array("fcco/agencia","id"=>$data->GCCA_Id, "type"=>"view"))',
                 ),
-                 array(
-                   'name' => 'GCCD_Nombre', 'header' => 'Grupo',
-                   'filter' => CHtml::activeTextField($model, 'GCCD_Nombre'),
-                   'value' => '$data->gCCD->GCCD_Nombre',
-                ),
+                // array(
+                //     'name' => 'GCCD_Nombre', 'header' => 'Grupo',
+                //     'filter' => CHtml::activeTextField($model, 'GCCD_Nombre'),
+                //     'value' => '$data->gCCD->GCCD_Nombre',
+                // ),
                 'FCCO_Lote',
                 //        array(
                 //            'class' => 'CButtonColumn', 'headerHtmlOptions' => array('style' => 'width:83px'),
@@ -167,9 +193,11 @@ foreach ($count as $key => $value) {
 </div>
 
 <script>
-    $(function(){
-        var board = $("#fcco-grid" );
+    $(function() {
+        var board = $("#fcco-grid");
         var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-		board.css({"max-height":(h-140)});
+        board.css({
+            "max-height": (h - 140)
+        });
     })
 </script>

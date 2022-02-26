@@ -37,8 +37,8 @@
             ?>
 
             <!--GCCD/GCCA-->
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="">
+                <div class="col-sm-6 nopadding">
 
                     <div class="form-group">
                         <label for="textfield" class="control-label col-sm-2">Grupo</label>
@@ -63,7 +63,7 @@
 
 
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 nopadding">
 
                     <div class="form-group">
                         <label for="textfield" class="control-label col-sm-2">Agencia</label>

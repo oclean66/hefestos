@@ -19,14 +19,13 @@ class GccaController extends Controller
 		$model = $this->loadModel($val1, $val2);
 
 		if ($model->GCCA_Status == 0) {
-			
+
 			$model->GCCA_Status = 1;
 			$estado = '<i class="fa fa-check"></i> Activa';
 		} else {
-					
+
 			$model->GCCA_Status = 0;
 			$estado = '<i class="fa fa-times"></i> Inactiva';
-			
 		}
 		if ($model->save()) {
 			echo $estado;
@@ -42,12 +41,16 @@ class GccaController extends Controller
 	 */
 	public function actionView($id, $excel = false)
 	{
+
+		//ATENCION:	
+		//ESTE METODO ESTA EN DESUSO, PUES FCCO/AGENCIA MUESTRA LA INFO MAS COMPLETA
+
+		
 		$agencia = $this->loadModel($id);
 		$model = new Fcco('search');
 		$model->unsetAttributes();  // clear any default values
 		$model->GCCA_Id = $id;
 		// $model->GCCD_Id = $agencia->GCCD_Id;
-
 
 		if (isset($_GET['Fcco'])) {
 
@@ -57,11 +60,6 @@ class GccaController extends Controller
 			// $model->FCCN_Id = 1;
 		}
 		$model->FCCO_Enabled = 0; // historial asignado
-		// $model->FCCN_Id = 1; //operacion asignado
-
-		// $model->FCCO_Enabled = 0; //asignado actualmente
-
-
 		$model->desde = date('2000-01-01');
 		$model->hasta = date('2025-01-01');
 
@@ -71,9 +69,11 @@ class GccaController extends Controller
 
 			Yii::app()->request->sendFile('Historial Agencia ' . $agencia->concatened . '.xls', $content);
 		}
+
 		$this->render('view', array(
 			'model' => $agencia,
-			'historial' => $model
+			'historial' => $model,
+			// 'errores'=>$inc
 		));
 	}
 
@@ -132,16 +132,15 @@ class GccaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$object = $this->loadModel($id);		
+		$object = $this->loadModel($id);
 		$object->GCCA_Status = 2;
-		$object->GCCA_Cod = "D-".$object->GCCA_Cod;
+		$object->GCCA_Cod = "D-" . $object->GCCA_Cod;
 		$object->save();
 		// ->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if (!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('fcco/agencia', 'id' => $object->GCCA_Id, 'type' => 'completed'));
-
 	}
 
 
