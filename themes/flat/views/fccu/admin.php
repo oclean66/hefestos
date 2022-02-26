@@ -148,7 +148,7 @@
                             'options' => array(
                                 // 'target' => '_blank', 
                                 'class' => 'not-link btn btn-sm btn-satblue',
-                                'title'=>'Reportar'    
+                                'title'=>'Enviar a...'    
                             ),
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_recibe") && $data->FCCI_Id == 5', // a PHP expression for determining whether the button is visible
                             'confirm' => "Seguro desea Recibir este activo?",
@@ -167,20 +167,18 @@
                                     return false;
                                 }"
                         ),
-                        'report' => array(
-                            // 'label' => 'Reportar Activo',
+                        'report' => array( 
 
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_report")',
                             'url' => 'Yii::app()->createUrl("tccd/create", array("id"=>$data->FCCU_Id))',
                             'options' => array(
                                 'target' => '_blank', 
                                 'class' => 'not-link btn btn-sm btn-orange',
-                                'title'=>'Reportar'    
+                                'title'=>'Enviar a...'    
                             ),
                             // 'imageUrl' => Yii::app()->theme->baseUrl . '/img/report1.png',
-                            'imageUrl' => false,
-                            // 'label' => '<button class="btn btn-sm btn-orange"> <i class="fa fa-warning"></i> Reportar</button>',
-                            'label' => '<i class="fa fa-warning"></i> Reportar',
+                            'imageUrl' => false, 
+                            'label' => '<i class="fa fa-share-square-o"></i> Enviar a...',
 
                         ),
                         'delete' => array(
@@ -192,8 +190,7 @@
                                
                                 'class' => 'not-link btn btn-sm btn-danger',
                                 'title'=>'Dar de Baja'    
-                            ),
-                            // 'label' => '<button class="btn btn-sm btn-orange"> <i class="fa fa-warning"></i> Reportar</button>',
+                            ), 
                             'label' => '<i class="fa fa-trash-o"></i> Dar de Baja',
                         ),
                     ),

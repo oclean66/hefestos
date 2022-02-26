@@ -401,16 +401,20 @@ class TccdController extends Controller
 	 */
 	public function actionCreate($id = '')
 	{
+	 
 		$model = new Tccd;
 		$activo = Fccu::model()->find('FCCU_Id = :id', array(':id' => $id));
 		$model->TCCD_Created = date("Y-m-d H:i");
-		if (isset($activo)) {
+ 
+
+		if (isset($activo)) { 
 			$model->TCCD_Title = $activo->FCCU_Serial;
 			$model->TCCD_Description = "Se ha reportado el activo #" . $activo->FCCU_Serial . " ";
 		}
 
 		// Con este se crean las tarjetas desde tableros
 		if (isset($_POST['name']) && $_POST['name'] == 'TCCA_New') {
+ 
 			// print_r($_POST);
 			// $model=new Tcca;
 			$model->TCCD_Title = $_POST['value'];
@@ -434,6 +438,7 @@ class TccdController extends Controller
 					'TCCD_Created' => date("d M, h:ia", strtotime($model->TCCD_Created)),
 				));
 				$this->saveActivity("creo", Yii::app()->user->id, "esta tarjeta", $model->TCCD_Id);
+		 
 				return $model;
 			} else {
 				throw new CHttpException(404, 'The requested page does not exist.');
@@ -445,20 +450,43 @@ class TccdController extends Controller
 		//Con este se crean las tarjetas desde formulario
 		if (isset($_POST['Tccd'])) {
 			$model->attributes = $_POST['Tccd'];
-			if ($model->save()) {
+
+			$idTccd=$model->save(); 
+			if ($idTccd) {
 				$access = new Tccm;
 				$access->TCCM_IdModel = $model->TCCD_Id;
 				$access->TCCM_Model = "TCCD";
 				$access->TCCM_IdUser = Yii::app()->user->id;
 				$access->TCCM_Status = 'Administrador';
 				$access->save();
+
+
+
+				$activoInFccu = new TccdHasFccu;
+				$activoInFccu->TCCD_Id = $model->TCCD_Id;
+				$activoInFccu->FCCU_Id = $id;
+
+
+				$activo->attributes = $_POST['Fccu'];
+
+				if ($activo->FCCS_Id == ''){
+						$activo->FCCS_Id = null;
+		
+					$activo->save();
+				}
+
+				if ($activoInFccu->save()) { 
+				} else {
+					print_r($activoInFccu->getErrors());
+				}
+
 				$this->saveActivity("creo", Yii::app()->user->id, "esta tarjeta", $model->TCCD_Id);
 				$this->redirect(array('/tcca/view', 'id' => $model->tCCA->TCCA_BoardId, 'card' => $model->TCCD_Id));
 			}
-		}
-
+		} 
 		$this->render('create', array(
 			'model' => $model,
+			'activo' => $activo,
 		));
 	}
 

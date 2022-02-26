@@ -16,6 +16,7 @@ $this->menu = array(
         'params' => array('returnUrl' => Yii::app()->createUrl('fccu/view', array('id' => $model->FCCU_Id))), 'confirm' => 'Seguro quiere recibir este activo?'
     )),
     array('label' => 'Administrar Activos', 'url' => array('admin')),
+    array('label' => 'Enviar A...', 'url' => Yii::app()->createUrl("tccd/create", array("id"=>$model->FCCU_Id))),
 );
 ?>
 

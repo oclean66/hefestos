@@ -19,6 +19,9 @@
 
         <?php echo $form->errorSummary($model, 'Corrija lo siguiente', '', array('class' => 'alert alert-danger alert-dismissable')); ?>
 
+
+
+
         <div class="form-group">
             <?php echo $form->labelEx($model, 'TCCD_Title', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
@@ -124,6 +127,15 @@
                 echo CHtml::dropDownList('Tccd[TCCA_Id]', 'Tccd[TCCA_Id]', array(), array(
                     'id' => 'lista', 'empty' => 'Selecciona una Lista...', 'class' => 'select2-me', 'style' => 'width:100%'
                 ));
+                ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $form->labelEx($activo, 'FCCI_Id', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+                <?php
+                echo $form->dropDownList($activo, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll( Yii::app()->user->isSuperAdmin ? '':'FCCI_Id != 6'), 'FCCI_Id', 'concatened'), array('prompt' => $activo->FCCI_Id == 6 ?'# De Baja #':'Seleccione un estado...'));
                 ?>
             </div>
         </div>
