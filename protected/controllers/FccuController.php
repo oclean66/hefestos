@@ -307,11 +307,12 @@ class FccuController extends Controller
         $model = new Fccu('search');
         ini_set('memory_limit', '-1');
 
+       
+       $model->unsetAttributes();  // clear any default values
 
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Fccu']))
+        if (isset($_GET['Fccu'])){
             $model->attributes = $_GET['Fccu'];
-
+        }
 
         /*if ($tipo == null)
             $tipo = 1;
@@ -321,6 +322,8 @@ class FccuController extends Controller
         $criteria->select = '*';
         $criteria->condition = "FCCU_Serial=:serial and FCCI_Id =:estado";
         $criteria->params = array(':serial' => $id, ':estado' => $tipo); */
+      //  $activos=Fccu::model()->GetActivos();
+    
 
         $this->render('admin', array(
             'model' => $model

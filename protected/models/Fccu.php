@@ -152,7 +152,7 @@ class Fccu extends CActiveRecord {
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search() {
+    public function search($text='') {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -193,6 +193,7 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCCU_Cedula', $this->FCCU_Cedula);
         $criteria->compare('FCCU_FechaNacimiento', $this->FCCU_FechaNacimiento, true);
         $criteria->compare('FCCU_ClaveWeb', $this->FCCU_ClaveWeb, true);
+        $criteria->compare('FCCU_Serial', $text, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -265,5 +266,6 @@ class Fccu extends CActiveRecord {
 
     
     }
+
 
 }
