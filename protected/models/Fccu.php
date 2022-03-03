@@ -232,7 +232,7 @@ class Fccu extends CActiveRecord {
                 ),
             ),
             'Pagination' => array (
-                  'PageSize' => 200 //edit your number items per page here
+                  'PageSize' => 20 //edit your number items per page here
               ),
         ));
     }

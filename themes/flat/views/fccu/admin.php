@@ -33,38 +33,44 @@ Yii::app()->clientScript->registerScript('search', "
         </div>-->
     </div>
 
-    <div class="row">
 
-        <div class="col-md-3">
-            <!-- <input class="search-button" type="text" placeholder="Buscar.." class="form-control" onkeyup="filtrar(this)"> -->
-            <div class="col-sm-12 nopadding">
-                <?php $this->renderPartial('_search', array(
-                    'model' => $model,
-                )); ?>
 
-            </div>
-            <div class="col-sm-12 nopadding">
-                <!-- <ul class="list-group  "> -->
-                <?php
-                $this->widget('zii.widgets.CListView', array(
-                    'id' => 'fccu-grid',
-                    'dataProvider' => $model->search(),
-                    'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
-                    'summaryText' => '',
-                    'pagerCssClass' => 'table-pagination',
-                    'pager' => array(
-                        'htmlOptions' => array('class' => 'pagination'),
-                        'selectedPageCssClass' => 'active',
-                        ),
-                    'itemView' => '_itemview',
+    <div class="col-md-3 nopadding">
+        <!-- <input class="search-button" type="text" placeholder="Buscar.." class="form-control" onkeyup="filtrar(this)"> -->
+        <div class="col-sm-12 nopadding">
+            <?php $this->renderPartial('_search', array(
+                'model' => $model,
+            )); ?>
 
-                ));
-                ?>
-                <!-- </ul> -->
-            </div>
+        </div>
+        <div class="col-sm-12 nopadding">
+            <!-- <ul class="list-group  "> -->
+            <?php
+            $this->widget('zii.widgets.CListView', array(
+                'id' => 'fccu-grid',
+                'dataProvider' => $model->search(),
+                'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
+                // 'summaryText' => '',
+                'pagerCssClass' => 'table-pagination',
+                'pager' => array(
+                    'htmlOptions' => array('class' => 'pagination'),
+                    'selectedPageCssClass' => 'active',
+                ),
+                'itemView' => '_itemview',
+
+            ));
+            ?>
+            <!-- </ul> -->
         </div>
     </div>
-    <div class="col-md-9" id="infoprod">
+
+    <div class="col-md-9" style="padding: 5px;" id="infoprod">
+
+        <div class="jumbotron" bis_skin_checked="1">
+            <h1>Bienvenido!</h1>
+            <p>Selecciona algun activo de la lista para ver su informacion.</p>
+
+        </div>
 
     </div>
     <div>

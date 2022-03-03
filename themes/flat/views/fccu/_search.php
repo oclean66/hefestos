@@ -19,7 +19,7 @@
 		</span>
 		<?php echo $form->textField($model, 'FCCU_Serial', array('class' => 'form-control', 'placeholder' => 'Serial', 'size' => 45, 'maxlength' => 45)); ?>
 		<div class="input-group-btn" bis_skin_checked="1">
-			<?php echo CHtml::submitButton('Search', array("class"=>"btn btn-primary")); ?>
+			<?php echo CHtml::submitButton('Buscar', array("class"=>"btn btn-primary")); ?>
 		</div>
 	</div>
 
