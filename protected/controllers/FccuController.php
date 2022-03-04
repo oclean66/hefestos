@@ -215,7 +215,7 @@ class FccuController extends Controller
         $modelo->hasta = date('2025-01-01');
 
         $modelo->FCCU_Id = $id;    
-        $resumen=$model->resumenTab(); 
+        $resumen=$model->resumenTab();
        
         // da madre error de constraint ambiguos
         if (isset($_POST['comment']) && $_POST['comment'] != '') {
@@ -229,14 +229,14 @@ class FccuController extends Controller
         }
         
 
-        $this->render('view', array(
+        $this->renderPartial('view', array(
             'model' => $model,
             'modelo' => $modelo,
             'resumen' => $resumen,
         ));
     }
 
-    public function actionUpdate($id)
+    public function actionUpdate($id, $vista = 'admin')
     {
         $model = $this->loadModel($id);
         if ($model->FCCI_Id == 5) {
@@ -251,11 +251,11 @@ class FccuController extends Controller
                 $model->FCCS_Id = null;
 
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->FCCU_Id));
+                $this->redirect(array($vista, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
         }
 
 
-        $this->render('update', array(
+        $this->renderPartial('update', array(
             'model' => $model,
         ));
     }
@@ -302,14 +302,18 @@ class FccuController extends Controller
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
-    public function actionAdmin()
+    public function actionAdmin($id=false)
     {
+       
         $model = new Fccu('search');
         ini_set('memory_limit', '-1');
 
        
        $model->unsetAttributes();  // clear any default values
+       if($id){
+            $model->FCCU_Id = $id;
 
+        }
         if (isset($_GET['Fccu'])){
             $model->attributes = $_GET['Fccu'];
         }

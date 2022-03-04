@@ -25,7 +25,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'TCCD_Title', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'TCCD_Title', array('size' => 45, 'maxlength' => 45)); ?>
+                <?php echo $form->textField($model, 'TCCD_Title', array('size' => 45, 'maxlength' => 45,'class'=>'form-control')); ?>
                 <?php echo $form->error($model, 'TCCD_Title'); ?>
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'TCCD_Description', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'TCCD_Description', array('size' => 255, 'maxlength' => 255)); ?>
+                <?php echo $form->textField($model, 'TCCD_Description', array('size' => 255, 'maxlength' => 255,'class'=>'form-control')); ?>
                 <?php echo $form->error($model, 'TCCD_Description'); ?>
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'TCCD_Created', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'TCCD_Created'); ?>
+                <?php echo $form->textField($model, 'TCCD_Created',array('class'=>'form-control')); ?>
                 <?php echo $form->error($model, 'TCCD_Created'); ?>
             </div>
         </div>
@@ -71,7 +71,7 @@
                     'TCCA_Id',
                     CHtml::listData(Tcca::model()->findAll(), 'TCCA_BoardId', 'TCCA_Name'),
                     array(
-                        'class' => 'select2-me', 'style' => 'width:100%',
+                        'class' => 'select2-me form-control', 'style' => 'width:100%',
                         'ajax' => array(
                             'type' => 'POST',
                             'url' => CController::createUrl('tcca/Lista'),
@@ -104,7 +104,7 @@
                     'Tccd[TCCA]',
                     CHtml::listData(Tcca::model()->findAll('TCCA_BoardId is null'), 'TCCA_Id', 'TCCA_Name'),
                     array(
-                        'class' => 'select2-me', 'style' => 'width:100%', 'prompt' => 'Selecciona un Tablero...',
+                        'class' => 'select2-me  form-control', 'style' => 'width:100%', 'prompt' => 'Selecciona un Tablero...',
                         'ajax' => array(
                             'type' => 'POST',
                             'url' => CController::createUrl('tccd/Lista'),
@@ -125,7 +125,7 @@
             <div class="col-sm-10">
                 <?php
                 echo CHtml::dropDownList('Tccd[TCCA_Id]', 'Tccd[TCCA_Id]', array(), array(
-                    'id' => 'lista', 'empty' => 'Selecciona una Lista...', 'class' => 'select2-me', 'style' => 'width:100%'
+                    'id' => 'lista', 'empty' => 'Selecciona una Lista...', 'class' => 'select2-me ', 'style' => 'width:100%'
                 ));
                 ?>
             </div>

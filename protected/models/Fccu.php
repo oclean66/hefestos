@@ -173,7 +173,7 @@ class Fccu extends CActiveRecord {
 
 
 
-        $criteria->compare('FCCU_Id', $this->FCCU_Id, true);
+        $criteria->compare('FCCU_Id', $this->FCCU_Id);
         $criteria->compare('FCCU_Serial', $this->FCCU_Serial, true);
         $criteria->compare('FCCU_Timestamp', $this->FCCU_Timestamp, true);
         $criteria->compare('FCCU_Numero', $this->FCCU_Numero, true);

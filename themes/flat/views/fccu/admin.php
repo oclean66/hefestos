@@ -26,60 +26,88 @@ Yii::app()->clientScript->registerScript('search', "
         <h3>
             <i class="fa fa-thumb-tack"></i>Activos del Sistema
         </h3>
-        <!-- <div class="actions">
-            <a href="javascript:print()" class="btn">
-                <i class="fa fa-print"></i> Imprimir
+         
+         <div class="actions">
+            <a href="<?= Yii::app()->createUrl("fccu/add") ?>" class="btn">
+                <i class="fa fa-print"></i> Crear Activo
             </a>
-        </div>-->
-    </div>
-
-
-
-    <div class="col-md-3 nopadding">
-        <!-- <input class="search-button" type="text" placeholder="Buscar.." class="form-control" onkeyup="filtrar(this)"> -->
-        <div class="col-sm-12 nopadding">
-            <?php $this->renderPartial('_search', array(
-                'model' => $model,
-            )); ?>
-
-        </div>
-        <div class="col-sm-12 nopadding">
-            <!-- <ul class="list-group  "> -->
-            <?php
-            $this->widget('zii.widgets.CListView', array(
-                'id' => 'fccu-grid',
-                'dataProvider' => $model->search(),
-                'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
-                // 'summaryText' => '',
-                'pagerCssClass' => 'table-pagination',
-                'pager' => array(
-                    'htmlOptions' => array('class' => 'pagination'),
-                    'selectedPageCssClass' => 'active',
-                ),
-                'itemView' => '_itemview',
-
-            ));
-            ?>
-            <!-- </ul> -->
         </div>
     </div>
 
-    <div class="col-md-9" style="padding: 5px;" id="infoprod">
 
-        <div class="jumbotron" bis_skin_checked="1">
-            <h1>Bienvenido!</h1>
-            <p>Selecciona algun activo de la lista para ver su informacion.</p>
+    <div class="row mt-1">
+        <div class="col-md-3 nopadding " id='listview' style='overflow-y:auto'>
+            <!-- <input class="search-button" type="text" placeholder="Buscar.." class="form-control" onkeyup="filtrar(this)"> -->
+            <div class="col-sm-12 nopadding">
+                <?php $this->renderPartial('_search', array(
+                    'model' => $model,
+                )); ?>
 
+            </div>
+            <div class="col-sm-12 nopadding ">
+                <!-- <ul class="list-group  "> -->
+                <?php
+                $this->widget('zii.widgets.CListView', array(
+                    'id' => 'fccu-grid',
+                    'dataProvider' => $model->search(),
+                    'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
+                    'summaryText' => '<a href="javascript:busqavanzada();" >Busqueda Avanzada </a> Viendo {start} - {end} de {count} resultados',
+                    'pagerCssClass' => 'table-pagination',
+                    'pager' => array(
+                        'htmlOptions' => array('class' => 'pagination'),
+                        'selectedPageCssClass' => 'active',
+                    ),
+                    'itemView' => '_itemview',
+
+                ));
+                ?>
+                <!-- </ul> -->
+            </div>
         </div>
 
-    </div>
+        <div class="col-md-9 "  id="infoactivo" style='overflow-y:auto'>
+
+            <div class="jumbotron" bis_skin_checked="1">
+                <h1>Bienvenido!</h1>
+                <p>Selecciona algun activo de la lista para ver su informacion.</p>
+
+            </div>
+
+        </div>
     <div>
+</div>
+<script>
+    	var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        $("#infoactivo").css({
+			"max-height": (h - 165)
+		});
 
-        <script>
-            function filtrar(e) {
-                var value = $(e).val().toLowerCase();
-                $('.list-group-item').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $("#listview").css({
+			"max-height": (h - 165)
+		});
+        <?php
+        if($model->FCCU_Id != null){
+            ?>
+            loadpage('<?= Yii::app()->createUrl('fccu/view/',array('id'=>$model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');
+            <?php
+        }
+        ?>
+        function loadpage(url,element) {
+            $('.list-group-item').removeClass('active');
+            $('.item-'+element).addClass('active');
+            $("#progress").attr("style", "width:100%");
+            $('#infoactivo').css({
+                "opacity":"60%"
+            });
+            $('#infoactivo').load(url, false, function(){
+                $('#infoactivo').css({
+                "opacity":"100%"
                 });
-            }
-        </script>
+                $("#progress").attr("style", "width:0%");
+                $('.select2-me').select2();
+            });    
+        }
+        function busqavanzada(){
+            $('#busq-avanz').toggle();
+        }
+</script>

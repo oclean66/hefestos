@@ -28,8 +28,8 @@ switch ($data->FCCI_Id) {
     }
 }
 ?>
-<a href="#" class="list-group-item row panel-default list-group-item-<?= $estado ?> " style="margin: 0 !important;color:darkslategray" 
-onclick="alert('Aqui va la llamada al ajax')" s>
+<a href="javascript:loadpage('<?= Yii::app()->createUrl('fccu/view/',array('id'=>$data->FCCU_Id)) ?>','<?= $data->FCCU_Id ?>');" class="item-<?= $data->FCCU_Id ?> list-group-item row panel-default list-group-item-<?= $estado ?> " style="margin: 0 !important;color:darkslategray" 
+ >
 <?= $data->FCCU_Serial ?><br/>
 <?= $data->fCCT->fCCA->FCCA_Descripcion ?> <?= $data->fCCT->FCCT_Descripcion ?>
 <span class="badge badge-<?= $estado ?>"><?= $data->fCCI->FCCI_Descripcion ?></span>

@@ -86,7 +86,7 @@
             <div class="col-sm-10">
                 <?php //echo $form->textField($model, 'FCCU_TipoServicio', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
                 <?php
-                echo $form->dropDownList($model, 'FCCU_TipoServicio', array('0' => 'No Posee', '1' => 'Pre-Pago', '2' => 'Corporativa'), array('empty' => 'Selecciona Servicio'));
+                echo $form->dropDownList($model, 'FCCU_TipoServicio', array('0' => 'No Posee', '1' => 'Pre-Pago', '2' => 'Corporativa'), array('empty' => 'Selecciona Servicio','class'=>'form-control'));
                 ?>
                 <?php echo $form->error($model, 'FCCU_TipoServicio', array('class' => 'label label-danger')); ?>
             </div>
@@ -112,7 +112,7 @@
             <?php echo $form->labelEx($model, 'FCCU_Facturado', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCU_Facturado', array('0' => 'No', '1' => 'Si', '2' => 'No aplica'), array('empty' => 'Selecciona Servicio', ));
+                echo $form->dropDownList($model, 'FCCU_Facturado', array('0' => 'No', '1' => 'Si', '2' => 'No aplica'), array('empty' => 'Selecciona Servicio','class'=>'form-control' ));
                 ?>
                 <?php echo $form->error($model, 'FCCU_Facturado', array('class' => 'label label-danger')); ?>
             </div>
@@ -122,7 +122,7 @@
             <?php echo $form->labelEx($model, 'FCCD_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCD_Id', CHtml::listData(Fccd::model()->findAll(), 'FCCD_Id', 'FCCD_Descripcion'), array( 'prompt' => 'Seleccione un Operador...'));
+                echo $form->dropDownList($model, 'FCCD_Id', CHtml::listData(Fccd::model()->findAll(), 'FCCD_Id', 'FCCD_Descripcion'), array( 'prompt' => 'Seleccione un Operador...','class'=>'form-control'));
                 ?>
                 <?php echo $form->error($model, 'FCCD_Id', array('class' => 'label label-danger')); ?>
             </div>
@@ -131,7 +131,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCT_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->dropDownList($model, 'FCCT_Id', CHtml::listData(Fcct::model()->findAll(), 'FCCT_Id', 'concatened'), array('class' => 'select2-me', 'style' => 'width:100%', 'prompt' => 'Seleccione un Operador...')); ?>
+                <?php echo $form->dropDownList($model, 'FCCT_Id', CHtml::listData(Fcct::model()->findAll(), 'FCCT_Id', 'concatened'), array('class' => 'select2-me', 'style' => 'width:100%', 'prompt' => 'Seleccione un Operador...','class'=>'form-control')); ?>
                 <?php //echo $form->textField($model, 'FCCT_Id', array('class' => 'form-control', 'size' => 10, 'maxlength' => 10)); ?>
                 <?php echo $form->error($model, 'FCCT_Id', array('class' => 'label label-danger')); ?>
             </div>
@@ -141,7 +141,7 @@
             <?php echo $form->labelEx($model, 'FCCI_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll( Yii::app()->user->isSuperAdmin ? '':'FCCI_Id != 6'), 'FCCI_Id', 'concatened'), array('prompt' => $model->FCCI_Id == 6 ?'# De Baja #':'Seleccione un estado...'));
+                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll( Yii::app()->user->isSuperAdmin ? '':'FCCI_Id != 6'), 'FCCI_Id', 'concatened'), array('prompt' => $model->FCCI_Id == 6 ?'# De Baja #':'Seleccione un estado...','class'=>'form-control'));
                 ?>
                 <?php //echo $form->textField($model, 'FCCI_Id', array('class' => 'form-control', 'size' => 10, 'maxlength' => 10)); ?>
                 <?php echo $form->error($model, 'FCCI_Id', array('class' => 'label label-danger')); ?>

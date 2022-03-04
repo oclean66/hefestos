@@ -8959,3 +8959,26 @@ a:focus {
 .badge{
   font-size: 75%;
 }
+.mt-1{
+  margin-top: 1%;
+}
+.mt-2{
+  margin-top: 2%;
+}
+.mt-3{
+  margin-top: 3%;
+}
+.mb-1{
+  margin-bottom: 1%;
+}
+.mb-2{
+  margin-bottom: 2%;
+}
+.mb-3{
+  margin-bottom: 3%;
+}
+a.list-group-item.active{
+  color: #fff !important;
+  background-color: #f8a31f !important;
+  border-color: #f8a31f !important;
+}
