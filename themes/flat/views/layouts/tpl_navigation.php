@@ -325,4 +325,4 @@ if (isset($_GET['card'])) {
             })
         }
     }
-</script
+</script>
