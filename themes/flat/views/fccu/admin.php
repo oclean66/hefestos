@@ -39,9 +39,11 @@
                 'selectedPageCssClass' => 'active',
             ),
             'columns' => array(
+                // 'FCCU_Bussiness',
                 array(
                     'name' => 'FCCU_Timestamp', 'header' => 'Fecha de Ingreso',
-                    'value' => 'date("d/m/Y, h:ia",strtotime($data->FCCU_Timestamp))',
+                    'type'=>'raw',
+                    'value' => 'date("d/m/Y, h:ia",strtotime($data->FCCU_Timestamp))."<br/>".$data->FCCU_Bussiness',
 
                 ),
                 array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->FCCU_Serial'),

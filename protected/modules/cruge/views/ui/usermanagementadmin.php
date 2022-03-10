@@ -21,6 +21,10 @@
         if ($fieldName == 'logondate') {
             $type = 'datetime';
         }
+        if ($fieldName == 'GCCD_Id') {
+            $value = '$data->getGCCDName()';
+            $filter = CMap::mergeArray(array('' => 'Todos'), Gccd::model()->findHijos(Yii::app()->user->getState('grupo')));
+        }
         $cols[] = array('name' => $fieldName, 'value' => $value, 'filter' => $filter, 'type' => $type);
     }
     $cols[] = array('name' => 'iduser', 'header'=>'Telegram Token','value' => 'Yii::app()->user->um->getFieldValue($data->iduser,"teletoken")', 'filter' => false);
