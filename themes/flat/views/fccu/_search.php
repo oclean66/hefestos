@@ -24,6 +24,17 @@
 	</div>
 	<div id="busq-avanz" style="display: none;">
 
+ 
+		<?php
+			echo $form->dropDownList($model, 'FCCA_Descripcion', CHtml::listData(Fcca::model()->findAll(), 'FCCA_Descripcion', 'FCCA_Descripcion'), array( 
+				'class' => 'select2-me', 'style' => 'width:100%', 'id' => 'tipo',
+				'prompt' => 'Todos',
+ 
+			));
+
+        	echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'concatened'), array('prompt' => 'Todos'));
+        ?>
+		
 	</div>
 
 

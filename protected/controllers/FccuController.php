@@ -180,7 +180,9 @@ class FccuController extends Controller
     /*Funcion para agregar comunicaciones nuevas, lista los modelos*/
     public function actionRellenarmodos()
     {
-        $id = $_POST['Fccu']['FCCA'];
+      //  die(print_r($_POST));
+        $id = (isset($_POST['Fccu']['FCCA'])) ? $_POST['Fccu']['FCCA']:$_POST['Fccu']['FCCA_Id'];
+
 
         $lista = Fcct::model()->findAll('FCCA_Id = ' . $id);
         $lista = CHtml::listData($lista, 'FCCT_Id', 'FCCT_Descripcion');
@@ -287,7 +289,7 @@ class FccuController extends Controller
         ));
     }
 
-    public function actionDelete($id)
+    public function actionDelete($id, $vista = 'admin')
     {
 
         $model = $this->loadModel($id);
@@ -298,8 +300,10 @@ class FccuController extends Controller
 
         //        $this->loadModel($id)->delete();
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        if (!isset($_GET['ajax'])){
+           // $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+           $this->redirect(array($vista, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
+        }
     }
 
     public function actionAdmin($id=false)

@@ -220,7 +220,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 										'complete' => 'function(data, value) {
 												console.log(data, value);
 												if(data.responseText=="Archived")
-												window.location.replace("https://kingdeportes.com/hefestos/tcca");
+												window.location.replace("<?= Yii::app()->params->domain."/".Yii::app()->params->folder ?>/tcca");
 												}',
 									)
 								);

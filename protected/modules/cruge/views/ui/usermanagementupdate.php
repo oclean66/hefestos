@@ -33,7 +33,7 @@
                 <div class="col-sm-2">
                     <div style="padding:30px 0px 0px 22px">
                         <div class="thumbnail" id="imagenpreview" style="width: 125px; height:125px; border:none; border-radius: 6px">
-                            <img id="imgperfil" src="<?php echo Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value != '' ? Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value : "https://kingdeportes.com/hefestos/themes/flat/img/avatars/user-picture.png"; ?>" alt="<?php echo Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value; ?>">
+                            <img id="imgperfil" src="<?php echo Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value != '' ? Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value : Yii::app()->params->domain."/".Yii::app()->params->folder."/themes/flat/img/avatars/user-picture.png"; ?>" alt="<?php echo Yii::app()->user->um->getFieldValueInstance($model->iduser, 'avatar')->value; ?>">
                         </div>
 
                         <div id="upload-demo" class="hide"></div>
@@ -137,7 +137,7 @@
 
 
                         foreach ($model->getFields() as $f) {
-                            if ($f->fieldname != 'avatar') {
+                            if ($f->fieldname != 'avatar' && $f->fieldname != 'theme') {
 
                                 echo "<div class='form-group'>";
                                 // aqui $f es una instancia que implementa a: ICrugeField
@@ -208,7 +208,7 @@ if ($boolIsUserManagement)
                     // (string | mandatory) the heading of the notification
                     title: 'Sorry',
                     sticky: true,
-                    image: "http://localhost/hefestos/themes/flat/img/icons/RegEdit.png",
+                    image: "<?= Yii::app()->params->domain."/".Yii::app()->params->folder ?>/themes/flat/img/icons/RegEdit.png",
                     time_alive: 1000,
                     // (string | mandatory) the text inside the notification
                     text: 'youre browser doesnt support the FileReader API',

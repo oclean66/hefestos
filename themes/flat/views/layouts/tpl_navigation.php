@@ -1,5 +1,5 @@
 <?php
-        $theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'tema');
+        $theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
 
 
 $url = Yii::app()->request->requestUri;
@@ -170,9 +170,8 @@ if (isset($_GET['card'])) {
                 </a>
                 <ul class="dropdown-menu pull-right theme-colors" style="min-width: 88px;">
                     <li>
-                        <span class="orange"></span>
-                        <span class="justdark"></span>
-
+                        <span class="orange" style=" text-align: center;    line-height: 30px;" > <i class="fa fa-sun-o"></i> </span>
+                        <span class="justdark" style="text-align: center;    line-height: 30px;color:#fff;" ><i class="fa fa-moon-o"></i></span>
                     </li>
                 </ul>
             </li>
@@ -317,5 +316,13 @@ if (isset($_GET['card'])) {
         });
 
     }
-    console.log('<?php echo $url; ?>')
-</script>
+    //console.log('<?php echo $url; ?>')
+    function changetheme(theme){
+        var themeactive= '<?= $theme ?>';
+        if(theme != themeactive){
+            $.post('<?= Yii::app()->params->domain."/".Yii::app()->params->folder ?>/cruge/ui/edittheme','theme='+theme,function(response){
+                loca.reload();
+            })
+        }
+    }
+</script

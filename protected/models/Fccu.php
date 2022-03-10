@@ -165,6 +165,7 @@ class Fccu extends CActiveRecord {
 
 
         $criteria->compare('FCCA_Descripcion', $this->FCCA_Descripcion, true);
+     
         $criteria->with = array('fCCT.fCCA.');
 
 
@@ -194,6 +195,9 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCCU_FechaNacimiento', $this->FCCU_FechaNacimiento, true);
         $criteria->compare('FCCU_ClaveWeb', $this->FCCU_ClaveWeb, true);
         $criteria->compare('FCCU_Serial', $text, true);
+        
+        
+
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

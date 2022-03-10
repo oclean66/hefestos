@@ -109,7 +109,7 @@
         }');
 
         $theme =  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme') == "" ? "orange" :  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
-
+ 
     ?>
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo $baseUrl ?>/img/logo.png" />

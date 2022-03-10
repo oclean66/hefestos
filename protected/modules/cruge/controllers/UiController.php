@@ -229,8 +229,7 @@ class UiController extends Controller
     }
 
     public function actionEditProfile()
-    {
-
+    { 
         // $this->layout = CrugeUtil::config()->editProfileLayout;
         $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'teletoken');
         $campoNombre->value =  substr(crc32(Yii::app()->user->id), -4);
@@ -243,11 +242,29 @@ class UiController extends Controller
             // print_r($_POST['avatar']);
         }
 
+        if (isset($_POST['theme'])) {
+            $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'theme');
+            $campoNombre->value =  $_POST['theme'];
+            $campoNombre->save();
+            // print_r($_POST['theme']);
+            
+        }
+
 
         if (!Yii::app()->user->isGuest) {
             $this->_editUserProfile(Yii::app()->user->user, false);
         } else {
             throw new CrugeException("necesita iniciar sesion para editar su perfil");
+        }
+    }
+    public function actionEditTheme(){
+        $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'theme');
+        $campoNombre->value =  $_POST['theme'];
+        $campoNombre->save();
+        if (!Yii::app()->user->isGuest) {
+            echo 1;
+        } else {
+            echo 0;
         }
     }
 

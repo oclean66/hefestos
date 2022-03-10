@@ -45,8 +45,8 @@ $this->menu = array(
             <a class="not-link btn" href="<?= Yii::app()->createUrl("tccd/create", array("id" => $model->FCCU_Id)) ?>" target="blank">Enviar A...</a>
             <?php } ?>
             <?php if(Yii::app()->user->checkAccess("action_fccu_delete") && $model->FCCI_Id!=5){ ?>
-                
-                <!--<a class="not-link btn" href="<?= Yii::app()->createUrl("fccu/delete/",array("id"=>$model->FCCU_Id)) ?>">Dar de baja</a>-->
+            
+                <a class="not-link btn btn-sm btn-danger" href="javascript:actionurl(this);" data-link="<?= Yii::app()->createUrl("fccu/delete/",array("id"=>$model->FCCU_Id))?> ">Dar de baja</a>
             <?php } ?>
         </div>
     </div>
