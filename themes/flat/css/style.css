@@ -8915,3 +8915,70 @@ a:focus {
 .ui-state-highlighttw {
   background: #deffde !important
 }
+/* EStilos baged  */
+.badge-primary {
+    color: #fff;
+    background-color: #007bff;
+}
+.badge-secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+.badge-success {
+  color: #fff;
+  background-color: #28a745;
+}
+.badge-danger {
+  color: #fff;
+  background-color: #dc3545;
+}
+.badge-warning {
+  color: #212529;
+  background-color: #ffc107;
+}
+.badge-info {
+  color: #fff;
+  background-color: #17a2b8;
+}
+.badge-light {
+  color: #212529;
+  background-color: #f8f9fa;
+}
+.badge-dark {
+  color: #fff;
+  background-color: #343a40;
+}
+.badge-purple {
+  color: #6931BF;
+  background-color: #BCABD6;
+}
+.badge-alert {
+  color: #F38E00;
+  background-color: rgb(255, 214, 156);
+}
+.badge{
+  font-size: 75%;
+}
+.mt-1{
+  margin-top: 1%;
+}
+.mt-2{
+  margin-top: 2%;
+}
+.mt-3{
+  margin-top: 3%;
+}
+.mb-1{
+  margin-bottom: 1%;
+}
+.mb-2{
+  margin-bottom: 2%;
+}
+.mb-3{
+  margin-bottom: 3%;
+}
+a.list-group-item.active{
+  color: #fff !important;
+  background-color: #f8a31f !important;
+  border-color: #f8a31f !important;
+}

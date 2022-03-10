@@ -512,6 +512,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/p
 					$("#modal-ajax").html('<div class="progress progress-striped active"><div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"><span class="sr-only">45% Complete</span></div></div>');
 				}
 			}).done(function(data) {
+				
 				// console.log(JSON.parse(data)[1])
 				$("#modal-ajax").html(JSON.parse(data)[1]);
 

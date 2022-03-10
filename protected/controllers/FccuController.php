@@ -214,24 +214,29 @@ class FccuController extends Controller
         $modelo->desde = date('2000-01-01');
         $modelo->hasta = date('2025-01-01');
 
-        $modelo->FCCU_Id = $id;
+        $modelo->FCCU_Id = $id;    
+        $resumen=$model->resumenTab();
+       
         // da madre error de constraint ambiguos
         if (isset($_POST['comment']) && $_POST['comment'] != '') {
-
+          
             $re = $model->setComment($_POST['comment']);
+          
             echo "<!-- Error ";
             print_r($re);
             echo " -->";
             
         }
+        
 
-        $this->render('view', array(
+        $this->renderPartial('view', array(
             'model' => $model,
             'modelo' => $modelo,
+            'resumen' => $resumen,
         ));
     }
 
-    public function actionUpdate($id)
+    public function actionUpdate($id, $vista = 'admin')
     {
         $model = $this->loadModel($id);
         if ($model->FCCI_Id == 5) {
@@ -246,11 +251,11 @@ class FccuController extends Controller
                 $model->FCCS_Id = null;
 
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->FCCU_Id));
+                $this->redirect(array($vista, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
         }
 
 
-        $this->render('update', array(
+        $this->renderPartial('update', array(
             'model' => $model,
         ));
     }
@@ -297,16 +302,21 @@ class FccuController extends Controller
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
-    public function actionAdmin()
+    public function actionAdmin($id=false)
     {
+       
         $model = new Fccu('search');
         ini_set('memory_limit', '-1');
 
+       
+       $model->unsetAttributes();  // clear any default values
+       if($id){
+            $model->FCCU_Id = $id;
 
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Fccu']))
+        }
+        if (isset($_GET['Fccu'])){
             $model->attributes = $_GET['Fccu'];
-
+        }
 
         /*if ($tipo == null)
             $tipo = 1;
@@ -316,6 +326,8 @@ class FccuController extends Controller
         $criteria->select = '*';
         $criteria->condition = "FCCU_Serial=:serial and FCCI_Id =:estado";
         $criteria->params = array(':serial' => $id, ':estado' => $tipo); */
+      //  $activos=Fccu::model()->GetActivos();
+    
 
         $this->render('admin', array(
             'model' => $model

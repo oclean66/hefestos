@@ -152,7 +152,7 @@ class Fccu extends CActiveRecord {
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search() {
+    public function search($text='') {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -173,7 +173,7 @@ class Fccu extends CActiveRecord {
 
 
 
-        $criteria->compare('FCCU_Id', $this->FCCU_Id, true);
+        $criteria->compare('FCCU_Id', $this->FCCU_Id);
         $criteria->compare('FCCU_Serial', $this->FCCU_Serial, true);
         $criteria->compare('FCCU_Timestamp', $this->FCCU_Timestamp, true);
         $criteria->compare('FCCU_Numero', $this->FCCU_Numero, true);
@@ -193,6 +193,7 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCCU_Cedula', $this->FCCU_Cedula);
         $criteria->compare('FCCU_FechaNacimiento', $this->FCCU_FechaNacimiento, true);
         $criteria->compare('FCCU_ClaveWeb', $this->FCCU_ClaveWeb, true);
+        $criteria->compare('FCCU_Serial', $text, true);
         if (!Yii::app()->user->isSuperAdmin)
         $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
 
@@ -234,7 +235,7 @@ class Fccu extends CActiveRecord {
                 ),
             ),
             'Pagination' => array (
-                  'PageSize' => 200 //edit your number items per page here
+                  'PageSize' => 20 //edit your number items per page here
               ),
         ));
     }
@@ -245,5 +246,29 @@ class Fccu extends CActiveRecord {
             'application.behaviors.ActiveRecordLogableBehavior',
         );
     }
+    public function resumenTab(){
+        $resumen= TccdHasFccu::model()->findAll(
+            "FCCU_Id = :xyz", array(":xyz"=> $this->FCCU_Id) 
+        );
+        $data=array();
+        foreach($resumen as $d){
+            
+            $data[] = array(
+                'tablero_id'=>$d->tccd->tCCA->tCCABoard->TCCA_Id,
+                'tablero_name'=>$d->tccd->tCCA->tCCABoard->TCCA_Name, 
+                'lista_id'=>$d->tccd->tCCA->TCCA_Id, 
+                'lista_name'=>$d->tccd->tCCA->TCCA_Name,
+                'tarea_id'=>$d->tccd->TCCD_Id,
+                'tarea_name'=>$d->tccd->TCCD_Title,
+                'desc_tarea'=>$d->tccd->TCCD_Description,
+                'serial' => $this->FCCU_Serial
+            );
+        }
+      
+        return $data;
+
+    
+    }
+
 
 }

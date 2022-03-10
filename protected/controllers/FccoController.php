@@ -745,6 +745,71 @@ class FccoController extends Controller
         ));
     }
 
+    public function actionAsignar($FCCU_Id = null,$FCCU_Serial=null)
+    {
+        $model = new Fcco;
+        $criteria = new CDbCriteria;
+        $criteria->select = 'max(FCCO_Lote) AS FCCO_Lote';
+        $row = Fcco::model()->find($criteria);
+        $somevariable = $row['FCCO_Lote'] + 1;
+     
+        if (isset($_POST['Fcco'])) {
+            $x = array();
+            $y = array();
+
+            $id = $_POST['Fcco']['FCCU_Id'];
+            $id = array_unique($id);
+
+            foreach ($id as $value) {
+                $modelo = new Fcco;
+                $modelo->attributes = $_POST['Fcco'];
+                $modelo->FCCO_Lote = $somevariable;
+                $modelo->FCCN_Id = 1;
+                $modelo->FCCO_Enabled = 1;
+                $modelo->FCCU_Id = $value;
+
+                $item = Fccu::model()->findByPk($value);
+                $item->FCCI_Id = 5;
+
+                $inventario = Fcco::model()->findAll('FCCO_Enabled = 1 and FCCU_Id=' . $item->FCCU_Id);
+
+                foreach ($inventario as $inv) {
+                    $inv->FCCO_Enabled = 0;
+                    $inv->save();
+                }
+
+                if ($item->save()) {
+                    if ($modelo->save()) {
+                        //creo la bitacora
+                        $log = new Pcue;
+                        $log->PCUE_Descripcion = 'Usuario inserto en Fcco';
+                        $log->PCUE_Action = 'INSERTAR';
+                        $log->PCUE_Model = 'Fcco';
+                        $log->PCUE_IdModel = $modelo->FCCO_Id;
+                        $log->PCUE_Field = 'TODOS';
+                        $log->PCUE_Date = date("Y-m-d H:i");
+                        $log->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
+                        $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
+                        $log->save();
+                    }
+                    $x[] = $value;
+                } else {
+                    $y[] = $value;
+                }
+            }
+
+            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia' => $modelo->GCCA_Id));
+            // print_r($_POST);
+        } else {
+            $this->renderpartial('asignar', array(
+                'model' => $model, 
+                'lote' => $somevariable, 
+                'FCCU_Id'=>$FCCU_Id,
+                'FCCU_Serial'=>$FCCU_Serial
+            ));
+        }
+    }
+
     public function loadModel($id)
     {
         $model = Fcco::model()->findByPk($id);

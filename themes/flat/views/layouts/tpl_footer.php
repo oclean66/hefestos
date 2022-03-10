@@ -7,8 +7,8 @@
             // echo  date('d M, h:ia'); 
             // echo strftime ("%A, %d %b %Y - %I:%M %p", strtotime(date("Y-m-d H:i")));
             // echo date("D, d M Y - h:i a",strtotime(date("Y-m-d H:i").' -4 hours'));
-            echo " Tiempo de Espera: " . round(CLogger::getExecutionTime(), 2) . " Seg |";
-            echo " Memoria: " . round(CLogger::getMemoryUsage() / 1048576, 2) . "MB | ";
+            echo " Tiempo de Espera: " . round(Yii::getLogger()->getExecutionTime(), 2) . " Seg |";
+            echo " Memoria: " . round(Yii::getLogger()->getMemoryUsage() / 1048576, 2) . "MB | ";
 
             echo Yii::app()->locale->dateFormatter->format("EEEE, d MMM yyyy - hh:mma", date("Y-m-d H:i"));
 
