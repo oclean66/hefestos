@@ -14,11 +14,12 @@
         <div class="box box-bordered box-color">
             <div class="box-title">
                 <h3>
-                    <i class="fa fa-copy"></i><?php
-                                                echo ucwords(CrugeTranslator::t(
-                                                    $boolIsUserManagement ? "editando usuario" : "editando tu perfil"
-                                                ));
-                                                ?>
+                    <i class="fa fa-copy"></i>
+                    <?php
+                    echo ucwords(CrugeTranslator::t(
+                        $boolIsUserManagement ? "editando usuario" : "editando tu perfil"
+                    ));
+                    ?>
                 </h3>
             </div>
             <div class="box-content nopadding">
@@ -96,6 +97,46 @@
                         </div>
                     </div>
 
+                    <div class='form-group'>
+                        <?php echo $form->labelEx($model, 'GCCD_Id', array('class' => 'control-label col-sm-2')); ?>
+                        <div class="col-sm-10">       
+                            <?php
+                            if (Yii::app()->user->isSuperAdmin) {
+                                $var = Gccd::model()->getManagers();
+                                echo $form->dropDownList($model, 'GCCD_Id', $var, array('empty' => '** Webmaster **', 'class' => ''));
+                                //echo $form->textField($model,'GCCD_Id'); 
+                            } else {
+                                echo CHtml::textField('GCCD', isset($model->GCCD_Id)? $model->gccd->GCCD_Nombre:"** WEBMASTER **", 
+                                    array(
+                                        'disabled' => 'disabled', 
+                                        'class' => 'form-control'
+                                    )
+                                );
+                            }
+                            ?>
+                            <?php echo $form->error($model, 'GCCD_Id'); ?>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <?php echo $form->labelEx($model, 'Bussiness_Id', array('class' => 'control-label col-sm-2')); ?>
+                        <div class="col-sm-10">       
+                            <?php
+                            if (Yii::app()->user->isSuperAdmin) {
+                                $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
+                                echo $form->dropDownList($model, 'Bussiness_Id', $var, array('empty' => '** Webmaster **', 'class' => ''));
+                                //echo $form->textField($model,'GCCD_Id'); 
+                            } else {
+                                echo CHtml::textField('Bussiness_Id', isset($model->Bussiness_Id)? $model->Bussiness_Id:"** WEBMASTER **", 
+                                    array(
+                                        'disabled' => 'disabled', 
+                                        'class' => 'form-control'
+                                    )
+                                );
+                            }
+                            ?>
+                            <?php echo $form->error($model, 'GCCD_Id'); ?>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <?php echo $form->labelEx($model, 'regdate', array('class' => 'control-label col-sm-2')); ?>
@@ -255,5 +296,4 @@ if ($boolIsUserManagement)
         });
 
     });
-  
 </script>

@@ -270,6 +270,16 @@ class CrugeWebUser extends CWebUser implements IWebUser
         return "";
     }
     
+
+    public function getBussiness()
+    {
+        $u = $this->getUser();
+        if ($u != null) {
+            return $u->Bussiness_Id;
+        }
+        return "";
+    }
+    
 	protected function restoreFromCookie()
 	{
 		// invocada cuando allowAutoLogin es true.
