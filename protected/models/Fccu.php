@@ -194,6 +194,9 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCCU_FechaNacimiento', $this->FCCU_FechaNacimiento, true);
         $criteria->compare('FCCU_ClaveWeb', $this->FCCU_ClaveWeb, true);
         $criteria->compare('FCCU_Serial', $text, true);
+        if (!Yii::app()->user->isSuperAdmin)
+        $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
+
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

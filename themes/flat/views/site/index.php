@@ -35,6 +35,8 @@ $baseUrl = Yii::app()->theme->baseUrl;
                 <div class="details">
                     <span class="big"><?php echo date('j \d\e M Y'); ?></span>
                     <span><?php echo date('l, h:ia'); ?></span>
+                    <span><?php echo !Yii::app()->user->isGuest ? "Nodo: ".Yii::app()->user->grupo : "" ?></span>
+                    <span><?php echo !Yii::app()->user->isGuest ? "Bussiness: ".Yii::app()->user->bussiness : "" ?></span>
                 </div>
             </li>
         </ul>
