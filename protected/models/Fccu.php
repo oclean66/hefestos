@@ -145,6 +145,7 @@ class Fccu extends CActiveRecord {
             'FCCU_Cedula' => 'Cedula',
             'FCCU_FechaNacimiento' => 'Fecha Nacimiento',
             'FCCU_ClaveWeb' => 'Clave Web',
+            'FCCU_Bussiness'=>"Negocio"
         );
     }
 
