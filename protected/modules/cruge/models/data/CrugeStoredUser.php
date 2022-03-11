@@ -16,6 +16,7 @@
  * @property string $actdate    fecha de activacion
  * @property string $logondate    ultimo login exitoso
  * @property integer $GCCD_Id    Grupo al que pertenece
+ * @property integer $Bussiness_Id    Grupo al que pertenece
 
 
  * @author: Christian Salazar H. <christiansalazarh@gmail.com> @salazarchris74
@@ -82,7 +83,7 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
     /* entrega un array con los nombres de los atributos clave para orden, de primero el userid */
     public static function getSortFieldNames()
     {
-        return array('iduser', 'username', 'email', 'state', 'logondate');
+    return array('iduser', 'username', 'GCCD_Id', 'Bussiness_Id', 'email', 'state', 'logondate');
     }
 
     public function getStateName()
@@ -90,6 +91,11 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
         return Yii::app()->user->um->getStateName($this->state);
     }
 
+    public function getGCCDName()
+    {
+        return isset(Gccd::model()->findByPk($this->GCCD_Id)->concatened)?Gccd::model()->findByPk($this->GCCD_Id)->concatened:"****";
+        //return Yii::app()->user->um->getStateName($this->state);
+    }
     /*
         recibe un array de instancias de ICrugeField previamente cargada de valores
     */
@@ -204,6 +210,10 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
     {
         return $this->GCCD_Id;
     }
+    public function getBussiness()
+    {
+        return $this->Bussiness_Id;
+    }
     
     /**
     @retuns string nombre de usuario (para login).
@@ -266,7 +276,7 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
             ,
                 'message' => CrugeTranslator::t('logon', 'Invalid username')
             ),
-            array('username,email', 'required'),
+            array('username,email,GCCD_Id, Bussiness_Id', 'required'),
             array('newPassword', 'safe', 'on' => 'update'),
             array('newPassword', 'required', 'on' => 'insert, manualcreate'),
             array('newPassword', 'length', 'min' => 6, 'max' => 20),
@@ -283,7 +293,8 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
                 )
             ),
             array('username, password', 'length', 'max' => 64),
-            array('state', 'numerical', 'integerOnly' => true),
+            array('Bussiness_Id', 'length', 'max' => 16),
+            array('state,GCCD_Id', 'numerical', 'integerOnly' => true),
             array('authkey', 'length', 'max' => 100),
             array('email', 'email'),
             array('email', 'length', 'max' => 100),
@@ -400,6 +411,9 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
             'actdate' => ucfirst(CrugeTranslator::t('activado')),
             'logondate' => ucfirst(CrugeTranslator::t('ultimo acceso')),
             'terminosYCondiciones' => ucfirst(CrugeTranslator::t('comprendo y acepto, por favor registrarme')),
+            'GCCD_Id'=>"Grupo",
+            'Bussiness_Id'=>"Negocio"
+
         );
     }
 
@@ -419,7 +433,15 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
         $criteria->compare('email', $this->email, true);
         $criteria->compare('state', $this->state);
         $criteria->compare('logondate', $this->logondate);
+        $criteria->compare('GCCD_Id', $this->GCCD_Id);
+        $criteria->compare('Bussiness_Id', $this->Bussiness_Id);
 
+        if(!Yii::app()->user->isSuperAdmin)
+        $criteria->addInCondition('GCCD_Id', Gccd::model()->arrayHijos(Yii::app()->user->grupo));
+      
+        if(!Yii::app()->user->isSuperAdmin)
+        $criteria->addInCondition('GCCD_Id',Yii::app()->user->bussiness);
+      
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
