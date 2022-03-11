@@ -35,7 +35,7 @@ Yii::app()->clientScript->registerScript('search', "
     </div>
 
 
-    <div class="row mt-1">
+    <div class="row">
         <div class="col-md-3 nopadding " id='listview' style='overflow-y:auto'>
             <!-- <input class="search-button" type="text" placeholder="Buscar.." class="form-control" onkeyup="filtrar(this)"> -->
             <div class="col-sm-12 nopadding">
