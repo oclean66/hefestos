@@ -29,7 +29,7 @@ $this->menu = array(
 
 
 <div class="box">
-    <div class="box-title">
+    <div class="box-title" style="margin: 0;">
         <h3>
             <i class="fa fa-thumb-tack"></i>Activo #<?php echo $model->FCCU_Serial; ?>
         </h3>
