@@ -186,7 +186,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
 
 
 
-        <div class="box box-bordered box-color orange">
+        <div class="box box-bordered box-color ">
             <div class="box-title">
 
             </div>

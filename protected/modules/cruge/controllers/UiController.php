@@ -287,6 +287,7 @@ class UiController extends Controller
 
     public function _editUserProfile(ICrugeStoredUser $model, $boolIsUserManagement)
     {
+    
         // carga los campos definidos por el administrador
         // trayendo consigo el atributo "value" accesible mediante $xx->fieldvalue
         Yii::app()->user->um->loadUserFields($model);
@@ -315,9 +316,9 @@ class UiController extends Controller
                 if ($newPwd != '') {
                     Yii::log("\n\n***NUEVA CLAVE***\n\n", "info");
                     Yii::app()->user->um->changePassword($model, $newPwd);
-                    Yii::app()->crugemailer->sendPasswordTo($model, $newPwd);
+                  //  Yii::app()->crugemailer->sendPasswordTo($model, $newPwd);
                 }
-
+                //die(print_r($_POST));
                 if (Yii::app()->user->um->save($model, 'update')) {
                     if ($boolIsUserManagement == true) {
                         $this->redirect(array('usermanagementadmin'));
@@ -343,9 +344,11 @@ class UiController extends Controller
     public function actionUserManagementCreate($id = null)
     {
         $model = Yii::app()->user->um->createBlankUser();
-
+        Yii::app()->user->um->loadUserFields($model);
+      
 
         if (isset($_POST[CrugeUtil::config()->postNameMappings['CrugeStoredUser']])) {
+
             $model->attributes = $_POST[CrugeUtil::config()->postNameMappings['CrugeStoredUser']];
             $model->username = strtolower($model->username);
             $model->email  = strtolower($model->email);
@@ -353,7 +356,6 @@ class UiController extends Controller
             $model->terminosYCondiciones = true;
 
             $model->scenario = 'manualcreate';
-
             if ($model->validate()) {
 
                 $newPwd = trim($model->newPassword);
@@ -361,6 +363,7 @@ class UiController extends Controller
 
                 Yii::app()->user->um->generateAuthenticationKey($model);
 
+                die(print_r($_POST));
                 if (Yii::app()->user->um->save($model, 'insert')) {
 
                     $this->onNewUser($model, $newPwd);
