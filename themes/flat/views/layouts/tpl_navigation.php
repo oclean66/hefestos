@@ -1,6 +1,5 @@
 <?php
-        $theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'tema');
-
+$theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'tema');
 
 $url = Yii::app()->request->requestUri;
 if (isset($_GET['card'])) {
@@ -14,9 +13,6 @@ if (isset($_GET['card'])) {
     <a href="#" class="mobile-sidebar-toggle">
         <i class="fa fa-th-list"></i>
     </a>
-
-
-
 
     <a href="<?php echo $this->createUrl('/site/index') ?>" id="brand">Hefestos</a>
 
