@@ -363,10 +363,10 @@ class UiController extends Controller
 
                 Yii::app()->user->um->generateAuthenticationKey($model);
 
-                die(print_r($_POST));
+               // die(print_r($model->attributes));
                 if (Yii::app()->user->um->save($model, 'insert')) {
 
-                    $this->onNewUser($model, $newPwd);
+                  //  $this->onNewUser($model, $newPwd);
 
                     $campoNombre = Yii::app()->user->um->getFieldValueInstance($model->iduser, 'teletoken');
                     $campoNombre->value =  substr(crc32($model->iduser), -4);;

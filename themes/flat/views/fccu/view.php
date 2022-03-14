@@ -175,6 +175,10 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                         'name' => 'FCCU_Descripcion',
                         'value' => $model->FCCU_Descripcion, 'oneRow' => true
                     ),
+                    array(
+                        'name' => 'FCCU_Bussiness',
+                        'value' => $model->FCCU_Bussiness, 'oneRow' => true
+                    ),
                 ),
             ));
 

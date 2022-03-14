@@ -100,17 +100,17 @@
                 <?php echo $form->error($model, 'GCCD_Telefono', array('class' => 'label label-danger')); ?>
             </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <div class="col-sm-12">
                 Publicar Inventarios en <b>KINGDEPORTES</b> en los siguientes grupos
 
             </div>
         </div>
         <div class="form-group">
-            <?php echo $form->labelEx($model, 'Visible en:', array('class' => 'control-label col-sm-2')); ?>
+            <?php //echo $form->labelEx($model, 'Visible en:', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                $url = 'http://91.121.116.131/gecko/api/list/model/gccd';
+                /*$url = 'http://91.121.116.131/gecko/api/list/model/gccd';
 
 
                 $options = array(
@@ -135,12 +135,12 @@
                         'multiple' => 'multiple',
                         'style' => 'width:100%'
                     )
-                );
+                );*/
                 ?>
 
             </div>
            
-        </div>
+        </div>-->
 
 
         <div class="form-actions col-sm-offset-2 col-sm-10">

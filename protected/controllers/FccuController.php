@@ -25,10 +25,12 @@ class FccuController extends Controller
                 foreach ($fccu_serial as $key => $value) {
 
                     $model = new Fccu;
+                    
                     $model->FCCU_Serial = str_replace(" ", "", $value);
                     $model->FCCU_Facturado = 0; //false
                     $model->FCCI_Id = $_POST['Fccu']['FCCI_Id']; //almacen 2
                     // $model->FCUU_Id = $_POST['Fccu']['FCUU_Id']; //tipo equipo
+                    $model->FCCU_Bussiness = $model->FCCU_Bussiness;
                     $model->FCCU_Cantidad = 1;
                     $model->FCCD_Id = 5;
                     $model->FCCU_Descripcion = "Sin Comentarios";
@@ -82,12 +84,14 @@ class FccuController extends Controller
                 $total=0;
                 foreach ($fccu_serial as $key => $value) {
                     $model = new Fccu;
+                    $model->FCCU_Bussiness = Yii::app()->user->bussiness;
                     $model->FCCU_Serial = str_replace(" ", "", $value);
                     $model->FCCU_Facturado = 0; //false
                     $model->FCCI_Id = $_POST['Fccu']['FCCI_Id']; //almacen 2
                     //  $model->FCUU_Id = $_POST['Fccu']['FCUU_Id']; //tipo equipo
                     $model->FCCU_Cantidad = 1;
                     $model->FCCD_Id = $_POST['Fccu']['FCCD_Id'];
+                    $model->FCCU_Bussiness = $_POST['Fccu']['FCCU_Bussiness'];
                     $model->FCCU_MontoMin = $FCCU_MontoMin[$key];
                     $model->FCCU_DiaCorte = $FCCU_DiaCorte[$key];
                     $model->FCCU_TipoServicio = $_POST['Fccu']['FCCU_TipoServicio'];

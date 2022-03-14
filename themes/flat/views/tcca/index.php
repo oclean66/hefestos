@@ -54,7 +54,7 @@
 
                 ?>
                         <li class='<?php echo (Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme') == 'orange') ? "blue ":"lightgrey "; ?>  long'>
-                        <?= Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme') ?>
+                        
                             <a href="<?php echo Yii::app()->createUrl('tcca/view', array('id' => $value['TCCA_Id'])); ?>">
                                 <span class="nopadding">
                                     <h5><?php echo $value['TCCA_Name']; ?>

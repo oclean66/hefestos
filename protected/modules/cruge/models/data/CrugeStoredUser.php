@@ -149,7 +149,8 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
 		// se genera uno automaticamente:
 		if($this->scenario == 'insert'){
 		$declared_authmodes = CrugeUtil::config()->availableAuthModes;
-		if(count($declared_authmodes == 1)){
+        
+		if(count($declared_authmodes) == 1){
 			if(($declared_authmodes[0] == 'email') && ($this->username=='')){
 				$um = new CrugeUserManager();
 				$this->username = $um->generateNewUserName($this->email);
