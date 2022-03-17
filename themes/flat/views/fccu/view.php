@@ -45,8 +45,12 @@ $this->menu = array(
             <a class="not-link btn" href="<?= Yii::app()->createUrl("tccd/create", array("id" => $model->FCCU_Id)) ?>" target="blank">Enviar A...</a>
             <?php } ?>
             <?php if(Yii::app()->user->checkAccess("action_fccu_delete") && $model->FCCI_Id!=5){ ?>
-            
-                <a class="not-link btn btn-sm btn-danger" href="javascript:actionurl(this);" data-link="<?= Yii::app()->createUrl("fccu/delete/",array("id"=>$model->FCCU_Id))?> ">Dar de baja</a>
+                <a class="not-link btn" id="debaja" href="javascript:;">Dar de baja</a>
+
+            <form action="<?= Yii::app()->createUrl("fccu/delete/",array("id"=>$model->FCCU_Id))?>" method="post" class="debaja" style="float: right;display:none;"> 
+                <button type="submit"  class="not-link btn btn-sm btn-danger" > Dar de baja</button>
+            </form>
+
             <?php } ?>
         </div>
     </div>
@@ -379,4 +383,22 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
 ?>
 <script>
     $('#activity').scrollTop($('#activityTable').height());
+    $(function(){
+        $('#debaja').on('click',function(event){
+            $.jAlert({
+                'type': 'confirm',
+                'confirmQuestion': '¿Esta seguro que desea dar de baja este activo?',
+                'theme':'blue',
+                'onConfirm': function(e, btn){
+                    e.preventDefault();
+                    $('.debaja').submit();
+                    btn.parents('.jAlert').closeAlert();
+                    return false;
+                }
+            });
+            
+
+        });
+        
+    })
 </script>

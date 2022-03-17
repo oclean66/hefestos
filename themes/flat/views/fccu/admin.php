@@ -109,16 +109,19 @@ Yii::app()->clientScript->registerScript('search', "
                 $('.select2-me').select2();
             });    
         }
+
         function busqavanzada(){
             $('#busq-avanz').toggle( "100" );
             $('#btn-avanzada').toggle( "100" );
             $('#btn-ocultar').toggle( "100" );
 
         }
+ 
         function actionurl(elm){
             var link= $(elm).data('link');
             $.post(link,function(data){
                 console.log(data);
             })
         }
+     
 </script>

@@ -49,7 +49,7 @@
                      <div class="col-sm-10">
                         <?php
                         $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
-                        echo $form->dropDownList($model, 'FCCU_Bussiness', $var, array('empty' => '** Webmaster **', 'class' => ''));
+                        echo $form->dropDownList($model, 'FCCU_Bussiness', $var, array('empty' => '** Webmaster **', 'class' => 'select2-me'));
                         ?>
                      </div>
                     <?php
