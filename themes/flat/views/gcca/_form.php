@@ -49,7 +49,17 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model, 'Grupo:', array('class' => 'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                    <?php echo isset($model->GCCD_Id) ?  $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => '')) : 'Sin Padre'; ?>
+                  
+                    <?php
+                    if (isset($model->gCCD->Concatened) && !Yii::app()->user->isSuperAdmin) {
+                        // echo CHtml::textField('padre', $model->gccd->Concatened, array('class' => "form-control", 'disabled' => 'disabled'));
+                        echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(' 1 and GCCD_Id in (' . implode(",", Gccd::model()->arrayHijos(Yii::app()->user->grupo)) . ') order by GCCD_Nombre'), 'GCCD_Id', 'concatened'), array('class' => "select2-me", 'style' => 'width:100%;', 'empty' => 'Sin Grupo'));
+                        // echo Yii::app()->user->checkAccess('Administrador') ? 
+                        // CHtml::button('Migrar',array('class'=>'btn btn-success','data-toggle'=>"modal", 'data-target'=>".bs-example-modal-sm")):"";
+                    } else
+                        echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(' 1 and GCCD_Id in (' . implode(",", Gccd::model()->arrayHijos(Yii::app()->user->grupo)) . ') order by GCCD_Nombre'), 'GCCD_Id', 'concatened'), array('class' => "select2-me", 'style' => 'width:100%;', 'empty' => 'Sin Grupo'));
+                    ?>
+
                     <?php echo $form->error($model, 'GCCD_Id', array('class' => 'label label-danger')); ?>
                 </div>
             </div>
@@ -70,7 +80,15 @@
             <div class="form-group">
                 <?php echo $form->labelEx($model, 'Grupo:', array('class' => 'control-label col-sm-2')); ?>
                 <div class="col-sm-10">
-                    <?php echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(''), 'GCCD_Id', 'concatened'), array('empty' => 'Sin Grupo', 'class' => ''));
+                  
+                    <?php
+                    if (isset($model->gCCD->Concatened) && !Yii::app()->user->isSuperAdmin) {
+                        // echo CHtml::textField('padre', $model->gccd->Concatened, array('class' => "form-control", 'disabled' => 'disabled'));
+                        echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(' 1 and GCCD_Id in (' . implode(",", Gccd::model()->arrayHijos(Yii::app()->user->grupo)) . ') order by GCCD_Nombre'), 'GCCD_Id', 'concatened'), array('class' => "select2-me", 'style' => 'width:100%;', 'empty' => 'Sin Grupo'));
+                        // echo Yii::app()->user->checkAccess('Administrador') ? 
+                        // CHtml::button('Migrar',array('class'=>'btn btn-success','data-toggle'=>"modal", 'data-target'=>".bs-example-modal-sm")):"";
+                    } else
+                        echo $form->dropDownList($model, 'GCCD_Id', CHtml::listData(Gccd::model()->findAll(' 1 and GCCD_Id in (' . implode(",", Gccd::model()->arrayHijos(Yii::app()->user->grupo)) . ') order by GCCD_Nombre'), 'GCCD_Id', 'concatened'), array('class' => "select2-me", 'style' => 'width:100%;', 'empty' => 'Sin Grupo'));
                     ?>
                     <?php echo $form->error($model, 'GCCD_Id', array('class' => 'label label-danger')); ?>
                 </div>
@@ -126,7 +144,7 @@
                 <div class="col-sm-10">
                     <?php
 
-                    echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactivo', '1' => "Activa", "2" => "Oculta", "3"=>"Borrado"));
+                    echo $form->dropDownList($model, 'GCCA_Status', array('0' => 'Inactivo', '1' => "Activa", "2" => "Oculta", "3" => "Borrado"));
                     ?>
                 </div>
             </div>

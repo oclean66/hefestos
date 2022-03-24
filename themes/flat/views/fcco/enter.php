@@ -15,7 +15,7 @@ $this->menu = array(
     array('label' => 'Activos en esta Agencia', 'url' => array('agencia', 'id' => isset($model) ? $model->GCCA_Id : 0, 'type' => 258)),
 );
 ?>
-<img class="imprimir" width="100px" src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" />
+<!-- <img class="imprimir" width="100px" src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" /> -->
 
 <div class="row">
     <div class="col-sm-12">

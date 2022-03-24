@@ -100,7 +100,7 @@
                 <?php echo $form->error($model, 'GCCD_Telefono', array('class' => 'label label-danger')); ?>
             </div>
         </div>
-        <!--<div class="form-group">
+        <div class="form-group">
             <div class="col-sm-12">
                 Publicar Inventarios en <b>KINGDEPORTES</b> en los siguientes grupos
 
@@ -135,12 +135,12 @@
                         'multiple' => 'multiple',
                         'style' => 'width:100%'
                     )
-                );*/
+                );
                 ?>
 
             </div>
            
-        </div>-->
+        </div>
 
 
         <div class="form-actions col-sm-offset-2 col-sm-10">

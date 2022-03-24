@@ -306,7 +306,7 @@
                 error: function (data) { // if error occured
                     if (xhr.status === 401) {
                         bootbox.alert('Operacion no completada, Se perdio la sesion');
-                        $(location).attr('href', '/hocitem/site');
+                        $(location).attr('href', '/hefestos/site');
                     }
                     console.log(data);
                 },

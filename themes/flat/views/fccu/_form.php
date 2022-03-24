@@ -5,7 +5,7 @@
 ?>
 
 <div class="box box-bordered box-color">
-    <div class="box-title">
+    <div class="box-title nomargin">
         <h3>
             <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?> Activo</h3>
     </div>
@@ -40,24 +40,7 @@
                 <?php echo $form->error($model, 'FCCU_Timestamp', array('class' => 'label label-danger')); ?>
             </div>
         </div>
-
-        <div class="form-group">
-                <?php
-                if (Yii::app()->user->isSuperAdmin) {
-                    ?>
-                    <label for="textfield" class="control-label col-sm-2">Negocio</label>
-                     <div class="col-sm-10">
-                        <?php
-                        $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
-                        echo $form->dropDownList($model, 'FCCU_Bussiness', $var, array('empty' => '** Webmaster **', 'class' => 'select2-me'));
-                        ?>
-                     </div>
-                    <?php
-                } else {
-                    echo CHtml::hiddenField('FCCU_Bussiness', Yii::app()->user->bussiness );
-                }
-                ?> 
-            </div>
+    
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCU_Numero', array('class' => 'control-label col-sm-2')); ?>
@@ -159,7 +142,7 @@
             <?php echo $form->labelEx($model, 'FCCI_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll( Yii::app()->user->isSuperAdmin ? '':'FCCI_Id != 6'), 'FCCI_Id', 'concatened'), array('prompt' => $model->FCCI_Id == 6 ?'# De Baja #':'Seleccione un estado...','class'=>'form-control'));
+                echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll('FCCI_Id != 6'), 'FCCI_Id', 'concatened'), array('prompt' => $model->FCCI_Id == 6 ?'# De Baja #':'Seleccione un estado...','class'=>'form-control'));
                 ?>
                 <?php //echo $form->textField($model, 'FCCI_Id', array('class' => 'form-control', 'size' => 10, 'maxlength' => 10)); ?>
                 <?php echo $form->error($model, 'FCCI_Id', array('class' => 'label label-danger')); ?>

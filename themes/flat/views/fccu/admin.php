@@ -79,11 +79,11 @@ Yii::app()->clientScript->registerScript('search', "
 <script>
     	var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         $("#infoactivo").css({
-			"max-height": (h - 165)
+			"max-height": (h - 135)
 		});
 
         $("#listview").css({
-			"max-height": (h - 165)
+			"max-height": (h - 135)
 		});
         <?php
         if($model->FCCU_Id != null){

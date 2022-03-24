@@ -18,7 +18,7 @@ $this->menu=array(
 
 <!--<h1>Update Fccu <?php echo $model->FCCU_Id; ?></h1>-->
 <div class="box">
-    <div class="box-title">
+    <div class="box-title nomargin">
         <h3>
             <i class="fa fa-thumb-tack"></i>Activo #<?php echo $model->FCCU_Serial; ?>
         </h3>

@@ -1,7 +1,6 @@
 <?php $modell = isset($modelo[0]) ? $modelo[0] : (isset($d->data[0]) ? $d->data[0] : null); ?>
 
-<img class="imprimir" class='brand' width="100px" src="/hefestos/themes/flat/img/brand.png" alt="">
-<div id="summary">
+<img src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" class="imprimir" srcset="" style="width: 50px;position: absolute;right: 1px;z-index: 1;"><div id="summary">
   <h4>
     <?php echo isset($tipo) ? ($tipo == 1 ? "Reporte de Salida" : "Reporte de Entrada") : "Inventario de equipos en Prestamo" ?>
     <br />

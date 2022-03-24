@@ -34,7 +34,7 @@
         <h3 id="serialC"><i class="fa fa-th-list"></i>Recargar Saldo</h3>
     </div>
     <div class="box-content nopadding">
-        <form onsubmit="return false;" class="form-horizontal form-bordered" id="fccu-form" action="/hocitem/fccu/add.html" method="post">            <!--row1-->
+        <form onsubmit="return false;" class="form-horizontal form-bordered" id="fccu-form" action="/hefestos/fccu/add.html" method="post">            <!--row1-->
             <div class="row" id="row1">
                 <!--categoria-->
                 <div class="col-sm-6">

@@ -44,7 +44,7 @@
                         <label for="textfield" class="control-label col-sm-2">Grupo</label>
                         <div class="col-sm-10">
                             <?php
-                            echo CHtml::dropDownList('Fcco[GCCD_Id]', 'Fcco[GCCD_Id]', CHtml::listData(Gccd::model()->findAll('1 order by GCCD_Nombre'), 'GCCD_Id', 'concatened'), 
+                            echo CHtml::dropDownList('Fcco[GCCD_Id]', 'Fcco[GCCD_Id]', CHtml::listData(Gccd::model()->findAll(' 1 and GCCD_Id in (' . implode(",", Gccd::model()->arrayHijos(Yii::app()->user->grupo)) . ') order by GCCD_Nombre'), 'GCCD_Id', 'concatened'), 
                                     array('class' => 'select2-me','style'=>'width:100%',
                                 'ajax' => array(
                                     'type' => 'POST',

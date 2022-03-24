@@ -13,7 +13,7 @@ $this->menu = array(
     array('label' => 'Activos en esta Agencia', 'url' => array('agencia', 'id' => $model->GCCA_Id, 'type' => 258)),
 );
 ?>
-<img class="imprimir" width="100px" src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" />
+<!-- <img class="imprimir" width="100px" src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" /> -->
 
 <!-- <div class="modal-header"> -->
 

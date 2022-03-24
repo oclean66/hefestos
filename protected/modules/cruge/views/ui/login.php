@@ -1,6 +1,6 @@
 <?php
 if (!Yii::app()->user->isGuest)
-    $this->redirect('/hocitem/site');
+    $this->redirect('/hefestos/site');
 ?>
 <?php if (Yii::app()->user->hasFlash('loginflash')) { ?>
     <div class="flash-error">
