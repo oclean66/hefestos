@@ -146,7 +146,7 @@ class Fccu extends CActiveRecord {
             'FCCU_Cedula' => 'Cedula',
             'FCCU_FechaNacimiento' => 'Fecha Nacimiento',
             'FCCU_ClaveWeb' => 'Clave Web',
-            'FCCU_Bussiness' => 'Negocio',
+            'FCCU_Bussiness'=>"Negocio"
         );
     }
 
@@ -189,7 +189,7 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCCU_Cantidad', $this->FCCU_Cantidad);
         $criteria->compare('FCCU_Facturado', $this->FCCU_Facturado);
         $criteria->compare('FCCD_Id', $this->FCCD_Id, true);
-        $criteria->compare('FCCT_Id', $this->FCCT_Id, true);
+        $criteria->compare('fCCT.FCCT_Id', $this->FCCT_Id, true);
         $criteria->compare('FCCI_Id', $this->FCCI_Id, false);
         $criteria->compare('FCCS_Id', $this->FCCS_Id, true);
         $criteria->compare('FCCU_Titular', $this->FCCU_Titular, true);

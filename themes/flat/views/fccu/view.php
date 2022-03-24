@@ -29,7 +29,7 @@ $this->menu = array(
 
 
 <div class="box">
-    <div class="box-title">
+    <div class="box-title" style="margin: 0;">
         <h3>
             <i class="fa fa-thumb-tack"></i>Activo #<?php echo $model->FCCU_Serial; ?>
         </h3>
@@ -108,6 +108,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                         'name' => 'FCCU_Timestamp',
                         'value' => date("d M Y h:i:s A", strtotime($model->FCCU_Timestamp))
                     ),
+                    
                     array(
                         'name' => 'FCCI_Id',
                         'value' => $model->fCCI->FCCI_Descripcion . " - " . ($model->FCCI_Id == 5 && Fcco::model()->find("FCCU_Id=" . $model->FCCU_Id . " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc") ?
