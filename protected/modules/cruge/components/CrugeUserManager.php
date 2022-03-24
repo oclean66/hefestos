@@ -688,6 +688,7 @@ class CrugeUserManager {
             $arOpt = CrugeUtil::explodeOptions($field->predetvalue);
             $htmlOpt['rows'] = null;
             $htmlOpt['cols'] = null;
+            $htmlOpt['class'] = null;
             $htmlOpt['size'] = null;
             $htmlOpt['maxlength'] = null;
         }

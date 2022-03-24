@@ -437,11 +437,11 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
         $criteria->compare('GCCD_Id', $this->GCCD_Id);
         $criteria->compare('Bussiness_Id', $this->Bussiness_Id);
 
-        if(!Yii::app()->user->isSuperAdmin)
+        // if(!Yii::app()->user->isSuperAdmin)
         $criteria->addInCondition('GCCD_Id', Gccd::model()->arrayHijos(Yii::app()->user->grupo));
       
-        if(!Yii::app()->user->isSuperAdmin)
-        $criteria->addInCondition('GCCD_Id',Yii::app()->user->bussiness);
+        // if(!Yii::app()->user->isSuperAdmin)
+        $criteria->addInCondition('Bussiness_Id',array(Yii::app()->user->bussiness));
       
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

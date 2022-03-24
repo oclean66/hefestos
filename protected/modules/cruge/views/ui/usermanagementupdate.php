@@ -178,15 +178,15 @@
 
 
                         foreach ($model->getFields() as $f) {
-                            if ($f->fieldname != 'avatar' && $f->fieldname != 'theme') {
+                            if ($f->fieldname != 'avatar') {
 
                                 echo "<div class='form-group'>";
                                 // aqui $f es una instancia que implementa a: ICrugeField
                                 echo Yii::app()->user->um->getLabelField($f);
-                                echo "<div class='col-sm-10'>";
-                                echo Yii::app()->user->um->getInputField($model, $f);
-                                echo $form->error($model, $f->fieldname);
-                                echo "</div>";
+                                    echo "<div class='col-sm-10'>";
+                                        echo Yii::app()->user->um->getInputField($model, $f);
+                                        echo $form->error($model, $f->fieldname);
+                                    echo "</div>";
                                 echo "</div>";
                             }
                         }
