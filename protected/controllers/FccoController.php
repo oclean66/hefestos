@@ -351,8 +351,13 @@ class FccoController extends Controller
     public function actionActivos()
     {
         $request = trim($_GET['term']);
+        $bussines=Yii::app()->user->bussiness;
         if ($request != '') {
-            $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
+            if (Yii::app()->user->isSuperAdmin) {
+                $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
+            }else{
+                $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines' "));
+            }
             $data = array();
             foreach ($model as $item) {
                 $data[$item->FCCU_Id] = array(
@@ -373,8 +378,14 @@ class FccoController extends Controller
     public function actionAsignados()
     {
         $request = trim($_GET['term']);
+        $bussines=Yii::app()->user->bussiness;
         if ($request != '') {
-            $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =5 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
+
+            if (Yii::app()->user->isSuperAdmin) {
+                $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =5 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%')"));
+            }else{
+                $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =5 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines'"));
+            }
             $data = array();
             foreach ($model as $item) {
                 $data[] = array(

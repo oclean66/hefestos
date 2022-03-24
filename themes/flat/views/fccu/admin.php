@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerScript('search', "
         });
         return false;
     });
-");
+"); 
 ?>
 
 
@@ -51,7 +51,7 @@ Yii::app()->clientScript->registerScript('search', "
                     'id' => 'fccu-grid',
                     'dataProvider' => $model->search(),
                     'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
-                    'summaryText' => '<a href="javascript:busqavanzada();" >Busqueda Avanzada </a> Viendo {start} - {end} de {count} resultados',
+                    'summaryText' => '<div class ="d-flex justify-content-between"><a class="not-link d-flex justify-content-start" href="javascript:busqavanzada();" ><span id="btn-avanzada">Busqueda Avanzada</span><span  style="display:none" id="btn-ocultar">Ocultar</span></a> <span class="d-flex justify-content-end">Viendo {start} - {end} de {count} resultados</span></div>',
                     'pagerCssClass' => 'table-pagination',
                     'pager' => array(
                         'htmlOptions' => array('class' => 'pagination'),
@@ -91,7 +91,9 @@ Yii::app()->clientScript->registerScript('search', "
             loadpage('<?= Yii::app()->createUrl('fccu/view/',array('id'=>$model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');
             <?php
         }
-        ?>
+        if(!empty($model->FCCA_Descripcion)|| !empty($model->FCCI_Id)){ ?>
+            busqavanzada();
+        <?php } ?>
         function loadpage(url,element) {
             $('.list-group-item').removeClass('active');
             $('.item-'+element).addClass('active');
@@ -107,7 +109,19 @@ Yii::app()->clientScript->registerScript('search', "
                 $('.select2-me').select2();
             });    
         }
+
         function busqavanzada(){
-            $('#busq-avanz').toggle();
+            $('#busq-avanz').toggle( "100" );
+            $('#btn-avanzada').toggle( "100" );
+            $('#btn-ocultar').toggle( "100" );
+
         }
+ 
+        function actionurl(elm){
+            var link= $(elm).data('link');
+            $.post(link,function(data){
+                console.log(data);
+            })
+        }
+     
 </script>

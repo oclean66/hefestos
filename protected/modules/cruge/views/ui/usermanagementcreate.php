@@ -14,7 +14,26 @@
         
         ?>
          <?php // echo $form->errorSummary($model, array('class' => 'label label-danger')); ?>
-        
+         <div class="col-sm-2">
+                    <div style="padding:30px 0px 0px 22px">
+                        <div class="thumbnail" id="imagenpreview" style="width: 125px; height:125px; border:none; border-radius: 6px">
+                            <img id="imgperfil" src="<?php echo  Yii::app()->params->domain."/".Yii::app()->params->folder."/themes/flat/img/avatars/user-picture.png"; ?>" alt="<?php echo  Yii::app()->params->domain."/".Yii::app()->params->folder."/themes/flat/img/avatars/user-picture.png"; ?>" >
+                        </div>
+
+                        <div id="upload-demo" class="hide"></div>
+                    </div>
+                    <div class="btn btn-orange btn-block" style="overflow: hidden; width:160px">
+                        <input id="upload" name="subir" type="file" style="opacity: 0; position: absolute; padding:0px 0px 0px 20px" />
+                        <i class="fa fa-camera"></i> Subir Imagen
+                    </div>
+                    <div class="upload-result btn btn-orange btn-block hide" style="overflow: hidden; width:160px">
+                        <input id="avatar" name="avatar" type="hidden" style="opacity: 0; position: absolute" />
+                        <i class="fa fa-check"></i> Finalizar
+                    </div>
+                    <?php //}  
+                    ?>
+                </div>
+         <div class="col-md-10">      
         
         <div class="form-group">
             <?php echo $form->labelEx($model, 'username',array('class'=>'control-label col-sm-2')); ?>
@@ -54,7 +73,66 @@
                 ?>
                 <?php echo $form->error($model, 'newPassword'); ?>
             </div>
-        </div>      
+        </div>
+        <div class='form-group'>
+                        <?php echo $form->labelEx($model, 'GCCD_Id', array('class' => 'control-label col-sm-2')); ?>
+                        <div class="col-sm-10">       
+                            <?php
+                            if (Yii::app()->user->isSuperAdmin) {
+                                $var = Gccd::model()->getManagers();
+                                echo $form->dropDownList($model, 'GCCD_Id', $var, array('empty' => '** Webmaster **', 'class' => ''));
+                                //echo $form->textField($model,'GCCD_Id'); 
+                            } else {
+                                echo CHtml::textField('GCCD', isset($model->GCCD_Id)? $model->gccd->GCCD_Nombre:"** WEBMASTER **", 
+                                    array(
+                                        'disabled' => 'disabled', 
+                                        'class' => 'form-control'
+                                    )
+                                );
+                            }
+                            ?>
+                            <?php echo $form->error($model, 'GCCD_Id'); ?>
+                        </div>
+                    </div>
+                    <div class='form-group'>
+                        <?php echo $form->labelEx($model, 'Bussiness_Id', array('class' => 'control-label col-sm-2')); ?>
+                        <div class="col-sm-10">       
+                            <?php
+                            if (Yii::app()->user->isSuperAdmin) {
+                                $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
+                                echo $form->dropDownList($model, 'Bussiness_Id', $var, array('empty' => '** Webmaster **', 'class' => ''));
+                                //echo $form->textField($model,'GCCD_Id'); 
+                            } else {
+                                echo CHtml::textField('Bussiness_Id', isset($model->Bussiness_Id)? $model->Bussiness_Id:"** WEBMASTER **", 
+                                    array(
+                                        'disabled' => 'disabled', 
+                                        'class' => 'form-control'
+                                    )
+                                );
+                            }
+                            ?>
+                            <?php echo $form->error($model, 'GCCD_Id'); ?>
+                        </div>
+                    </div>
+                    <?php if (count($model->getFields()) > 0) {
+
+
+                        foreach ($model->getFields() as $f) {
+                            if ($f->fieldname != 'avatar' && $f->fieldname != 'theme') {
+
+                                echo "<div class='form-group'>";
+                                // aqui $f es una instancia que implementa a: ICrugeField
+                                echo Yii::app()->user->um->getLabelField($f);
+                                echo "<div class='col-sm-10'>";
+                                echo Yii::app()->user->um->getInputField($model, $f);
+                                echo $form->error($model, $f->fieldname);
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        }
+                        }
+?> 
+    </div>
         <div class="form-actions col-sm-offset-2 col-sm-10">
             <?php Yii::app()->user->ui->tbutton("Crear Usuario",array('btn btn-primary')); ?>
             

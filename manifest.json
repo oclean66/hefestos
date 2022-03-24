@@ -3,7 +3,7 @@
     "name": "Hefestos",
     "short_name": "Hefestos",
     "orientation": "any",   
-    "start_url": "https://kingdeportes.com/hefestos",
+    "start_url": "localhost/hefestos",
     "description": "Aplicacion web, control e inventario",
     "theme_color": "#f8a31f",
     "background_color": "#f8a31f",

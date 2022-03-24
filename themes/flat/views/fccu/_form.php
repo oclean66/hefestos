@@ -42,6 +42,24 @@
         </div>
 
         <div class="form-group">
+                <?php
+                if (Yii::app()->user->isSuperAdmin) {
+                    ?>
+                    <label for="textfield" class="control-label col-sm-2">Negocio</label>
+                     <div class="col-sm-10">
+                        <?php
+                        $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
+                        echo $form->dropDownList($model, 'FCCU_Bussiness', $var, array('empty' => '** Webmaster **', 'class' => 'select2-me'));
+                        ?>
+                     </div>
+                    <?php
+                } else {
+                    echo CHtml::hiddenField('FCCU_Bussiness', Yii::app()->user->bussiness );
+                }
+                ?> 
+            </div>
+
+        <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCU_Numero', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php echo $form->textField($model, 'FCCU_Numero', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>

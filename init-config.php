@@ -15,5 +15,7 @@ $master = array(
         'gmailAcount' => "company@gmail.com",
         'gmailPassword' => "password",       
         // 'debug' => true,
-    )
+    ),
+    'domain' => (isset($_SERVER['HTTPS'])) ? "https://":"http://".$_SERVER ['SERVER_NAME'],
+    'folder' => "hefestos"
 );

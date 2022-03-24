@@ -50,7 +50,7 @@
                                     'type' => 'POST',
                                     'url' => CController::createUrl('gccd/Rellenarmodos'),
                                     'update' => '#' . CHtml::activeId($model, 'GCCA_Id'),
-                                    'beforeSend' => 'function(){                            
+                                    'beforeSend' => 'function(){
                                         var select = document.getElementById("Fcco_GCCA_Id");    				
                                         select.options.length = 0;
                                         select.options[select.options.length] = new Option("Cargando...", "");

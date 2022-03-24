@@ -166,8 +166,8 @@ class ApiController extends Controller
 					array(
 						"type" => "photo",
 						"id" => 1,
-						"photo_url" => "https://kingdeportes.com/hefestos/themes/flat/img/logo-bigger.png",
-						"thumb_url" => "https://kingdeportes.com/hefestos/themes/flat/img/logo-bigger.png",
+						"photo_url" => Yii::app()->theme->baseUrl."/img/logo-bigger.png",
+						"thumb_url" => Yii::app()->theme->baseUrl."/img/logo-bigger.png",
 					)
 				)
 			);

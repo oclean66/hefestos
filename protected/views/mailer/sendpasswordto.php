@@ -31,7 +31,7 @@
 <td style="color:#fefefe;font-size:14px;font-weight:bold;font-family:Helvetica,Arial,sans-serif"> 
 
 <img style="display:block" 
-src="https://kingdeportes.com/hefestos/themes/flat/img/logo.png" alt="logo" style="height:30px;width:94px" class="CToWUd">
+src="<?= Yii::app()->params->domain."/".Yii::app()->params->folder ?>/themes/flat/img/logo.png" alt="logo" style="height:30px;width:94px" class="CToWUd">
 
 <?php echo
 date('l jS \of F Y h:i:s A',strtotime(date('Y-m-d H:i:s'))); 
@@ -110,7 +110,7 @@ Recientemente aqui en Hefesto Inventario y Control, hemos detectado cambios en s
 <tr><td height="15"></td></tr>
 <tr>
 <td>
-<a href="<?php echo "http://www.kingdeportes.com" . Yii::app()->baseUrl; ?>" style="background-color:#f8a31f;font-size:14px;padding:10px 15px;color:#fff;text-decoration:none"> Iniciar Sesion</a>
+<a href="<?= Yii::app()->params->domain . Yii::app()->baseUrl; ?>" style="background-color:#f8a31f;font-size:14px;padding:10px 15px;color:#fff;text-decoration:none"> Iniciar Sesion</a>
 </td>
 </tr>
 </tbody>

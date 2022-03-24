@@ -17,6 +17,7 @@
  * @property integer $FCCU_Cantidad
  * @property integer $FCCU_Facturado
  * @property string $FCCD_Id
+ * @property string $FCCU_Bussiness
  * @property string $FCCT_Id
  * @property string $FCCI_Id
  * @property string $FCCS_Id
@@ -36,7 +37,7 @@
 class Fccu extends CActiveRecord {
 
     //Variables para busqueda relacionada
-    public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion;
+    public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion,$FCCU_Bussiness;
     public $GCCA_Nombre, $GCCD_Nombre;
 
     /**
@@ -99,7 +100,7 @@ class Fccu extends CActiveRecord {
             array('FCCU_FechaNacimiento', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('FCCU_Id, FCCU_Serial, FCCU_Timestamp, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_DiaCorte, FCCU_MontoMin, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Cantidad, FCCU_Facturado, FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id, FCCU_Titular, FCCU_Cedula, FCCU_FechaNacimiento, FCCU_ClaveWeb', 'safe', 'on' => 'search'),
+            array('FCCU_Id, FCCU_Serial, FCCU_Timestamp, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_DiaCorte, FCCU_MontoMin, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Cantidad, FCCU_Facturado, FCCU_Bussiness,FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id, FCCU_Titular, FCCU_Cedula, FCCU_FechaNacimiento, FCCU_ClaveWeb', 'safe', 'on' => 'search'),
         );
     }
 
@@ -166,6 +167,7 @@ class Fccu extends CActiveRecord {
 
 
         $criteria->compare('FCCA_Descripcion', $this->FCCA_Descripcion, true);
+     
         $criteria->with = array('fCCT.fCCA.');
 
 
@@ -195,8 +197,12 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCCU_FechaNacimiento', $this->FCCU_FechaNacimiento, true);
         $criteria->compare('FCCU_ClaveWeb', $this->FCCU_ClaveWeb, true);
         $criteria->compare('FCCU_Serial', $text, true);
-        if (!Yii::app()->user->isSuperAdmin)
-        $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
+        
+        if(!Yii::app()->user->checkAccess('action_ui_usermanagementadmin'))
+            $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
+
+        
+        
 
 
         return new CActiveDataProvider($this, array(

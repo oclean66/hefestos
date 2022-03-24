@@ -12,6 +12,7 @@ return array(
     'sourceLanguage' => 'en', //Lenguaje de entrada
     'charset' => 'utf-8',
     'theme' => 'flat',
+    
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
@@ -26,7 +27,7 @@ return array(
             'tableprefix' => 'cruge_',
             'availableAuthMethods' => array('default'),
             'availableAuthModes' => array('username', 'email'),
-            'baseUrl' => 'https://kingdeportes.com/hefestos',
+            'baseUrl' => $master['domain'],
             'debug' => false,
             'rbacSetupEnabled' => false,
             'allowUserAlways' => false,
@@ -144,5 +145,8 @@ return array(
     'params' => array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
+        'domain'=>$master['domain'],
+        'folder'=>$master['folder']
+        
     ),
 );

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Administrador de Inventarios">
     <meta name="author" content="<?php echo Yii::app()->name; ?>">
-    <link rel="manifest" href="/hefestos/manifest.json">
+    <link rel="manifest" href="/hefestos/manifest.json"> 
     <?php
     $baseUrl = Yii::app()->theme->baseUrl;
     $cs = Yii::app()->getClientScript();
@@ -33,6 +33,8 @@
 
     //<!-- croppie -->
     $cs->registerCssFile($baseUrl . '/css/plugins/croppie/croppie.css', 'screen');
+    
+
 
     //<!-- Theme CSS -->        
     $cs->registerCssFile($baseUrl . '/css/style.css', 'screen');
@@ -42,6 +44,7 @@
 
     //<!-- Prints -->
     $cs->registerCssFile($baseUrl . '/css/print.css', 'print'); //para imprimir
+    $cs->registerCssFile($baseUrl . '/js/plugins/jAlert/jAlert.css', 'screen');
     //$cs->registerCssFile($baseUrl . '/css/daterange/daterangepicker-bs2.css', 'screen');
     //<!-- jQuery -->
     // $cs->registerScriptFile($baseUrl . '/js/jquery.min.js'); //da error en los filtros
@@ -94,6 +97,9 @@
     //<!-- Just for demonstration -->
     $cs->registerScriptFile($baseUrl . '/js/demonstration.min.js');
 
+    $cs->registerScriptFile($baseUrl . '/js/plugins/jAlert/jAlert.js');
+    $cs->registerScriptFile($baseUrl . '/js/plugins/jAlert/jAlert-functions.js');
+
 
     //        <!-- select2 -->
     //	<script src="js/plugins/select2/select2.min.js"></script>
@@ -109,7 +115,7 @@
         }');
 
         $theme =  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme') == "" ? "orange" :  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
-
+ 
     ?>
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo $baseUrl ?>/img/logo.png" />

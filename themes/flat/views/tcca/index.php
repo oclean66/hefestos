@@ -56,8 +56,10 @@ foreach ($dataProvider as $value) {
 
                 foreach ($dataProvider as $value) {
                     if (!$value['TCCA_Archived']) {
+
                 ?>
-                        <li class='<?php echo $value['TCCA_Archived'] ? "pink long" : "blue long"; ?>'>
+                        <li class='<?php echo (Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme') == 'orange') ? "blue ":"lightgrey "; ?>  long'>
+                        
                             <a href="<?php echo Yii::app()->createUrl('tcca/view', array('id' => $value['TCCA_Id'])); ?>">
                                 <span class="nopadding">
                                     <h5><?php echo $value['TCCA_Name']; ?>
@@ -98,7 +100,7 @@ foreach ($dataProvider as $value) {
             foreach ($dataProvider as $value) {
                 if ($value['TCCA_Archived']) {
             ?>
-                    <li class='<?php echo $value['TCCA_Archived'] ? "pink long" : "blue long"; ?>'>
+                    <li class='pink long'>
                         <a href="<?php echo Yii::app()->createUrl('tcca/view', array('id' => $value['TCCA_Id'])); ?>">
                             <span class="nopadding">
                                 <h5><?php echo $value['TCCA_Name']; ?>

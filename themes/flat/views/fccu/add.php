@@ -105,6 +105,32 @@
 
                 </div>
             </div>
+
+     <!----------------------------------- ############################### ---------------------------------------------------------->
+     <div class="" id='row1'>
+           
+            <div class="col-sm-6 nopadding">
+            <div class="form-group">
+                <?php
+                if (Yii::app()->user->isSuperAdmin) {
+                    ?>
+                    <label for="textfield" class="control-label col-sm-2">Negocio</label>
+                     <div class="col-sm-10">
+                        <?php
+                        $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
+                        echo $form->dropDownList($model, 'FCCU_Bussiness', $var, array('empty' => '** Webmaster **', 'class' => ''));
+                        ?>
+                     </div>
+                    <?php
+                } else {
+                    echo CHtml::hiddenField('FCCU_Bussiness', Yii::app()->user->bussiness );
+                }
+                ?> 
+            </div>
+            </div>
+    </div>
+     <!----------------------------------- ############################### ---------------------------------------------------------->
+
             <!--row2-->
             <div class=" hidden" id='row2'>
                 <!--operador-->

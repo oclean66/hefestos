@@ -16,7 +16,7 @@
         </div>
     </form>
     <div class="buttons">
-        <a href="https://kingdeportes.com/hefestos" class="btn">
+        <a href="<?= Yii::app()->params->domain."/".Yii::app()->params->folder ?>" class="btn">
                 Pagina Principal<i class="fa fa-arrow-right"></i>
         </a>
     </div>

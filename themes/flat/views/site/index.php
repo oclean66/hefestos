@@ -1,6 +1,7 @@
 <style>
     #main{
         margin-left: 0px;
+        height: 100%;
     }   
     #left{
         display: none;
@@ -53,12 +54,12 @@ $baseUrl = Yii::app()->theme->baseUrl;
             <li class="blue long">
                 <a href="#">
                     <span class="nopadding">
-                        <h5>@oclean66</h5>
+                        <h5><?=  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') ?></h5>
                         <p>Bienvenido, Tenemos nuevas actualizaciones</p>
                     </span>
                     <span class="name">
                         <i class="fa fa-twitter"></i>
-                        <span class="right">09/01/2020</span>
+                        <span class="right"><?= date("d/m/Y") ?></span>
                     </span>
                 </a>
             </li>
