@@ -31,6 +31,9 @@ Yii::app()->clientScript->registerScript('search', "
             <a href="<?= Yii::app()->createUrl("fccu/add") ?>" class="btn">
                 <i class="fa fa-print"></i> Crear Activo
             </a>
+            <a href="<?= Yii::app()->createUrl("fccu/index") ?>" class="btn">
+                <i class="fa fa-th"></i> Historial
+            </a>
         </div>
     </div>
 

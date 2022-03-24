@@ -342,6 +342,17 @@ class FccuController extends Controller
         ));
     }
 
+    public function actionIndex(){
+        $model = new Fccu('search');
+		$model->unsetAttributes();  // clear any default values
+		// $model->GCCA_Status = 1;
+		if (isset($_GET['Fccu']))
+			$model->attributes = $_GET['Fccu'];
+
+        $this->render('index', array(
+			'model' => $model,
+		));
+    }
     public function actionReport($id)
     {
 
