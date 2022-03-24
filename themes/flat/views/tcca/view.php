@@ -948,7 +948,7 @@ foreach ($dataProvider as $valuex) {
 
 		area.height(h - 140);
 		board.css({
-			"max-height": (h - 235)
+			"max-height": (h - 270)
 		});
 
 		$("#large-grid").sortable({
