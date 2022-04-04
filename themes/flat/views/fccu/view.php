@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     //array('label'=>'List Fccu', 'url'=>array('index')),
     array('label' => 'Crear Activo', 'url' => Yii::app()->createUrl("fccu/add")),
-    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id))),
+    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id,"view"=>'index'))),
 
     array(
         'label' => 'Recibir Activo',
@@ -27,7 +27,7 @@ $this->menu = array(
 ?>
  
 
-
+<?php if($view=='admin'){ ?>
 <div class="box">
     <div class="box-title" style="margin: 0;">
         <h3>
@@ -55,7 +55,7 @@ $this->menu = array(
         </div>
     </div>
 </div>
-
+<?php } ?>
 <div id="modal-1" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -353,6 +353,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                         'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->GCCA_Id))',
                         'imageUrl' => false,
                         'label' => '<i class="fa fa-file"></i>',
+                        
 
                         'options' => array(
                             'class' => 'not-link btn btn-sm btn-orange',

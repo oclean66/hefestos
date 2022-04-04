@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerScript('search', "
                 )); ?>
 
             </div>
-            <div class="col-sm-12 nopadding ">
+            <div class="col-sm-12 nopadding mt-element-list">
                 <!-- <ul class="list-group  "> -->
                 <?php
                 $this->widget('zii.widgets.CListView', array(

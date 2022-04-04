@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	//array('label'=>'List Fccu', 'url'=>array('index')),
 	// array('label'=>'Crear Fccu', 'url'=>array('create')),
-	array('label'=>'Ver Activo', 'url'=>array('view', 'id'=>$model->FCCU_Id)),
+	array('label'=>'Ver Activo', 'url'=>array('view', 'id'=>$model->FCCU_Id,"view"=>$view)),
 	array('label'=>'Administrar Activos', 'url'=>array('admin')),
 );
 ?>
@@ -24,7 +24,9 @@ $this->menu=array(
         </h3>
          
          <div class="actions">
-            <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("fccu/view", array("id" => $model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');">Ver activo</a>
+         <?php if($view=='admin'){ ?>
+            <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("fccu/view", array("id" => $model->FCCU_Id,"view"=>$view)) ?>','<?= $model->FCCU_Id ?>');">Ver activo</a>
+        <?php } ?>
         </div>
     </div>
 </div>

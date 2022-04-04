@@ -208,9 +208,8 @@ class FccuController extends Controller
         }
     }
 
-    public function actionView($id)
-    {
-
+    public function actionView($id, $view='admin')
+    { 
         ignore_user_abort(true);
         set_time_limit(0);
 
@@ -234,19 +233,30 @@ class FccuController extends Controller
             
         }
         
-
-        $this->renderPartial('view', array(
-            'model' => $model,
-            'modelo' => $modelo,
-            'resumen' => $resumen,
-        ));
+        
+        if($view=='index'){
+            $this->render('view', array(
+                'model' => $model,
+                'modelo' => $modelo,
+                'resumen' => $resumen,
+                'view'=>$view
+            ));
+        }else{
+            $this->renderPartial('view', array(
+                'model' => $model,
+                'modelo' => $modelo,
+                'resumen' => $resumen,
+                'view'=>$view
+            ));
+        }
     }
 
-    public function actionUpdate($id, $vista = 'admin')
+    public function actionUpdate($id, $view = 'admin')
     {
+       
         $model = $this->loadModel($id);
-        if ($model->FCCI_Id == 5) {
-            $this->redirect(array('view', 'id' => $model->FCCU_Id, 'alert' => "No se puede editar, Este activo se encuentra asignado"));
+        if ($model->FCCI_Id == 5) {  
+            $this->redirect(array('view', 'id' => $model->FCCU_Id,'view'=>$view, 'alert' => "No se puede editar, Este activo se encuentra asignado"));
         }
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -257,13 +267,20 @@ class FccuController extends Controller
                 $model->FCCS_Id = null;
 
             if ($model->save())
-                $this->redirect(array($vista, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
+                $this->redirect(array($view, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
         }
-
-
-        $this->renderPartial('update', array(
-            'model' => $model,
-        ));
+   
+        if($view == 'admin'){
+            $this->renderPartial('update', array(
+                'model' => $model,
+                'view'=>$view
+            ));
+        }else{
+            $this->render('update', array(
+                'model' => $model,
+                'view'=>$view
+            )); 
+        }
     }
 
     public function actionCreate()

@@ -8982,3 +8982,29 @@ a.list-group-item.active{
   background-color: #f8a31f !important;
   border-color: #f8a31f !important;
 }
+
+.btn-list-right{
+  height: 100%;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  font-size: 15px;
+  right: 0px;
+  line-height: 48px;
+  font-weight: bold;
+  border: solid;
+  border-width: 1px;
+  border-radius: 0 10px 10px 0;
+  border-color: #eee;
+  color: #544444;
+}
+.item-justdark{
+  background: #ccc;
+    color: #000;
+    border-radius: 0 10px 10px 0;
+    border-color: #1c252b;
+}
+.item-light{
+
+}
