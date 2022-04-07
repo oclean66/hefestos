@@ -236,9 +236,12 @@ class UiController extends Controller
         $campoNombre->save();
 
         if (isset($_POST['avatar'])) {
-            $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar');
-            $campoNombre->value =  $_POST['avatar'];
-            $campoNombre->save();
+            if($_POST['avatar']!=""){
+
+                $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'avatar');
+                $campoNombre->value =  $_POST['avatar'];
+                $campoNombre->save();
+            }
             // print_r($_POST['avatar']);
         }
 
@@ -246,8 +249,7 @@ class UiController extends Controller
             $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'theme');
             $campoNombre->value =  $_POST['theme'];
             $campoNombre->save();
-            // print_r($_POST['theme']);
-            
+            // print_r($_POST['theme']);            
         }
 
 
@@ -257,16 +259,7 @@ class UiController extends Controller
             throw new CrugeException("necesita iniciar sesion para editar su perfil");
         }
     }
-    public function actionEditTheme(){
-        $campoNombre = Yii::app()->user->um->getFieldValueInstance(Yii::app()->user->id, 'theme');
-        $campoNombre->value =  $_POST['theme'];
-        $campoNombre->save();
-        if (!Yii::app()->user->isGuest) {
-            echo 1;
-        } else {
-            echo 0;
-        }
-    }
+   
 
     public function actionUserManagementUpdate($id)
     {
@@ -353,6 +346,8 @@ class UiController extends Controller
             $model->username = strtolower($model->username);
             $model->email  = strtolower($model->email);
 
+            $model->GCCD_Id = Yii::app()->user->grupo;
+            $model->Bussiness_Id = Yii::app()->user->bussiness;
             $model->terminosYCondiciones = true;
 
             $model->scenario = 'manualcreate';

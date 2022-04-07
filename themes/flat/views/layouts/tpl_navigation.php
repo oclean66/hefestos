@@ -1,5 +1,5 @@
 <?php
-$theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'tema');
+$theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
 
 $url = Yii::app()->request->requestUri;
 if (isset($_GET['card'])) {
@@ -252,10 +252,6 @@ if (isset($_GET['card'])) {
         </ul>
     </div>
 
-
-
-
-
 </div>
 <div class="progress progress-striped active" style="margin: 0; height: 5px;background: rgba(5,0,0,0.12);">
     <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
@@ -317,8 +313,8 @@ if (isset($_GET['card'])) {
     function changetheme(theme){
         var themeactive= '<?= $theme ?>';
         if(theme != themeactive){
-            $.post('<?= Yii::app()->params->domain."/".Yii::app()->params->folder ?>/cruge/ui/edittheme','theme='+theme,function(response){
-                loca.reload();
+            $.post('<?= Yii::app()->params->domain."/".Yii::app()->params->folder ?>/cruge/ui/editprofile','theme='+theme,function(response){
+                location.reload();
             })
         }
     }
