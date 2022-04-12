@@ -426,7 +426,7 @@ class FccoController extends Controller
         if ($type == null) {
             $this->renderPartial('grupo', array(
                 'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo
-            ));
+            ),false,true);
         } else {
             $this->render('grupo', array(
                 'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo

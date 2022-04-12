@@ -176,7 +176,7 @@
     $("#serial").keyup(function (data) {
         //alert(data.keyCode);
         if (data.keyCode === 13) {
-            add();
+            //add();
         }
         console.log($("ul#ui-id-1 li").first().children().html());
 
