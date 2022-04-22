@@ -48,9 +48,17 @@ class FcuuController extends Controller
 
 		if(isset($_POST['Fcuu']))
 		{
-			$model->attributes=$_POST['Fcuu'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->FCUU_Id));
+			$response = Fcuu::model()->find('FCUU_Descripcion = "'.$_POST['Fcuu']['FCUU_Descripcion'].'" ');
+            
+            if(!empty($response)){
+                $categoria=$_POST['Fcuu']['FCUU_Descripcion'];
+                $this->redirect(array('create',  'alert' => "El categoria $categoria ya se encuentra creada."));
+            }
+            if(empty($response)){
+				$model->attributes=$_POST['Fcuu'];
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->FCUU_Id));
+			}
 		}
 
 		$this->render('create',array(
