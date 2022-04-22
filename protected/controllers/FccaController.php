@@ -15,11 +15,20 @@ class FccaController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-
+        
         if (isset($_POST['Fcca'])) {
-            $model->attributes = $_POST['Fcca'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->FCCA_Id));
+            $response = Fcca::model()->find('FCCA_Descripcion = "'.$_POST['Fcca']['FCCA_Descripcion'].'"');
+            
+            if(!empty($response)){
+                $tipo=$_POST['Fcca']['FCCA_Descripcion'];
+                $this->redirect(array('create',  'alert' => "El tipo $tipo ya se encuentra creado."));
+            }
+            if(empty($response)){
+                $model->attributes = $_POST['Fcca'];
+                if ($model->save())
+                    $this->redirect(array('view', 'id' => $model->FCCA_Id));
+            }
+            
         }
 
         $this->render('create', array(

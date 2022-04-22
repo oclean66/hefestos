@@ -5,6 +5,7 @@
 ?>
 
 <div class="box box-bordered box-color">
+    
     <div class="box-title">
         <h3>
             <i class="fa fa-th-list"></i><?php echo $model->isNewRecord ? 'Crear ' : 'Actualizar '; ?>Tipo
