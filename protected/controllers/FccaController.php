@@ -17,7 +17,7 @@ class FccaController extends Controller {
         // $this->performAjaxValidation($model);
         
         if (isset($_POST['Fcca'])) {
-            $response = Fcca::model()->find('FCCA_Descripcion = "'.$_POST['Fcca']['FCCA_Descripcion'].'"');
+            $response = Fcca::model()->find('FCCA_Descripcion = "'.$_POST['Fcca']['FCCA_Descripcion'].'" and FCUU_Id = "'.$_POST['Fcca']['FCUU_Id'].'"');
             
             if(!empty($response)){
                 $tipo=$_POST['Fcca']['FCCA_Descripcion'];
