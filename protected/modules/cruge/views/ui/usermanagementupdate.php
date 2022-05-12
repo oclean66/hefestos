@@ -121,18 +121,18 @@
                         <?php echo $form->labelEx($model, 'Bussiness_Id', array('class' => 'control-label col-sm-2')); ?>
                         <div class="col-sm-10">       
                             <?php
-                            if (Yii::app()->user->isSuperAdmin) {
-                                $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
-                                echo $form->dropDownList($model, 'Bussiness_Id', $var, array('empty' => '** Webmaster **', 'class' => ''));
+                            // if (Yii::app()->user->isSuperAdmin) {
+                                // $var = array("gana"=>"Gana", "kingdeportes"=>"Kingdeportes", "excelencia"=>"Excelencia");
+                                echo $form->dropDownList($model, 'Bussiness_Id', Yii::app()->params['bussiness'], array('empty' => '** Webmaster **', 'class' => ''));
                                 //echo $form->textField($model,'GCCD_Id'); 
-                            } else {
-                                echo CHtml::textField('Bussiness_Id', isset($model->Bussiness_Id)? $model->Bussiness_Id:"** WEBMASTER **", 
-                                    array(
-                                        'disabled' => 'disabled', 
-                                        'class' => 'form-control'
-                                    )
-                                );
-                            }
+                            // } else {
+                            //     echo CHtml::textField('Bussiness_Id', isset($model->Bussiness_Id)? $model->Bussiness_Id:"** WEBMASTER **", 
+                            //         array(
+                            //             'disabled' => 'disabled', 
+                            //             'class' => 'form-control'
+                            //         )
+                            //     );
+                            // }
                             ?>
                             <?php echo $form->error($model, 'GCCD_Id'); ?>
                         </div>

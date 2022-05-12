@@ -146,7 +146,8 @@ return array(
         // this is used in contact page
         'adminEmail' => 'webmaster@example.com',
         'domain'=>$master['domain'],
-        'folder'=>$master['folder']
+        'folder'=>$master['folder'],
+        'bussiness'=> $bussiness
         
     ),
 );
