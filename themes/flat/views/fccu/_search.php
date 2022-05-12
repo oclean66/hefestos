@@ -50,6 +50,9 @@
 			));
 
         	echo $form->dropDownList($model, 'FCCI_Id', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'concatened'), array('prompt' => 'Todos'));
+
+
+			echo $form->textField($model, 'FCCU_Timestamp', array('class' => 'form-control hasDatepicker','placeholder'=>date("Y-m-d")));
         ?>
 		
 	</div>

@@ -9008,3 +9008,18 @@ a.list-group-item.active{
 .item-light{
 
 }
+
+.btn-list-right{
+  border: solid;
+  height: 100%;
+  position: absolute;
+  background: #eee;
+  border-radius: 0 5px 5px 0;
+  text-align: center;
+  line-height: 47px;
+  font-size: 18px;
+  right: 0;
+  top: 0;
+  border-width: 0.5px; 
+  border-color: #ababab !important;
+}

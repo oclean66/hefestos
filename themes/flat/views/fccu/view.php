@@ -121,7 +121,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     ),
                     'FCCU_Cantidad',
                     array(
-                        'name' => 'FCCT_Id',
+                        'name' => 'Tipo/Modelo',
                         'value' => $model->fCCT->fCCA->FCCA_Descripcion . " " . $model->fCCT->FCCT_Descripcion,
                         'oneRow' => true
                     ),
@@ -402,5 +402,6 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
 
         });
         
-    })
+    });
+    
 </script>
