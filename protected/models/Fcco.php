@@ -136,6 +136,8 @@ class Fcco extends CActiveRecord {
 
         
 
+        
+
         $criteria->compare('FCCA_Descripcion', $this->FCCA_Descripcion, true);
         $criteria->with = array('fCCU.fCCT.fCCA');
 
@@ -157,7 +159,7 @@ class Fcco extends CActiveRecord {
         $criteria->compare('FCCO_Enabled', $this->FCCO_Enabled);
         $criteria->compare('FCCN_Id', $this->FCCN_Id, true);
         $criteria->compare('t.FCCU_Id', $this->FCCU_Id);
-        $criteria->compare('GCCA_Id', $this->GCCA_Id, false);
+        $criteria->compare('t.GCCA_Id', $this->GCCA_Id, false);
         $criteria->compare('t.GCCD_Id', $this->GCCD_Id, false);
 //      $criteria->condition = "GCCA_Id=" . $this->GCCA_Id;
 //      $criteria->condition = "FCCO_Enabled=" . $this->FCCO_Enabled;
@@ -173,6 +175,8 @@ class Fcco extends CActiveRecord {
         $criteria->compare('GCCA_Nombre', $this->GCCA_Nombre, true);
         $criteria->with = array('gCCA');
 
+        $criteria->compare('FCCU_Bussiness', Yii::app()->user->bussiness, true);
+        $criteria->with = array('fCCU');
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
