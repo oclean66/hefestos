@@ -9,7 +9,7 @@ class FccuController extends Controller
     {
         // $buenas = "";
         // $malas = "";
-
+       // die(print_r($_POST));
         if (isset($_POST['Fccu'])) {
 
             if ($_POST['Fccu']['FCUU_Id'] != 2) {
@@ -22,6 +22,7 @@ class FccuController extends Controller
                 $alert = "<div class='label label-danger'>NO Procesado</div>";
                 $arrayNotificaciones = array();
                 $total=0;
+                $i=1;
                 foreach ($fccu_serial as $key => $value) {
 
                     $model = new Fccu;
@@ -35,10 +36,20 @@ class FccuController extends Controller
                     $model->FCCD_Id = 5;
                     $model->FCCU_Descripcion = "Sin Comentarios";
                     $model->FCCT_Id = $fcct_id[$key]; //modelo
-                    try {
+                    
+                    try { 
                         if ($model->save()) {
+                            $FCCU_Id=$model->primaryKey; 
                             $total;
-                            $total+=1;
+                            $total+=1; 
+                            
+                           foreach($_POST['FCCL_Id'][$i] as $val){ 
+                                $FcclHasFccu= new FcclHasFccu;
+                                $FcclHasFccu->fccl_FCCL_Id=$val;
+                                $FcclHasFccu->fccu_FCCU_Id=$FCCU_Id;
+                                $FcclHasFccu->save();
+                            }
+                           
                             /* $arrayNotificaciones[$model->FCCU_Serial] = array(
                                 'item' => $correct,
                                 'estado' => 'Serial <b style="color: green">' . $model->FCCU_Serial . '</b> Guardado correctamente',
@@ -48,7 +59,8 @@ class FccuController extends Controller
                             //error de model
                             // $arrayNotificaciones[]='no se guardo';
                             //print_r( $model->getErrors());
-                        } */
+                     //  } */
+                        
                     } catch (Exception $exc) {
                         //repetidos
                         $arrayNotificaciones[$model->FCCU_Serial] = array(
@@ -57,6 +69,7 @@ class FccuController extends Controller
                             //'error' => $exc->getLine()
                         );
                     }
+                    $i++;
                 }
                 echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>'; 
                 /* echo "<div class='label label-success'>Correcto</div>";
@@ -251,13 +264,23 @@ class FccuController extends Controller
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
         if (isset($_POST['Fccu'])) {
+             
             $model->attributes = $_POST['Fccu'];
 
             if ($model->FCCS_Id == '')
                 $model->FCCS_Id = null;
 
-            if ($model->save())
+            if ($model->save()){
+                $FCCU_Id=$model->primaryKey; 
+                FcclHasFccu::model()->deleteAll(" tccd_FCCU_Id ='" . $id. "'");
+                foreach($_POST['Fccl']['FCCL_Id'] as $val){ 
+                    $FcclHasFccu= new FcclHasFccu;
+                    $FcclHasFccu->fccl_FCCL_Id=$val;
+                    $FcclHasFccu->fccu_FCCU_Id=$FCCU_Id;
+                    $FcclHasFccu->save();
+                }
                 $this->redirect(array($vista, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
+            }
         }
 
 
@@ -272,6 +295,7 @@ class FccuController extends Controller
         //        $this->redirect(array('view', 'id' => $model->FCCU_Id));
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+         
         if (isset($_POST['Fccu'])) {
             $model->attributes = $_POST['Fccu'];
 

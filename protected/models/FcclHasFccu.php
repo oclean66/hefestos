@@ -4,8 +4,9 @@
  * This is the model class for table "fccl_has_fccu".
  *
  * The followings are the available columns in table 'fccl_has_fccu':
- * @property integer $FCCL_Id
- * @property string $FCCU_Id
+ * @property integer $fccl_FCCL_Id
+ * @property integer $fccu_FCCU_Id
+ * @property Fccu $fCCU
  */
 class FcclHasFccu extends CActiveRecord
 {
@@ -17,7 +18,7 @@ class FcclHasFccu extends CActiveRecord
 	{
 		return 'fccl_has_fccu';
 	}
-
+ 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -26,11 +27,8 @@ class FcclHasFccu extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fccl_FCCU_Id, fccu_FCCU_Id', 'required'),
-			array('fccl_FCCU_Id, fccu_FCCU_Id', 'numerical', 'integerOnly'=>true),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('fccl_FCCU_Id, fccu_FCCU_Id', 'safe', 'on'=>'search'),
+			array('fccl_FCCL_Id, fccu_FCCU_Id', 'required'),
+
 		);
 	}
 
@@ -42,7 +40,7 @@ class FcclHasFccu extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'fccl' => array(self::BELONGS_TO, 'Fccl', 'fccl_FCCL_Id'),
+			'Fccl' => array(self::BELONGS_TO, 'Fccl', 'fccl_FCCL_Id'),
 			'fccu' => array(self::BELONGS_TO, 'Fccu', 'fccu_FCCU_Id'),
 		);
 	}
@@ -54,7 +52,7 @@ class FcclHasFccu extends CActiveRecord
 	{
 		return array(
 			'fccl_FCCL_Id' => 'Fccl Fccl',
-			'tccd_FCCU_Id' => 'Fccu Fccu',
+			'fccu_FCCU_Id' => 'Fccu Fccu',
 		);
 	}
 
@@ -93,5 +91,16 @@ class FcclHasFccu extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+	public static function listLabel($id=''){ 
+		$labels=FcclHasFccu::model()->findAll(
+            "fccu_FCCU_Id = :xyz", array(":xyz"=> $id) 
+        );
+		$List=array();
+		foreach($labels as $l){
+			$List[]=$l->Fccl->FCCL_Descripcion;
+		}
+
+		return implode(" / ",$List);
 	}
 }

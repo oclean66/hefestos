@@ -137,6 +137,18 @@
                 <?php echo $form->error($model, 'FCCT_Id', array('class' => 'label label-danger')); ?>
             </div>
         </div>
+        
+        <div class="form-group">
+            <label for="textfield" class="control-label col-sm-2">Etiquetas</label>
+            <div class="col-sm-10">
+                 <?php $labels=Fccl::model()->findAll(); ?>
+                <select class="select2-me select2-offscreen" style="width:100%" multiple="multiple" name="Fccl[FCCL_Id][]" id="Fccl_FCCL_Id"  multiple="multiple">
+                    <?php foreach($labels as $l){ ?>
+                    <option <?php if(FcclHasFccu::model()->find("fccu_FCCU_Id=" . $model->FCCU_Id ." and fccl_FCCL_Id =".$l->FCCL_Id )){ ?>selected <?php } ?> value="<?= $l->FCCL_Id ?>"><?= $l->FCCL_Descripcion ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCI_Id', array('class' => 'control-label col-sm-2')); ?>

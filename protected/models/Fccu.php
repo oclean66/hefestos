@@ -139,7 +139,7 @@ class Fccu extends CActiveRecord {
             'FCCU_Cantidad' => 'Cantidad',
             'FCCU_Facturado' => 'Facturado',
             'FCCD_Id' => 'Operador',
-            'FCCT_Id' => 'Marca/Modelo',
+            'FCCT_Id' => 'Tipo/Modelo',
             'FCCI_Id' => 'Estado',
             'FCCS_Id' => 'Factura N',
             'FCCU_Titular' => 'Titular',

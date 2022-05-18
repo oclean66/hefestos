@@ -56,7 +56,7 @@ class Fccl extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'fccls' => array(self::HAS_MANY, 'Fccu', 'FCCL_Id'),
+			'fccl' => array(self::HAS_MANY, 'FcclHasFccu', 'fccl_FCCL_Id'),
 		);
 	}
 
