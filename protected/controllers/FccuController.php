@@ -14,7 +14,7 @@ class FccuController extends Controller
 
             if ($_POST['Fccu']['FCUU_Id'] != 2) {
 
-                // print_r($_POST['Fccu']);
+               //  print_r($_POST['Fccu']);
                 $fccu_serial = $_POST['Fccu']['FCCU_Serial'];
                 $fcct_id = $_POST['Fccu']['FCCT_Id'];
 
@@ -34,6 +34,7 @@ class FccuController extends Controller
                     $model->FCCU_Bussiness = Yii::app()->user->bussiness;
                     $model->FCCU_Cantidad = 1;
                     $model->FCCD_Id = 5;
+                    $model->FCCM_Id = $_POST['Fccu']['FCCM_Id'];
                     $model->FCCU_Descripcion = "Sin Comentarios";
                     $model->FCCT_Id = $fcct_id[$key]; //modelo
                     
@@ -221,7 +222,7 @@ class FccuController extends Controller
         }
     }
 
-    public function actionView($id)
+    public function actionView($id,$view='admin')
     {
 
         ignore_user_abort(true);
@@ -252,10 +253,11 @@ class FccuController extends Controller
             'model' => $model,
             'modelo' => $modelo,
             'resumen' => $resumen,
+            'view'=>$view
         ));
     }
 
-    public function actionUpdate($id, $vista = 'admin')
+    public function actionUpdate($id, $view = 'admin')
     {
         $model = $this->loadModel($id);
         if ($model->FCCI_Id == 5) {
@@ -266,27 +268,36 @@ class FccuController extends Controller
         if (isset($_POST['Fccu'])) {
              
             $model->attributes = $_POST['Fccu'];
-
+            print_r($_POST);
+die(print_r($model->attributes));
             if ($model->FCCS_Id == '')
                 $model->FCCS_Id = null;
 
             if ($model->save()){
-                $FCCU_Id=$model->primaryKey; 
-                FcclHasFccu::model()->deleteAll(" tccd_FCCU_Id ='" . $id. "'");
+                
+                FcclHasFccu::model()->deleteAll(" fccu_FCCU_Id ='" . $id. "'");
                 foreach($_POST['Fccl']['FCCL_Id'] as $val){ 
                     $FcclHasFccu= new FcclHasFccu;
                     $FcclHasFccu->fccl_FCCL_Id=$val;
-                    $FcclHasFccu->fccu_FCCU_Id=$FCCU_Id;
+                    $FcclHasFccu->fccu_FCCU_Id=$id;
                     $FcclHasFccu->save();
                 }
-                $this->redirect(array($vista, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
+                $this->redirect(array($view, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
             }
         }
 
-
-        $this->renderPartial('update', array(
-            'model' => $model,
-        ));
+        if($view=='admin'){
+            $this->renderPartial('update', array(
+                'model' => $model,
+                'view' => $view
+            ));
+        }else{
+            $this->render('update', array(
+                'model' => $model,
+                'view' => $view
+            ));
+        }
+        
     }
 
     public function actionCreate()
