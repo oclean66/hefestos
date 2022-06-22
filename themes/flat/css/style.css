@@ -3588,7 +3588,7 @@ li [class*=" glyphicon-"], .nav li [class^="glyphicon-"],
 }
 
 .table-bordered {
-  border-top: 0;
+  /*border-top: 0;*/
 }
 .table-bordered.table-force-topborder {
   border-top: 1px solid #ddd;
