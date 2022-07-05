@@ -56,6 +56,10 @@
     </div>
     <div class=" col-sm-8" id='place' style="overflow:auto;">
 
+        <div class="jumbotron" bis_skin_checked="1">
+            <h1>Bienvenido!</h1>
+            <p>Selecciona algun un grupo o agencia de la lista para ver su informacion.</p>
+        </div>
 
     </div>
 </div>

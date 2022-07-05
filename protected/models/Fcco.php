@@ -134,8 +134,9 @@ class Fcco extends CActiveRecord {
         $criteria->compare('FCCU_Numero', $this->FCCU_Numero, true);
         $criteria->with = array('fCCU');
 
-        $criteria->compare('CONCAT_WS(" ",FCCU_Serial,FCCU_Numero)', $this->FCCU_Serial, true);
-        $criteria->with = array('fCCU');
+        
+
+        
 
         $criteria->compare('FCCA_Descripcion', $this->FCCA_Descripcion, true);
         $criteria->with = array('fCCU.fCCT.fCCA');
@@ -150,6 +151,7 @@ class Fcco extends CActiveRecord {
         $criteria->compare('FCCO_Id', $this->FCCO_Id);
         $criteria->addBetweenCondition('FCCO_Timestamp', $this->desde, $this->hasta);
 
+ 
         
 //        $criteria->compare('FCCO_Timestamp', $this->FCCO_Timestamp, true);
         $criteria->compare('FCCO_Lote', $this->FCCO_Lote, true);
@@ -157,13 +159,24 @@ class Fcco extends CActiveRecord {
         $criteria->compare('FCCO_Enabled', $this->FCCO_Enabled);
         $criteria->compare('FCCN_Id', $this->FCCN_Id, true);
         $criteria->compare('t.FCCU_Id', $this->FCCU_Id);
-        $criteria->compare('GCCA_Id', $this->GCCA_Id, false);
+        $criteria->compare('t.GCCA_Id', $this->GCCA_Id, false);
         $criteria->compare('t.GCCD_Id', $this->GCCD_Id, false);
 //      $criteria->condition = "GCCA_Id=" . $this->GCCA_Id;
 //      $criteria->condition = "FCCO_Enabled=" . $this->FCCO_Enabled;
     //  $criteria->condition = "GCCD_Id=" . $this->GCCD_Id;
 //      $criteria->params[':met_not_more']=$this->met_not_more;
 //      Ordenamiento de columnas relacionadas
+
+       
+
+        $criteria->compare('CONCAT_WS(" ",FCCU_Serial,FCCU_Numero)', $this->FCCU_Serial, true);
+        $criteria->with = array('fCCU');
+
+        $criteria->compare('GCCA_Nombre', $this->GCCA_Nombre, true);
+        $criteria->with = array('gCCA');
+
+        $criteria->compare('FCCU_Bussiness', Yii::app()->user->bussiness, true);
+        $criteria->with = array('fCCU');
 
         $data = new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -220,7 +233,7 @@ class Fcco extends CActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination'=>array(
-                        'pageSize'=>500,
+                        'pageSize'=>500, 
                 ),
             'sort' => array(
                 'defaultOrder' => 'FCCO_Timestamp desc',

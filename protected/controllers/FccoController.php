@@ -426,7 +426,7 @@ class FccoController extends Controller
         if ($type == null) {
             $this->renderPartial('grupo', array(
                 'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo
-            ));
+            ),false,true);
         } else {
             $this->render('grupo', array(
                 'model' => $model, 'count' => $count, 'type' => $type, 'grupo' => $grupo
@@ -450,7 +450,7 @@ class FccoController extends Controller
             print_r($re);
             echo " -->";
         }
-
+       
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
         $model->GCCA_Id = $id;
@@ -505,6 +505,7 @@ class FccoController extends Controller
 
          $inc = Fcco::model()->findAll("GCCA_Id =:id AND fcco_enabled = 1 AND fccn_id = 1 AND GCCD_Id != :padre", array(":padre" => $agencia->GCCD_Id, ':id' => $agencia->GCCA_Id));
          $temp = array();
+         
          foreach ($inc as $key => $value) {
              $temp[$value->FCCO_Id] = "Item_id: [" . $value->FCCU_Id . "], GCCD_Id: [" . $value->GCCD_Id . " => " . $agencia->GCCD_Id . "]";
              $value->GCCD_Id = $agencia->GCCD_Id;
@@ -526,6 +527,7 @@ class FccoController extends Controller
         /************************* */
 
         if ($print) {
+          
             $criteria = new CDbCriteria;
             $criteria->select = '*';
             $criteria->condition = "GCCA_Id = :id 
@@ -594,6 +596,7 @@ class FccoController extends Controller
             // Yii::app()->session['all'] = array();
             $this->renderPartial('print', array('d' => $data, 'model' => $agencia), false, true);
         } else if ($type == null) {
+            
             $this->renderPartial('agencia', array(
                 'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
