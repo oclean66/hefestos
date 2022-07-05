@@ -258,7 +258,7 @@ if (isset($_GET['card'])) {
 
     </div>
 </div>
-<img src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" class="imprimir" srcset="" style="width: 50px;position: absolute;right: 1px;z-index: 1;">
+<img src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" class="imprimir" srcset="" style="width: 90px;position: absolute;right: 1px;z-index: 1;">
 
 <div class="imprimir" style="position: absolute;top:70px;right: 1px;z-index: 1;">
     <?php echo Yii::app()->locale->dateFormatter->format("d MMM hh:mma", strtotime('-4 hours')) ?>

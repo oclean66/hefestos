@@ -97,7 +97,14 @@
                         <label for="textfield" class="control-label col-sm-2">Lugar</label>
                         <div class="col-sm-10">
                             <?php
-                            echo CHtml::dropDownList('Fccu[FCCI_Id]', 'Fccu[FCCI_Id]', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'), array('empty' => 'Selecciona', 'class' => 'select2-me', 'style' => 'width:100%'));
+                            $estados=Fcci::model()->findAll();
+                            $list_est=array();
+                            foreach($estados as $e){
+                                if($e['FCCI_Descripcion'] == 'Deposito Tecnico'){
+                                 $list_est[]=$e;
+                                }
+                            }
+                            echo CHtml::dropDownList('Fccu[FCCI_Id]', 'Fccu[FCCI_Id]', CHtml::listData($list_est, 'FCCI_Id', 'FCCI_Descripcion'), array('empty' => 'Selecciona', 'class' => 'select2-me', 'style' => 'width:100%'));
                             ?>
                         </div>
                     </div>
