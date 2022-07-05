@@ -137,7 +137,18 @@
                 <?php echo $form->error($model, 'FCCT_Id', array('class' => 'label label-danger')); ?>
             </div>
         </div>
-        
+        <div class="form-group">
+            <label for="textfield" class="control-label col-sm-2">Marca</label>
+            <div class="col-sm-10">
+                 <?php $marcas=Fccm::model()->findAll(); ?>
+                <select class="select2-me select2-offscreen" style="width:100%" name="Fccu[FCCM_Id]" id="Fccm_FCCM_Id" >
+                    <?php foreach($marcas as $m){ ?>
+                    <option <?php if($m->FCCM_Id==$model->FCCM_Id ){ ?>selected <?php } ?> value="<?= $m->FCCM_Id ?>"><?= $m->FCCM_Descripcion ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="textfield" class="control-label col-sm-2">Etiquetas</label>
             <div class="col-sm-10">
@@ -150,6 +161,8 @@
             </div>
         </div>
 
+
+        
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCI_Id', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">

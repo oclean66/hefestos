@@ -3,19 +3,19 @@
 /* @var $model Fcca */
 
 $this->breadcrumbs = array(
-	'Fccl' => array('index'),
+	'Fccm' => array('index'),
 	'Administrar',
 );
 
 $this->menu = array(
 	//array('label'=>'Listar Tipos', 'url'=>array('index')),//
-	array('label' => 'Crear Etiqueta', 'url' => array('create')),
+	array('label' => 'Crear Marca', 'url' => array('create')),
 );
 
 
 ?>
 
-<h1>Administrar Etiquetas de Activos</h1>
+<h1>Administrar Marcas de Activos</h1>
 
 
 
@@ -31,10 +31,10 @@ $this->menu = array(
 	),
 	'columns' =>
 	array(
-		'FCCL_Id',
-		'FCCL_Descripcion',
+		'FCCM_Id',
+		'FCCM_Descripcion',
 		array(
-			'name' => 'FCCL_Id',
+			'name' => 'FCCM_Id',
 			'header' => 'Total',
 			'value' => '$data->total',
 			'filter' => false,
@@ -55,7 +55,7 @@ $this->menu = array(
 			'buttons' => array(
 				'view' => array(
 					'imageUrl' => false,
-					'url' => 'Yii::app()->createUrl("fccl/".$data->FCCL_Id)',
+					'url' => 'Yii::app()->createUrl("fccm/".$data->FCCM_Id)',
 					'label' => '<i class="fa fa-eye"></i>',
 					'options' => array(
 						'target' => '_blank',
@@ -66,7 +66,7 @@ $this->menu = array(
 				'update' => array(
 					'imageUrl' => false,
 					'visible' => 'Yii::app()->user->checkAccess("action_fcca_update")',
-					'url' => 'Yii::app()->createUrl("fccl/update/", array("id"=>$data->FCCL_Id))',
+					'url' => 'Yii::app()->createUrl("fccm/update/", array("id"=>$data->FCCM_Id))',
 					'label' => '<i class="fa fa-pencil"></i>  Editar',
 					'options' => array(
 						'target' => '_blank',
@@ -77,7 +77,7 @@ $this->menu = array(
 				'delete' => array(
 					'imageUrl' => false,
 					'visible' => 'Yii::app()->user->checkAccess("action_fcca_delete")',
-					'url' => 'Yii::app()->createUrl("fccl/delete/", array("id"=>$data->FCCL_Id))',
+					'url' => 'Yii::app()->createUrl("fccm/delete/", array("id"=>$data->FCCM_Id))',
 					'label' => '<i class="fa fa-trash-o"></i>  Eliminar',
 					'options' => array(
 						'class' => 'btn btn-sm btn-danger',

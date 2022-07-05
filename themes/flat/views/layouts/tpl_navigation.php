@@ -71,6 +71,9 @@ if (isset($_GET['card'])) {
                         array('label' => 'Publicaciones', 'url' => array('/api/public'), 'visible' => Yii::app()->user->checkAccess('action_api_public')),
                         array('label' => 'Tipo de Activos', 'url' => array('/fcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcca_admin')),
                         array('label' => 'Etiquetas', 'url' => array('/fccl/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcca_admin')),
+
+                        array('label' => 'Marcas', 'url' => array('/fccm/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccm_admin')),
+
                         array('label' => 'Modelos de Activos', 'url' => array('/fcct/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcct_admin')),
                         array('label' => 'Categorias de Activos*', 'url' => array('/fcuu/admin'), 'visible' => $admin),
                         array('label' => 'Operaciones con Activos', 'url' => array('/fccn/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccn_admin')),

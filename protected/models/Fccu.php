@@ -25,6 +25,7 @@
  * @property integer $FCCU_Cedula
  * @property string $FCCU_FechaNacimiento
  * @property string $FCCU_ClaveWeb
+ * @property integer $FCCM_Id
  *
  * The followings are the available model relations:
  * @property Fcco[] $fccos
@@ -37,7 +38,7 @@
 class Fccu extends CActiveRecord {
 
     //Variables para busqueda relacionada
-    public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion,$FCCU_Bussiness;
+    public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion,$FCCU_Bussiness,$FCCM_Id;
     public $GCCA_Nombre, $GCCD_Nombre;
 
     /**
@@ -100,7 +101,7 @@ class Fccu extends CActiveRecord {
             array('FCCU_FechaNacimiento', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('FCCU_Id, FCCU_Serial, FCCU_Timestamp, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_DiaCorte, FCCU_MontoMin, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Cantidad, FCCU_Facturado, FCCU_Bussiness,FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id, FCCU_Titular, FCCU_Cedula, FCCU_FechaNacimiento, FCCU_ClaveWeb', 'safe', 'on' => 'search'),
+            array('FCCU_Id, FCCU_Serial, FCCU_Timestamp, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_DiaCorte, FCCU_MontoMin, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Cantidad, FCCU_Facturado, FCCU_Bussiness,FCCM_Id,FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id, FCCU_Titular, FCCU_Cedula, FCCU_FechaNacimiento, FCCU_ClaveWeb', 'safe', 'on' => 'search'),
         );
     }
 
@@ -117,6 +118,7 @@ class Fccu extends CActiveRecord {
             'fCCS' => array(self::BELONGS_TO, 'Fccs', 'FCCS_Id'),
             'fCCT' => array(self::BELONGS_TO, 'Fcct', 'FCCT_Id'),
             'fcucs' => array(self::HAS_MANY, 'Fcuc', 'FCCU_Id'),
+            'fCCM' => array(self::HAS_MANY, 'Fccm', 'FCCM_Id'),
         );
     }
 
@@ -146,7 +148,8 @@ class Fccu extends CActiveRecord {
             'FCCU_Cedula' => 'Cedula',
             'FCCU_FechaNacimiento' => 'Fecha Nacimiento',
             'FCCU_ClaveWeb' => 'Clave Web',
-            'FCCU_Bussiness'=>"Negocio"
+            'FCCU_Bussiness'=>"Negocio",
+            'FCCM_Id'=>"Marca"
         );
     }
 
