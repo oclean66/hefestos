@@ -248,41 +248,49 @@ class FccuController extends Controller
             
         }
         
-
-        $this->renderPartial('view', array(
-            'model' => $model,
-            'modelo' => $modelo,
-            'resumen' => $resumen,
-            'view'=>$view
-        ));
+        if($view =='admin'){
+            $this->renderPartial('view', array(
+                'model' => $model,
+                'modelo' => $modelo,
+                'resumen' => $resumen,
+                'view'=>$view
+            ));
+        }else{
+            $this->render('view', array(
+                'model' => $model,
+                'modelo' => $modelo,
+                'resumen' => $resumen,
+                'view'=>$view
+            ));
+        }
+        
     }
 
     public function actionUpdate($id, $view = 'admin')
     {
         $model = $this->loadModel($id);
         if ($model->FCCI_Id == 5) {
-            $this->redirect(array('view', 'id' => $model->FCCU_Id, 'alert' => "No se puede editar, Este activo se encuentra asignado"));
+            $this->redirect(array('view', 'id' => $model->FCCU_Id,'view' => $view, 'alert' => "No se puede editar, Este activo se encuentra asignado"));
         }
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        if (isset($_POST['Fccu'])) {
-             
-            $model->attributes = $_POST['Fccu'];
-            print_r($_POST);
-die(print_r($model->attributes));
+        if (isset($_POST['Fccu'])) { 
+            $model->attributes = $_POST['Fccu']; 
             if ($model->FCCS_Id == '')
                 $model->FCCS_Id = null;
 
             if ($model->save()){
                 
                 FcclHasFccu::model()->deleteAll(" fccu_FCCU_Id ='" . $id. "'");
+                if(isset($_POST['Fccl']['FCCL_Id'])){
                 foreach($_POST['Fccl']['FCCL_Id'] as $val){ 
                     $FcclHasFccu= new FcclHasFccu;
                     $FcclHasFccu->fccl_FCCL_Id=$val;
                     $FcclHasFccu->fccu_FCCU_Id=$id;
                     $FcclHasFccu->save();
                 }
-                $this->redirect(array($view, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
+            }
+                $this->redirect(array($view,'view'=>$view, 'id' => $model->FCCU_Id,'Fccu[FCCU_Serial]'=>$model->FCCU_Serial));
             }
         }
 

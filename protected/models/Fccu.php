@@ -212,7 +212,15 @@ class Fccu extends CActiveRecord {
             'criteria' => $criteria,
             'sort' => array(
                 'attributes' => array(
+                    'FCCI_Id' => array(
+                        'asc' => 'FCCI_Id',
+                        'desc' => 'FCCI_Id  DESC',
+                    ),
                    //elementos de ordenacion propios
+                   'FCCU_Timestamp' => array(
+                    'asc' => 'FCCU_Timestamp',
+                    'desc' => 'FCCU_Timestamp  DESC',
+                ),
                     'FCCT_Descripcion' => array(
                         'asc' => 'fCCT.FCCT_Descripcion',
                         'desc' => 'fCCT.FCCT_Descripcion  DESC',
@@ -234,14 +242,8 @@ class Fccu extends CActiveRecord {
                         'asc' => 'FCCU_Serial',
                         'desc' => 'FCCU_Serial  DESC',
                     ),
-                    'FCCU_Timestamp' => array(
-                        'asc' => 'FCCU_Timestamp',
-                        'desc' => 'FCCU_Timestamp  DESC',
-                    ),
-                    'FCCI_Id' => array(
-                        'asc' => 'FCCI_Id',
-                        'desc' => 'FCCI_Id  DESC',
-                    ),
+                    
+                    
                 ),
             ),
             'Pagination' => array (

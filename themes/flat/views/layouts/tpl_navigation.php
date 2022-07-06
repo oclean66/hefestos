@@ -70,7 +70,7 @@ if (isset($_GET['card'])) {
                         array('label' => 'Activos', 'url' => array('/fccu/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccu_admin')),
                         array('label' => 'Publicaciones', 'url' => array('/api/public'), 'visible' => Yii::app()->user->checkAccess('action_api_public')),
                         array('label' => 'Tipo de Activos', 'url' => array('/fcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcca_admin')),
-                        array('label' => 'Etiquetas', 'url' => array('/fccl/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcca_admin')),
+                        array('label' => 'Etiquetas', 'url' => array('/fccl/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccl_admin')),
 
                         array('label' => 'Marcas', 'url' => array('/fccm/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccm_admin')),
 
