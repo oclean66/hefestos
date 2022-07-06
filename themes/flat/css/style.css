@@ -8985,12 +8985,17 @@ a.list-group-item.active{
 
 .btn-list-right{
   height: 100%;
+<<<<<<< Updated upstream
   background: #eee;
+=======
+  background: #fff;
+>>>>>>> Stashed changes
   position: absolute;
   top: 0;
   text-align: center;
   font-size: 15px;
   right: 0px;
+<<<<<<< Updated upstream
   line-height: 80px;
   font-weight: bold;
   border: solid;
@@ -8999,6 +9004,15 @@ a.list-group-item.active{
   border-color: #eee;
   color: #544444;
   border-color: #ababab !important;
+=======
+  line-height: 48px;
+  font-weight: bold;
+  border: solid;
+  border-width: 1px;
+  border-radius: 0 10px 10px 0;
+  border-color: #eee;
+  color: #544444;
+>>>>>>> Stashed changes
 }
 .item-justdark{
   background: #ccc;
@@ -9010,4 +9024,21 @@ a.list-group-item.active{
 
 }
 
+<<<<<<< Updated upstream
  
+=======
+.btn-list-right{
+  border: solid;
+  height: 100%;
+  position: absolute;
+  background: #eee;
+  border-radius: 0 5px 5px 0;
+  text-align: center;
+  line-height: 47px;
+  font-size: 18px;
+  right: 0;
+  top: 0;
+  border-width: 0.5px; 
+  border-color: #ababab !important;
+}
+>>>>>>> Stashed changes
