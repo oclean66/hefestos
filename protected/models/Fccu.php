@@ -203,14 +203,16 @@ class Fccu extends CActiveRecord {
         
         // if(!Yii::app()->user->checkAccess('action_ui_usermanagementadmin'))
             $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
+         
 
-        
+            $criteria->order = "FCCI_Id DESC";
         
 
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'sort' => array(
+                'defaultOrder'=>'FCCI_Id DESC',
                 'attributes' => array(
                     'FCCI_Id' => array(
                         'asc' => 'FCCI_Id',
@@ -220,7 +222,7 @@ class Fccu extends CActiveRecord {
                    'FCCU_Timestamp' => array(
                     'asc' => 'FCCU_Timestamp',
                     'desc' => 'FCCU_Timestamp  DESC',
-                ),
+                    ),
                     'FCCT_Descripcion' => array(
                         'asc' => 'fCCT.FCCT_Descripcion',
                         'desc' => 'fCCT.FCCT_Descripcion  DESC',
@@ -246,9 +248,7 @@ class Fccu extends CActiveRecord {
                     
                 ),
             ),
-            'Pagination' => array (
-                  'PageSize' => 20 //edit your number items per page here
-              ),
+             
         ));
     }
     public function behaviors() {

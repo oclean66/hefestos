@@ -126,5 +126,9 @@ Yii::app()->clientScript->registerScript('search', "
                 console.log(data);
             })
         }
+        function copyserial(e){
+            var serial = $(e).next('.id_fccu_serial').text();
+            navigator.clipboard.writeText(serial);
+        }
      
 </script>
