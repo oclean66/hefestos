@@ -174,9 +174,9 @@
 <script type="text/javascript">
 
     $("#serial").keyup(function (data) {
-        //alert(data.keyCode);
+        console.log(data.keyCode);
         if (data.keyCode === 13) {
-            //add();
+            add();
         }
         console.log($("ul#ui-id-1 li").first().children().html());
 
