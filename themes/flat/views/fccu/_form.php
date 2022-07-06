@@ -153,7 +153,7 @@
             <label for="textfield" class="control-label col-sm-2">Etiquetas</label>
             <div class="col-sm-10">
                  <?php $labels=Fccl::model()->findAll(); ?>
-                <select class="select2-me select2-offscreen" style="width:100%" multiple="multiple" name="Fccl[FCCL_Id][]" id="Fccl_FCCL_Id"  multiple="multiple">
+                <select class="select2-me select2-offscreen" style="width:100%" name="Fccl[FCCL_Id][]" id="Fccl_FCCL_Id"  multiple="multiple">
                     <?php foreach($labels as $l){ ?>
                     <option <?php if(FcclHasFccu::model()->find("fccu_FCCU_Id=" . $model->FCCU_Id ." and fccl_FCCL_Id =".$l->FCCL_Id )){ ?>selected <?php } ?> value="<?= $l->FCCL_Id ?>"><?= $l->FCCL_Descripcion ?></option>
                     <?php } ?>
