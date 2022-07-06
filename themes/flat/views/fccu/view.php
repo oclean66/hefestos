@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     //array('label'=>'List Fccu', 'url'=>array('index')),
     array('label' => 'Crear Activo', 'url' => Yii::app()->createUrl("fccu/add")),
-    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id))),
+    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id,'view'=>'index'))),
 
     array(
         'label' => 'Recibir Activo',
@@ -26,7 +26,7 @@ $this->menu = array(
 );
 ?>
  
-
+ <?php if($view=='admin'){ ?>
 
 <div class="box">
     <div class="box-title" style="margin: 0;">
@@ -55,7 +55,7 @@ $this->menu = array(
         </div>
     </div>
 </div>
-
+<?php } ?>
 <div id="modal-1" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -111,7 +111,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     
                     array(
                         'name' => 'FCCI_Id',
-                        'value' => $model->fCCI->FCCI_Descripcion . " - " . ($model->FCCI_Id == 5 && Fcco::model()->find("FCCU_Id=" . $model->FCCU_Id . " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc") ?
+                        'value' =>  ($model->FCCI_Id == 5 && Fcco::model()->find("FCCU_Id=" . $model->FCCU_Id . " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc") ?
                             Fcco::model()->find("FCCU_Id=" . $model->FCCU_Id . " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc")->lugar
                             : $model->fCCI->FCCI_Descripcion)
                     ),
@@ -123,6 +123,11 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     array(
                         'name' => 'FCCT_Id',
                         'value' => $model->fCCT->fCCA->FCCA_Descripcion . " " . $model->fCCT->FCCT_Descripcion,
+                        'oneRow' => true
+                    ),
+                    array(
+                        'name' => 'Etiquetas',
+                        'value' => FcclHasFccu::model()->listLabel($model->FCCU_Id),
                         'oneRow' => true
                     ),
                     ///-------------------------------

@@ -67,6 +67,7 @@ $this->menu = array(
 
     array('label' => '<i class="fa fa-print" aria-hidden="true"></i> Imprimir <span class="label label-warning">NUEVO</span>', 'url' => array('agencia', 'id' => $agencia->GCCA_Id, 'print' => true), 'linkOptions' => array('target' => '_blank', 'class' => 'active not-link')),
 );
+
 foreach ($count as $key => $value) {
     $this->widget[] = array('label' => $key, 'data' => $value[$key][0]);
 }
@@ -110,7 +111,9 @@ foreach ($count as $key => $value) {
             </div>
 
 
-            <?php $this->widget('zii.widgets.CDetailView', array(
+            <?php 
+            
+            $this->widget('zii.widgets.CDetailView', array(
                 'data' => $agencia,
                 'id' => 'view',
                 'htmlOptions' => array('class' => 'table table-hover table-nomargin table-condensed', 'style' => ''),
@@ -279,11 +282,13 @@ foreach ($count as $key => $value) {
                     <?php
                     $this->widget('zii.widgets.grid.CGridView', array(
                         'id' => 'fcco-grid',
+                        'afterAjaxUpdate' => 'ActivarSelects',
                         'dataProvider' => $model->search(),
                         'filter' => $model,
                         'itemsCssClass' => 'table table-striped table-bordered table-hover table-invoice',
                         'pagerCssClass' => 'table-pagination',
                         'htmlOptions' => array('style' => 'overflow:auto; padding:0'),
+                        'updateSelector'=>'custom-page-selector',
                         'pager' => array(
                             'htmlOptions' => array('class' => 'pagination'),
                             'selectedPageCssClass' => 'active',
@@ -299,12 +304,13 @@ foreach ($count as $key => $value) {
                             array(
                                 'name' => 'FCCO_Timestamp',
                                 'header' => 'Fecha de Asignacion',
-                                'type' => 'raw',
+                                'type' => 'raw', 
                                 'value' => 'date("d M Y" , strtotime($data->FCCO_Timestamp))."<br/>".date("h:i:s A" , strtotime($data->FCCO_Timestamp))'
                             ),
 
                             array(
-                                'name' => 'FCCU_Serial', 'header' => 'Serial',
+                                'name' => 'FCCU_Serial', 
+                                'header' => 'Serial',
                                 'value' => '$data->fCCU->FCCU_Serial'
                             ),
                             //verificacion
@@ -401,7 +407,7 @@ foreach ($count as $key => $value) {
                                 //-----------------------------------------------------------------------
                             ),
                         ),
-                    ));
+                    )); 
                     ?>
                 </div>
             </div>
@@ -425,13 +431,14 @@ foreach ($count as $key => $value) {
                 </a>
             </div>
             <div class="box-content nopadding">
-                <?php
+                <?php 
                 $this->widget('zii.widgets.grid.CGridView', array(
                     'id' => 'fcco-grid',
                     'dataProvider' => $modelos->search(),
                     'filter' => $modelos,
                     'itemsCssClass' => 'table table-striped table-bordered table-hover table-invoice',
                     'pagerCssClass' => 'table-pagination',
+                    'updateSelector'=>'custom-page-selector',
                     'htmlOptions' => array('style' => 'overflow:auto'),
                     'pager' => array(
                         'htmlOptions' => array('class' => 'pagination'),

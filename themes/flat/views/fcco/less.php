@@ -133,13 +133,21 @@
 </div>
 
 <table class="hidden">
-    <tbody id="row">                
+    <tbody id="row">        <?php
+        $estados=Fcci::model()->findAll();
+        $list_est=array();
+        foreach($estados as $e){
+            if($e['FCCI_Descripcion'] != 'De Baja'){
+             $list_est[]=$e;
+            }
+        }
+        ?>         
         <tr>
             <td class="hidden"> <?php echo CHtml::hiddenField('Fcco[FCCU_Id][]', '', array('class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td> <?php echo CHtml::textField('Fcco[FCCU_Serial][]', '', array('class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td> <?php echo CHtml::textField('Fcco[Descripcion][]', '', array('class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td> <?php echo CHtml::textField('Fcco[Lugar][]', '', array('class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
-            <td> <?php echo CHtml::dropDownList('Fcco[FCCI_Id][]', 'Fcco[FCCI_Id]', CHtml::listData(Fcci::model()->findAll(), 'FCCI_Id', 'FCCI_Descripcion'), array('value' => 10, 'class' => 'form-control', 'options' => array('10' => array('selected' => true)))); ?></td>
+            <td> <?php echo CHtml::dropDownList('Fcco[FCCI_Id][]', 'Fcco[FCCI_Id]', CHtml::listData($list_est, 'FCCI_Id', 'FCCI_Descripcion'), array('value' => 10, 'class' => 'form-control', 'options' => array('10' => array('selected' => true)))); ?></td>
             <td> 
                 <button id='del' class="btn btn-danger" onclick="delt($(this).parent().parent())" type="button">
                     <i class="fa fa-minus"></i>

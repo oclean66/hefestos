@@ -1,5 +1,6 @@
 <?php
 $estado="";
+$theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
 switch ($data->FCCI_Id) {
     case 7:{
         $estado = "purple";
@@ -28,8 +29,19 @@ switch ($data->FCCI_Id) {
     }
 }
 ?>
-<a href="javascript:loadpage('<?= Yii::app()->createUrl('fccu/view/',array('id'=>$data->FCCU_Id)) ?>','<?= $data->FCCU_Id ?>');" class="item-<?= $data->FCCU_Id ?> list-group-item row panel-default list-group-item-<?= $estado ?> " style="margin: 0 !important;color:darkslategray">
-<?= $data->FCCU_Serial ?><br/>
-<?= $data->fCCT->fCCA->FCCA_Descripcion ?> <?= $data->fCCT->FCCT_Descripcion ?>
-<span class="badge badge-<?= $estado ?>"><?= $data->fCCI->FCCI_Descripcion ?></span>
-</a>
+<li class="list-group-item row panel-default item-<?= $data->FCCU_Id ?> item-<?= $theme ?>"style="margin: 0 !important; ">
+    <div class="col-md-11 nopadding "  >
+     <button class=" btn " onclick="copyserial(this)"><i class="fa fa-copy"> </i></button>&nbsp;<span class="id_fccu_serial"><?= $data->FCCU_Serial ?></span><br/>
+        <?= $data->fCCT->fCCA->FCCA_Descripcion ?> <?= $data->fCCT->FCCT_Descripcion ?><br>
+        <span class="badge badge-info">F. Ingreso: <?= $data->FCCU_Timestamp ?></span>
+        <span class="badge badge-<?= $estado ?>"><?= $data->fCCI->FCCI_Descripcion ?>
+        <?=  $data->FCCI_Id==5 ? ': '.Fcco::model()->find("FCCU_Id=".$data->FCCU_Id. " order by FCCO_Id desc")->cod:'' ?>
+    </span>
+
+       
+    </div>
+    
+    <a href="javascript:loadpage('<?= Yii::app()->createUrl('fccu/view/',array('id'=>$data->FCCU_Id)) ?>','<?= $data->FCCU_Id ?>');" class="col-md-1 nopadding btn-list-right " >
+        <i class="fa fa-angle-right" ></i>
+    </a>
+</li>
