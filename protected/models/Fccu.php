@@ -205,7 +205,7 @@ class Fccu extends CActiveRecord {
             $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
          
 
-            $criteria->order = "FCCI_Id DESC";
+            $criteria->order = "FCCU_Timestamp DESC";
         
 
 
@@ -248,6 +248,9 @@ class Fccu extends CActiveRecord {
                     
                 ),
             ),
+            'pagination' => array(
+				'pageSize' => 20,
+			),
              
         ));
     }
