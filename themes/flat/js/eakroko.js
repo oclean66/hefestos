@@ -418,19 +418,50 @@ $(document).ready(function () {
     if ($('.dataTable').length > 0) {
         $('.dataTable').each(function () {
             if (!$(this).hasClass("dataTable-custom")) {
-                var opt = {
-                    "sPaginationType": "full_numbers",
-                    "oLanguage": {
-                        "sSearch": "<span>Search:</span> ",
-                        "sInfo": "Showing <span>_START_</span> to <span>_END_</span> of <span>_TOTAL_</span> entries",
-                        "sLengthMenu": "_MENU_ <span>entries per page</span>"
-                    },
-                    'sDom': "lfrtip"
-                };
-                if ($(this).hasClass("dataTable-noheader")) {
-                    opt.bFilter = false;
-                    opt.bLengthChange = false;
+                
+
+
+                if ($(this).hasClass("dataTable-es")) {
+                    var opt={
+                        "sPaginationType": "full_numbers",
+                        "oLanguage":{
+                            "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "<span>Mostrar</span> _MENU_ <span>registros</span>",
+                            "sZeroRecords":    "No se encontraron resultados",
+                            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":    "",
+                            "sSearch":         "Buscar:",
+                            "sUrl":            "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":     "Último",
+                                "sNext":     "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },'sDom': "lfrtip"
+                    };
+                }else{
+                    var opt = {
+                        "sPaginationType": "full_numbers",
+                        "oLanguage": {
+                            "sSearch": "<span>Search:</span> ",
+                            "sInfo": "Showing <span>_START_</span> to <span>_END_</span> of <span>_TOTAL_</span> entries",
+                            "sLengthMenu": "_MENU_ <span>entries per page</span>"
+                        },
+                        'sDom': "lfrtip"
+                    };
                 }
+                
+                
                 if ($(this).hasClass("dataTable-nofooter")) {
                     opt.bInfo = false;
                     opt.bPaginate = false;
@@ -494,7 +525,11 @@ $(document).ready(function () {
 
                 var oTable = $(this).dataTable(opt);
                 $(this).css("width", '100%');
-                $('.dataTables_filter input').attr("placeholder", "Search here...").addClass("form-control input-medium");
+                if ($(this).hasClass("dataTable-es")) {
+                $('.dataTables_filter input').attr("placeholder", "Buscar...").addClass("form-control input-medium");
+                }else{
+                    $('.dataTables_filter input').attr("placeholder", "Search here...").addClass("form-control input-medium"); 
+                }
                 $(".dataTables_length select").wrap("<div class='input-mini'></div>").chosen({
                     disable_search_threshold: 9999999
                 });

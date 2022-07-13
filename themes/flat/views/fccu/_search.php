@@ -13,12 +13,6 @@
 			'class'=>'form-horizontal form-column form-bordered'
 		)
 	)); ?>
- 
-
- 
-	
- 
-
  <div class="box box-color box-bordered" style="margin-bottom:10px ;">
 							<div class="box-title">
 								<h3>
@@ -32,7 +26,7 @@
 									</a>
 								</div>
 							</div>
-							<div class="box-content" <?php if(!empty($model->FCCA_Descripcion)|| !empty($model->FCCI_Id)){ ?> style="display: none;" <?php } ?> >
+							<div class="box-content" <?php if(empty($model->FCCA_Descripcion)|| empty($model->FCCI_Id)){ ?> style="display: none;" <?php } ?> >
 							<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
