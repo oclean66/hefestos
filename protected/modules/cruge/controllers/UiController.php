@@ -1265,7 +1265,7 @@ class UiController extends Controller
             Yii::app()->user->um->changePassword($model, $newPassword);
             Yii::app()->user->um->generateAuthenticationKey($model);
             Yii::app()->user->um->save($model);
-            Yii::app()->crugemailer->sendRegistrationEmail($model, $newPassword);
+            Yii::app()->CrugeMailer->sendRegistrationEmail($model, $newPassword);
             echo CrugeTranslator::t("correo enviado");
         } else {
             echo CrugeTranslator::t("usuario no hallado");

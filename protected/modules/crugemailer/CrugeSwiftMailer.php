@@ -130,5 +130,6 @@ class CrugeSwiftMailer extends CrugeMailerBase implements ICrugeMailer
 				self::t("La informacion de su cuenta ha cambiado")			
         		);
     }
+	
 
 }
