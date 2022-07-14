@@ -90,7 +90,7 @@ class GccdController extends Controller {
             // print_r($_POST);
             $model->attributes = $_POST['Gccd'];
             if(isset($_POST['Public'])){
-                $url = 'http://91.121.116.131/gecko/api/list/model/gccd';
+                $url = 'https://kingdeportes.net/gecko/api/list/model/gccd';
 
 
                 $options = array(
