@@ -110,7 +110,7 @@
             <?php //echo $form->labelEx($model, 'Visible en:', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
                 <?php
-                $url = 'https://kingdeportes.com/gecko/api/list/model/gccd';
+                $url = 'https://kingdeportes.net/gecko/api/list/model/gccd';
 
 
                 $options = array(

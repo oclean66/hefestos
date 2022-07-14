@@ -205,14 +205,14 @@ class Fccu extends CActiveRecord {
             $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
          
 
-            $criteria->order = "FCCU_Timestamp DESC";
+          //  $criteria->order = "FCCU_Timestamp DESC";
         
 
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'sort' => array(
-                'defaultOrder'=>'FCCI_Id DESC',
+                'defaultOrder'=>'FCCU_Timestamp DESC',
                 'attributes' => array(
                     'FCCI_Id' => array(
                         'asc' => 'FCCI_Id',
