@@ -50,13 +50,15 @@ class Controller extends CController
         } else {
             if (file_exists("telegram_contacts.txt")) {
                 $aLineas = file("telegram_contacts.txt");
+              
                 $index = 0;
                 foreach ($aLineas as $linea) {
                     $linea = substr($linea, 0, -1);
                     $contact = json_decode($linea, true);
-                    if ($contact['cruge_user_id'] == $id) {
-                        $this->sendTelegramMessage($contact['user_id'], $title);
-                    }
+                  
+                   // if ($contact['cruge_user_id'] == $id) {
+                      //  $this->sendTelegramMessage($contact['user_id'], $title);
+                    //}
                     $index++;
                 }
             }
@@ -185,5 +187,29 @@ class Controller extends CController
         );
 
         return (isset($codes[$status])) ? $codes[$status] : '';
+    }
+    public function actionUpdateStock($id) {
+        $stock = Fccu::model()->with('fCCT')->count('FCCI_Id=10 and fCCT.FCCA_Id='.$id.' and FCCU_Bussiness = "'.Yii::app()->user->bussiness.'" ');
+        $model = Fcca::model()->findByPk($id);
+        $model->attributes = array('FCCA_Stock'=>$stock);
+        $model->save();
+
+        $this->NotificaStock($id);
+    }
+    public function NotificaStock($id){
+        $model = Fcca::model()->findByPk($id);
+
+        $users  = Yii::app()->db->createCommand()
+        ->select('userid,bizrule,data,itemname')
+        ->from('cruge_authassignment')
+        ->where('itemname in ("Administrador","Asistente")')->queryAll();
+         $title=$model->FCCA_Descripcion." ha llegado al limite de existencia: ".$model->FCCA_Stock." "; 
+         $url = Yii::app()->createUrl('fcca/'.$id);
+         
+        if($model->FCCA_Stock <=  $model->FCCA_StockMin){
+            foreach($users as $u){
+                $this->sendNotification($u['userid'], $title, $url);
+            }
+        }
     }
 }

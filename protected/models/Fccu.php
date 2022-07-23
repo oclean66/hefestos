@@ -164,7 +164,8 @@ class Fccu extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         //Busqueda con campos relacionados
-
+        
+        
         $criteria->compare('FCCT_Descripcion', $this->FCCT_Descripcion, true);
         $criteria->with = array('fCCT');
 
@@ -177,7 +178,7 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCUU_Descripcion', $this->FCUU_Descripcion, true);
         $criteria->with = array('fCCT.fCCA.fCUU');
 
-
+        
 
         $criteria->compare('FCCU_Id', $this->FCCU_Id);
         $criteria->compare('FCCU_Serial', $this->FCCU_Serial, true);
@@ -203,8 +204,9 @@ class Fccu extends CActiveRecord {
         
         // if(!Yii::app()->user->checkAccess('action_ui_usermanagementadmin'))
             $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
-         
 
+           
+        
           //  $criteria->order = "FCCU_Timestamp DESC";
         
 

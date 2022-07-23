@@ -170,9 +170,8 @@ foreach ($count as $key => $value) {
                 array(
                     'name' => 'GCCA_Nombre', 'header' => 'Agencia',
                     'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'),
-                    'value' => '$data->gCCA->GCCA_Nombre',
                     'type' => 'raw',
-                    'value' => 'CHtml::link($data->gCCA->GCCA_Nombre, array("fcco/agencia","id"=>$data->GCCA_Id, "type"=>"view"))',
+                    'value' => '(isset($data->gCCA->GCCA_Nombre))?CHtml::link($data->gCCA->GCCA_Nombre, array("fcco/agencia","id"=>$data->GCCA_Id, "type"=>"view")):"Sin asignar"',
                 ),
                 // array(
                 //     'name' => 'GCCD_Nombre', 'header' => 'Grupo',

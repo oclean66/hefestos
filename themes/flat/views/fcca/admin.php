@@ -44,6 +44,24 @@ $this->menu = array(
 			'filter' => false,
 		),
 		array(
+			'name' => 'FCCA_StockMin',
+			'header' => 'Stock Minimo',
+			'value' => '$data->FCCA_StockMin',
+			'filter' => false,
+		),
+		array(
+			'name' => 'FCCA_StockMax',
+			'header' => 'Stock Maximo',
+			'value' => '$data->FCCA_StockMax',
+			'filter' => false,
+		),
+		array(
+			'name' => 'FCCA_Stock',
+			'header' => 'Stock Disponioble',
+			'value' => '$data->FCCA_Stock',
+			'filter' => false,
+		),
+		array(
 			'class' => 'CButtonColumn',
 			'headerHtmlOptions' => array('class'=> 'remover', 'style' => 'width:83px'),
 			'template' => '{view}

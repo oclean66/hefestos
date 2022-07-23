@@ -24,7 +24,7 @@ class FccoController extends Controller
             $model->desde = date('Y-m-d');
             $model->hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
         }
-
+        
         $model->FCCN_Id = $FCCN_Id;
         if (isset($_GET['Fcco']))
             $model->attributes = $_GET['Fcco'];
@@ -38,7 +38,7 @@ class FccoController extends Controller
         $query->group = "t.GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
         $query->order = "FCCO_Timestamp desc";
         $agencias = Fcco::model()->findAll($query);
-
+ 
         $this->render('report', array(
             'model' => $model,
             'agencias' => $agencias,
@@ -106,6 +106,7 @@ class FccoController extends Controller
             $criteria->select = 'max(FCCO_Lote) AS FCCO_Lote';
             $row = Fcco::model()->find($criteria);
             $somevariable = $row['FCCO_Lote'] + 1;
+            $l_tipo=array();
             foreach ($array as $key => $value) {
 
                 $inventario = Fcco::model()->find('FCCO_Enabled = 1 and FCCN_Id = 1 and FCCU_Id=' . $value . ' order by FCCO_Timestamp DESC');
@@ -126,7 +127,7 @@ class FccoController extends Controller
 
                     $item = Fccu::model()->find('FCCU_Id = ' . $value);
                     $item->FCCI_Id = $_POST['Fcco']['FCCI_Id'][$key]; //cambia de estado al seleccionado
-
+                    $l_tipo[$item->fCCT->FCCA_Id] = $item->fCCT->FCCA_Id; 
                     if ($inventario->save() && $model->save() && $item->save()) {
                         //$salida[]=array('serial'=>$inventario->FCCU_Id, 'descripcion'=> $item->fCCU->fCCT->fCCA->FCCA_Descripcion . " " . $item->fCCU->fCCT->FCCT_Descripcion . " | " . $item->fCCU->FCCU_Numero, 'lugar'=>$item->lugar);
                         $log = new Pcue;
@@ -142,7 +143,11 @@ class FccoController extends Controller
 
                         echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
                     }
+                    
                 }
+            }
+            foreach($l_tipo as $t){
+                $this->actionUpdateStock($t);
             }
             $this->redirect(array('enter', 'id' => $somevariable, 'tipo' => 2));
         } else {
@@ -152,19 +157,19 @@ class FccoController extends Controller
         }
     }
 
-    public function actionView($id, $tipo = null, $view = null, $agencia = null)
+    public function actionView($id, $tipo = null, $view = null, $agencia = null,$grupo=null)
     {
 
-
         if ($tipo == null)
-            $tipo = 1;
-
+            $tipo = 1; 
         $modell = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
-        if (isset($agencia))
-            $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
-        else
-            $model = $modell->gCCA;
-
+        if (isset($agencia) && !empty($agencia)){ 
+            $model = Gcca::model()->find('GCCA_Id=:id and GCCD_Id=:ig_grup', array(':id' => $agencia,':ig_grup'=>$grupo));
+            $v='view';
+        }else{
+            $model = Gccd::model()->find('GCCD_Id=:ig_grup', array(':ig_grup'=>$grupo));
+            $v='view2';
+        }
 
         $criteria = new CDbCriteria;
         $criteria->select = '*';
@@ -173,11 +178,11 @@ class FccoController extends Controller
 
 
         if ($view === null)
-            $this->render('view', array(
+            $this->render($v, array(
                 'modelo' => $modell, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
         else
-            $this->renderPartial('view', array(
+            $this->renderPartial($v, array(
                 'modelo' => $modell, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
     }
@@ -354,7 +359,10 @@ class FccoController extends Controller
         $bussines=Yii::app()->user->bussiness;
         if ($request != '') {
             
+            
             $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines' "));
+
+
             $data = array();
             foreach ($model as $item) {
                 $data[$item->FCCU_Id] = array(
@@ -398,7 +406,7 @@ class FccoController extends Controller
         }
     }
 
-    public function actionGrupo($id, $type = null)
+    public function actionGrupo($id, $type = null,$print = false, $excel = false)
     {
         $grupo = Gccd::model()->find('GCCD_Id=:id', array(':id' => $id));
         $model = new Fcco('search');
@@ -679,7 +687,6 @@ class FccoController extends Controller
 
     public function actionCreate($id = null)
     {
-
         $model = new Fcco;
         $criteria = new CDbCriteria;
         $criteria->select = 'max(FCCO_Lote) AS FCCO_Lote';
@@ -687,6 +694,7 @@ class FccoController extends Controller
         $somevariable = $row['FCCO_Lote'] + 1;
 
         if (isset($_POST['Fcco'])) {
+       
             $x = array();
             $y = array();
 
@@ -700,15 +708,21 @@ class FccoController extends Controller
                 $modelo->FCCN_Id = 1;
                 $modelo->FCCO_Enabled = 1;
                 $modelo->FCCU_Id = $value;
-
+                
+                if(empty($modelo->GCCA_Id)|| $modelo->GCCA_Id ==''){
+                    $modelo->GCCA_Id=null;
+                }
                 $item = Fccu::model()->findByPk($value);
+                $tipo[$item->fCCT->FCCA_Id] = $item->fCCT->FCCA_Id;
                 $item->FCCI_Id = 5;
 
                 $inventario = Fcco::model()->findAll('FCCO_Enabled = 1 and FCCU_Id=' . $item->FCCU_Id);
 
                 foreach ($inventario as $inv) {
+                  
                     $inv->FCCO_Enabled = 0;
                     $inv->save();
+                    
                 }
 
                 if ($item->save()) {
@@ -724,14 +738,18 @@ class FccoController extends Controller
                         $log->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
                         $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
                         $log->save();
+                        
                     }
                     $x[] = $value;
                 } else {
                     $y[] = $value;
                 }
+            
             }
-
-            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia' => $modelo->GCCA_Id));
+            foreach($tipo as $t){
+                $this->actionUpdateStock($t);
+            }
+            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia' => $modelo->GCCA_Id,'grupo' => $modelo->GCCD_Id));
             // print_r($_POST);
         } else {
             $this->render('create', array(
@@ -806,7 +824,7 @@ class FccoController extends Controller
                 }
             }
 
-            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia' => $modelo->GCCA_Id));
+            $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia' => $modelo->GCCA_Id,'grupo' => $modelo->GCCD_Id));
             // print_r($_POST);
         } else {
             $this->renderpartial('asignar', array(

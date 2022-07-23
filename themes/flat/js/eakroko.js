@@ -462,6 +462,11 @@ $(document).ready(function () {
                 }
                 
                 
+                if ($(this).hasClass("responsive")) {
+                    opt={
+                        responsive: true,
+                    }
+                }
                 if ($(this).hasClass("dataTable-nofooter")) {
                     opt.bInfo = false;
                     opt.bPaginate = false;

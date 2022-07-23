@@ -24,7 +24,7 @@ class Fcco extends CActiveRecord {
 
 //Variables para busqueda relacionada
     public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion;
-    public $GCCA_Nombre, $GCCD_Nombre,$desde,$hasta;
+    public $GCCA_Nombre, $GCCD_Id,$GCCD_Nombre,$desde,$hasta;
 
     public function getCod() {
         return isset($this->gCCA) ?

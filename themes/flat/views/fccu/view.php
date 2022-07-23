@@ -121,10 +121,19 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     ),
                     'FCCU_Cantidad',
                     array(
+                        'name' => 'Costo',
+                        'value' => $model->fCCT->FCCT_Costo
+                    ),
+                    array(
+                        'name' => 'Venta',
+                        'value' => $model->fCCT->FCCT_Venta
+                    ),
+                    array(
                         'name' => 'FCCT_Id',
                         'value' => $model->fCCT->fCCA->FCCA_Descripcion . " " . $model->fCCT->FCCT_Descripcion,
                         'oneRow' => true
                     ),
+                   
                     array(
                         'name' => 'Etiquetas',
                         'value' => FcclHasFccu::model()->listLabel($model->FCCU_Id),

@@ -175,11 +175,13 @@ class FccuController extends Controller
 
         //$item = $this->loadModel($id);
         $item = Fccu::model()->find('FCCU_Id = ' . $id);
+        $tipo = $item->fCCT->FCCA_Id;
         $item->FCCI_Id = 10; //cambia de estado al seleccionado
-
+        Yii::import('application.controllers.FccaController');
+        
         if ($inventario->save() && $model->save() && $item->save()) {
             // echo "ok";
-
+            $this->actionUpdateStock($tipo);
             //echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
@@ -269,6 +271,9 @@ class FccuController extends Controller
     public function actionUpdate($id, $view = 'admin')
     {
         $model = $this->loadModel($id);
+            $tipo = $model->fCCT->FCCA_Id;
+            $this->actionUpdateStock($tipo);
+        
         if ($model->FCCI_Id == 5) {
             $this->redirect(array('view', 'id' => $model->FCCU_Id,'view' => $view, 'alert' => "No se puede editar, Este activo se encuentra asignado"));
         }
@@ -407,6 +412,7 @@ class FccuController extends Controller
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
+    
 
     public function loadModel($id)
     {
@@ -423,4 +429,71 @@ class FccuController extends Controller
             Yii::app()->end();
         }
     }
+    /***
+     * Funcion para listar la lista de  activos agrupados por agencia en un periodo de fechas y por tipo de activo
+     * author: Kleiver araque 
+     * 21/07/2022
+     * ***/
+    public function actionMovimientoActivos($id,$tipo,$desde=null,$hasta= null,$view='admin')
+	{
+        ini_set('memory_limit', '-1');
+        $movimientos = Yii::app()->db->createCommand()
+        ->select('fccu.FCCT_Id AS modelos,
+        fccu.FCCI_Id AS estatus,
+        fcca.FCCA_Descripcion,
+        count( fcct.FCCA_Id ) AS total,
+        fcco.FCCO_Timestamp,
+        fcco.GCCA_Id,
+        fcco.GCCD_Id,
+        gcca.GCCA_Nombre,
+        gccd.GCCD_Nombre')
+        ->from('fccu')
+        ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
+        ->join('fcca', 'fcct.FCCA_Id = fcca.FCCA_Id')
+        ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
+        ->leftJoin('gcca', 'fcco.GCCA_Id = gcca.GCCA_Id')
+        ->leftJoin('gccd', 'fcco.GCCD_Id = gccd.GCCD_Id ') 
+        ->where('fCCA.FCCA_Id='.$id.' and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and FCCU_Bussiness="'.Yii::app()->user->bussiness.'" and fcco.FCCO_Enabled="'.$tipo.'" ')
+        ->group('fcco.GCCD_Id')
+        ->query();  
+        if($view=='admin'){
+            $this->render('movimientosactivos', array('movimientos' => $movimientos,'id'=>$id,'tipo'=>$tipo,'desde'=>$desde,'hasta'=>$hasta,'view'=>$view));
+        }else{
+            $this->renderpartial('movimientosactivos', array('movimientos' => $movimientos,'id'=>$id,'tipo'=>$tipo,'desde'=>$desde,'hasta'=>$hasta,'view'=>$view));
+        }
+        
+	}
+        /***
+     * Funcion para listar la lista de entradas y salidas de activos 
+     * author: Kleiver araque 
+     * 21/07/2022
+     * ***/
+    public function actionDetalleMovimientos($id,$tipo,$agencia,$desde=null,$hasta= null,$view='admin')
+	{
+        ini_set('memory_limit', '-1');
+        $movimientos = Yii::app()->db->createCommand()
+        ->select('fccu.FCCU_Id,
+        fccu.FCCU_Serial,
+        fcca.FCCA_Descripcion,
+        date_format(fcco.FCCO_Timestamp,"%d-%m-%Y") as FCCO_Timestamp,
+        fcco.GCCA_Id,
+        fcco.GCCD_Id,
+        gcca.GCCA_Nombre,
+        gccd.GCCD_Nombre')
+        ->from('fccu')
+        ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
+        ->join('fcca', 'fcct.FCCA_Id = fcca.FCCA_Id')
+        ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
+        ->leftJoin('gcca', 'fcco.GCCA_Id = gcca.GCCA_Id')
+        ->leftJoin('gccd', 'fcco.GCCD_Id = gccd.GCCD_Id ') 
+        ->where('fCCA.FCCA_Id='.$id.' and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and FCCU_Bussiness="'.Yii::app()->user->bussiness.'" and fcco.GCCD_Id = '.$agencia.' and fcco.FCCO_Enabled="'.$tipo.'" ')
+        ->query();
+   
+        if($view=='admin'){
+            $this->render('listaactivos', array('movimientos' => $movimientos,));
+        }else{
+            $this->renderpartial('listaactivos', array('movimientos' => $movimientos,));
+        }
+        
+	}
 }

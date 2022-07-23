@@ -51,6 +51,18 @@ $this->menu=array(
 				'filter' => false,
 			),
 			array(
+				'name'=>'FCCT_Costo',
+				'header'=>'Costo',
+				'value'=>'$data->FCCT_Costo',
+				'filter' => false,
+			),
+			array(
+				'name'=>'FCCT_Venta',
+				'header'=>'Venta',
+				'value'=>'$data->FCCT_Venta',
+				'filter' => false,
+			),
+			array(
 				'class'=>'CButtonColumn',
 				'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:83px'),
 				'template' => '{view}

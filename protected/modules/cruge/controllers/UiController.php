@@ -280,7 +280,7 @@ class UiController extends Controller
 
     public function _editUserProfile(ICrugeStoredUser $model, $boolIsUserManagement)
     {
-    
+   
         // carga los campos definidos por el administrador
         // trayendo consigo el atributo "value" accesible mediante $xx->fieldvalue
         Yii::app()->user->um->loadUserFields($model);
@@ -309,7 +309,7 @@ class UiController extends Controller
                 if ($newPwd != '') {
                     Yii::log("\n\n***NUEVA CLAVE***\n\n", "info");
                     Yii::app()->user->um->changePassword($model, $newPwd);
-                  //  Yii::app()->crugemailer->sendPasswordTo($model, $newPwd);
+                   Yii::app()->crugemailer->sendPasswordTo($model, $newPwd);
                 }
                 //die(print_r($_POST));
                 if (Yii::app()->user->um->save($model, 'update')) {
