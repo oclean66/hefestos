@@ -57,9 +57,10 @@ class ReportesController extends Controller
         ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
         ->join('fcca', 'fcct.FCCA_Id = fcca.FCCA_Id')
         ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
-        ->where('fcco.FCCO_Enabled ="1" and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and fccu.FCCU_Bussiness="'.Yii::app()->user->bussiness.'"') 
+        ->where('fcco.FCCN_Id ="1" and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and fccu.FCCU_Bussiness="'.Yii::app()->user->bussiness.'"') 
         ->group('fcct.FCCA_Id')
         ->query();
+
         $entradas = Yii::app()->db->createCommand()
         ->select('fccu.FCCT_Id AS modelos,
                 fccu.FCCI_Id AS estatus,
@@ -73,7 +74,7 @@ class ReportesController extends Controller
         ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
         ->join('fcca', 'fcct.FCCA_Id = fcca.FCCA_Id')
         ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
-        ->where('fcco.FCCO_Enabled ="0" and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and fccu.FCCU_Bussiness="'.Yii::app()->user->bussiness.'"') 
+        ->where('fcco.FCCN_Id ="2" and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and fccu.FCCU_Bussiness="'.Yii::app()->user->bussiness.'"') 
         ->group('fcct.FCCA_Id')
         ->query();
         

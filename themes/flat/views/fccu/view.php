@@ -125,7 +125,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                         'value' => $model->fCCT->FCCT_Costo
                     ),
                     array(
-                        'name' => 'Venta',
+                        'name' => 'Precio',
                         'value' => $model->fCCT->FCCT_Venta
                     ),
                     array(
@@ -299,6 +299,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
 </div>
 
 <?php
+ 
     $this->widget('zii.widgets.grid.CGridView', array(
         'id' => 'fcco-grid',
         'dataProvider' => $modelo->search(),
@@ -355,44 +356,45 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
             //array('name' => 'FCCO_Lote', 'type' => 'raw', 'header' => 'Ticket',
             //            'value' => 'CHtml::link("#".$data->FCCO_Lote)',
             //        ),
-            array(
-                'class' => 'CButtonColumn',
-                'header' => 'Accion',
-                //'htmlOptions'=>array('class'=>'btn btn-primary'),
-                'template' => '{preview}',
-                //-----------------------------------------------------------------------
-                'buttons' => array(
-                    'preview' => array(
-                        'label' => 'Ver Ticket',
-                        'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->GCCA_Id))',
-                        'imageUrl' => false,
-                        'label' => '<i class="fa fa-file"></i>',
+ 
 
-                        'options' => array(
-                            'class' => 'not-link btn btn-sm btn-orange',
-                            'title' => 'Ver Ticket',
-                            'ajax' => array(
-                                'type' => 'GET',
-                                // ajax post will use 'url' specified above
-                                'url' => "js:$(this).attr('href')",
-                                'update' => '#ticketVirtual',
-                                'beforeSend' => "function(){
-                                            $('#modal-1').modal('show');
-                                            $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');
-                                            }",
-                                'complete' => "function(){
-                                                $('#ticketVirtual').removeClass('loading');
-                                            }",
+                array(
+                    'class' => 'CButtonColumn',
+                    'header' => 'Accion',
+                    //'htmlOptions'=>array('class'=>'btn btn-primary'),
+                    'template' => '{preview}',
+                    'visible' => Yii::app()->user->checkAccess('vaction_fccn_view'),
+                    //-----------------------------------------------------------------------
+                    'buttons' => array(
+                        'preview' => array(
+                            'label' => 'Ver Ticket',
+                            'url' => '(isset($data->GCCA_Id))?Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>"'.$view.'","agencia"=>$data->GCCA_Id)):Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>"'.$view.'","grupo"=>$data->GCCD_Id))',
+                            'imageUrl' => false,
+                            'label' => '<i class="fa fa-file"></i>',
+                            'options' => array(
+                                'class' => 'not-link btn btn-sm btn-orange',
+                                'title' => 'Ver Ticket',
+                                'ajax' => array(
+                                    'type' => 'GET',
+                                    // ajax post will use 'url' specified above
+                                    'url' => "js:$(this).attr('href')",
+                                    'update' => '#ticketVirtual',
+                                    'beforeSend' => "function(){
+                                                $('#modal-1').modal('show');
+                                                $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');
+                                                }",
+                                    'complete' => "function(){
+                                                    $('#ticketVirtual').removeClass('loading');
+                                                }",
+                                ),
                             ),
+
                         ),
-                        //'options'=>array(
-                        //                                'class'=>'btn',
-                        //                                'id'=>$data->FCCO_Lote
-                        //                            ),
                     ),
+                    //-----------------------------------------------------------------------
                 ),
-                //-----------------------------------------------------------------------
-            ),
+            
+
         ),
     ));
 ?>

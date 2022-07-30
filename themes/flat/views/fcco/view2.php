@@ -36,7 +36,7 @@ $this->menu = array(
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right">Cerrar</button>
                 <!-- <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button> -->
                 <?php echo isset($lote) ? 
-                    CHtml::link('<i class="fa fa-print"></i>  Imprimir', array('print', 'id'=> $lote, 'tipo'=>$tipo, 'agencia'=>$model->GCCD_Id), array('style'=>'float:right;', 'class'=>'btn btn-primary', 'target'=>'_blank')):                    
+                    CHtml::link('<i class="fa fa-print"></i>  Imprimir', array('print', 'id'=> $lote, 'tipo'=>$tipo, 'grupo'=>$model->GCCD_Id), array('style'=>'float:right;', 'class'=>'btn btn-primary', 'target'=>'_blank')):                    
                     CHtml::link('<i class="fa fa-print"></i>  Imprimir', 
                     // array('print', 'id'=> false, 'tipo'=>$tipo, 'agencia'=>$model->GCCA_Id), 
                     array(

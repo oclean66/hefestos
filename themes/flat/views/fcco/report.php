@@ -166,7 +166,7 @@
                         'buttons' => array(
                             'view' => array(
                                 'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
-                                'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->gCCA->GCCA_Id))',
+                                'url' => '(isset($data->gCCA->GCCA_Id))? Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->gCCA->GCCA_Id)): "-" ',
                                 'options' => array(
                                     'ajax' => array(
                                         'type' => 'GET',
@@ -217,7 +217,7 @@
                     array(
                         'name' => 'GCCA_Id',
                         'header' => 'Agencia',
-                        'value' => '$data->GCCA_Id." - ".$data->gCCA->concatened'
+                        'value' => '(isset($data->gCCA->GCCA_Id))? $data->GCCA_Id." - ".$data->gCCA->concatened: "-"'
                     ),
                     array(
                         'header' => 'Total Activos',
@@ -229,7 +229,7 @@
                                     "fcco/viewSalidaDia", 
                                     array(
                                         "tipo" => ' . $model->FCCN_Id . ',
-                                        "agencia" => $data->gCCA->GCCA_Id,
+                                        "agencia" => (isset($data->gCCA->GCCA_Id))? $data->gCCA->GCCA_Id:"-",
                                         "view" => 1,
                                         "desde" => "' . $model->desde . '",
                                         "hasta" => "' . $model->hasta . '"

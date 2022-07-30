@@ -195,6 +195,6 @@ function listasalidas(id,desde,hasta){
 function listaentradas(id,desde,hasta){
     $('#myModalLabel').text("Activos entregados");
     $('#modal-1').modal('show');
-    $('.modal-body').load('<?= Yii::app()->createUrl('fccu/movimientoactivos/',array('view'=>'index','tipo'=>0)) ?>&desde='+desde+'&hasta='+hasta+'&id='+id);       
+    $('.modal-body').load('<?= Yii::app()->createUrl('fccu/movimientoactivos/',array('view'=>'index','tipo'=>2)) ?>&desde='+desde+'&hasta='+hasta+'&id='+id);       
 }
 </script>

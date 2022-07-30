@@ -78,6 +78,7 @@
             opt.debugLevel = 0;
             if ($el.hasClass("filetree-callbacks")) {
                 opt.onActivate = function(node) {
+                    console.log(node.data.url);
                     $.ajax({
                         url: node.data.url,
                         beforeSend: function(xhr) {

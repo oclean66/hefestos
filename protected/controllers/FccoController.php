@@ -156,28 +156,27 @@ class FccoController extends Controller
             ));
         }
     }
-
+//
     public function actionView($id, $tipo = null, $view = null, $agencia = null,$grupo=null)
     {
-
+ 
         if ($tipo == null)
             $tipo = 1; 
         $modell = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
         if (isset($agencia) && !empty($agencia)){ 
-            $model = Gcca::model()->find('GCCA_Id=:id and GCCD_Id=:ig_grup', array(':id' => $agencia,':ig_grup'=>$grupo));
+            $model = Gcca::model()->find('GCCA_Id=:id  ', array(':id' => $agencia ));
             $v='view';
         }else{
             $model = Gccd::model()->find('GCCD_Id=:ig_grup', array(':ig_grup'=>$grupo));
             $v='view2';
         }
-
+ 
         $criteria = new CDbCriteria;
         $criteria->select = '*';
         $criteria->condition = "FCCO_Lote=:lote and FCCN_Id =:tipo";
         $criteria->params = array(':lote' => $id, ':tipo' => $tipo);
 
-
-        if ($view === null)
+        if ($view === null || empty($view))
             $this->render($v, array(
                 'modelo' => $modell, 'tipo' => $tipo, 'model' => $model, 'lote' => $id
             ));
@@ -449,7 +448,7 @@ class FccoController extends Controller
     public function actionAgencia($id, $type = null, $print = false, $excel = false)
     {
         $agencia = Gcca::model()->find('GCCA_Id=:id', array(':id' => $id));
-        // print_r($_POST);
+ 
         //Si envian un comentario
         if (isset($_POST['comment']) && $_POST['comment'] != '') {
 
@@ -533,7 +532,7 @@ class FccoController extends Controller
              );
          }
         /************************* */
-
+        Yii::app()->session['view'] = $type;
         if ($print) {
           
             $criteria = new CDbCriteria;
@@ -601,24 +600,26 @@ class FccoController extends Controller
 
             // Yii::app()->session['all'] = $data;
             // Yii::app()->session['desc'] = $agencia->concatened;
-            // Yii::app()->session['all'] = array();
+            
             $this->renderPartial('print', array('d' => $data, 'model' => $agencia), false, true);
         } else if ($type == null) {
-            
             $this->renderPartial('agencia', array(
                 'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
         } else {
-        
             $this->render('agencia', array(
                 'model' => $model, 'type' => $type, 'agencia' => $agencia, 'count' => $count, 'modelos' => $modelos
             ));
         }
     }
 
-    public function actionPrint($id, $tipo = null, $view = null, $agencia)
+    public function actionPrint($id, $tipo = null, $view = null, $agencia=null,$grupo=null)
     {
-        $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
+        if($grupo == null)
+            $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
+        if($agencia == null)
+            $model = Gccd::model()->find('GCCD_Id=:id', array(':id' => $grupo));
+        
         if ($tipo == null)
             $tipo = 1;
 
