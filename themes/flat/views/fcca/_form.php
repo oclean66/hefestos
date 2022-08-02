@@ -36,11 +36,24 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCA_Descripcion', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'FCCA_Descripcion', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
+                <?php echo $form->textField($model, 'FCCA_Descripcion', array('class' => 'form-control', 'size' => 45, 'maxlength' => 4)); ?>
                 <?php echo $form->error($model, 'FCCA_Descripcion', array('class' => 'label label-danger')); ?>
             </div>
         </div>
-
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'FCCA_StockMin', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+                <?php echo $form->textField($model, 'FCCA_StockMin', array('class' => 'form-control', 'size' => 4, 'maxlength' => 4)); ?>
+                <?php echo $form->error($model, 'FCCA_StockMin', array('class' => 'label label-danger')); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'FCCA_StockMax', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+                <?php echo $form->textField($model, 'FCCA_StockMax', array('class' => 'form-control', 'size' => 4, 'maxlength' => 4)); ?>
+                <?php echo $form->error($model, 'FCCA_StockMax', array('class' => 'label label-danger')); ?>
+            </div>
+        </div>
 
         <div class="form-actions col-sm-offset-2 col-sm-10">
             <?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar', array('class' => 'btn btn-primary')); ?>

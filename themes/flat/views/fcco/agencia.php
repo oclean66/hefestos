@@ -33,7 +33,7 @@ $this->breadcrumbs = array(
     'Administrar',
 );
 
-
+ 
 $this->menu = array(
     array(
         'label' => 'Ver Datos de Agencia',
@@ -279,7 +279,7 @@ foreach ($count as $key => $value) {
                 <div class="col-sm-12" style="padding: 0; margin:0;">
 
 
-                    <?php
+                    <?php 
                     $this->widget('zii.widgets.grid.CGridView', array(
                         'id' => 'fcco-grid',
                         'afterAjaxUpdate' => 'ActivarSelects',
@@ -365,7 +365,7 @@ foreach ($count as $key => $value) {
                                     array(
                                         'label' => 'Ver Ticket',
 
-                                        'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>1,"view"=>1,"agencia"=>' . $agencia->GCCA_Id . '))',
+                                        'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>1,"view"=>"'.Yii::app()->session['view'].'","agencia"=>' . $agencia->GCCA_Id . '))',
                                         // 'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
                                         'imageUrl' => false,
                                         'label' => '<i class="fa fa-file"></i>',
@@ -426,7 +426,6 @@ foreach ($count as $key => $value) {
                     <div class="actions">
                         <a class='btn btn-sm' href="<?php echo Yii::app()->createUrl('gcca/view', array('id' => $model->GCCA_Id, 'excel' => true)) ?>">
                             <i class="fa fa-download"></i> Descargar </a>
-
                     </div>
                 </a>
             </div>
@@ -505,7 +504,7 @@ foreach ($count as $key => $value) {
                                 array(
                                     'label' => 'Ver Ticket',
                                     // 'visible'=>'$data->FCCN_Id==1?true:false',
-                                    'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1, "agencia"=>"' . $model->GCCA_Id . '"))',
+                                    'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>"'.Yii::app()->session['view'].'", "agencia"=>"' . $model->GCCA_Id . '"))',
                                     'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
                                     'imageUrl' => false,
                                     'label' => '<i class="fa fa-file"></i>',

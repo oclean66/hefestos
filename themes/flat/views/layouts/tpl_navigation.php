@@ -57,6 +57,11 @@ if (isset($_GET['card'])) {
 
                         array('label' => 'Recargas*', 'url' => array('/fcuc/admin'), 'visible' => $admin),
                         array('label' => 'Rendimiento laboral*', 'url' => array('#'), 'visible' => $admin),
+
+                        array('label' => 'Resumen de activos', 'url' => array('/reportes/resumen'), 'visible' => $admin),
+
+                        array('label' => 'Entradas y salidas', 'url' => array('/reportes/entradassalidas'), 'visible' => $admin),
+
                         //array('label' => 'Compras', 'url' => array('#'),'visible' =>  $admin ),
                         //array('label' => 'Resumen', 'url' => array('#'),'visible' => $admin ),
                         // array('label' => 'Bitacora', 'url' => array('#'),'visible' =>  $admin ),

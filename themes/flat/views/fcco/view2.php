@@ -3,15 +3,9 @@
 /* @var $model Fcco */
 $modell = isset($modelo[0]) ? $modelo[0] : null;
  
-// $model = $modelo[0];
-// Yii::app()->name = "Salida: " . $model->GCCA_Cod . " - " . $model->GCCA_Nombre;
 $this->menu = array(
-    //array('label'=>'List Fcco', 'url'=>array('index')),
     array('label' => 'Asignar Activos', 'url' => array('create')),
-    // array('label' => 'Actualizar Fcco', 'url' => array('update', 'id' => $model->FCCO_Id)),
-    // array('label' => 'Borrar Fcco', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->FCCO_Id), 'confirm' => 'Are you sure you want to delete this item?')),
-  
-    array('label' => 'Activos en esta Agencia', 'url' => array('agencia', 'id' => $model->GCCA_Id, 'type' => 258)),
+    array('label' => 'Activos en el grupo', 'url' => array('grupo', 'id' => $model->GCCD_Id, 'type' => 'grupo')),
 );
 
 ?>
@@ -42,13 +36,13 @@ $this->menu = array(
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="float:right">Cerrar</button>
                 <!-- <button class="btn btn-primary" onclick="window.print();" style="float:right"><i class="fa fa-print"></i>  Imprimir</button> -->
                 <?php echo isset($lote) ? 
-                    CHtml::link('<i class="fa fa-print"></i>  Imprimir', array('print', 'id'=> $lote, 'tipo'=>$tipo, 'agencia'=>$model->GCCA_Id), array('style'=>'float:right;', 'class'=>'btn btn-primary', 'target'=>'_blank')):                    
+                    CHtml::link('<i class="fa fa-print"></i>  Imprimir', array('print', 'id'=> $lote, 'tipo'=>$tipo, 'grupo'=>$model->GCCD_Id), array('style'=>'float:right;', 'class'=>'btn btn-primary', 'target'=>'_blank')):                    
                     CHtml::link('<i class="fa fa-print"></i>  Imprimir', 
                     // array('print', 'id'=> false, 'tipo'=>$tipo, 'agencia'=>$model->GCCA_Id), 
                     array(
                         'viewSalidaDia',
                         "tipo"=>$tipo, 
-                        "agencia"=>$model->GCCA_Id,
+                        "agencia"=>$model->GCCD_Id,
                         "view"=>1,
                         "desde" => $desde,
                         "hasta" => $hasta,
@@ -81,11 +75,10 @@ $this->menu = array(
                     </div>
                     <div class="invoice-from" style="white-space: normal; width:265px;margin-left:20px">
 
-                        <strong class="truncate"><?php echo $model->GCCA_Cod . " - " . $model->GCCA_Nombre; ?></strong>
-                        <address style="width: 240px">
-                            Rif: <?php echo $model->GCCA_Rif; ?>
-                            <br><?php echo $model->GCCA_Direccion; ?>
-                            <br>Telefono:  <?php echo $model->GCCA_Telefono; ?>
+                        <strong class="truncate"><?php echo $model->GCCD_Cod . " - " . $model->GCCD_Nombre; ?></strong>
+                        <address style="width: 240px"> 
+                            <br>Responsable: <?php echo $model->GCCD_Responsable; ?>
+                            <br>Telefono:  <?php echo $model->GCCD_Telefono; ?>
                             <br><b><?php echo count($modelo)." activos";?></b>
 
                         </address>
@@ -122,13 +115,13 @@ $this->menu = array(
 
                     </tbody>
                 </table>
-              <?php echo $tipo == 1 ? "Con este documento el Cliente, quien recibe, acepta la responsabilidad de cuidar los articulos aqui descritos y responder por ellos en caso de robo o perdida." : 
-                                        "Con este documento el cliente transfiere sus responsabilidades a la empresa de los articulos arriba descritos" ?>
+              
                 <!--<div id="print-footer">Copyright message</div>-->
 
                                 <!-- <div class="imprimir" style="position: initial; bottom: 80px; border: 1px solid black; height: 150px;width: 600px"> Observaciones:</div> -->
                                 <!-- <img class="imprimir pf-footer" style=" margin-left: auto;   margin-right: auto; width: 600px;bottom: 21px; size:5px 11in;position: fixed;" src="<?php echo Yii::app()->theme->baseUrl . "/img/firma.png"; ?>" alt="" /> -->
-                
+                <?php echo $tipo == 1 ? "Con este documento el Cliente, quien recibe, acepta la responsabilidad de cuidar los articulos aqui descritos y responder por ellos en caso de robo o perdida." : 
+                                        "Con este documento el cliente transfiere sus responsabilidades a la empresa de los articulos arriba descritos" ?>
 
             </div>
         </div>

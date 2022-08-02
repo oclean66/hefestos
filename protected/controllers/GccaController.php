@@ -156,6 +156,7 @@ class GccaController extends Controller
 			'model' => $model,
 		));
 	}
+	
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
@@ -183,4 +184,5 @@ class GccaController extends Controller
 			Yii::app()->end();
 		}
 	}
+
 }
