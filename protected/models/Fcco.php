@@ -134,22 +134,11 @@ class Fcco extends CActiveRecord {
         $criteria->compare('FCCU_Numero', $this->FCCU_Numero, true);
         $criteria->with = array('fCCU');
 
-        
-
-        
-
-        
-
         $criteria->compare('FCCT_Descripcion', $this->FCCT_Descripcion, true);
         $criteria->with = array('fCCU.fCCT');
 
-        
-
-
         $criteria->compare('FCCO_Id', $this->FCCO_Id);
         $criteria->addBetweenCondition('FCCO_Timestamp', $this->desde, $this->hasta);
-
- 
         
 //        $criteria->compare('FCCO_Timestamp', $this->FCCO_Timestamp, true);
         $criteria->compare('FCCO_Lote', $this->FCCO_Lote, true);
@@ -164,8 +153,6 @@ class Fcco extends CActiveRecord {
     //  $criteria->condition = "GCCD_Id=" . $this->GCCD_Id;
 //      $criteria->params[':met_not_more']=$this->met_not_more;
 //      Ordenamiento de columnas relacionadas
-
-       
 
         $criteria->compare('CONCAT_WS(" ",FCCU_Serial,FCCU_Numero)', $this->FCCU_Serial, true);
         $criteria->with = array('fCCU');

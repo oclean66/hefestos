@@ -36,7 +36,7 @@ $this->menu = array(
          
          <div class="actions">
             <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');">Actualizar Activo</a>
-            <?php if( $model->FCCI_Id == 5){ ?>
+            <?php if( $model->FCCI_Id == 5 || $model->FCCI_Id == 12 ){ ?>
             <a href="<?= Yii::app()->createUrl('fccu/recibe/', array('id' => $model->FCCU_Id)) ?>" class="btn">Recibir Activo</a>
             <?php }else{ ?>
                 <!--
@@ -44,7 +44,7 @@ $this->menu = array(
             -->
             <a class="not-link btn" href="<?= Yii::app()->createUrl("tccd/create", array("id" => $model->FCCU_Id)) ?>" target="blank">Enviar A...</a>
             <?php } ?>
-            <?php if(Yii::app()->user->checkAccess("action_fccu_delete") && $model->FCCI_Id!=5){ ?>
+            <?php if(Yii::app()->user->checkAccess("action_fccu_delete") && ($model->FCCI_Id != 5 || $model->FCCI_Id == 12)){ ?>
                 <a class="not-link btn" id="debaja" href="javascript:;">Dar de baja</a>
 
             <form action="<?= Yii::app()->createUrl("fccu/delete/",array("id"=>$model->FCCU_Id))?>" method="post" class="debaja" style="float: right;display:none;"> 
@@ -205,15 +205,15 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
             ?>
         </div>
     </div>
-    <div class="col-sm-6 " style="margin-top: 0px;">
 
 
-
-        <div class="box box-bordered box-color ">
+   <div class="row" style="margin-bottom:15px">
+    <div class="col-sm-6">
+        <div class="box box-bordered box-color box-small">
             <div class="box-title">
 
             </div>
-            <div class="box-content nopadding">
+            <div class="  nopadding">
                 <ul class="tabs tabs-inline tabs-top">
                     <li class="active">
                         <a href="#first11" data-toggle="tab" class="not-link">
