@@ -17,7 +17,9 @@ class FccaController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Fcca'])) {
+           
             $model->attributes = $_POST['Fcca'];
+            
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->FCCA_Id));
         }
@@ -43,6 +45,8 @@ class FccaController extends Controller {
             'model' => $model,
         ));
     }
+ 
+
 
     public function actionDelete($id) {
         $this->loadModel($id)->delete();
@@ -75,6 +79,24 @@ class FccaController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    /***
+     * Funcion para enviar correos de limimted de stock a usuarios tipo Administrador y Asistente
+     * author: Kleiver araque 
+     * 22/07/2022
+     * ***/
+    public function actionReporteStock(){
+        $users  = Yii::app()->db->createCommand()
+        ->select('userid,bizrule,data,itemname,email')
+        ->join('cruge_user','cruge_authassignment.userid = cruge_user.iduser')
+        ->from('cruge_authassignment')
+        ->where('itemname in ("Administrador","Asistente")')->queryAll();
+        $model = Fcca::model()->findAll('FCCA_StockMin >= FCCA_Stock');
+        $emails=array();
+        foreach($users as $u){
+            Yii::app()->crugemailer->sendInventario($model,$u['email']); 
+        }
+     
     }
 
 }

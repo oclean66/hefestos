@@ -13,6 +13,16 @@
 	<?php echo CHtml::encode($data->FCCT_Descripcion); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('FCCT_Costo')); ?>:</b>
+	<?php echo CHtml::encode($data->FCCT_Costo); ?>
+	<br />
+	
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('FCCT_Venta')); ?>:</b>
+	<?php echo CHtml::encode($data->FCCT_Venta); ?>
+	<br />
+	
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('FCCA_Id')); ?>:</b>
 	<?php echo CHtml::encode($data->FCCA_Id); ?>
 	<br />

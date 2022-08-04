@@ -32,7 +32,13 @@ $this->menu=array(
 		'FCCA_Id',
 		'FCCA_Descripcion',
 		array('name'=>'FCUU_Id','value'=>$model->fCUU->FCUU_Descripcion),
+		
+		array('name'=>'FCCA_StockMin', 'value'=>$model->FCCA_StockMin),
+		array('name'=>'FCCA_StockMax', 'value'=>$model->FCCA_StockMax),
+		array('name'=>'FCCA_Stock', 'value'=>$model->FCCA_Stock),
 		array('name'=>'Total', 'value'=>$model->total),
+		
+		
 		
 	),
 )); ?>

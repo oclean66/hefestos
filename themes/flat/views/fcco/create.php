@@ -112,7 +112,7 @@
                         ?> 
 
                         <div class="input-group-btn">
-                            <button class="btn btn-primary" onclick="add()" type="button">Buscar</button>
+                            <button class="btn btn-primary" onclick="add()" type="button">Agregar</button>
                         </div>
 
 
@@ -173,8 +173,7 @@
 <!--Scripts-->
 <script type="text/javascript">
 
-    $("#serial").keyup(function (data) {
-        //alert(data.keyCode);
+    $("#serial").keyup(function (data) { 
         if (data.keyCode === 13) {
             add();
         }
@@ -246,7 +245,7 @@
         //console.log(this);
         e.preventDefault();
         // console.log(i);
-        if ($('#Fcco_GCCD_Id option:selected').val() == "" || $('#Fcco_GCCA_Id option:selected').val() == "") {
+        if ($('#Fcco_GCCD_Id option:selected').val() == "" ) {
             $.gritter.add({
                 position: 'bottom-left',
                 title: 'Atencion',

@@ -133,13 +133,11 @@ foreach ($count as $key => $value) {
             'id' => 'fcco-grid',
             'dataProvider' => $model->search(),
             'filter' => $model,
+            'selectableRows'=>1,
             'htmlOptions' => array('style' => 'max-height:500px;overflow:auto'),
+            'updateSelector'=>'custom-page-selector',
             'itemsCssClass' => 'table table-striped table-bordered table-hover',
-            'pagerCssClass' => 'table-pagination',
-            'pager' => array(
-                'htmlOptions' => array('class' => 'pagination'),
-                'selectedPageCssClass' => 'active',
-            ),
+            'pagerCssClass' => 'table-pagination', 
             'columns' => array(
                 array('name' => 'FCCO_Timestamp', 'header' => 'Fecha de Asignacion', 'value' => 'date("d M Y h:i:s A" , strtotime($data->FCCO_Timestamp))'),
                 array('name' => 'FCCU_Serial', 'header' => 'Serial', 'value' => '$data->fCCU->FCCU_Serial'),
@@ -172,9 +170,8 @@ foreach ($count as $key => $value) {
                 array(
                     'name' => 'GCCA_Nombre', 'header' => 'Agencia',
                     'filter' => CHtml::activeTextField($model, 'GCCA_Nombre'),
-                    'value' => '$data->gCCA->GCCA_Nombre',
                     'type' => 'raw',
-                    'value' => 'CHtml::link($data->gCCA->GCCA_Nombre, array("fcco/agencia","id"=>$data->GCCA_Id, "type"=>"view"))',
+                    'value' => '(isset($data->gCCA->GCCA_Nombre))?CHtml::link($data->gCCA->GCCA_Nombre, array("fcco/agencia","id"=>$data->GCCA_Id, "type"=>"view")):"Sin asignar"',
                 ),
                 // array(
                 //     'name' => 'GCCD_Nombre', 'header' => 'Grupo',

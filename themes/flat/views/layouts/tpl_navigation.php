@@ -57,6 +57,11 @@ if (isset($_GET['card'])) {
 
                         array('label' => 'Recargas*', 'url' => array('/fcuc/admin'), 'visible' => $admin),
                         array('label' => 'Rendimiento laboral*', 'url' => array('#'), 'visible' => $admin),
+
+                        array('label' => 'Resumen de activos', 'url' => array('/reportes/resumen'), 'visible' => $admin),
+
+                        array('label' => 'Entradas y salidas', 'url' => array('/reportes/entradassalidas'), 'visible' => $admin),
+
                         //array('label' => 'Compras', 'url' => array('#'),'visible' =>  $admin ),
                         //array('label' => 'Resumen', 'url' => array('#'),'visible' => $admin ),
                         // array('label' => 'Bitacora', 'url' => array('#'),'visible' =>  $admin ),
@@ -70,6 +75,10 @@ if (isset($_GET['card'])) {
                         array('label' => 'Activos', 'url' => array('/fccu/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccu_admin')),
                         array('label' => 'Publicaciones', 'url' => array('/api/public'), 'visible' => Yii::app()->user->checkAccess('action_api_public')),
                         array('label' => 'Tipo de Activos', 'url' => array('/fcca/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcca_admin')),
+                        array('label' => 'Etiquetas', 'url' => array('/fccl/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccl_admin')),
+
+                        array('label' => 'Marcas', 'url' => array('/fccm/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccm_admin')),
+
                         array('label' => 'Modelos de Activos', 'url' => array('/fcct/admin'), 'visible' => Yii::app()->user->checkAccess('action_fcct_admin')),
                         array('label' => 'Categorias de Activos*', 'url' => array('/fcuu/admin'), 'visible' => $admin),
                         array('label' => 'Operaciones con Activos', 'url' => array('/fccn/admin'), 'visible' => Yii::app()->user->checkAccess('action_fccn_admin')),

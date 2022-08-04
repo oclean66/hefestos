@@ -25,6 +25,7 @@
  * @property integer $FCCU_Cedula
  * @property string $FCCU_FechaNacimiento
  * @property string $FCCU_ClaveWeb
+ * @property integer $FCCM_Id
  *
  * The followings are the available model relations:
  * @property Fcco[] $fccos
@@ -37,7 +38,7 @@
 class Fccu extends CActiveRecord {
 
     //Variables para busqueda relacionada
-    public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion,$FCCU_Bussiness;
+    public $cityId, $city, $FCCU_Numero, $FCCU_Serial, $FCUU_Descripcion, $FCCA_Descripcion, $FCCT_Descripcion,$FCCU_Bussiness,$FCCM_Id;
     public $GCCA_Nombre, $GCCD_Nombre;
 
     /**
@@ -100,7 +101,7 @@ class Fccu extends CActiveRecord {
             array('FCCU_FechaNacimiento', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('FCCU_Id, FCCU_Serial, FCCU_Timestamp, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_DiaCorte, FCCU_MontoMin, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Cantidad, FCCU_Facturado, FCCU_Bussiness,FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id, FCCU_Titular, FCCU_Cedula, FCCU_FechaNacimiento, FCCU_ClaveWeb', 'safe', 'on' => 'search'),
+            array('FCCU_Id, FCCU_Serial, FCCU_Timestamp, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_DiaCorte, FCCU_MontoMin, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Cantidad, FCCU_Facturado, FCCU_Bussiness,FCCM_Id,FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id, FCCU_Titular, FCCU_Cedula, FCCU_FechaNacimiento, FCCU_ClaveWeb', 'safe', 'on' => 'search'),
         );
     }
 
@@ -117,6 +118,7 @@ class Fccu extends CActiveRecord {
             'fCCS' => array(self::BELONGS_TO, 'Fccs', 'FCCS_Id'),
             'fCCT' => array(self::BELONGS_TO, 'Fcct', 'FCCT_Id'),
             'fcucs' => array(self::HAS_MANY, 'Fcuc', 'FCCU_Id'),
+            'fCCM' => array(self::HAS_MANY, 'Fccm', 'FCCM_Id'),
         );
     }
 
@@ -139,14 +141,15 @@ class Fccu extends CActiveRecord {
             'FCCU_Cantidad' => 'Cantidad',
             'FCCU_Facturado' => 'Facturado',
             'FCCD_Id' => 'Operador',
-            'FCCT_Id' => 'Marca/Modelo',
+            'FCCT_Id' => 'Tipo/Modelo',
             'FCCI_Id' => 'Estado',
             'FCCS_Id' => 'Factura N',
             'FCCU_Titular' => 'Titular',
             'FCCU_Cedula' => 'Cedula',
             'FCCU_FechaNacimiento' => 'Fecha Nacimiento',
             'FCCU_ClaveWeb' => 'Clave Web',
-            'FCCU_Bussiness'=>"Negocio"
+            'FCCU_Bussiness'=>"Negocio",
+            'FCCM_Id'=>"Marca"
         );
     }
 
@@ -161,7 +164,8 @@ class Fccu extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         //Busqueda con campos relacionados
-
+        
+        
         $criteria->compare('FCCT_Descripcion', $this->FCCT_Descripcion, true);
         $criteria->with = array('fCCT');
 
@@ -173,8 +177,15 @@ class Fccu extends CActiveRecord {
 
         $criteria->compare('FCUU_Descripcion', $this->FCUU_Descripcion, true);
         $criteria->with = array('fCCT.fCCA.fCUU');
+        
+        if(Yii::app()->user->checkAccess('action_ui_usermanagementreceptor')){
+            $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, true);
+            $criteria->compare('fcco.FCCO_Enabled', 1, true);
+            $criteria->compare('fcco.FCCN_Id', 1, true);
+            $criteria->join ='inner JOIN fcco on t.FCCU_Id = fcco.FCCU_Id ';
+        }
 
-
+        // buscar activos por grupo        
 
         $criteria->compare('FCCU_Id', $this->FCCU_Id);
         $criteria->compare('FCCU_Serial', $this->FCCU_Serial, true);
@@ -200,16 +211,26 @@ class Fccu extends CActiveRecord {
         
         // if(!Yii::app()->user->checkAccess('action_ui_usermanagementadmin'))
             $criteria->addInCondition('FCCU_Bussiness', array(Yii::app()->user->bussiness));
-
+ 
         
+          //  $criteria->order = "FCCU_Timestamp DESC";
         
 
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'sort' => array(
+                'defaultOrder'=>'FCCU_Timestamp DESC',
                 'attributes' => array(
+                    'FCCI_Id' => array(
+                        'asc' => 'FCCI_Id',
+                        'desc' => 'FCCI_Id  DESC',
+                    ),
                    //elementos de ordenacion propios
+                   'FCCU_Timestamp' => array(
+                    'asc' => 'FCCU_Timestamp',
+                    'desc' => 'FCCU_Timestamp  DESC',
+                    ),
                     'FCCT_Descripcion' => array(
                         'asc' => 'fCCT.FCCT_Descripcion',
                         'desc' => 'fCCT.FCCT_Descripcion  DESC',
@@ -231,19 +252,14 @@ class Fccu extends CActiveRecord {
                         'asc' => 'FCCU_Serial',
                         'desc' => 'FCCU_Serial  DESC',
                     ),
-                    'FCCU_Timestamp' => array(
-                        'asc' => 'FCCU_Timestamp',
-                        'desc' => 'FCCU_Timestamp  DESC',
-                    ),
-                    'FCCI_Id' => array(
-                        'asc' => 'FCCI_Id',
-                        'desc' => 'FCCI_Id  DESC',
-                    ),
+                    
+                    
                 ),
             ),
-            'Pagination' => array (
-                  'PageSize' => 20 //edit your number items per page here
-              ),
+            'pagination' => array(
+				'pageSize' => 20,
+			),
+             
         ));
     }
     public function behaviors() {

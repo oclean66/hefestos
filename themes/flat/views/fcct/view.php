@@ -32,6 +32,8 @@ $this->menu=array(
 		'FCCT_Id',
 		'FCCT_Descripcion',
 		'FCCA_Id',
+		'FCCT_Costo',
+		'FCCT_Venta',
 		array('name'=>'Total','value'=>$model->total),
 	),
 )); ?>

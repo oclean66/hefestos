@@ -1,6 +1,7 @@
 <?php
 $theme =  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme') == "" ? "orange" :  Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
 $estado="";
+$theme = Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'theme');
 switch ($data->FCCI_Id) {
     case 7:{
         $estado = "purple";

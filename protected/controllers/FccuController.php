@@ -9,12 +9,12 @@ class FccuController extends Controller
     {
         // $buenas = "";
         // $malas = "";
-
+       // die(print_r($_POST));
         if (isset($_POST['Fccu'])) {
 
             if ($_POST['Fccu']['FCUU_Id'] != 2) {
 
-                // print_r($_POST['Fccu']);
+               //  print_r($_POST['Fccu']);
                 $fccu_serial = $_POST['Fccu']['FCCU_Serial'];
                 $fcct_id = $_POST['Fccu']['FCCT_Id'];
 
@@ -22,6 +22,7 @@ class FccuController extends Controller
                 $alert = "<div class='label label-danger'>NO Procesado</div>";
                 $arrayNotificaciones = array();
                 $total=0;
+                $i=1;
                 foreach ($fccu_serial as $key => $value) {
 
                     $model = new Fccu;
@@ -33,12 +34,23 @@ class FccuController extends Controller
                     $model->FCCU_Bussiness = Yii::app()->user->bussiness;
                     $model->FCCU_Cantidad = 1;
                     $model->FCCD_Id = 5;
+                    $model->FCCM_Id = $_POST['Fccu']['FCCM_Id'];
                     $model->FCCU_Descripcion = "Sin Comentarios";
                     $model->FCCT_Id = $fcct_id[$key]; //modelo
-                    try {
+                    
+                    try { 
                         if ($model->save()) {
+                            $FCCU_Id=$model->primaryKey; 
                             $total;
-                            $total+=1;
+                            $total+=1; 
+                            
+                           foreach($_POST['FCCL_Id'][$i] as $val){ 
+                                $FcclHasFccu= new FcclHasFccu;
+                                $FcclHasFccu->fccl_FCCL_Id=$val;
+                                $FcclHasFccu->fccu_FCCU_Id=$FCCU_Id;
+                                $FcclHasFccu->save();
+                            }
+                           
                             /* $arrayNotificaciones[$model->FCCU_Serial] = array(
                                 'item' => $correct,
                                 'estado' => 'Serial <b style="color: green">' . $model->FCCU_Serial . '</b> Guardado correctamente',
@@ -48,7 +60,8 @@ class FccuController extends Controller
                             //error de model
                             // $arrayNotificaciones[]='no se guardo';
                             //print_r( $model->getErrors());
-                        } */
+                     //  } */
+                        
                     } catch (Exception $exc) {
                         //repetidos
                         $arrayNotificaciones[$model->FCCU_Serial] = array(
@@ -57,6 +70,7 @@ class FccuController extends Controller
                             //'error' => $exc->getLine()
                         );
                     }
+                    $i++;
                 }
                 echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>'; 
                 /* echo "<div class='label label-success'>Correcto</div>";
@@ -161,11 +175,13 @@ class FccuController extends Controller
 
         //$item = $this->loadModel($id);
         $item = Fccu::model()->find('FCCU_Id = ' . $id);
+        $tipo = $item->fCCT->FCCA_Id;
         $item->FCCI_Id = 10; //cambia de estado al seleccionado
-
+        Yii::import('application.controllers.FccaController');
+        
         if ($inventario->save() && $model->save() && $item->save()) {
             // echo "ok";
-
+            $this->actionUpdateStock($tipo);
             //echo $item->FCCU_Id . " actualizado en " . $model->FCCO_Id;
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
@@ -260,9 +276,8 @@ class FccuController extends Controller
         }
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        if (isset($_POST['Fccu'])) {
-            $model->attributes = $_POST['Fccu'];
-
+        if (isset($_POST['Fccu'])) { 
+            $model->attributes = $_POST['Fccu']; 
             if ($model->FCCS_Id == '')
                 $model->FCCS_Id = null;
 
@@ -289,6 +304,7 @@ class FccuController extends Controller
         //        $this->redirect(array('view', 'id' => $model->FCCU_Id));
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
+         
         if (isset($_POST['Fccu'])) {
             $model->attributes = $_POST['Fccu'];
 
@@ -381,6 +397,7 @@ class FccuController extends Controller
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
+    
 
     public function loadModel($id)
     {
@@ -397,4 +414,71 @@ class FccuController extends Controller
             Yii::app()->end();
         }
     }
+    /***
+     * Funcion para listar la lista de  activos agrupados por agencia en un periodo de fechas y por tipo de activo
+     * author: Kleiver araque 
+     * 21/07/2022
+     * ***/
+    public function actionMovimientoActivos($id,$tipo,$desde=null,$hasta= null,$view='admin')
+	{
+        ini_set('memory_limit', '-1');
+        $movimientos = Yii::app()->db->createCommand()
+        ->select('fccu.FCCT_Id AS modelos,
+        fccu.FCCI_Id AS estatus,
+        fcca.FCCA_Descripcion,
+        count( fcct.FCCA_Id ) AS total,
+        fcco.FCCO_Timestamp,
+        fcco.GCCA_Id,
+        fcco.GCCD_Id,
+        gcca.GCCA_Nombre,
+        gccd.GCCD_Nombre')
+        ->from('fccu')
+        ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
+        ->join('fcca', 'fcct.FCCA_Id = fcca.FCCA_Id')
+        ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
+        ->leftJoin('gcca', 'fcco.GCCA_Id = gcca.GCCA_Id')
+        ->leftJoin('gccd', 'fcco.GCCD_Id = gccd.GCCD_Id ') 
+        ->where('fCCA.FCCA_Id='.$id.' and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and FCCU_Bussiness="'.Yii::app()->user->bussiness.'" and fcco.FCCN_Id="'.$tipo.'" ')
+        ->group('fcco.GCCD_Id')
+        ->query();  
+        if($view=='admin'){
+            $this->render('movimientosactivos', array('movimientos' => $movimientos,'id'=>$id,'tipo'=>$tipo,'desde'=>$desde,'hasta'=>$hasta,'view'=>$view));
+        }else{
+            $this->renderpartial('movimientosactivos', array('movimientos' => $movimientos,'id'=>$id,'tipo'=>$tipo,'desde'=>$desde,'hasta'=>$hasta,'view'=>$view));
+        }
+        
+	}
+        /***
+     * Funcion para listar la lista de entradas y salidas de activos 
+     * author: Kleiver araque 
+     * 21/07/2022
+     * ***/
+    public function actionDetalleMovimientos($id,$tipo,$agencia,$desde=null,$hasta= null,$view='admin')
+	{
+        ini_set('memory_limit', '-1');
+        $movimientos = Yii::app()->db->createCommand()
+        ->select('fccu.FCCU_Id,
+        fccu.FCCU_Serial,
+        fcca.FCCA_Descripcion,
+        date_format(fcco.FCCO_Timestamp,"%d-%m-%Y") as FCCO_Timestamp,
+        fcco.GCCA_Id,
+        fcco.GCCD_Id,
+        gcca.GCCA_Nombre,
+        gccd.GCCD_Nombre')
+        ->from('fccu')
+        ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
+        ->join('fcca', 'fcct.FCCA_Id = fcca.FCCA_Id')
+        ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
+        ->leftJoin('gcca', 'fcco.GCCA_Id = gcca.GCCA_Id')
+        ->leftJoin('gccd', 'fcco.GCCD_Id = gccd.GCCD_Id ') 
+        ->where('fCCA.FCCA_Id='.$id.' and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and FCCU_Bussiness="'.Yii::app()->user->bussiness.'" and fcco.GCCD_Id = '.$agencia.' and fcco.FCCN_Id="'.$tipo.'" ')
+        ->query();
+   
+        if($view=='admin'){
+            $this->render('listaactivos', array('movimientos' => $movimientos,));
+        }else{
+            $this->renderpartial('listaactivos', array('movimientos' => $movimientos,));
+        }
+        
+	}
 }

@@ -166,7 +166,7 @@
                         'buttons' => array(
                             'view' => array(
                                 'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
-                                'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->gCCA->GCCA_Id))',
+                                'url' => '(isset($data->gCCA->GCCA_Id))? Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->gCCA->GCCA_Id)): "-" ',
                                 'options' => array(
                                     'ajax' => array(
                                         'type' => 'GET',
@@ -217,7 +217,7 @@
                     array(
                         'name' => 'GCCA_Id',
                         'header' => 'Agencia',
-                        'value' => '$data->GCCA_Id." - ".$data->gCCA->concatened'
+                        'value' => '(isset($data->gCCA->GCCA_Id))? $data->GCCA_Id." - ".$data->gCCA->concatened: "-"'
                     ),
                     array(
                         'header' => 'Total Activos',
@@ -229,7 +229,7 @@
                                     "fcco/viewSalidaDia", 
                                     array(
                                         "tipo" => ' . $model->FCCN_Id . ',
-                                        "agencia" => $data->gCCA->GCCA_Id,
+                                        "agencia" => (isset($data->gCCA->GCCA_Id))? $data->gCCA->GCCA_Id:"-",
                                         "view" => 1,
                                         "desde" => "' . $model->desde . '",
                                         "hasta" => "' . $model->hasta . '"
@@ -270,14 +270,14 @@
                 <tbody>
 
                     <?php
-                    foreach ($agencias as $value) {
+                  //  foreach ($agencias as $value) {
                         // echo $value['FCCO_Timestamp'];
                         // echo $value['GCCA_Id'];
                     ?>
                         <tr>
-                            <th scope="row"><?php echo date("d M", strtotime($value['FCCO_Timestamp'])) ?></th>
-                            <td><?php echo $value->gCCA->concatened; ?></td>
-                            <td><?php echo CHtml::link(
+                            <th scope="row"><?php //echo date("d M", strtotime($value['FCCO_Timestamp'])) ?></th>
+                            <td><?php //echo $value->gCCA->concatened; ?></td>
+                            <td><?php /* echo CHtml::link(
                                     $value['FCCO_Id'],
                                     array(
                                         'viewSalidaDia',
@@ -302,11 +302,11 @@
                                 }",
                                         ),
                                     )
-                                ); ?></td>
+                                );*/ ?></td>
                         </tr>
 
                     <?php
-                    }
+                 //   }
                     ?>
                 </tbody>
             </table>-->

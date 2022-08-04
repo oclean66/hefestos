@@ -29,7 +29,6 @@ $baseUrl = Yii::app()->theme->baseUrl;
                 <a href="#">
                     <span class="nopadding">
                         <h5><?= Yii::app()->user->um->getFieldValue(Yii::app()->user->id, 'nombre') ?></h5>
-                      
                         <p><?php echo !Yii::app()->user->isGuest ? "Nodo: " . Yii::app()->user->grupo : "" ?></p>
                         <p><?php echo !Yii::app()->user->isGuest ? "Bussiness: " . Yii::app()->user->bussiness : "" ?></p>
                     </span>

@@ -9,11 +9,11 @@ $master = array(
     ), 
     'crugemailer'=> array(
         'class' => 'application.modules.crugemailer.CrugeSwiftMailer',
-        'mailfrom' => 'soporte.kingdeportes@gmail.com',
+        'mailfrom' => 'soporte@kingdeportes.com',
         'subjectprefix' => 'Notificacion - ',
         'transport' => 'gmail', //imap, pop3
-        'gmailAcount' => "company@gmail.com",
-        'gmailPassword' => "password",       
+        'gmailAcount' => "soporte@kingdeportes.com",
+        'gmailPassword' => "Angel1509!",       
         // 'debug' => true,
     ),
     'domain' => (isset($_SERVER['HTTPS'])) ? "https://":"http://".$_SERVER ['SERVER_NAME'],

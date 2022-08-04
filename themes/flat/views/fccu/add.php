@@ -187,6 +187,9 @@
 
 
                 </div>
+
+
+                
             </div>
             <!--lote   1 (master)  -->
             <div id="master" class=' hidden'>
@@ -231,6 +234,24 @@
                             <?php echo CHtml::label('Modelo', 'Modelo', array('class' => 'control-label add-label col-sm-2')); ?>
                             <div class="col-sm-10">
                                 <?php echo CHtml::dropDownList('Fccu[FCCT_Id_Master]', 'Fccu[FCCT_Id_Master]', array(), array('empty' => 'Selecciona', 'class' => 'select2-me', 'style' => 'width:25.3% !important')); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 nopadding">
+                        <div class="form-group">
+                            <label for="textfield" class="control-label col-sm-2">Marca</label>
+                            <div class="col-sm-10">
+                                <?php echo CHtml::dropDownList('Fccu[FCCM_Id]', 'Fccu[FCCM_Id]',CHtml::listData(Fccm::model()->findAll(), 'FCCM_Id', 'FCCM_Descripcion'), array('empty' => 'Selecciona', 'class' => 'select2-me', 'style' => 'width:100%')); ?>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 nopadding">
+                        <div class="form-group">
+                            <label for="textfield" class="control-label col-sm-2">Etiquetas</label>
+                            <div class="col-sm-10">
+                                <?php echo CHtml::dropDownList('Fccl[FCCL_Id]', 'Fccl[FCCL_Id]',CHtml::listData(Fccl::model()->findAll(), 'FCCL_Id', 'FCCL_Descripcion'), array('empty' => 'Selecciona', 'class' => 'select2-me', 'style' => 'width:100%','multiple'=>'multiple')); ?>
+
                             </div>
                         </div>
                     </div>
@@ -395,6 +416,12 @@
                 <?php echo CHtml::dropDownList('Fccu[FCCT_Id][]', 'Fccu[FCCT_Id][]', array(), array('class' => 'form-control ')); ?>
             </td>
             <td>
+                <?php echo CHtml::dropDownList('Fccu[FCCM_Id]', 'Fccu[FCCM_Id]', array(), array('class' => 'form-control ')); ?>
+            </td>
+            <td>
+                <?php echo CHtml::dropDownList('Fccl[FCCL_Id][]', 'Fccl[FCCL_Id][]', array(), array('class' => 'form-control ')); ?>
+            </td>
+            <td>
                 <button id='del' class="btn btn-danger" onclick="delt($(this).parent().parent())" type="button">
                     <i class="fa fa-minus"></i>
                 </button>
@@ -449,6 +476,8 @@
             $("#myTable thead tr").append("<th>#Serial</th>");
             $("#myTable thead tr").append("<th>Tipo</th>");
             $("#myTable thead tr").append("<th>Modelo</th>");
+            $("#myTable thead tr").append("<th>Marca</th>");
+            $("#myTable thead tr").append("<th>Etiquetas</th>");
 
             $("#myTable thead tr").append("<th>Acciones</th>");
         } else if ($("#Fccu_FCUU_Id option:selected").val() == '2') {
@@ -484,9 +513,11 @@
             var FccuSerial = $('#master').find('#serial_master').val();
             var FccuTipo = $('select#Fccu_FCCA_Id_Master option:selected').sort().clone();
             var FccuModel = $('select#Fccu_FCCT_Id_Master option:selected').sort().clone();
+            var FccmMarca = $('select#Fccu_FCCM_Id option:selected').sort().clone();
+            var FccuLabel = $('select#Fccl_FCCL_Id option:selected').sort().clone();
             var Lugar = $('select#Fccu_FCCI_Id option:selected').sort().clone();
-            console.log(Lugar.val());
-            if (FccuSerial != '' && FccuTipo.val() != '' && FccuModel.val() != '' && Lugar.val() != '') {
+  
+            if (FccuSerial != '' && FccuTipo.val() != '' && FccuModel.val() != '' && Lugar.val() != '' && FccuLabel.val() != '' && FccmMarca.val() !='') {
                 i++;
                 $('#serialC').html('<i class="fa fa-th-list"></i>Agregar Equipos  (' + i + ") Elementos agregados");
                 $('#padre').prepend(master);
@@ -501,8 +532,19 @@
                 $('#padre').find('#Fccu_FCCT_Id').attr('id', 'Fccu_FCCT_Id' + i);
                 $('select#Fccu_FCCT_Id' + i).append(FccuModel);
                 // $('#padre').find('#Fccu_FCCT_Id' + i).val(FccuModel);
+                $('#padre').find('#Fccl_FCCL_Id').attr('multiple', 'multiple').attr('id', 'Fccl_FCCL_Id' + i);
+
+                $('#padre').find('#Fccu_FCCM_Id').attr('id', 'Fccu_FCCM_Id' + i);
+                $('#padre').find('#Fccu_FCCM_Id' + i).append(FccmMarca);
+
+                $('select#Fccl_FCCL_Id' + i).append(FccuLabel);
+                $('#Fccl_FCCL_Id' + i).children('option').attr('selected','selected');
+                $('#Fccl_FCCL_Id' + i).attr('name','FCCL_Id['+i+'][]');
+                $('#Fccl_FCCL_Id' + i).select2();
 
                 $('#master').find('#serial_master').val('');
+ 
+                
             }
 
         } else if (tipo == 'hall') {
@@ -559,6 +601,7 @@
         $('#serialC').html('<i class="fa fa-th-list"></i>Agregar Equipos');
         $('select#Fccu_FCCA_Id').val(0);
         $('select#Fccu_FCCT_Id').val(0);
+        $('select#FCCL_Id').val(0);
 
     }
 
