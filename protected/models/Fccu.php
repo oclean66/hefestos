@@ -177,8 +177,8 @@ class Fccu extends CActiveRecord {
 
         $criteria->compare('FCUU_Descripcion', $this->FCUU_Descripcion, true);
         $criteria->with = array('fCCT.fCCA.fCUU');
-
-        if(!Yii::app()->user->checkAccess('action_ui_usermanagementadmin')){
+        
+        if(Yii::app()->user->checkAccess('action_ui_usermanagementreceptor')){
             $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, true);
             $criteria->compare('fcco.FCCO_Enabled', 1, true);
             $criteria->compare('fcco.FCCN_Id', 1, true);
