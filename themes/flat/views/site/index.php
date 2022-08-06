@@ -22,7 +22,6 @@ $baseUrl = Yii::app()->theme->baseUrl;
 <!--Logo de dashbord-->
 <div>
 
-
     <div class="col-sm-12">
         <ul class="tiles">
             <li class="long red">

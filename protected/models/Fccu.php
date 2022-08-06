@@ -179,10 +179,10 @@ class Fccu extends CActiveRecord {
         $criteria->with = array('fCCT.fCCA.fCUU');
         
         if(Yii::app()->user->checkAccess('action_ui_usermanagementreceptor')){
-            $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, true);
+          /*  $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, true);
             $criteria->compare('fcco.FCCO_Enabled', 1, true);
             $criteria->compare('fcco.FCCN_Id', 1, true);
-            $criteria->join ='inner JOIN fcco on t.FCCU_Id = fcco.FCCU_Id ';
+            $criteria->join ='inner JOIN fcco on t.FCCU_Id = fcco.FCCU_Id '; */
         }
 
         // buscar activos por grupo        
