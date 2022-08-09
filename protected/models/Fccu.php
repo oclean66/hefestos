@@ -160,7 +160,7 @@ class Fccu extends CActiveRecord {
     public function search($text='') {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
-
+  
         $criteria = new CDbCriteria;
 
         //Busqueda con campos relacionados
@@ -178,11 +178,11 @@ class Fccu extends CActiveRecord {
         $criteria->compare('FCUU_Descripcion', $this->FCUU_Descripcion, true);
         $criteria->with = array('fCCT.fCCA.fCUU');
         
-        if(Yii::app()->user->checkAccess('action_ui_usermanagementreceptor')){
-          /*  $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, true);
+        if(Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){
+            $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, true);
             $criteria->compare('fcco.FCCO_Enabled', 1, true);
             $criteria->compare('fcco.FCCN_Id', 1, true);
-            $criteria->join ='inner JOIN fcco on t.FCCU_Id = fcco.FCCU_Id '; */
+            $criteria->join ='inner JOIN fcco on t.FCCU_Id = fcco.FCCU_Id '; 
         }
 
         // buscar activos por grupo        

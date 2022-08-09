@@ -136,6 +136,7 @@ return array(
 
     'action_tccd_admin'=>'Administrar Tareas',
     'action_tccd_test'=> 'Prueba de Correo E',
+    'action_tccd_create'=> 'Asignar activo a tarea',
     
     'action_fccs_view' => 'Ver Factura',
     'action_fccs_update' => 'Actualizar Factura',
@@ -192,4 +193,5 @@ return array(
     
     'action_pcue_index'=>'Ver Bitacora',
     'action_pcue_view' =>'Ver Detalle de Bitacora',
+
 );

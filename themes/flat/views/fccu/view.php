@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     //array('label'=>'List Fccu', 'url'=>array('index')),
     array('label' => 'Crear Activo', 'url' => Yii::app()->createUrl("fccu/add")),
-    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id,'view'=>'index'))),
+    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id,'view'=>'index') )),
 
     array(
         'label' => 'Recibir Activo',
@@ -22,7 +22,7 @@ $this->menu = array(
         )
     ),
 
-    array('label' => 'Enviar A...', 'url' => Yii::app()->createUrl("tccd/create", array("id" => $model->FCCU_Id))),
+    array('label' => 'Enviar A...', 'url' => Yii::app()->createUrl("tccd/create", array("id" => $model->FCCU_Id)),"visible"=>Yii::app()->user->checkAccess('action_tccd_create')),
 );
 ?>
  
@@ -35,14 +35,18 @@ $this->menu = array(
         </h3>
          
          <div class="actions">
-            <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');">Actualizar Activo</a>
-            <?php if( $model->FCCI_Id == 5 || $model->FCCI_Id == 12 ){ ?>
+            <?php if(!in_array($model->FCCI_Id,array(5,10,11,12))){ ?>
+                <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');">Actualizar Activo</a>
+            <?php } ?>
+
+            <?php if( $model->FCCI_Id == 5 || $model->FCCI_Id == 12 && !Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id) ){ ?>
             <a href="<?= Yii::app()->createUrl('fccu/recibe/', array('id' => $model->FCCU_Id)) ?>" class="btn">Recibir Activo</a>
-            <?php }else{ ?>
-                <!--
-            <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("Fcco/asignar",array("FCCU_Id" => $model->FCCU_Id,"FCCU_Serial"=>$model->FCCU_Serial)) ?>');" >Asignar</a>
-            -->
+            <?php } ?>
+
+            
+            <?php if(Yii::app()->user->checkAccess('action_tccd_create')){ ?>
             <a class="not-link btn" href="<?= Yii::app()->createUrl("tccd/create", array("id" => $model->FCCU_Id)) ?>" target="blank">Enviar A...</a>
+
             <?php } ?>
             <?php if(Yii::app()->user->checkAccess("action_fccu_delete") && ($model->FCCI_Id != 5 || $model->FCCI_Id == 12)){ ?>
                 <a class="not-link btn" id="debaja" href="javascript:;">Dar de baja</a>
@@ -52,6 +56,12 @@ $this->menu = array(
             </form>
 
             <?php } ?>
+
+            <?php if($model->FCCI_Id == 12){ ?>
+                <a href="javascript:asignaragencia();" class="btn">Asignar</a>
+            <?php } ?>
+
+
         </div>
     </div>
 </div>
@@ -119,11 +129,12 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                         'name' => 'FCCU_Facturado',
                         'value' => $model->FCCU_Facturado == 0 ? "Sin Facturar" : "Facturado"
                     ),
-                    'FCCU_Cantidad',
-                    array(
-                        'name' => 'Costo',
-                        'value' => $model->fCCT->FCCT_Costo
-                    ),
+                    'FCCU_Cantidad', 
+                        array(
+                            'name' => 'Costo',
+                            'value' => $model->fCCT->FCCT_Costo,
+                            'visible' => Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id) ? false : true,
+                        ), 
                     array(
                         'name' => 'Precio',
                         'value' => $model->fCCT->FCCT_Venta

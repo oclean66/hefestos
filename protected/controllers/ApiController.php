@@ -237,4 +237,18 @@ class ApiController extends Controller
 		));
 
 	}
+	public function actionSendMailActivos(){
+		$users  = Yii::app()->db->createCommand()
+        ->select('userid,bizrule,data,itemname,email')
+        ->join('cruge_user','cruge_authassignment.userid = cruge_user.iduser')
+        ->from('cruge_authassignment')
+        ->where('itemname in ("Administrador","Asistente")')->queryAll();
+        $model = Fcca::model()->findAll('FCCA_StockMin >= FCCA_Stock');
+        $emails=array();
+        foreach($users as $u){
+            Yii::app()->crugemailer->sendInventario($model,$u['email']); 
+        }
+		 
+
+	}
 }
