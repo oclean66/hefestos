@@ -27,6 +27,9 @@ switch ($data->FCCI_Id) {
     }case 1:{
         $estado="success";
         break;
+    }case 12:{
+        $estado="info";
+        break;
     }
 }
 ?>

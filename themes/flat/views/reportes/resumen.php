@@ -33,6 +33,24 @@ $baseUrl = Yii::app()->theme->baseUrl;
 				<div class="box-content nopadding">
 					<table class="table table-hover table-nomargin table-bordered dataTable-columnfilter dataTable dataTable-es responsive nowrap dataTable-scroll-x">
 						<thead>
+						<tr class=''>
+								<th>Tipo de activo </th>
+								<th>Total </th>
+								<th >Alamacen 1</th>
+								<th >Alamacen 2</th>
+								<th>Deposio tecnico</th>
+								<th >Deposito central</th>
+								<th >Por revisar</th>
+								<th>Garantia</th>
+								<th >Prestado</th>
+								<th >De baja</th>
+								<th>En reparacion</th>
+								<th>Falta parte</th>
+								<th>Para repuesto</th>
+
+
+
+							</tr>
 							<tr class='thefilter'>
 								<th>Tipo de activo </th>
 								<th>Total </th>
@@ -48,24 +66,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
 								<th>Falta parte</th>
 								<th>Para repuesto</th>
 							</tr>
-							<tr class=''>
-								<th>Tipo de activo </th>
-								<th>Total </th>
-								<th >Alamacen 1</th>
-								<th >Alamacen 2</th>
-								<th>Deposio tecnico</th>
-								<th >Deposito central</th>
-								<th >Por revisar</th>
-								<th>Garantia</th>
-								<th >Prestado</th>
-								<th >De baja</th>
-								<th>En reparacion</th>
-								<th>Falta parte</th>
-								<th>Para repuesto</th>
-
-
-
-							</tr>
+							
 						</thead>
 						<tbody>
 						<?php foreach($resumen as $r){ ?>
