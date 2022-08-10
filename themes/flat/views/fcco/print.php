@@ -67,8 +67,11 @@
 
 <table width="100%" class="table paleBlueRows">
     <tr>
-      <th><?php echo $tipo == 1 ? "Con este documento el Cliente, quien recibe, acepta la responsabilidad de cuidar los articulos aqui descritos y responder por ellos en caso de robo o perdida." : 
-                                        "Con este documento el cliente transfiere sus responsabilidades a la empresa de los articulos arriba descritos" ?>
+      <th>
+      <?php if(isset($tipo )&& $tipo==1) { 
+        echo "Con este documento el Cliente, quien recibe, acepta la responsabilidad de cuidar los articulos aqui descritos y responder por ellos en caso de robo o perdida.";
+      }else{
+        echo "Con este documento el cliente transfiere sus responsabilidades a la empresa de los articulos arriba descritos"; } ?>
       </th>
     </tr>
 </table>

@@ -26,7 +26,7 @@
 									</a>
 								</div>
 							</div>
-							<div class="box-content" <?php if(empty($model->FCCA_Descripcion)|| empty($model->FCCI_Id)){ ?> style="display: none;" <?php } ?> >
+							<div class="box-content" <?php if(!isset($_GET['Fccu'])){ ?> style="display: none;" <?php } ?> >
 							<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">

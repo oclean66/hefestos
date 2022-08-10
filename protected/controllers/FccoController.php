@@ -160,6 +160,7 @@ class FccoController extends Controller
     public function actionView($id, $tipo = null, $view = null, $agencia = null,$grupo=null)
     {
  
+     
         if ($tipo == null)
             $tipo = 1; 
         $modell = Fcco::model()->findAll("FCCO_Lote=:lote and FCCN_Id =:tipo", array(':lote' => $id, ':tipo' => $tipo));
@@ -188,7 +189,6 @@ class FccoController extends Controller
 
     public function actionViewSalidaDia($tipo = null, $view = null, $agencia, $print = false)
     {
-
         $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
 
         if (isset($_POST['desde']) && isset($_POST['hasta'])) {
@@ -406,7 +406,7 @@ class FccoController extends Controller
     }
 
     public function actionGrupo($id, $type = null,$print = false, $excel = false)
-    {
+    { 
         $grupo = Gccd::model()->find('GCCD_Id=:id', array(':id' => $id));
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
@@ -614,7 +614,7 @@ class FccoController extends Controller
     }
 
     public function actionPrint($id, $tipo = null, $view = null, $agencia=null,$grupo=null)
-    {
+    { 
         if($grupo == null)
             $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
         if($agencia == null)
@@ -715,7 +715,7 @@ class FccoController extends Controller
                 }
                 $item = Fccu::model()->findByPk($value);
                 $tipo[$item->fCCT->FCCA_Id] = $item->fCCT->FCCA_Id;
-                $item->FCCI_Id = 5;
+                $item->FCCI_Id = (empty($modelo->GCCA_Id) || $modelo->GCCA_Id =='')? 12 : 5;
 
                 $inventario = Fcco::model()->findAll('FCCO_Enabled = 1 and FCCU_Id=' . $item->FCCU_Id);
 
@@ -739,7 +739,6 @@ class FccoController extends Controller
                         $log->PCUE_UserId = Yii::app()->user->id . " - " . Yii::app()->user->name;
                         $log->PCUE_Detalles = 'Uso el metodo de asignar en lote';
                         $log->save();
-                        
                     }
                     $x[] = $value;
                 } else {
