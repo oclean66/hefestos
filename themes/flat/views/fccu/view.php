@@ -57,9 +57,7 @@ $this->menu = array(
 
             <?php } ?>
 
-            <?php if($model->FCCI_Id == 12){ ?>
-                <a href="javascript:asignaragencia();" class="btn">Asignar</a>
-            <?php } ?>
+           
 
 
         </div>
