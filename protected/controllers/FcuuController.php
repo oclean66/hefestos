@@ -99,6 +99,7 @@ class FcuuController extends Controller
 	
 	public function actionAdmin()
 	{
+ 
 		$model=new Fcuu('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Fcuu']))

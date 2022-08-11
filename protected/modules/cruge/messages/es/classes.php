@@ -136,6 +136,7 @@ return array(
 
     'action_tccd_admin'=>'Administrar Tareas',
     'action_tccd_test'=> 'Prueba de Correo E',
+    'action_tccd_create'=> 'Asignar activo a tarea',
     
     'action_fccs_view' => 'Ver Factura',
     'action_fccs_update' => 'Actualizar Factura',
@@ -148,6 +149,8 @@ return array(
     'action_fcco_update' => 'Actualizar Transaccion',
     'action_fcco_less' => 'Dar Entrada a un Activo',
     'action_fcco_report' => 'Reportes',
+    'action_resumen_reportes' => 'Resumen de activos',
+    'action_resumen_entradassalidas' => 'Entradas / Salidas',
     'action_fcco_enter'=>'Ver Ticket de Transaccion',
     'action_fcco_recibe'=>'Recibir Activo desde reportes',
     'action_fcco_grupo' => 'Ver Activos de un Grupo',
@@ -190,4 +193,5 @@ return array(
     
     'action_pcue_index'=>'Ver Bitacora',
     'action_pcue_view' =>'Ver Detalle de Bitacora',
+
 );

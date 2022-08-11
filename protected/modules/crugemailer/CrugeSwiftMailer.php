@@ -140,7 +140,7 @@ class CrugeSwiftMailer extends CrugeMailerBase implements ICrugeMailer
 			),
 			[$email],
 			null,
-			self::t("La informacion de su cuenta ha cambiado")
+			self::t("Informe de Stock disponible de inventario")
         );
 		
     }

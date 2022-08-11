@@ -438,7 +438,7 @@ class FccuController extends Controller
         ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
         ->leftJoin('gcca', 'fcco.GCCA_Id = gcca.GCCA_Id')
         ->leftJoin('gccd', 'fcco.GCCD_Id = gccd.GCCD_Id ') 
-        ->where('fCCA.FCCA_Id='.$id.' and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and FCCU_Bussiness="'.Yii::app()->user->bussiness.'" and fcco.FCCN_Id="'.$tipo.'" ')
+        ->where('fcca.FCCA_Id='.$id.' and date_format(fcco.FCCO_Timestamp,"%Y-%m-%d") BETWEEN  "'.$desde.'" and "'.$hasta.'" and FCCU_Bussiness="'.Yii::app()->user->bussiness.'" and fcco.FCCN_Id="'.$tipo.'" ')
         ->group('fcco.GCCD_Id')
         ->query();  
         if($view=='admin'){
