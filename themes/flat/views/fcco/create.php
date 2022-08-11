@@ -177,8 +177,8 @@
         if (data.keyCode === 13) {
             add();
         }
+        
         console.log($("ul#ui-id-1 li").first().children().html());
-
     });
 
     var hijo = $('#row').html();
@@ -230,7 +230,9 @@
 
     }
     function reallySubmit(e, f) {
-        console.log(e);
+
+
+       
         $.gritter.add({
             position: 'bottom-left',
             title: 'Un momento por favor',
@@ -240,12 +242,18 @@
         });
 //        self.submit("create/"+f);        
     }
+
     jQuery("#fcco-form").submit(function (e) {
+ 
         var self = this;
         //console.log(this);
         e.preventDefault();
         // console.log(i);
-        if ($('#Fcco_GCCD_Id option:selected').val() == "" ) {
+        
+ 
+        if ($('#Fcco_GCCD_Id option:selected').val() == "" <?php if(Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){ ?> 
+            || $('#Fcco_GCCA_Id option:selected').val() == ""
+        <?php } ?>) {
             $.gritter.add({
                 position: 'bottom-left',
                 title: 'Atencion',
@@ -257,7 +265,7 @@
             return false;
         }
         else {
-            self.submit();
+           self.submit();
         }
 
         return false; //is superfluous, but I put it here as a fallback

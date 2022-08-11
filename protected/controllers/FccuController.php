@@ -161,22 +161,40 @@ class FccuController extends Controller
         $somevariable = $row['FCCO_Lote'] + 1;
 
         $inventario = Fcco::model()->find('FCCO_Enabled = 1 and FCCN_Id = 1 and FCCU_Id=' . $id . ' order by FCCO_Timestamp DESC');
+
         $inventario->FCCO_Enabled = 0; // deshabilito los anteriores
+        
+        
 
         $model = new Fcco;
         $model->FCCO_Timestamp = date('Y-m-d H:i:s');
         $model->FCCO_Lote = $somevariable;
         $model->FCCO_Descripcion = $inventario->FCCO_Descripcion;
         $model->FCCO_Enabled = 1;
-        $model->FCCN_Id = 2;
+        
         $model->FCCU_Id = $inventario->FCCU_Id;
-        $model->GCCA_Id = $inventario->GCCA_Id;
+
+        if(!Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){
+            $model->GCCA_Id = $inventario->GCCA_Id;
+            $model->FCCN_Id = 2;
+        }else{
+            $model->GCCA_Id = null;
+            $model->FCCN_Id = 1;
+        }
         $model->GCCD_Id = $inventario->GCCD_Id;
+        
+            
+      
 
         //$item = $this->loadModel($id);
         $item = Fccu::model()->find('FCCU_Id = ' . $id);
         $tipo = $item->fCCT->FCCA_Id;
-        $item->FCCI_Id = 10; //cambia de estado al seleccionado
+        if(Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){
+            $item->FCCI_Id = 12; //cambia de estado al seleccionado
+        }else{
+            $item->FCCI_Id = 10;
+        }
+
         Yii::import('application.controllers.FccaController');
         
         if ($inventario->save() && $model->save() && $item->save()) {

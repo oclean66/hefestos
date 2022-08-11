@@ -358,9 +358,13 @@ class FccoController extends Controller
         $bussines=Yii::app()->user->bussiness;
         if ($request != '') {
             
-            
-            $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines' "));
-
+            if(!Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){
+                $model = Fccu::model()->findAll(array("condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines' "));
+            }else{
+                $model = Fccu::model()->findAll(array(
+                    "condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11 or FCCI_Id =12 ) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines' ",
+                    "join"=>"inner join fcco on t.FCCU_Id=fcco.FCCU_id and fcco.FCCO_Enabled=1 and fcco.GCCD_Id='".Yii::app()->user->grupo."' and fcco.FCCN_Id = 1"));
+            }
 
             $data = array();
             foreach ($model as $item) {
@@ -695,36 +699,40 @@ class FccoController extends Controller
         $somevariable = $row['FCCO_Lote'] + 1;
 
         if (isset($_POST['Fcco'])) {
-       
+      
             $x = array();
             $y = array();
 
             $id = $_POST['Fcco']['FCCU_Id'];
+            
             $id = array_unique($id);
 
             foreach ($id as $value) {
-                $modelo = new Fcco;
-                $modelo->attributes = $_POST['Fcco'];
-                $modelo->FCCO_Lote = $somevariable;
-                $modelo->FCCN_Id = 1;
-                $modelo->FCCO_Enabled = 1;
-                $modelo->FCCU_Id = $value;
+
                 
-                if(empty($modelo->GCCA_Id)|| $modelo->GCCA_Id ==''){
-                    $modelo->GCCA_Id=null;
-                }
-                $item = Fccu::model()->findByPk($value);
-                $tipo[$item->fCCT->FCCA_Id] = $item->fCCT->FCCA_Id;
-                $item->FCCI_Id = (empty($modelo->GCCA_Id) || $modelo->GCCA_Id =='')? 12 : 5;
-
-                $inventario = Fcco::model()->findAll('FCCO_Enabled = 1 and FCCU_Id=' . $item->FCCU_Id);
-
-                foreach ($inventario as $inv) {
-                  
-                    $inv->FCCO_Enabled = 0;
-                    $inv->save();
+                    $modelo = new Fcco;
+                    $modelo->attributes = $_POST['Fcco'];
+                    $modelo->FCCO_Lote = $somevariable;
+                    $modelo->FCCN_Id = 1;
+                    $modelo->FCCO_Enabled = 1;
+                    $modelo->FCCU_Id = $value;
+                    $modelo->USER_Id = Yii::app()->user->id;
                     
-                }
+                    if(empty($modelo->GCCA_Id)|| $modelo->GCCA_Id ==''){
+                        $modelo->GCCA_Id=null;
+                    }
+                    $item = Fccu::model()->findByPk($value);
+                    $tipo[$item->fCCT->FCCA_Id] = $item->fCCT->FCCA_Id;
+                    $item->FCCI_Id = (empty($modelo->GCCA_Id) || $modelo->GCCA_Id =='')? 12 : 5;
+
+                    $inventario = Fcco::model()->findAll('FCCO_Enabled = 1 and FCCU_Id=' . $item->FCCU_Id);
+                    foreach ($inventario as $inv) {
+                  
+                        $inv->FCCO_Enabled = 0;
+                        $inv->save();
+                        
+                    }
+                
 
                 if ($item->save()) {
                     if ($modelo->save()) {
@@ -746,8 +754,11 @@ class FccoController extends Controller
                 }
             
             }
-            foreach($tipo as $t){
-                $this->actionUpdateStock($t);
+            if(!Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){
+                foreach($tipo as $t){
+                    
+                        $this->actionUpdateStock($t);
+                }
             }
             $this->redirect(array('view', 'id' => $modelo->FCCO_Lote, 'tipo' => 1, 'agencia' => $modelo->GCCA_Id,'grupo' => $modelo->GCCD_Id));
             // print_r($_POST);
