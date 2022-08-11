@@ -45,7 +45,10 @@ Yii::app()->clientScript->registerScript('search', "
                 )); ?>
 
             </div>
-            <div class="col-sm-12 nopadding mt-element-list">
+        <div class="col-md-3 nopadding " id='listview' style='overflow-y:auto'>
+            
+           
+            <div class="col-sm-12 nopadding ">
                 <!-- <ul class="list-group  "> -->
                 <?php
                 $this->widget('zii.widgets.CListView', array(
@@ -78,7 +81,6 @@ Yii::app()->clientScript->registerScript('search', "
     <div>
 </div>
 <script>
-  
     	var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         $("#infoactivo").css({
 			"max-height": (h - 135)
@@ -118,16 +120,10 @@ Yii::app()->clientScript->registerScript('search', "
                 console.log(data);
             })
         }
-    function copyserial(e){
-        var serial=$(e).next('.id_fccu_serial').text().trim();
-            copyToClipboard(serial);
-    }
-    function copyToClipboard(text) { 
-        var sampleTextarea = document.createElement("textarea");
-    document.body.appendChild(sampleTextarea);
-    sampleTextarea.value = text; //save main text in it
-    sampleTextarea.select(); //select textarea contenrs
-    document.execCommand("copy");
-    document.body.removeChild(sampleTextarea);
-    }
+        
+        function copyserial(e){
+            var serial = $(e).next('.id_fccu_serial').text();
+            navigator.clipboard.writeText(serial);
+        }
+     
 </script>
