@@ -58,9 +58,9 @@ if (isset($_GET['card'])) {
                         array('label' => 'Recargas*', 'url' => array('/fcuc/admin'), 'visible' => $admin),
                         array('label' => 'Rendimiento laboral*', 'url' => array('#'), 'visible' => $admin),
 
-                        array('label' => 'Resumen de activos', 'url' => array('/reportes/resumen'), 'visible' => Yii::app()->user->checkAccess('action_resumen_reportes')),
+                        array('label' => 'Resumen de activos', 'url' => array('/reportes/resumen'), 'visible' => Yii::app()->user->checkAccess('action_reportes_resumen')),
 
-                        array('label' => 'Entradas y salidas', 'url' => array('/reportes/entradassalidas'), 'visible' => Yii::app()->user->checkAccess('action_resumen_entradassalidas')),
+                        array('label' => 'Entradas y salidas', 'url' => array('/reportes/entradassalidas'), 'visible' => Yii::app()->user->checkAccess('action_reportes_entradassalidas')),
 
                         //array('label' => 'Compras', 'url' => array('#'),'visible' =>  $admin ),
                         //array('label' => 'Resumen', 'url' => array('#'),'visible' => $admin ),
