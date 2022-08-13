@@ -59,8 +59,7 @@ $baseUrl = Yii::app()->theme->baseUrl;
                         <span class="name">Agencias</span>
                     </a>
             </li>
-        <?php }; ?>
-
+        <?php }; ?> 
         <!-- <li class="pink ">
                 <a target="_blank" href="<?php echo Yii::app()->createUrl('fccu/admin'); ?>">
                     <span class="">

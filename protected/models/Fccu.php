@@ -179,7 +179,7 @@ class Fccu extends CActiveRecord {
         $criteria->with = array('fCCT.fCCA.fCUU');
         
         if(Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){
-            $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, true);
+            $criteria->compare('fcco.GCCD_Id', Yii::app()->user->grupo, false);
             $criteria->compare('fcco.FCCO_Enabled', 1, true);
             $criteria->compare('fcco.FCCN_Id', 1, true);
             $criteria->join ='inner JOIN fcco on t.FCCU_Id = fcco.FCCU_Id '; 

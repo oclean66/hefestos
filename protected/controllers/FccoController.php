@@ -619,11 +619,12 @@ class FccoController extends Controller
 
     public function actionPrint($id, $tipo = null, $view = null, $agencia=null,$grupo=null)
     { 
-        if($grupo == null)
-            $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
-        if($agencia == null)
+        if($grupo != null)
             $model = Gccd::model()->find('GCCD_Id=:id', array(':id' => $grupo));
-        
+        if($agencia != null)
+            $model = Gcca::model()->find('GCCA_Id=:id', array(':id' => $agencia));
+            
+         
         if ($tipo == null)
             $tipo = 1;
 
@@ -686,8 +687,8 @@ class FccoController extends Controller
         // Yii::app()->session['desc'] = $model->concatened;
 
 
-        // $d = $_SESSION['all'];
-        $this->renderPartial('print', array('d' => $data, "model" => $model, "tipo" => $tipo, "modelo" => $modell), false, true);
+        // $d = $_SESSION['all']; 
+        $this->renderPartial('print', array('d' => $data, "model" => $model, "tipo" => $tipo, "modelo" => $modell,'grupo'=>$grupo,'agencia'=>$agencia), false, true);
     }
 
     public function actionCreate($id = null)

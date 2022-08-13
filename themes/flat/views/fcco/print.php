@@ -9,11 +9,11 @@
     Fecha de Impresion: <?php echo date("d M, Y"); ?>
     <br />
     
-    <?php echo $model->concatened; ?>
+    
   </h4>
 
   <table width='100%' class="table paleBlueRows" style="border: 0;text-align: left;">
-    <tr style="border:0">
+    <tr style="border:0;width:300px;">
       <td style="border:0">
         <strong>Comercializadora La Excelencia</strong>
         <address>
@@ -28,7 +28,36 @@
           Realizado por: <b><?php echo isset($modell) ? $modell->username : "";?></b>
         </address>
       </td>
-      <td style="border:0"> <b><?php echo count($d->data) . " activos"; ?></b></td>
+      <td style="border:0;width:150px;"> <b><?php echo count($d->data) . " activos"; ?></b></td>
+      <td style="border:0;width:300px; ">
+<?php if(!empty($grupo)){ ?> 
+  <address>
+  <strong><?= $model->GCCD_Nombre ?></strong>
+        <address>
+          Telefono: <?= $model->GCCD_Telefono ?>
+          <br>
+          Responsable: <?= $model->GCCD_Responsable ?>
+          <br />  
+  </address>
+<?php }elseif(!empty($agencia)){
+?>
+  <address>
+  <strong><?= $model->GCCA_Nombre ?></strong>
+        <address>
+          Direccion: <?= $model->GCCA_Direccion ?>
+          <br>
+          Rif: <?= $model->GCCA_Rif ?>
+          <br>
+          Telefono: <?= $model->GCCA_Telefono ?>
+          <br>
+          Responsable: <?= $model->GCCA_Responsable ?>
+          <br />  
+  </address>
+<?php
+} ?>
+
+
+      </td>
     </tr>
   </table>
   <br />
