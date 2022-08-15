@@ -372,7 +372,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     'header' => 'Accion',
                     //'htmlOptions'=>array('class'=>'btn btn-primary'),
                     'template' => '{preview}',
-                    'visible' => Yii::app()->user->checkAccess('vaction_fccn_view'),
+                    'visible' => Yii::app()->user->checkAccess('action_fccn_view'),
                     //-----------------------------------------------------------------------
                     'buttons' => array(
                         'preview' => array(

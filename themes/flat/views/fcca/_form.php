@@ -36,7 +36,7 @@
         <div class="form-group">
             <?php echo $form->labelEx($model, 'FCCA_Descripcion', array('class' => 'control-label col-sm-2')); ?>
             <div class="col-sm-10">
-                <?php echo $form->textField($model, 'FCCA_Descripcion', array('class' => 'form-control', 'size' => 45, 'maxlength' => 4)); ?>
+                <?php echo $form->textField($model, 'FCCA_Descripcion', array('class' => 'form-control', 'size' => 45, 'maxlength' => 45)); ?>
                 <?php echo $form->error($model, 'FCCA_Descripcion', array('class' => 'label label-danger')); ?>
             </div>
         </div>
