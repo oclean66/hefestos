@@ -40,7 +40,8 @@ class Fccs extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('FCCS_Control', 'required'),
-			array('FCCS_Fecha, FCCS_Control', 'length', 'max'=>45),
+			array('FCCS_Fecha, FCCS_Control,FCCS_Numfac', 'length', 'max'=>45),
+			array('FCCS_Total', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('FCCS_Id, FCCS_Fecha, FCCS_Control', 'safe', 'on'=>'search'),

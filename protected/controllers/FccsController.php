@@ -97,6 +97,18 @@ class FccsController extends Controller
 		));
 	}
 
+
+	public function actionNumbfac()
+	{
+		$factura=$_GET['FCCS_Numfac'];
+		$model = Fccu::model()->find(array('condition'=>'FCCU_Serial=:serial','params'=>array(':serial'=>$serial)));
+		$r=1;
+		if ($model === null){
+			$r=0;
+		}
+		echo $r;
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

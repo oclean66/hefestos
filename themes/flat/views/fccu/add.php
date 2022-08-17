@@ -104,6 +104,54 @@
 
 
                 </div>
+
+
+                <!--########################################Factura####################################################-->
+                <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                        <label for="textfield" class="control-label col-sm-3">Fecha Factura</label>
+                        <div class="col-sm-9">
+                        <?php  
+
+                        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                            'name' => 'Fccs[FCCS_Fecha]',
+                            'value' => strftime("%d-%m-%Y"),
+                            'language' => 'es',
+                            'options' => array(
+                                'showAnim' => 'puff', 'mode' => 'datetime',
+                                'showButtonPanel' => true,
+                                'maxDate'=>"+0",
+                                'dateFormat' => 'dd-mm-yy', //Date format 'mm/dd/yy','yy-mm-dd','d M, y','d MM, y','DD, d MM, yy'
+                            ),
+                            'htmlOptions' => array(
+                                'class' => 'form-control',
+                                'style' => '', 'type' => 'date'
+                            ),
+                        ));
+                        ?>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                        <label for="textfield" class="control-label col-sm-2">N° Factura</label>
+                        <div class="col-sm-10"> 
+                        <?php echo $form->textField($modell,'FCCS_Numfac',array('class'=>'form-control','size'=>45,'maxlength'=>45,'id'=>'FCCS_Numfac')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 nopadding">
+                    <div class="form-group">
+                        <label for="textfield" class="control-label col-sm-2">N° Control</label>
+                        <div class="col-sm-10">
+                            <?php echo $form->textField($modell,'FCCS_Control',array('class'=>'form-control','size'=>45,'maxlength'=>45)); ?>
+                        </div>
+                    </div>
+                </div>
+                <!--######################################Factura ######################################################-->
+
+
             </div>
 
     
@@ -253,14 +301,26 @@
                             <?php echo CHtml::label('Serial', 'Serial', array('class' => 'control-label add-label col-sm-1')); ?>
                             <div class="col-sm-11">
                                 <div class="input-group">
-                                    <?php echo CHtml::textField(
-                                        'Fccu[FCCU_Serial_Master]',
-                                        '',
-                                        array(
-                                            'placeholder' => 'Codigo de Barras', 'class' => 'form-control add ',
-                                            'id' => 'serial_master', 'size' => 45, 'maxlength' => 45
-                                        )
-                                    ); ?>
+                                    <div class="col-sm-11">
+                                        <?php echo CHtml::textField(
+                                            'Fccu[FCCU_Serial_Master]',
+                                            '',
+                                            array(
+                                                'placeholder' => 'Codigo de Barras', 'class' => 'form-control add ',
+                                                'id' => 'serial_master', 'size' => 45, 'maxlength' => 45
+                                            )
+                                        ); ?>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <?php echo CHtml::textField(
+                                            'Fccu[FCCU_Precio_Master]',
+                                            '',
+                                            array(
+                                                'placeholder' => 'Precio', 'class' => 'form-control add ',
+                                                'id' => 'precio_master', 'size' => 10, 'maxlength' => 10
+                                            )
+                                        ); ?>
+                                    </div>
                                     <div class="input-group-btn">
                                         <button class="btn btn-success " onclick="add('master')" type="button">
                                             <i class="fa fa-plus"></i>
@@ -409,10 +469,13 @@
                 <?php echo CHtml::dropDownList('Fccu[FCCT_Id][]', 'Fccu[FCCT_Id][]', array(), array('class' => 'form-control ')); ?>
             </td>
             <td>
-                <?php echo CHtml::dropDownList('Fccu[FCCM_Id]', 'Fccu[FCCM_Id]', array(), array('class' => 'form-control ')); ?>
+                <?php echo CHtml::dropDownList('Fccu[FCCM_Id][]', 'Fccu[FCCM_Id][]', array(), array('class' => 'form-control ')); ?>
             </td>
             <td>
                 <?php echo CHtml::dropDownList('Fccl[FCCL_Id][]', 'Fccl[FCCL_Id][]', array(), array('class' => 'form-control ')); ?>
+            </td>
+            <td>
+                <?php echo CHtml::textField('Fccu[FCCU_Precio][]', '', array('class' => 'form-control')); ?>
             </td>
             <td>
                 <button id='del' class="btn btn-danger" onclick="delt($(this).parent().parent())" type="button">
@@ -441,6 +504,13 @@
 
 <!--script-->
 <script type="text/javascript">
+    $("#FCCS_Numfac").blur(function(data) {
+        var fac = $(this).val();
+        $.get('ModelActivo','FCCS_Numfac='+fac,function(resp){
+
+        });
+    });
+    
     $("#serial_master").keyup(function(data) {
         // alert(data.keyCode);
         if (data.keyCode === 13) {
@@ -471,6 +541,7 @@
             $("#myTable thead tr").append("<th>Modelo</th>");
             $("#myTable thead tr").append("<th>Marca</th>");
             $("#myTable thead tr").append("<th>Etiquetas</th>");
+            $("#myTable thead tr").append("<th>Precio</th>");
 
             $("#myTable thead tr").append("<th>Acciones</th>");
         } else if ($("#Fccu_FCUU_Id option:selected").val() == '2') {
@@ -500,43 +571,62 @@
     var hall = $('#row_hall').html();
     var i = 0;
 
-
     function add(tipo) {
         if (tipo == "master") {
             var FccuSerial = $('#master').find('#serial_master').val();
+            var FccuPrecio = $('#master').find('#precio_master').val();
             var FccuTipo = $('select#Fccu_FCCA_Id_Master option:selected').sort().clone();
             var FccuModel = $('select#Fccu_FCCT_Id_Master option:selected').sort().clone();
             var FccmMarca = $('select#Fccu_FCCM_Id option:selected').sort().clone();
             var FccuLabel = $('select#Fccl_FCCL_Id option:selected').sort().clone();
             var Lugar = $('select#Fccu_FCCI_Id option:selected').sort().clone();
   
-            if (FccuSerial != '' && FccuTipo.val() != '' && FccuModel.val() != '' && Lugar.val() != '' && FccuLabel.val() != '' && FccmMarca.val() !='') {
-                i++;
-                $('#serialC').html('<i class="fa fa-th-list"></i>Agregar Equipos  (' + i + ") Elementos agregados");
-                $('#padre').prepend(master);
+            if (FccuSerial != '' && FccuTipo.val() != '' && FccuModel.val() != '' && Lugar.val() != '' && FccuLabel.val() != '' && FccmMarca.val() !='' && FccuPrecio !='' && FccuPrecio > 0) {
+                
+             
+                $.get('ModelActivo','Fccu_Serial='+FccuSerial,function(resp){
+                    if(resp == 0){      
+                        i++;
+                        $('#serialC').html('<i class="fa fa-th-list"></i>Agregar Equipos  (' + i + ") Elementos agregados");
+                        $('#padre').prepend(master);
 
-                $('#padre').find('#Fccu_FCCU_Serial').attr('id', 'Fccu_FCCU_Serial' + i);
-                $('#padre').find('#Fccu_FCCU_Serial' + i).val(FccuSerial);
+                        $('#padre').find('#Fccu_FCCU_Serial').attr('id', 'Fccu_FCCU_Serial' + i);
+                        $('#padre').find('#Fccu_FCCU_Serial' + i).val(FccuSerial);
 
-                $('#padre').find('#Fccu_FCCA_Id').attr('id', 'Fccu_FCCA_Id' + i);
-                $('select#Fccu_FCCA_Id' + i).append(FccuTipo);
-                // $('#padre').find('#Fccu_FCCA_Id' + i).val(FccuTipo);
+                        $('#padre').find('#Fccu_FCCA_Id').attr('id', 'Fccu_FCCA_Id' + i);
+                        $('select#Fccu_FCCA_Id' + i).append(FccuTipo);
+                        // $('#padre').find('#Fccu_FCCA_Id' + i).val(FccuTipo);
 
-                $('#padre').find('#Fccu_FCCT_Id').attr('id', 'Fccu_FCCT_Id' + i);
-                $('select#Fccu_FCCT_Id' + i).append(FccuModel);
-                // $('#padre').find('#Fccu_FCCT_Id' + i).val(FccuModel);
-                $('#padre').find('#Fccl_FCCL_Id').attr('multiple', 'multiple').attr('id', 'Fccl_FCCL_Id' + i);
+                        $('#padre').find('#Fccu_FCCT_Id').attr('id', 'Fccu_FCCT_Id' + i);
+                        $('select#Fccu_FCCT_Id' + i).append(FccuModel);
+                        // $('#padre').find('#Fccu_FCCT_Id' + i).val(FccuModel);
+                        $('#padre').find('#Fccl_FCCL_Id').attr('multiple', 'multiple').attr('id', 'Fccl_FCCL_Id' + i);
 
-                $('#padre').find('#Fccu_FCCM_Id').attr('id', 'Fccu_FCCM_Id' + i);
-                $('#padre').find('#Fccu_FCCM_Id' + i).append(FccmMarca);
+                        $('#padre').find('#Fccu_FCCM_Id').attr('id', 'Fccu_FCCM_Id' + i);
+                        $('#padre').find('#Fccu_FCCM_Id' + i).append(FccmMarca);
 
-                $('select#Fccl_FCCL_Id' + i).append(FccuLabel);
-                $('#Fccl_FCCL_Id' + i).children('option').attr('selected','selected');
-                $('#Fccl_FCCL_Id' + i).attr('name','FCCL_Id['+i+'][]');
-                $('#Fccl_FCCL_Id' + i).select2();
 
-                $('#master').find('#serial_master').val('');
- 
+                        $('#padre').find('#Fccu_FCCU_Precio').attr('id', 'Fccu_FCCU_Precio' + i);
+                        $('#padre').find('#Fccu_FCCU_Precio' + i).val(FccuPrecio);
+
+                        $('select#Fccl_FCCL_Id' + i).append(FccuLabel);
+                        $('#Fccl_FCCL_Id' + i).children('option').attr('selected','selected');
+                        $('#Fccl_FCCL_Id' + i).attr('name','FCCL_Id['+i+'][]');
+                        $('#Fccl_FCCL_Id' + i).select2();
+
+                        $('#master').find('#serial_master').val('');
+                    }else{
+                        $.gritter.add({
+                            position: 'bottom-left',
+                            // (string | mandatory) the heading of the notification
+                            title: 'Error ',
+                            sticky: true,
+                            time_alive: 1000,
+                            // (string | mandatory) the text inside the notification
+                            text: 'El serial '+FccuSerial+' ya se encuentra registrado' ,
+                        });
+                    }
+                });
                 
             }
 
@@ -548,6 +638,8 @@
             var FccuNumero = $('#hall').find('#numero').val();
 
             if (FccuSerial != '') {
+                $.get('ModelActivo','Fccu_Serial='+FccuSerial,function(resp){
+                    if(resp == 0){   
                 i++;
                 $('#serialC').html('<i class="fa fa-th-list"></i>Agregar Equipos  (' + i + ") Elementos agregados");
                 $('#padre').prepend(hall);
@@ -565,13 +657,26 @@
                 $('#padre').find('#Fccu_FCCU_DiaCorte' + i).val(FccuRenta);
 
 
-
+                $('#padre').find('#Fccu_FCCU_Precio').attr('id', 'Fccu_FCCU_Precio' + i);
+                $('#padre').find('#Fccu_FCCU_Precio' + i).val(FccuPrecio);
 
 
                 $('#hall').find('#serial_hall').val('');
                 $('#hall').find('#numero').val('');
                 $('#hall').find('#monto').val('');
                 $('#hall').find('#renta').val('');
+                    }else{
+                        $.gritter.add({
+                            position: 'bottom-left',
+                            // (string | mandatory) the heading of the notification
+                            title: 'Error ',
+                            sticky: true,
+                            time_alive: 1000,
+                            // (string | mandatory) the text inside the notification
+                            text: 'El serial '+FccuSerial+' ya se encuentra registrado' ,
+                        });
+                    }
+                });
             }
 
         }

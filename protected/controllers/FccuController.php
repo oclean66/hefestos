@@ -14,15 +14,26 @@ class FccuController extends Controller
 
             if ($_POST['Fccu']['FCUU_Id'] != 2) {
 
-               //  print_r($_POST['Fccu']);
+                
                 $fccu_serial = $_POST['Fccu']['FCCU_Serial'];
                 $fcct_id = $_POST['Fccu']['FCCT_Id'];
+                $precios=$_POST['Fccu']['FCCU_Precio'];
+                $marcas=$_POST['Fccu']['FCCM_Id'];
 
                 $correct = "<div class='label label-success'>Procesado</div>";
                 $alert = "<div class='label label-danger'>NO Procesado</div>";
                 $arrayNotificaciones = array();
                 $total=0;
                 $i=1;
+                if($_POST['Fccs']['FCCS_Numfac']!=''){
+                    $fac= new Fccs;
+                    $fac->FCCS_Fecha=$_POST['Fccs']['FCCS_Fecha'];
+                    $fac->FCCS_Numfac=$_POST['Fccs']['FCCS_Numfac'];
+                    $fac->FCCS_Control=$_POST['Fccs']['FCCS_Control'];
+                    $fac->save();
+                 
+                }
+                $total_fac=0;
                 foreach ($fccu_serial as $key => $value) {
 
                     $model = new Fccu;
@@ -34,23 +45,29 @@ class FccuController extends Controller
                     $model->FCCU_Bussiness = Yii::app()->user->bussiness;
                     $model->FCCU_Cantidad = 1;
                     $model->FCCD_Id = 5;
-                    $model->FCCM_Id = $_POST['Fccu']['FCCM_Id'];
+                    $model->FCCM_Id = $marcas[$key];
                     $model->FCCU_Descripcion = "Sin Comentarios";
                     $model->FCCT_Id = $fcct_id[$key]; //modelo
+                    $model->FCCU_Precio = $precios[$key]; //precio
+                    $total_fac+= $precios[$key];
+                    
+                    if($_POST['Fccs']['FCCS_Numfac']!=''){
+                        $model->FCCS_Id = $fac->FCCS_Id; //factura
+                    }
                     
                     try { 
                         if ($model->save()) {
                             $FCCU_Id=$model->primaryKey; 
                             $total;
                             $total+=1; 
-                            
-                           foreach($_POST['FCCL_Id'][$i] as $val){ 
-                                $FcclHasFccu= new FcclHasFccu;
-                                $FcclHasFccu->fccl_FCCL_Id=$val;
-                                $FcclHasFccu->fccu_FCCU_Id=$FCCU_Id;
-                                $FcclHasFccu->save();
+                            if(isset($_POST['FCCL_Id'][$i])){
+                                foreach($_POST['FCCL_Id'][$i] as $val){ 
+                                    $FcclHasFccu= new FcclHasFccu;
+                                    $FcclHasFccu->fccl_FCCL_Id=$val;
+                                    $FcclHasFccu->fccu_FCCU_Id=$FCCU_Id;
+                                    $FcclHasFccu->save();
+                                }
                             }
-                           
                             /* $arrayNotificaciones[$model->FCCU_Serial] = array(
                                 'item' => $correct,
                                 'estado' => 'Serial <b style="color: green">' . $model->FCCU_Serial . '</b> Guardado correctamente',
@@ -72,6 +89,11 @@ class FccuController extends Controller
                     }
                     $i++;
                 }
+                if($_POST['Fccs']['FCCS_Numfac']!=''){
+                    $fac->FCCS_Total=$total_fac;
+                    $fac->save();
+                }
+
                 echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>'; 
                 /* echo "<div class='label label-success'>Correcto</div>";
                 echo "<div class='label label-alert'>Alerta</div>"; */
@@ -147,6 +169,7 @@ class FccuController extends Controller
         } else {
             $this->render('add', array(
                 'model' => new Fccu,
+                'modell' => new Fccs
             ));
         }
     }
@@ -430,7 +453,15 @@ class FccuController extends Controller
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
-    
+    public function actionModelActivo(){
+        $serial=$_GET['Fccu_Serial'];
+        $model = Fccu::model()->find(array('condition'=>'FCCU_Serial=:serial','params'=>array(':serial'=>$serial)));
+        $r=1;
+        if ($model === null){
+            $r=0;
+        }
+        echo $r;
+    }
 
     public function loadModel($id)
     {
