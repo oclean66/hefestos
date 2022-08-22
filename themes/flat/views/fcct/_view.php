@@ -25,6 +25,9 @@
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('FCCA_Id')); ?>:</b>
 	<?php echo CHtml::encode($data->FCCA_Id); ?>
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('FCCT_Healt')); ?>:</b>
+	<?php echo CHtml::encode($data->FCCT_Healt); ?>
 	<br />
 
 

@@ -506,8 +506,19 @@
 <script type="text/javascript">
     $("#FCCS_Numfac").blur(function(data) {
         var fac = $(this).val();
-        $.get('ModelActivo','FCCS_Numfac='+fac,function(resp){
-
+        $.get('fccs/ModelNumbfac','FCCS_Numfac='+fac,function(resp){
+            if(resp==1){
+                $(this).val('');
+                $.gritter.add({
+                    position: 'bottom-left',
+                    // (string | mandatory) the heading of the notification
+                    title: 'Error ',
+                    sticky: true,
+                    time_alive: 1000,
+                    // (string | mandatory) the text inside the notification
+                    text: 'La factura '+fac+' ya se encuentra registrada' ,
+                });
+            }
         });
     });
     
@@ -575,17 +586,18 @@
         if (tipo == "master") {
             var FccuSerial = $('#master').find('#serial_master').val();
             var FccuPrecio = $('#master').find('#precio_master').val();
+            var factura =$("#FCCS_Numfac").val();
             var FccuTipo = $('select#Fccu_FCCA_Id_Master option:selected').sort().clone();
             var FccuModel = $('select#Fccu_FCCT_Id_Master option:selected').sort().clone();
             var FccmMarca = $('select#Fccu_FCCM_Id option:selected').sort().clone();
             var FccuLabel = $('select#Fccl_FCCL_Id option:selected').sort().clone();
             var Lugar = $('select#Fccu_FCCI_Id option:selected').sort().clone();
   
-            if (FccuSerial != '' && FccuTipo.val() != '' && FccuModel.val() != '' && Lugar.val() != '' && FccuLabel.val() != '' && FccmMarca.val() !='' && FccuPrecio !='' && FccuPrecio > 0) {
+            if (FccuSerial != '' && FccuTipo.val() != '' && FccuModel.val() != '' && Lugar.val() != '' && FccuLabel.val() != '' && FccmMarca.val() !='' && FccuPrecio !='' && FccuPrecio > 0 && factura != '' ) {
                 
              
                 $.get('ModelActivo','Fccu_Serial='+FccuSerial,function(resp){
-                    if(resp == 0){      
+                    if(resp == 0){
                         i++;
                         $('#serialC').html('<i class="fa fa-th-list"></i>Agregar Equipos  (' + i + ") Elementos agregados");
                         $('#padre').prepend(master);

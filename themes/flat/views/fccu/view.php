@@ -35,7 +35,7 @@ $this->menu = array(
         </h3>
          
          <div class="actions">
-            <?php if(!in_array($model->FCCI_Id,array(5,10,11,12))){ ?>
+            <?php if(!in_array($model->FCCI_Id,array(5,12))){ ?>
                 <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');">Actualizar Activo</a>
             <?php } ?>
 

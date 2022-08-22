@@ -98,10 +98,10 @@ class FccsController extends Controller
 	}
 
 
-	public function actionNumbfac()
+	public function actionModelNumbfac()
 	{
 		$factura=$_GET['FCCS_Numfac'];
-		$model = Fccu::model()->find(array('condition'=>'FCCU_Serial=:serial','params'=>array(':serial'=>$serial)));
+		$model = Fccs::model()->find(array('condition'=>'FCCS_Numfac=:factura','params'=>array(':factura'=>$factura)));
 		$r=1;
 		if ($model === null){
 			$r=0;

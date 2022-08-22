@@ -53,6 +53,13 @@
                 <?php echo $form->error($model, 'FCCT_Venta', array('class' => 'label label-danger')); ?>
             </div>
         </div>
+        <div class="form-group">
+            <?php echo $form->labelEx($model, 'FCCT_Healt', array('class' => 'control-label col-sm-2')); ?>
+            <div class="col-sm-10">
+                <?php echo $form->textField($model, 'FCCT_Healt', array('class' => 'form-control', 'size' => 150, 'maxlength' => 150)); ?>
+                <?php echo $form->error($model, 'FCCT_Healt', array('class' => 'label label-danger')); ?>
+            </div>
+        </div>
         
 
         <div class="form-actions col-sm-offset-2 col-sm-10">

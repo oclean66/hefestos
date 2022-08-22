@@ -63,6 +63,12 @@ $this->menu=array(
 				'filter' => false,
 			),
 			array(
+				'name'=>'FCCT_Healt',
+				'header'=>'Vida util',
+				'value'=>'$data->FCCT_Healt',
+				'filter' => false,
+			),
+			array(
 				'class'=>'CButtonColumn',
 				'headerHtmlOptions' => array('class' => 'remover', 'style' => 'width:83px'),
 				'template' => '{view}

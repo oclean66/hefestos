@@ -246,7 +246,7 @@ class FccoController extends Controller
             'criteria' => $criteria,
             'pagination' => false,
             'sort' => array(
-                'defaultOrder' => 'FCCA_Id desc',
+                'defaultOrder' => 'fCCU->fCCT->fCCA->fCUU->FCUU_Descripcion desc',
                 'attributes' => array(
                     'GCCA_search' => array(
                         'asc' => 'gCCA.GCCA_Nombre',
