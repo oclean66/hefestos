@@ -29,6 +29,10 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('FCCT_Healt')); ?>:</b>
 	<?php echo CHtml::encode($data->FCCT_Healt); ?>
 	<br />
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('FCCT_Depreciacion')); ?>:</b>
+	<?php echo CHtml::encode($data->FCCT_Depreciacion); ?>
+	<br />
 
 
 </div>

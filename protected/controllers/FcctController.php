@@ -37,6 +37,8 @@ class FcctController extends Controller
 		if(isset($_POST['Fcct']))
 		{
 			$model->attributes=$_POST['Fcct'];
+			if(!empty($_POST['Fcct']['FCCT_Healt']) && isset($_POST['Fcct']['FCCT_Healt']) && !empty($_POST['Fcct']['FCCT_Venta']) && isset($_POST['Fcct']['FCCT_Venta']) )
+				$_POST['Fcct']['FCCT_Depreciacion']=$_POST['Fcct']['FCCT_Venta']/$_POST['Fcct']['FCCT_Healt'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FCCT_Id));
 		}
@@ -60,7 +62,11 @@ class FcctController extends Controller
 
 		if(isset($_POST['Fcct']))
 		{
+			if(!empty($_POST['Fcct']['FCCT_Healt']) && isset($_POST['Fcct']['FCCT_Healt']) && !empty($_POST['Fcct']['FCCT_Venta']) && isset($_POST['Fcct']['FCCT_Venta']) )
+				$_POST['Fcct']['FCCT_Depreciacion']=$_POST['Fcct']['FCCT_Venta']/$_POST['Fcct']['FCCT_Healt'];
+
 			$model->attributes=$_POST['Fcct'];
+				
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->FCCT_Id));
 		}

@@ -99,7 +99,7 @@ class Fccu extends CActiveRecord {
             array('FCCU_Serial, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Titular, FCCU_ClaveWeb', 'length', 'max' => 45),
             array('FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id', 'length', 'max' => 10),
             array('FCCU_FechaNacimiento', 'safe'),
-            array('FCCU_Precio','numerical'),
+            array('FCCU_Precio,FCCU_PrecioFinal','numerical'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('FCCU_Id, FCCU_Serial, FCCU_Timestamp, FCCU_Numero, FCCU_ClaveDatos, FCCU_ClaveMovil, FCCU_DiaCorte, FCCU_MontoMin, FCCU_TipoServicio, FCCU_Descripcion, FCCU_Cantidad, FCCU_Facturado, FCCU_Bussiness,FCCM_Id,FCCD_Id, FCCT_Id, FCCI_Id, FCCS_Id, FCCU_Titular, FCCU_Cedula, FCCU_FechaNacimiento, FCCU_ClaveWeb', 'safe', 'on' => 'search'),

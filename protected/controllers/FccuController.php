@@ -49,6 +49,7 @@ class FccuController extends Controller
                     $model->FCCU_Descripcion = "Sin Comentarios";
                     $model->FCCT_Id = $fcct_id[$key]; //modelo
                     $model->FCCU_Precio = $precios[$key]; //precio
+                    $model->FCCU_PrecioFinal = $precios[$key]; //precio
                     $total_fac+= $precios[$key];
                     
                     if($_POST['Fccs']['FCCS_Numfac']!=''){

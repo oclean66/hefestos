@@ -35,6 +35,7 @@ $this->menu=array(
 		'FCCT_Costo',
 		'FCCT_Venta',
 		'FCCT_Healt',
+		'FCCT_Depreciacion',
 		array('name'=>'Total','value'=>$model->total),
 	),
 )); ?>

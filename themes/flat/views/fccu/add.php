@@ -505,8 +505,8 @@
 <!--script-->
 <script type="text/javascript">
     $("#FCCS_Numfac").blur(function(data) {
-        var fac = $(this).val();
-        $.get('fccs/ModelNumbfac','FCCS_Numfac='+fac,function(resp){
+        var fac = $(this).val(); 
+        $.get('<?= Yii::app()->createUrl('fccs/ModelNumbfac/') ?>','FCCS_Numfac='+fac,function(resp){
             if(resp==1){
                 $(this).val('');
                 $.gritter.add({
