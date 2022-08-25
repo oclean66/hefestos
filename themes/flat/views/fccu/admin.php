@@ -39,22 +39,20 @@ Yii::app()->clientScript->registerScript('search', "
 
 
     <div class="row">
-        <div class="col-md-3 nopadding " id='listview' style='overflow-y:auto'>
-            <!-- <input class="search-button" type="text" placeholder="Buscar.." class="form-control" onkeyup="filtrar(this)"> -->
-            <div class="col-sm-12 nopadding">
+            <div class="col-sm-12 ">
                 <?php $this->renderPartial('_search', array(
                     'model' => $model,
                 )); ?>
 
             </div>
-            <div class="col-sm-12 nopadding ">
+            <div class="col-sm-12 nopadding mt-element-list">
                 <!-- <ul class="list-group  "> -->
                 <?php
                 $this->widget('zii.widgets.CListView', array(
                     'id' => 'fccu-grid',
                     'dataProvider' => $model->search(),
                     'itemsCssClass' => 'table table-hover table-nomargin table-condensed visible-imprimir',
-                    'summaryText' => '<div class ="d-flex justify-content-between"><a class="not-link d-flex justify-content-start" href="javascript:busqavanzada();" ><span id="btn-avanzada">Busqueda Avanzada</span><span  style="display:none" id="btn-ocultar">Ocultar</span></a> <span class="d-flex justify-content-end">Viendo {start} - {end} de {count} resultados</span></div>',
+                     
                     'pagerCssClass' => 'table-pagination',
                     'pager' => array(
                         'htmlOptions' => array('class' => 'pagination'),
@@ -80,6 +78,7 @@ Yii::app()->clientScript->registerScript('search', "
     <div>
 </div>
 <script>
+  
     	var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         $("#infoactivo").css({
 			"max-height": (h - 135)
@@ -94,9 +93,7 @@ Yii::app()->clientScript->registerScript('search', "
             loadpage('<?= Yii::app()->createUrl('fccu/view/',array('id'=>$model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');
             <?php
         }
-        if(!empty($model->FCCA_Descripcion)|| !empty($model->FCCI_Id)){ ?>
-            busqavanzada();
-        <?php } ?>
+         ?>
         function loadpage(url,element) {
             $('.list-group-item').removeClass('active');
             $('.item-'+element).addClass('active');
@@ -113,12 +110,7 @@ Yii::app()->clientScript->registerScript('search', "
             });    
         }
 
-        function busqavanzada(){
-            $('#busq-avanz').toggle( "100" );
-            $('#btn-avanzada').toggle( "100" );
-            $('#btn-ocultar').toggle( "100" );
-
-        }
+  
  
         function actionurl(elm){
             var link= $(elm).data('link');
@@ -126,5 +118,16 @@ Yii::app()->clientScript->registerScript('search', "
                 console.log(data);
             })
         }
-     
+    function copyserial(e){
+        var serial=$(e).next('.id_fccu_serial').text().trim();
+            copyToClipboard(serial);
+    }
+    function copyToClipboard(text) { 
+        var sampleTextarea = document.createElement("textarea");
+    document.body.appendChild(sampleTextarea);
+    sampleTextarea.value = text; //save main text in it
+    sampleTextarea.select(); //select textarea contenrs
+    document.execCommand("copy");
+    document.body.removeChild(sampleTextarea);
+    }
 </script>

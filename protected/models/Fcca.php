@@ -7,13 +7,16 @@
  * @property string $FCCA_Id
  * @property string $FCCA_Descripcion
  * @property string $FCUU_Id
+ * @property string $FCCA_StockMin
+ * @property string $FCCA_StockMax
+ * @property string $FCCA_Stock
  *
  * The followings are the available model relations:
  * @property Fcuu $fCUU
  * @property Fcct[] $fccts
  */
 class Fcca extends CActiveRecord
-{
+{ 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -57,10 +60,10 @@ class Fcca extends CActiveRecord
 		return array(
 			array('FCCA_Descripcion, FCUU_Id', 'required'),
 			array('FCCA_Descripcion', 'length', 'max' => 45),
-			array('FCUU_Id', 'length', 'max' => 10),
+			array('FCUU_Id,FCCA_StockMin,FCCA_StockMax,FCCA_Stock', 'length', 'max' => 10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('FCCA_Id, FCCA_Descripcion, FCUU_Id', 'safe', 'on' => 'search'),
+			array('FCCA_Id, FCCA_Descripcion, FCUU_Id,FCCA_StockMin,FCCA_StockMax,FCCA_Stock', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -86,6 +89,10 @@ class Fcca extends CActiveRecord
 			'FCCA_Id' => 'Id',
 			'FCCA_Descripcion' => 'Descripcion',
 			'FCUU_Id' => 'Categoria',
+			'FCCA_StockMin'=>'Stock Minimo',
+			'FCCA_StockMax'=>'Stock Maximo',
+			'FCCA_Stock'=>'Stock disponible',
+
 		);
 	}
 
@@ -103,6 +110,8 @@ class Fcca extends CActiveRecord
 		$criteria->compare('FCCA_Id', $this->FCCA_Id, true);
 		$criteria->compare('FCCA_Descripcion', $this->FCCA_Descripcion, true);
 		$criteria->compare('FCUU_Id', $this->FCUU_Id, true);
+		$criteria->compare('FCCA_StockMin', $this->FCCA_StockMin, true);
+		$criteria->compare('FCCA_StockMax', $this->FCCA_StockMax, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

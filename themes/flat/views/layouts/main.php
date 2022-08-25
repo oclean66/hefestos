@@ -35,7 +35,7 @@
     $cs->registerCssFile($baseUrl . '/css/plugins/croppie/croppie.css', 'screen');
     
 
-
+   
     //<!-- Theme CSS -->        
     $cs->registerCssFile($baseUrl . '/css/style.css', 'screen');
     //<!-- Color CSS -->
@@ -91,7 +91,7 @@
     $cs->registerScriptFile($baseUrl . '/js/plugins/croppie/croppie.min.js');
 
     //<!-- Theme framework -->
-    $cs->registerScriptFile($baseUrl . '/js/eakroko.min.js');
+    $cs->registerScriptFile($baseUrl . '/js/eakroko.js');
     //<!-- Theme scripts -->
     $cs->registerScriptFile($baseUrl . '/js/application.min.js');
     //<!-- Just for demonstration -->
@@ -100,7 +100,19 @@
     $cs->registerScriptFile($baseUrl . '/js/plugins/jAlert/jAlert.js');
     $cs->registerScriptFile($baseUrl . '/js/plugins/jAlert/jAlert-functions.js');
 
+  
+    $cs->registerScriptFile($baseUrl . '/js/plugins/chosen/chosen.jquery.min.js');
+    $cs->registerCssFile($baseUrl . '/css/plugins/chosen/chosen.css');
+    $cs->registerCssFile($baseUrl . '/css/plugins/datatable/TableTools.css');
+    $cs->registerScriptFile($baseUrl . '/js/plugins/datatable/jquery.dataTables.min.js');
+    $cs->registerScriptFile($baseUrl . '/js/plugins/datatable/TableTools.min.js');
+    $cs->registerScriptFile($baseUrl . '/js/plugins/datatable/ColReorderWithResize.js');
+    $cs->registerScriptFile($baseUrl . '/js/plugins/datatable/ColVis.min.js');
+    $cs->registerScriptFile($baseUrl . '/js/plugins/datatable/jquery.dataTables.columnFilter.js');
+    $cs->registerScriptFile($baseUrl . '/js/plugins/datatable/jquery.dataTables.grouping.js');
+    
 
+   
     //        <!-- select2 -->
     //	<script src="js/plugins/select2/select2.min.js"></script>
     $cs->registerScriptFile($baseUrl . '/js/plugins/select2/select2.min.js');
@@ -142,6 +154,7 @@
             background: #555;
         }
     </style>
+
 </head>
 
 <body data-mobile-sidebar="button" class="theme-<?php echo $theme; ?>" data-theme="theme-<?php echo $theme; ?>" onload="$('#progress').attr('style', 'width:0%')">

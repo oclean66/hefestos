@@ -2,7 +2,7 @@
 /* @var $this FccoController */
 /* @var $model Fcco */
 $modell = isset($modelo[0]) ? $modelo[0] : null;
-
+ 
 // $model = $modelo[0];
 // Yii::app()->name = "Salida: " . $model->GCCA_Cod . " - " . $model->GCCA_Nombre;
 $this->menu = array(
@@ -10,8 +10,10 @@ $this->menu = array(
     array('label' => 'Asignar Activos', 'url' => array('create')),
     // array('label' => 'Actualizar Fcco', 'url' => array('update', 'id' => $model->FCCO_Id)),
     // array('label' => 'Borrar Fcco', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->FCCO_Id), 'confirm' => 'Are you sure you want to delete this item?')),
+  
     array('label' => 'Activos en esta Agencia', 'url' => array('agencia', 'id' => $model->GCCA_Id, 'type' => 258)),
 );
+
 ?>
 <!-- <img class="imprimir" width="100px" src="<?php echo Yii::app()->theme->baseUrl . "/img/brand.png"; ?>" alt="" /> -->
 
@@ -120,13 +122,13 @@ $this->menu = array(
 
                     </tbody>
                 </table>
-              
+              <?php echo $tipo == 1 ? "Con este documento el Cliente, quien recibe, acepta la responsabilidad de cuidar los articulos aqui descritos y responder por ellos en caso de robo o perdida." : 
+                                        "Con este documento el cliente transfiere sus responsabilidades a la empresa de los articulos arriba descritos" ?>
                 <!--<div id="print-footer">Copyright message</div>-->
 
                                 <!-- <div class="imprimir" style="position: initial; bottom: 80px; border: 1px solid black; height: 150px;width: 600px"> Observaciones:</div> -->
                                 <!-- <img class="imprimir pf-footer" style=" margin-left: auto;   margin-right: auto; width: 600px;bottom: 21px; size:5px 11in;position: fixed;" src="<?php echo Yii::app()->theme->baseUrl . "/img/firma.png"; ?>" alt="" /> -->
-                <?php echo $tipo == 1 ? "Con este documento el Cliente, quien recibe, acepta la responsabilidad de cuidar los articulos aqui descritos y responder por ellos en caso de robo o perdida." : 
-                                        "Con este documento el cliente transfiere sus responsabilidades a la empresa de los articulos arriba descritos" ?>
+                
 
             </div>
         </div>

@@ -10,7 +10,7 @@ $this->breadcrumbs = array(
 $this->menu = array(
     //array('label'=>'List Fccu', 'url'=>array('index')),
     array('label' => 'Crear Activo', 'url' => Yii::app()->createUrl("fccu/add")),
-    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id))),
+    array('label' => 'Actualizar Activo', 'url' => Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id,"view"=>'index'))),
 
     array(
         'label' => 'Recibir Activo',
@@ -27,7 +27,7 @@ $this->menu = array(
 ?>
  
 
-
+<?php if($view=='admin'){ ?>
 <div class="box">
     <div class="box-title" style="margin: 0;">
         <h3>
@@ -36,7 +36,7 @@ $this->menu = array(
          
          <div class="actions">
             <a class="not-link btn" href="javascript:loadpage('<?= Yii::app()->createUrl("fccu/update", array("id" => $model->FCCU_Id)) ?>','<?= $model->FCCU_Id ?>');">Actualizar Activo</a>
-            <?php if( $model->FCCI_Id == 5){ ?>
+            <?php if( $model->FCCI_Id == 5 || $model->FCCI_Id == 12 ){ ?>
             <a href="<?= Yii::app()->createUrl('fccu/recibe/', array('id' => $model->FCCU_Id)) ?>" class="btn">Recibir Activo</a>
             <?php }else{ ?>
                 <!--
@@ -44,7 +44,7 @@ $this->menu = array(
             -->
             <a class="not-link btn" href="<?= Yii::app()->createUrl("tccd/create", array("id" => $model->FCCU_Id)) ?>" target="blank">Enviar A...</a>
             <?php } ?>
-            <?php if(Yii::app()->user->checkAccess("action_fccu_delete") && $model->FCCI_Id!=5){ ?>
+            <?php if(Yii::app()->user->checkAccess("action_fccu_delete") && ($model->FCCI_Id != 5 || $model->FCCI_Id == 12)){ ?>
                 <a class="not-link btn" id="debaja" href="javascript:;">Dar de baja</a>
 
             <form action="<?= Yii::app()->createUrl("fccu/delete/",array("id"=>$model->FCCU_Id))?>" method="post" class="debaja" style="float: right;display:none;"> 
@@ -55,7 +55,7 @@ $this->menu = array(
         </div>
     </div>
 </div>
-
+<?php } ?>
 <div id="modal-1" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -111,7 +111,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     
                     array(
                         'name' => 'FCCI_Id',
-                        'value' => $model->fCCI->FCCI_Descripcion . " - " . ($model->FCCI_Id == 5 && Fcco::model()->find("FCCU_Id=" . $model->FCCU_Id . " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc") ?
+                        'value' =>  ($model->FCCI_Id == 5 && Fcco::model()->find("FCCU_Id=" . $model->FCCU_Id . " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc") ?
                             Fcco::model()->find("FCCU_Id=" . $model->FCCU_Id . " and FCCN_Id = 1 and FCCO_Enabled = 1 order by FCCO_Id desc")->lugar
                             : $model->fCCI->FCCI_Descripcion)
                     ),
@@ -121,8 +121,22 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                     ),
                     'FCCU_Cantidad',
                     array(
+                        'name' => 'Costo',
+                        'value' => $model->fCCT->FCCT_Costo
+                    ),
+                    array(
+                        'name' => 'Precio',
+                        'value' => $model->fCCT->FCCT_Venta
+                    ),
+                    array(
                         'name' => 'FCCT_Id',
                         'value' => $model->fCCT->fCCA->FCCA_Descripcion . " " . $model->fCCT->FCCT_Descripcion,
+                        'oneRow' => true
+                    ),
+                   
+                    array(
+                        'name' => 'Etiquetas',
+                        'value' => FcclHasFccu::model()->listLabel($model->FCCU_Id),
                         'oneRow' => true
                     ),
                     ///-------------------------------
@@ -191,15 +205,15 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
             ?>
         </div>
     </div>
-    <div class="col-sm-6 " style="margin-top: 0px;">
 
 
-
-        <div class="box box-bordered box-color ">
+   <div class="row" style="margin-bottom:15px">
+    <div class="col-sm-6">
+        <div class="box box-bordered box-color box-small">
             <div class="box-title">
 
             </div>
-            <div class="box-content nopadding">
+            <div class="  nopadding">
                 <ul class="tabs tabs-inline tabs-top">
                     <li class="active">
                         <a href="#first11" data-toggle="tab" class="not-link">
@@ -285,6 +299,7 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
 </div>
 
 <?php
+ 
     $this->widget('zii.widgets.grid.CGridView', array(
         'id' => 'fcco-grid',
         'dataProvider' => $modelo->search(),
@@ -353,32 +368,45 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
                         'url' => 'Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->GCCA_Id))',
                         'imageUrl' => false,
                         'label' => '<i class="fa fa-file"></i>',
+                        
 
-                        'options' => array(
-                            'class' => 'not-link btn btn-sm btn-orange',
-                            'title' => 'Ver Ticket',
-                            'ajax' => array(
-                                'type' => 'GET',
-                                // ajax post will use 'url' specified above
-                                'url' => "js:$(this).attr('href')",
-                                'update' => '#ticketVirtual',
-                                'beforeSend' => "function(){
-                                            $('#modal-1').modal('show');
-                                            $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');
-                                            }",
-                                'complete' => "function(){
-                                                $('#ticketVirtual').removeClass('loading');
-                                            }",
+                array(
+                    'class' => 'CButtonColumn',
+                    'header' => 'Accion',
+                    //'htmlOptions'=>array('class'=>'btn btn-primary'),
+                    'template' => '{preview}',
+                    'visible' => Yii::app()->user->checkAccess('vaction_fccn_view'),
+                    //-----------------------------------------------------------------------
+                    'buttons' => array(
+                        'preview' => array(
+                            'label' => 'Ver Ticket',
+                            'url' => '(isset($data->GCCA_Id))?Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>"'.$view.'","agencia"=>$data->GCCA_Id)):Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>"'.$view.'","grupo"=>$data->GCCD_Id))',
+                            'imageUrl' => false,
+                            'label' => '<i class="fa fa-file"></i>',
+                            'options' => array(
+                                'class' => 'not-link btn btn-sm btn-orange',
+                                'title' => 'Ver Ticket',
+                                'ajax' => array(
+                                    'type' => 'GET',
+                                    // ajax post will use 'url' specified above
+                                    'url' => "js:$(this).attr('href')",
+                                    'update' => '#ticketVirtual',
+                                    'beforeSend' => "function(){
+                                                $('#modal-1').modal('show');
+                                                $('#ticketVirtual').html('<div class=\"progress progress-striped active\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\"><span class=\"sr-only\">45% Complete</span></div></div>');
+                                                }",
+                                    'complete' => "function(){
+                                                    $('#ticketVirtual').removeClass('loading');
+                                                }",
+                                ),
                             ),
+
                         ),
-                        //'options'=>array(
-                        //                                'class'=>'btn',
-                        //                                'id'=>$data->FCCO_Lote
-                        //                            ),
                     ),
+                    //-----------------------------------------------------------------------
                 ),
-                //-----------------------------------------------------------------------
-            ),
+            
+
         ),
     ));
 ?>
@@ -401,5 +429,6 @@ echo isset($_GET['alert']) ? "<div class='alert alert-danger'><b>ATENCION: </b> 
 
         });
         
-    })
+    });
+    
 </script>

@@ -51,6 +51,7 @@ class Fcct extends CActiveRecord
 			array('FCCT_Descripcion, FCCA_Id', 'required'),
 			array('FCCT_Descripcion', 'length', 'max' => 150),
 			array('FCCA_Id', 'length', 'max' => 10),
+			array('FCCT_Costo,FCCT_Venta ', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('FCCT_Id, FCCT_Descripcion, FCCA_Id', 'safe', 'on' => 'search'),
@@ -79,6 +80,8 @@ class Fcct extends CActiveRecord
 			'FCCT_Id' => 'Id',
 			'FCCT_Descripcion' => 'Descripcion',
 			'FCCA_Id' => 'Tipo',
+			'FCCT_Costo' => 'Costo',
+			'FCCT_Venta' => 'Precio',
 		);
 	}
 

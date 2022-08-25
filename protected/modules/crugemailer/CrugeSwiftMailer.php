@@ -130,5 +130,19 @@ class CrugeSwiftMailer extends CrugeMailerBase implements ICrugeMailer
 				self::t("La informacion de su cuenta ha cambiado")			
         		);
     }
+	public function sendInventario($model,$email)
+    {
+        $this->sendEmail(
+            $this->render(
+                'sendinventario'
+                ,
+                array('model' => $model)
+			),
+			[$email],
+			null,
+			self::t("La informacion de su cuenta ha cambiado")
+        );
+		
+    }
 
 }

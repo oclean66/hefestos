@@ -129,13 +129,13 @@
                             'imageUrl' => false,
                             'label' => '<i class="fa fa-eye"></i>',
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_view")',
-                            'url' => 'Yii::app()->createUrl("fccu/view/",array("id"=>$data->FCCU_Id))',
+                            'url' => 'Yii::app()->createUrl("fccu/view/",array("id"=>$data->FCCU_Id,"view"=>"index"))',
                             'options' => array('target' => '_blank', 'class' => 'not-link remover btn btn-sm btn-orange', 'title' => 'Ver'),
                         ),
                         'update' => array(
                             'label' => '<i class="fa fa-pencil"></i> Editar',
                             'visible' => 'Yii::app()->user->checkAccess("action_fccu_update")',
-                            'url' => 'Yii::app()->createUrl("fccu/update/",array("id"=>$data->FCCU_Id))',
+                            'url' => 'Yii::app()->createUrl("fccu/update/",array("id"=>$data->FCCU_Id,"view"=>"index"))',
                             'options' => array(
                                 'target' => '_blank',
                                 'class' => 'not-link remover btn btn-sm btn-info text-left',
