@@ -30,10 +30,12 @@ class FccuController extends Controller
                     $fac->FCCS_Fecha=$_POST['Fccs']['FCCS_Fecha'];
                     $fac->FCCS_Numfac=$_POST['Fccs']['FCCS_Numfac'];
                     $fac->FCCS_Control=$_POST['Fccs']['FCCS_Control'];
+                    $fac->FCCS_Proveedor=$_POST['Fccs']['FCCS_Proveedor'];
                     $fac->save();
                  
                 }
                 $total_fac=0;
+                $modelos=array();
                 foreach ($fccu_serial as $key => $value) {
 
                     $model = new Fccu;
@@ -51,12 +53,13 @@ class FccuController extends Controller
                     $model->FCCU_Precio = $precios[$key]; //precio
                     $model->FCCU_PrecioFinal = $precios[$key]; //precio
                     $total_fac+= $precios[$key];
-                    
+                    $modelos[$fcct_id[$key]]=$precios[$key];
+
                     if($_POST['Fccs']['FCCS_Numfac']!=''){
                         $model->FCCS_Id = $fac->FCCS_Id; //factura
                     }
                     
-                    try { 
+                    try {
                         if ($model->save()) {
                             $FCCU_Id=$model->primaryKey; 
                             $total;
@@ -90,6 +93,17 @@ class FccuController extends Controller
                     }
                     $i++;
                 }
+                foreach( $modelos as $k => $m){
+                    $fcct=Fcct::model()->findByPk($k);
+                    $fcct->FCCT_Venta=$m;
+                    $fcct->FCCT_Costo=$m;
+                    if(!empty($fcct->FCCT_Healt)){
+                        $fcct->FCCT_Depreciacion=$m/$fcct->FCCT_Healt;
+                    }else{
+                        $fcct->FCCT_Depreciacion=0;
+                    }
+                    $fcct->save();
+                }
                 if($_POST['Fccs']['FCCS_Numfac']!=''){
                     $fac->FCCS_Total=$total_fac;
                     $fac->save();
@@ -114,11 +128,23 @@ class FccuController extends Controller
                 $FCCU_Numero = $_POST['Fccu']['FCCU_Numero'];
                 $FCCU_MontoMin = $_POST['Fccu']['FCCU_MontoMin'];
                 $FCCU_DiaCorte = $_POST['Fccu']['FCCU_DiaCorte'];
+                $precios=$_POST['Fccu']['FCCU_Precio'];
 
                 $correct = "<div class='label label-success'>Procesado</div>";
                 $alert = "<div class='label label-danger'>NO Procesado</div>";
                 $arrayNotificaciones = array();
                 $total=0;
+                if($_POST['Fccs']['FCCS_Numfac']!=''){
+                    $fac= new Fccs;
+                    $fac->FCCS_Fecha=$_POST['Fccs']['FCCS_Fecha'];
+                    $fac->FCCS_Numfac=$_POST['Fccs']['FCCS_Numfac'];
+                    $fac->FCCS_Control=$_POST['Fccs']['FCCS_Control'];
+                    $fac->FCCS_Proveedor=$_POST['Fccs']['FCCS_Proveedor'];
+                    $fac->save();
+                 
+                }
+                $total_fac=0;
+                $modelos=array();
                 foreach ($fccu_serial as $key => $value) {
                     $model = new Fccu;
                     $model->FCCU_Bussiness = Yii::app()->user->bussiness;
@@ -135,6 +161,11 @@ class FccuController extends Controller
                     $model->FCCU_Numero = trim(preg_replace("/[\\x00-\\x20]+/", "", $FCCU_Numero[$key]), "\\x00-\\x20");
                     $model->FCCU_Descripcion = "Sin Comentarios";
                     $model->FCCT_Id = $fcct_id; //modelo
+                    $model->FCCU_Precio = $precios[$key]; //precio
+                    $model->FCCU_PrecioFinal = $precios[$key]; //precio
+                    $total_fac+= $precios[$key];
+                    $modelos[$fcct_id]=$precios[$key];
+
                     try {
                         if ($model->save()) {
                             $total;
@@ -156,7 +187,23 @@ class FccuController extends Controller
                         //$malas = $malas . "No se pudo con este " . $model->FCCU_Serial . "</br>"; //$exc->getTraceAsString();
                     }
                 }
-
+                foreach( $modelos as $k => $m){
+                    $fcct=Fcct::model()->findByPk($k);
+                    if(!empty($fcct)){
+                        $fcct->FCCT_Venta=$m;
+                        $fcct->FCCT_Costo=$m;
+                        if(!empty($fcct->FCCT_Healt)){
+                            $fcct->FCCT_Depreciacion=$m/$fcct->FCCT_Healt;
+                        }else{
+                            $fcct->FCCT_Depreciacion=0;
+                        }
+                        $fcct->save();
+                    }
+                }
+                if($_POST['Fccs']['FCCS_Numfac']!=''){
+                    $fac->FCCS_Total=$total_fac;
+                    $fac->save();
+                }
                 echo $correct . '&nbsp <b style="color: green">' . $total . '</b> Seriales </br>';
                 //echo $malas . $buenas;
 

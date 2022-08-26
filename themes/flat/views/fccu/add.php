@@ -1,26 +1,26 @@
 <style>
     @media (min-width:972px) {
         .add {
-            width: 25.3%;
+           /* width: 25.3%;*/
             display: inline;
             margin-right: 9px;
         }
 
         .add-hall {
-            width: 20%;
+           /* width: 20%;*/
             display: inline;
             margin-right: 9px;
         }
 
         .add-group {
-            width: 10%;
+          /*  width: 30%;*/
             display: inline-table;
-            top: 10px;
-            margin-right: 9px;
+         /*   top: 10px;
+            margin-right: 9px;*/
         }
 
         .add-label {
-            margin-right: 4px;
+           /* margin-right: 4px;*/
         }
     }
 </style>
@@ -107,10 +107,10 @@
 
 
                 <!--########################################Factura####################################################-->
-                <div class="col-sm-4 nopadding">
+                <div class="col-sm-2 nopadding">
                     <div class="form-group">
-                        <label for="textfield" class="control-label col-sm-3">Fecha Factura</label>
-                        <div class="col-sm-9">
+                        <label for="textfield" class="control-label col-sm-5">Fecha Factura</label>
+                        <div class="col-sm-7">
                         <?php  
 
                         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -133,19 +133,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 nopadding">
+                <div class="col-sm-3 nopadding">
                     <div class="form-group">
-                        <label for="textfield" class="control-label col-sm-2">N° Factura</label>
-                        <div class="col-sm-10"> 
+                        <label for="textfield" class="control-label col-sm-4">N° Factura</label>
+                        <div class="col-sm-8"> 
                         <?php echo $form->textField($modell,'FCCS_Numfac',array('class'=>'form-control','size'=>45,'maxlength'=>45,'id'=>'FCCS_Numfac')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 nopadding">
+                    <div class="form-group">
+                        <label for="textfield" class="control-label col-sm-4">N° Control</label>
+                        <div class="col-sm-8">
+                            <?php echo $form->textField($modell,'FCCS_Control',array('class'=>'form-control','size'=>45,'maxlength'=>45)); ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4 nopadding">
                     <div class="form-group">
-                        <label for="textfield" class="control-label col-sm-2">N° Control</label>
-                        <div class="col-sm-10">
-                            <?php echo $form->textField($modell,'FCCS_Control',array('class'=>'form-control','size'=>45,'maxlength'=>45)); ?>
+                        <label for="textfield" class="control-label col-sm-4">Proveedor</label>
+                        <div class="col-sm-8">
+                            <?php echo $form->textArea($modell,'FCCS_Proveedor',array('class'=>'form-control','size'=>45,'maxlength'=>45)); ?>
                         </div>
                     </div>
                 </div>
@@ -369,10 +377,12 @@
             <!--lote    2 (hall)  -->
             <div id="hall" class='hidden'>
                 <div class="col-sm-12 nopadding" style="margin-top:0px; margin-bottom: 10px;">
-                    <div class="col-sm-3 nopadding">
+                    
+                
+                    <div class="col-sm-2 nopadding">
                         <div class="form-group">
-                            <?php echo CHtml::label('Serial', 'Serial', array('class' => 'control-label add-label col-sm-2 ')); ?>
-                            <div class="col-sm-10">
+                            <?php echo CHtml::label('Serial', 'Serial', array('class' => 'control-label add-label col-sm-3 ')); ?>
+                            <div class="col-sm-9">
                                 <?php echo CHtml::textField(
                                     'Fccu[FCCU_Serial_Hall]',
                                     '',
@@ -384,10 +394,11 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-sm-3 nopadding">
                         <div class="form-group">
-                            <?php echo CHtml::label('Numero', 'Numero', array('class' => 'control-label add-label col-sm-2')); ?>
-                            <div class="col-sm-10">
+                            <?php echo CHtml::label('Numero', 'Numero', array('class' => 'control-label add-label col-sm-3')); ?>
+                            <div class="col-sm-9">
                                 <?php
                                 echo CHtml::textField('Fccu[FCCU_Numero]', '', array(
                                     'placeholder' => 'Numero de telefono',
@@ -397,37 +408,63 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 nopadding">
-                        <?php echo CHtml::label('Monto', 'Monto', array('class' => 'control-label add-label')); ?>
 
-                        <div class="input-group add-group">
-                            <?php
-                            echo CHtml::textField('Fccu[FCCU_MontoMin]', '', array(
-                                'placeholder' => '0', 'id' => 'monto',
-                                'class' => 'form-control ', 'size' => 45, 'maxlength' => 45
-                            ));
-                            ?>
-                            <span class="input-group-addon">Bs</span>
+                    <div class="col-sm-2 nopadding">
+                        
+                        <div class="form-group ">
+                            <?php echo CHtml::label('Monto', 'Monto', array('class' => 'control-label add-label  col-sm-3 ')); ?>
+
+                            <div class="  col-sm-9 form-group add-group ">
+                                <span class="input-group-addon">Bs</span>
+                                <?php
+                                echo CHtml::textField('Fccu[FCCU_MontoMin]', '', array(
+                                    'placeholder' => '0', 'id' => 'monto',
+                                    'style'=>'width: 90%;',
+                                    'class' => 'form-control ', 'size' => 80, 'maxlength' => 45
+                                ));
+                                ?>
+                               
+                            </div>
                         </div>
-
-
                     </div>
-                    <div class="col-sm-3 nopadding">
 
-                        <?php echo CHtml::label('Vence', 'Vence', array('class' => 'control-label add-label')); ?>
+                    
+                    
+                    <div class="col-sm-2  row nopadding">
+                        <div class="form-group ">
+                            <?php echo CHtml::label('Vence', 'Vence', array('class' => 'control-label add-label col-sm-3')); ?>
 
-                        <div class="input-group add-group">
-                            <?php echo CHtml::textField('Fccu[FCCU_DiaCorte]', '', array('placeholder' => '0', 'id' => 'renta', 'class' => 'form-control add', 'size' => 45, 'maxlength' => 45)); ?>
-                            <span class="input-group-addon">c/mes</span>
+                            <div class="form-group add-group  col-sm-9">
+                                <span class="input-group-addon">c/mes</span>
+                                <?php echo CHtml::textField('Fccu[FCCU_DiaCorte]', '', array('placeholder' => '0', 'id' => 'renta','style'=>'width: 70%;', 'class' => 'form-control add', 'size' => 45, 'maxlength' => 45)); ?>
+                                
+                            </div>
                         </div>
-
-
-                        <button class="btn btn-success" onclick="add('hall')" type="button">
-                            <i class="fa fa-plus"></i>
-                        </button>
-
-
                     </div>
+
+
+
+                    <div class="col-sm-3  row nopadding">
+                        <div class="form-group ">
+                            <?php echo CHtml::label('Precio', 'Precio', array('class' => 'control-label add-label  col-sm-3')); ?>
+                            <div class="form-group add-group col-sm-9">
+                                <span class="input-group-addon">$</span>
+                                <?php echo CHtml::textField(  'Fccu[FCCU_Precio]', '',
+                                    array(
+                                        'placeholder' => 'Precio', 'class' => 'form-control add ',
+                                        'style'=>'width: 80%;',
+                                        'id' => 'precio', 'size' => 10, 'maxlength' => 10
+                                    )
+                                ); ?>
+                                <button class="btn btn-success  " onclick="add('hall')" type="button">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                   
                 </div>
             </div>
 
@@ -493,6 +530,7 @@
             <td> <?php echo CHtml::textField('Fccu[FCCU_Numero][]', '', array('placeholder' => 'Sin Numero', 'class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td> <?php echo CHtml::textField('Fccu[FCCU_MontoMin][]', '', array('placeholder' => 'No aplica', 'class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td> <?php echo CHtml::textField('Fccu[FCCU_DiaCorte][]', '', array('placeholder' => 'No aplica', 'class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
+            <td> <?php echo CHtml::textField('Fccu[FCCU_Precio][]', '', array('placeholder' => 'No aplica', 'class' => 'form-control ', 'size' => 45, 'maxlength' => 45)); ?></td>
             <td>
                 <button id='del' class="btn btn-danger" onclick="delt($(this).parent().parent())" type="button">
                     <i class="fa fa-minus"></i>
@@ -648,6 +686,7 @@
             var FccuMonto = $('#hall').find('#monto').val();
             var FccuRenta = $('#hall').find('#renta').val();
             var FccuNumero = $('#hall').find('#numero').val();
+            var FccuPrecio = $('#hall').find('#precio').val();
 
             if (FccuSerial != '') {
                 $.get('ModelActivo','Fccu_Serial='+FccuSerial,function(resp){
