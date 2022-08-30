@@ -587,9 +587,47 @@ class FccuController extends Controller
         ->query();
    
         if($view=='admin'){
-            $this->render('listaactivos', array('movimientos' => $movimientos,));
+            $this->render('listaactivos', array('movimientos' => $movimientos,'FCCI_Id'=>5));
         }else{
-            $this->renderpartial('listaactivos', array('movimientos' => $movimientos,));
+            $this->renderpartial('listaactivos', array('movimientos' => $movimientos,'FCCI_Id'=>5));
+        }
+        
+	}
+    public function actionListaActivos($FCCA_Id=null,$FCCI_Id=null,$view='admin')
+	{
+        ini_set('memory_limit', '-1');
+            if($FCCI_Id==5){
+                $movimientos = Yii::app()->db->createCommand()
+                ->select('fccu.FCCU_Id,
+                fccu.FCCU_Serial,
+                fcca.FCCA_Descripcion,
+                date_format(fcco.FCCO_Timestamp,"%d-%m-%Y") as FCCO_Timestamp,
+                fcco.GCCA_Id,
+                fcco.GCCD_Id,
+                gcca.GCCA_Nombre,
+                gccd.GCCD_Nombre')
+                ->from('fccu')
+                ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
+                ->join('fcca', 'fcct.FCCA_Id = fcca.FCCA_Id')
+                ->join('fcco', 'fccu.FCCU_Id = fcco.FCCU_Id ')
+                ->leftJoin('gcca', 'fcco.GCCA_Id = gcca.GCCA_Id')
+                ->leftJoin('gccd', 'fcco.GCCD_Id = gccd.GCCD_Id ') 
+                ->where('fccu.FCCI_Id='.$FCCI_Id.' and fcca.FCCA_Id="'.$FCCA_Id.'" and fcco.FCCO_Enabled="1" ')
+                ->query();
+            }else{
+                $movimientos = Yii::app()->db->createCommand()
+                ->select('fccu.FCCU_Id,fccu.FCCU_Serial')
+                ->from('fccu')
+                ->join('fcct', 'fccu.FCCT_Id = fcct.FCCT_Id')
+                ->where('fccu.FCCI_Id='.$FCCI_Id.' and fcct.FCCA_Id="'.$FCCA_Id.'"')
+                ->group('fccu.FCCU_Serial')
+                ->query();
+            }
+
+        if($view=='admin'){
+            $this->render('listaactivos', array('movimientos' => $movimientos,'FCCI_Id'=>$FCCI_Id));
+        }else{
+            $this->renderpartial('listaactivos', array('movimientos' => $movimientos,'FCCI_Id'=>$FCCI_Id));
         }
         
 	}
