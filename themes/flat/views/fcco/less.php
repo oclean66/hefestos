@@ -134,7 +134,12 @@
 
 <table class="hidden">
     <tbody id="row">        <?php
-        $estados=Fcci::model()->findAll();
+        if(!Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){  
+            $estados=Fcci::model()->findAll();
+            
+        }else{ 
+            $estados=Fcci::model()->findAll(array('condition'=>' FCCI_Id=12'));
+        }
         $list_est=array();
         foreach($estados as $e){
             if($e['FCCI_Descripcion'] != 'De Baja'){

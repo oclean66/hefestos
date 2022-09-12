@@ -25,6 +25,11 @@ class FccoController extends Controller
             $model->hasta = date('Y-m-d', strtotime($model->desde . ' +1 day'));
         }
         
+        if(Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){ 
+        
+            $model->GCCD_Id=Yii::app()->user->grupo;
+        }
+        
         $model->FCCN_Id = $FCCN_Id;
         if (isset($_GET['Fcco']))
             $model->attributes = $_GET['Fcco'];
@@ -35,6 +40,9 @@ class FccoController extends Controller
         $query->select = "count(*) as FCCO_Id, GCCA_Id, FCCO_Timestamp";
 
         $query->condition = $model->GCCA_Id != '' ? "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id . " and t.GCCA_Id = " . $model->GCCA_Id : "FCCO_Timestamp BETWEEN '" . $model->desde . "' and '" . $model->hasta . "' and FCCN_Id = " . $FCCN_Id;
+
+
+        
         $query->group = "t.GCCA_Id, DATE_FORMAT(FCCO_Timestamp,'%Y-%m-%d')";
         $query->order = "FCCO_Timestamp desc";
         $agencias = Fcco::model()->findAll($query);
@@ -320,10 +328,16 @@ class FccoController extends Controller
         $model->FCCO_Lote = $somevariable;
         $model->FCCO_Descripcion = $inventario->FCCO_Descripcion;
         $model->FCCO_Enabled = 1;
-        $model->FCCN_Id = 2;
         $model->FCCU_Id = $inventario->FCCU_Id;
-        $model->GCCA_Id = $inventario->GCCA_Id;
         $model->GCCD_Id = $inventario->GCCD_Id;
+
+        if(!Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){
+            $model->GCCA_Id = $inventario->GCCA_Id;
+            $model->FCCN_Id = 2;
+        }else{
+            $model->GCCA_Id = null;
+            $model->FCCN_Id = 1;
+        }
         //
         //        $item = $this->loadModel($id);
         $item = Fccu::model()->find('FCCU_Id = ' . $id);
@@ -363,7 +377,7 @@ class FccoController extends Controller
             }else{
                 $model = Fccu::model()->findAll(array(
                     "condition" => "(FCCI_Id =2 or FCCI_Id =10 or FCCI_Id =11 or FCCI_Id =12 ) and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines' ",
-                    "join"=>"inner join fcco on t.FCCU_Id=fcco.FCCU_id and fcco.FCCO_Enabled=1 and fcco.GCCD_Id='".Yii::app()->user->grupo."' and fcco.FCCN_Id = 1"));
+                    "join"=>"inner join fcco on t.FCCU_Id=fcco.FCCU_id and fcco.FCCO_Enabled=1 and fcco.GCCD_Id='".Yii::app()->user->grupo."' "));
             }
 
             $data = array();
@@ -389,8 +403,13 @@ class FccoController extends Controller
         $bussines=Yii::app()->user->bussiness;
         if ($request != '') {
 
+            if(!Yii::app()->user->rbac->isAssigned('receptor',Yii::app()->user->id)){  
+                $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =5 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines'"));
+
+            }else{
+                $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =5 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines' and t2.GCCD_Id='".Yii::app()->user->grupo."' and  FCCO_Enabled =1","join"=>" INNER JOIN fcco AS t2 on t.FCCU_Id = t2.FCCU_Id "));
+            }
             
-            $model = Fccu::model()->findAll(array("condition" => "FCCI_Id =5 and (FCCU_Serial like '$request%' or FCCU_Numero like '$request%') and FCCU_Bussiness ='$bussines'"));
             $data = array();
             foreach ($model as $item) {
                 $data[] = array(
