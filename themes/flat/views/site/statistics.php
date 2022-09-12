@@ -9,7 +9,7 @@
 </style>
 <?php
 
-$color = array("lime", "lime", "red", "lime", "lime", "orange", "red", "red", "red", "orange", "orange");
+$color = array("lime", "lime", "red", "lime", "lime", "orange", "red", "red", "red", "orange", "orange", "orange");
 $colores = array("lime", "pink", "magenta", "satgreen", "blue", "teal", "orange");
 
 
