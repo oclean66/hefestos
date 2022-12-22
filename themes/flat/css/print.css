@@ -142,11 +142,11 @@ table {
 table {
     page-break-inside: always
 }
-
+/*
 tr {
     page-break-inside: avoid;
     page-break-after: always
-}
+}*/
 .tab-pane{
     visibility: hidden;
     display: none;

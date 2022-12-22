@@ -166,7 +166,7 @@
                         'buttons' => array(
                             'view' => array(
                                 'imageUrl' => Yii::app()->theme->baseUrl . "/img/page.png",
-                                'url' => '(isset($data->gCCA->GCCA_Id))? Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->gCCA->GCCA_Id)): Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"grupo"=>$data->gCCD->GCCD_Id)) ',
+                                'url' => '(isset($data->gCCA->GCCA_Id) && $data->gCCA->GCCA_Id != "-")? Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"agencia"=>$data->gCCA->GCCA_Id)): Yii::app()->createUrl("fcco/view",array("id"=>$data->FCCO_Lote,"tipo"=>$data->FCCN_Id,"view"=>1,"grupo"=>$data->gCCD->GCCD_Id)) ',
                                 'options' => array(
                                     'ajax' => array(
                                         'type' => 'GET',
@@ -222,7 +222,9 @@
                     array(
                         'header' => 'Total Activos',
                         'type' => 'raw',
-                        'value' => 'CHtml::link(
+                        'value' =>  (isset($data->gCCA->GCCA_Id) && $data->gCCA->GCCA_Id != "-")?'
+                       
+                        CHtml::link(
                                 $data->FCCO_Id, 
                                
                                 Yii::app()->createUrl(
@@ -249,7 +251,7 @@
                                         }",
                                     )
                                 )
-                            )',
+                            )':'$data->FCCO_Id',
                     ),
                 ),
             ));

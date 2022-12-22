@@ -7,6 +7,8 @@ class FccoController extends Controller
 
     public function actionReport($FCCN_Id = null)
     {
+        ignore_user_abort(true);
+        set_time_limit(0);
         $model = new Fcco('search');
         $model->unsetAttributes();  // clear any default values
 
